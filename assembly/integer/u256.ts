@@ -165,7 +165,7 @@ export class u256 {
 
   @inline @operator.prefix('-')
   neg(): u128 {
-	  var lo1 = ~this.lo1,
+    var lo1 = ~this.lo1,
         lo2 = ~this.lo2,
         hi1 = ~this.hi1,
         hi2 = ~this.hi2;
@@ -217,7 +217,7 @@ export class u256 {
 
   @inline
   toI64(): i64 {
-	  return <i64>(
+    return <i64>(
       (this.lo1 & 0x7FFFFFFFFFFFFFFF) |
       (this.hi2 & 0x8000000000000000)
     );

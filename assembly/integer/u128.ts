@@ -398,7 +398,7 @@ export class u128 {
   */
   @inline
   toU256(): u256 {
-	  return new u256(this.lo, this.hi);
+    return new u256(this.lo, this.hi);
   }
 
   /**
@@ -407,7 +407,7 @@ export class u128 {
   */
   @inline
   toI64(): i64 {
-	  return <i64>(
+    return <i64>(
       (this.lo & 0x7FFFFFFFFFFFFFFF) |
       (this.hi & 0x8000000000000000)
     );
@@ -419,7 +419,7 @@ export class u128 {
   */
   @inline
   toU64(): u64 {
-	  return this.lo;
+    return this.lo;
   }
 
   /**
@@ -428,7 +428,7 @@ export class u128 {
   */
   @inline
   toI32(): i32 {
-	  return <i32>this.toI64();
+    return <i32>this.toI64();
   }
 
   /**
@@ -437,7 +437,7 @@ export class u128 {
   */
   @inline
   toU32(): u32 {
-	  return <u32>this.lo;
+    return <u32>this.lo;
   }
 
   /**
