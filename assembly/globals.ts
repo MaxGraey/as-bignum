@@ -13,6 +13,7 @@
  * @param  hi higher 64-bit part of unsigned 128-bit integer
  * @return    64-bit float result
  */
+@global
 export function __floatuntidf(lo: u64, hi: u64): f64 {
   /*
   // LLVM implementation of __floatuntidf ported to AssemblyScript

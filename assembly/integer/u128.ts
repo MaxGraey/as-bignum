@@ -2,7 +2,7 @@ import { u256 } from './u256';
 
 import {
   __floatuntidf,
-} from '../env';
+} from '../globals';
 
 const HEX_CHARS = '0123456789abcdef';
 
@@ -206,7 +206,7 @@ export class u128 {
   static shl(value: u128, shift: i32): u128 {
     shift &= 127;
 
-    // need for prevent redundant i32 >> u64 extends
+    // need for preventing redundant i32 -> u64 extends
     var shift64: u64 = shift;
 
     var mod1: u64 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
@@ -233,7 +233,7 @@ export class u128 {
   static shr(value: u128, shift: i32): u128 {
     shift &= 127;
 
-    // need for prevent redundant i32 >> u64 extends
+    // need for preventing redundant i32 -> u64 extends
     var shift64: u64 = shift64;
 
     var mod1: u64 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
