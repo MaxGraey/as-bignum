@@ -10,7 +10,7 @@ Namespace `safe` contain equivalents with overflow/underflow traps.
 
 All kind of types pretty useful for economical and cryptographic usages and provide deterministic behavior.
 
-### Usage
+### Usage via AssemblyScript
 
 ```ts
 import "allocator/arena";
