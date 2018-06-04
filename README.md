@@ -11,6 +11,10 @@ Namespace `safe` contain equivalents with overflow/underflow traps.
 
 All kind of types pretty useful for economical and cryptographic usages and provide deterministic behavior.
 
+### Install
+
+> yarn add MaxGraey/bignum
+
 ### Usage via AssemblyScript
 
 ```ts
@@ -35,28 +39,24 @@ console_log(r.toF64());
 TODO
 ```
 
-### Install
-
-> yarn add MaxGraey/bignum
-
 ### List of types
 -
-- [ ] u128 unsigned type (mostly complete)
-- [ ] u256 unsigned type
-- [ ] i128 signed type
-- [ ] i256 signed type
+- [ ] `u128` unsigned type (mostly complete)
+- [ ] `u256` unsigned type
+- [ ] `i128` signed type
+- [ ] `i256` signed type
 -
-- [ ] safe.u32 unsigned type
-- [ ] safe.u64 unsigned type
-- [ ] safe.i32 signed type
-- [ ] safe.i64 signed type
-- [ ] safe.u128 unsigned type
-- [ ] safe.u256 unsigned type
-- [ ] safe.i128 signed type
-- [ ] safe.i256 signed type
+- [ ] `safe.u32` unsigned type
+- [ ] `safe.u64` unsigned type
+- [ ] `safe.i32` signed type
+- [ ] `safe.i64` signed type
+- [ ] `safe.u128` unsigned type
+- [ ] `safe.u256` unsigned type
+- [ ] `safe.i128` signed type
+- [ ] `safe.i256` signed type
 -
-- [ ] fp128 generic fixed point signed type
-- [ ] fp256 generic fixed point signed typ
+- [ ] `fp128` generic fixed point signed type
+- [ ] `fp256` generic fixed point signed typ
 -
-- [ ] safe.fp128 generic fixed point signed type
-- [ ] safe.fp256 generic fixed point signed type
+- [ ] `safe.fp128` generic fixed point signed type
+- [ ] `safe.fp256` generic fixed point signed type
