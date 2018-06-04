@@ -41,22 +41,22 @@ TODO
 
 ### List of types
 -
-- [ ] u128 type (mostly complete)
-- [ ] u256 type
-- [ ] i128 type
-- [ ] i256 type
+- [ ] u128 unsigned type (mostly complete)
+- [ ] u256 unsigned type
+- [ ] i128 signed type
+- [ ] i256 signed type
 -
-- [ ] safe.u32  type
-- [ ] safe.u64  type
-- [ ] safe.i32  type
-- [ ] safe.i64  type
-- [ ] safe.u128 type
-- [ ] safe.u256 type
-- [ ] safe.i128 type
-- [ ] safe.i256 type
+- [ ] safe.u32 unsigned type
+- [ ] safe.u64 unsigned type
+- [ ] safe.i32 signed type
+- [ ] safe.i64 signed type
+- [ ] safe.u128 unsigned type
+- [ ] safe.u256 unsigned type
+- [ ] safe.i128 signed type
+- [ ] safe.i256 signed type
 -
-- [ ] fp128 type
-- [ ] fp256 type
+- [ ] fp128 generic fixed point signed type
+- [ ] fp256 generic fixed point signed typ
 -
-- [ ] safe.fp128 type
-- [ ] safe.fp256 type
+- [ ] safe.fp128 generic fixed point signed type
+- [ ] safe.fp256 generic fixed point signed type
