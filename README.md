@@ -28,6 +28,12 @@ var r = a * d + (b << 5);
 console_log(r.toF64());
 ```
 
+### Usage via JavaScript/Typescript
+
+```ts
+TODO
+```
+
 ### Install
 
 > yarn add MaxGraey/bignum
