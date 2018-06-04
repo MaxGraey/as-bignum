@@ -1,5 +1,5 @@
 ## Work in progress
-#### (Not useful yet)
+#### (Not useful and untested yet)
 ---
 
 ### WebAssembly fixed length big numbers written on [AssemblyScript](https://github.com/AssemblyScript/assemblyscript)
