@@ -1,5 +1,6 @@
 ## Work in progress
 #### (Not useful and untested yet)
+
 ---
 
 ### WebAssembly fixed length big numbers written on [AssemblyScript](https://github.com/AssemblyScript/assemblyscript)
@@ -37,3 +38,25 @@ TODO
 ### Install
 
 > yarn add MaxGraey/bignum
+
+### List of types
+-
+- [ ] u128 type (mostly complete)
+- [ ] u256 type
+- [ ] i128 type
+- [ ] i256 type
+-
+- [ ] safe.u32  type
+- [ ] safe.u64  type
+- [ ] safe.i32  type
+- [ ] safe.i64  type
+- [ ] safe.u128 type
+- [ ] safe.u256 type
+- [ ] safe.i128 type
+- [ ] safe.i256 type
+-
+- [ ] fp128 type
+- [ ] fp256 type
+-
+- [ ] safe.fp128 type
+- [ ] safe.fp256 type
