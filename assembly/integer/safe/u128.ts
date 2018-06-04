@@ -2,16 +2,16 @@ import { u128 as U128 } from '../u128';
 
 export namespace safe {
   export class u128 extends U128 {
-    @inline // @operator.prefix('++')
-    inc(): this {
+    @inline @operator.prefix('++')
+    preInc(): this {
       assert(this.hi != <u64>-1);
       // TODO
       // super.inc();
       return this;
     }
 
-    @inline // @operator.prefix('--')
-    dec(): this {
+    @inline @operator.prefix('--')
+    preDec(): this {
       assert(this.lo != 0);
       // TODO
       // super.dec();
