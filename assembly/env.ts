@@ -56,18 +56,18 @@ export function __floatuntidf(lo: u64, hi: u64): f64 {
 
   // Simpler and faster alternative
   let shift = reinterpret<f64>(0x43F0000000000000); // 2 ^ 64
-	if (hi >= 0)
+  if (hi >= 0)
     return <f64>hi * shift + <f64>lo;
 
-	var rh: i64 = ~hi;
-	var rl: u64 = ~lo;
+  var rh: i64 = ~hi;
+  var rl: u64 = ~lo;
 
-	// rl += 1;
-	// rh += <i64>(rl == 0);
+  // rl += 1;
+  // rh += <i64>(rl == 0);
 
   var cy = ((rl & 1) + (rl >> 1)) >> 63;
   rl += 1;
   rh += cy;
 
-	return -(<f64>rh * shift + <f64>rl);
+  return -(<f64>rh * shift + <f64>rl);
 }
