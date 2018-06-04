@@ -179,28 +179,35 @@ export class u256 {
 
   @inline
   static popcnt(value: u256): i32 {
+    /*
     return <i32>(
       popcnt(value.lo1) +
       popcnt(value.lo2) +
       popcnt(value.hi1) +
       popcnt(value.hi2)
     );
+    */
+    var count             = popcnt(value.lo1);
+    if (value.lo2) count += popcnt(value.lo2);
+    if (value.hi1) count += popcnt(value.hi1);
+    if (value.hi2) count += popcnt(value.hi2);
+    return <i32>count;
   }
 
   @inline
   static clz(value: u256): i32 {
-         if (value.hi2) return clz(value.hi2);
-    else if (value.hi1) return clz(value.hi1) + 64;
-    else if (value.lo2) return clz(value.lo2) + 128;
-    else                return clz(value.lo1) + 192;
+         if (value.hi2) return <i32>(clz(value.hi2) + 0);
+    else if (value.hi1) return <i32>(clz(value.hi1) + 64);
+    else if (value.lo2) return <i32>(clz(value.lo2) + 128);
+    else                return <i32>(clz(value.lo1) + 192);
   }
 
   @inline
   static ctz(value: u256): i32 {
-         if (value.lo1) return ctz(value.lo1);
-    else if (value.lo2) return ctz(value.lo2) + 64;
-    else if (value.hi1) return ctz(value.hi1) + 128;
-    else                return ctz(value.hi2) + 192;
+         if (value.lo1) return <i32>(ctz(value.lo1) + 0);
+    else if (value.lo2) return <i32>(ctz(value.lo2) + 64);
+    else if (value.hi1) return <i32>(ctz(value.hi1) + 128);
+    else                return <i32>(ctz(value.hi2) + 192);
   }
 
   /*
