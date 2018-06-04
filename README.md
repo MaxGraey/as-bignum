@@ -14,7 +14,7 @@ All kind of types pretty useful for economical and cryptographic usages and prov
 
 ```ts
 import "allocator/arena";
-import { u128 } from "assembly/integer";
+import { u128 } from "bignum.wasm/assembly/integer";
 
 declare function console_log(value: f64): void;
 

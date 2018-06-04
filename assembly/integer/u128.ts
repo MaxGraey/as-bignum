@@ -158,7 +158,7 @@ export class u128 {
 
   @inline @operator.prefix('-')
   neg(): u128 {
-	  var lo = ~this.lo, hi = ~this.hi;
+    var lo = ~this.lo, hi = ~this.hi;
     var cy = ((lo & 1) + (lo >> 1)) >> 63;
     return new u128(lo + 1, hi + cy);
   }
