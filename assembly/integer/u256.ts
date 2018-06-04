@@ -163,8 +163,13 @@ export class u256 {
     return new u256(~this.lo1, ~this.lo2, ~this.hi1, ~this.hi2);
   }
 
+  @inline @operator.prefix('+')
+  pos(): u256 {
+    return this;
+  }
+
   @inline @operator.prefix('-')
-  neg(): u128 {
+  neg(): u256 {
     var lo1 = ~this.lo1,
         lo2 = ~this.lo2,
         hi1 = ~this.hi1,
@@ -174,7 +179,22 @@ export class u256 {
     var cy1 = ((lo2 & 1) + (lo2 >> 1)) >> 63;
     var cy2 = ((hi1 & 1) + (hi1 >> 1)) >> 63;
 
-    return new u128(lo1 + 1, lo2 + cy, hi1 + cy1, hi2 + cy2);
+    return new u256(lo1 + 1, lo2 + cy, hi1 + cy1, hi2 + cy2);
+  }
+
+  @inline @operator('|')
+  static or(a: u256, b: u256): u256 {
+    return new u256(a.lo1 | b.lo1, a.lo2 | b.lo2, a.hi1 | b.hi1, a.hi2 | b.hi2);
+  }
+
+  @inline @operator('^')
+  static xor(a: u256, b: u256): u256 {
+    return new u256(a.lo1 ^ b.lo1, a.lo2 ^ b.lo2, a.hi1 ^ b.hi1, a.hi2 ^ b.hi2);
+  }
+
+  @inline @operator('&')
+  static and(a: u256, b: u256): u256 {
+    return new u256(a.lo1 & b.lo1, a.lo2 & b.lo2, a.hi1 & b.hi1, a.hi2 & b.hi2);
   }
 
   @inline

@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "assemblyscript": "AssemblyScript/assemblyscript",
-    "chalk": "^2.4.1"
+    "chalk": "^2.4.1",
+    "tslint": "^5.10.0"
   }
 }

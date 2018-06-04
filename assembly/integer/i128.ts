@@ -14,7 +14,7 @@ export class i128 {
   ) {}
 
   @inline
-  isNeg(): bool {
+  isNegative(): bool {
     return <bool>(this.hi >> 63);
   }
 
@@ -23,7 +23,7 @@ export class i128 {
     return !(this.lo | this.hi);
   }
 
-  @inline // @operator.prefix('!')
+  @inline @operator.prefix('!')
   static isEmpty(value: i128): bool {
     return !value || !value.isZero();
   }
