@@ -1,0 +1,33 @@
+{
+  "extends": "../node_modules/assemblyscript/std/assembly.json",
+
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noEmitOnError": true,
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+    "allowJs": false
+  },
+
+  "rootDir": ".",
+	"skipDefaultLibCheck": true,
+	"skipLibCheck": true,
+
+	"filesGlob": [
+		"**/*.ts"
+	],
+
+	"paths": [
+		"../node_modules/assemblyscript/std/assembly.d.ts"
+	],
+
+  "atom": {
+		"rewriteTsconfig": false
+	},
+
+	"compileOnSave": false
+}
