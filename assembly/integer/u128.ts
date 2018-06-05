@@ -392,12 +392,20 @@ export class u128 {
 
   @inline
   static clz(value: u128): i32 {
-    return <i32>(value.hi ? clz(value.hi) : clz(value.lo) + 64);
+    // return <i32>(value.hi ? clz(value.hi) : clz(value.lo) + 64);
+    var lo = value.lo,
+        hi = value.hi;
+    var mask: i64 = -(<i64>(hi == 0));
+    return <i32>clz((hi & ~mask) | (lo & mask)) + (<i32>mask & 64);
   }
 
   @inline
   static ctz(value: u128): i32 {
-    return <i32>(value.lo ? ctz(value.lo) : ctz(value.hi) + 64);
+    // return <i32>(value.lo ? ctz(value.lo) : ctz(value.hi) + 64);
+    var lo = value.lo,
+        hi = value.hi;
+    var mask: i64 = ~-(<i64>(lo == 0));
+    return <i32>ctz((hi & ~mask) | (lo & mask)) + (<i32>mask & 64);
   }
 
   @inline
@@ -468,7 +476,7 @@ export class u128 {
   }
 
   /**
-  * Convert to 64-bit float number
+  * Convert to 64-bit float number in deteministic way
   * @return 64-bit float
   */
   @inline
@@ -476,7 +484,8 @@ export class u128 {
     return __floatuntidf(this.lo, this.hi);
   }
 
-  // Simpler and faster alternative of "toF64" but non-deteministic
+  // Simpler and faster alternative of "toF64"
+  // but non-deteministic (using float point arithmetics)
   toF64Unsafe(): f64 {
     let shift = reinterpret<f64>(0x43F0000000000000); // 2 ^ 64
     if (hi >= 0)
