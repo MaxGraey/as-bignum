@@ -99,7 +99,7 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
     return;
   }
 
-  if ((btz + bzn) == 127) {
+  if (btz + bzn == 127) {
     // TODO
     // __divmod_quot = a >> btz
     // b++
@@ -132,7 +132,7 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
     return;
   }
 
-  if ((bzn - azn) <= 5) {
+  if (bzn - azn <= 5) {
     // TODO
     // fast path
   } else {

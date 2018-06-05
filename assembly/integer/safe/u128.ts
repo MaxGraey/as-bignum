@@ -54,20 +54,8 @@ export namespace safe {
       return changetype<u128>(U128.mul(a, b));
     }
 
-    @inline @operator('/')
-    static div(a: u128, b: u128): u128 {
-      assert(a != 0);
-      // TODO need implement
-      unreachable();
-      return changetype<u128>(U128.Zero);
-    }
-
-    @inline @operator('%')
-    static rem(a: u128, b: u128): u128 {
-      assert(a != 0);
-      // TODO need implement
-      unreachable();
-      return changetype<u128>(U128.Zero);
-    }
+    //
+    // div and rem already contain traps
+    // 
   }
 }
