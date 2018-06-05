@@ -17,18 +17,24 @@ export class fp128<Q> {
   }
 
   @inline
+  get integerBits(): i32 {
+    return 128 - this.fractBits;
+  }
+
+  @inline
   get fractBits(): i32 {
     return 8 * sizeof<Q>();
   }
 
   /*
-  intPart(): i128 {
+  @inline
+  get integer(): i128 {
     return this.value >> (8 * sizeof<Q>);
   }
   */
 
   @inline
-  get fractPart(): u128 {
+  get fract(): u128 {
     return u128.shl(changetype<u128>(this.value), 32 - 8 * sizeof<Q>);
   }
 
