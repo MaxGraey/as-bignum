@@ -415,9 +415,26 @@ export class u128 {
 
   // result = value ^ 2
   static sqr(value: u128): u128 {
-    // TODO
-    unreachable();
-    return u256.Zero;
+    var u = value.lo, v = value.hi;
+
+    var u1 = u & 0xFFFFFFFF;
+    var t  = u1 * u1;
+    var w  = t  & 0xFFFFFFFF;
+    var k  = t >> 32;
+
+    u >>= 32;
+    var m = u * u1;
+    t = m + k;
+    var w1 = t >> 32;
+
+    t = m + (t & 0xFFFFFFFF);
+
+    var lo = (t << 32) + w;
+    var hi   = u * u + w1 + (t >> 32);
+        hi  += v * u;
+        hi <<= 1;
+
+    return new u128(lo, hi);
   }
 
   // wide mul: u128 * u128 = u256
