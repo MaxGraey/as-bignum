@@ -11,8 +11,8 @@ export class fp128<Q> {
   protected value: i128 = i128.Zero;
 
   constructor(lo: i64 = 0, hi: i64 = 0) {
-    this.lo = lo;
-    this.hi = hi;
+    this.value.lo = lo;
+    this.value.hi = hi;
   }
 
   @inline

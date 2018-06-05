@@ -41,20 +41,20 @@ TODO
 
 ### List of types
 
-- [ ] `u128` unsigned type (mostly complete)
-- [ ] `u256` unsigned type
+- [ ] [`u128`](https://github.com/MaxGraey/bignum.wasm/blob/master/assembly/integer/u128.ts) unsigned type (mostly complete)
+- [ ] [`u256`](https://github.com/MaxGraey/bignum.wasm/blob/master/assembly/integer/u256.ts) unsigned type (very basic)
 - [ ] `i128` signed type
 - [ ] `i256` signed type
 ---
-- [ ] `safe.u128` unsigned type
+- [ ] [`safe.u128`](https://github.com/MaxGraey/bignum.wasm/blob/master/assembly/integer/safe/u128.ts) unsigned type (mostly complete)
 - [ ] `safe.u256` unsigned type
 - [ ] `safe.i128` signed type
 - [ ] `safe.i256` signed type
 ---
-- [ ] `fp128<Q>` generic fixed point signed type٭
+- [ ] [`fp128<Q>`](https://github.com/MaxGraey/bignum.wasm/blob/master/assembly/fixed/fp128.ts) generic fixed point signed type٭ (very basic for now)
 - [ ] `fp256<Q>` generic fixed point signed type٭
 ---
 - [ ] `safe.fp128<Q>` generic fixed point signed type٭
 - [ ] `safe.fp256<Q>` generic fixed point signed type٭
 
-٭ _typename_ `Q` _is a count of fractional bits_
+٭ _typename_ `Q` _is a type representing count of fractional bits_
