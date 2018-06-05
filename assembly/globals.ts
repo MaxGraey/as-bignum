@@ -117,7 +117,7 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
       __divmod_rem_lo  = 0;
     } else {
       __divmod_quot_lo = alo / blo;
-      __divmod_rem_lo  = alo - __divmod_quot_lo;
+      __divmod_rem_lo  = alo - __divmod_quot_lo * blo;
     }
     return;
   }
