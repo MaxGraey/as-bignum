@@ -83,11 +83,10 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
   var azn = __clz128(alo, ahi); // M
   var btz = __ctz128(blo, bhi); // N
 
-  if (!(ahi | bhi)) {
-    __divmod_quot_lo = alo / blo;
-    __divmod_quot_hi = 0;
-
-    __divmod_rem_lo  = alo % blo; // or better alo - __divmod_quot_lo ?
+  if (!(alo | ahi)) {
+    __divmod_quot_lo =
+    __divmod_quot_hi =
+    __divmod_rem_lo  =
     __divmod_rem_hi  = 0;
     return;
   }
@@ -95,8 +94,7 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
   if (bzn == 127) {
     __divmod_quot_lo = alo;
     __divmod_quot_hi = ahi;
-
-    __divmod_rem_lo  = 0;
+    __divmod_rem_lo  =
     __divmod_rem_hi  = 0;
     return;
   }
@@ -109,20 +107,27 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
     return;
   }
 
+  if (!(ahi | bhi)) {
+    __divmod_quot_lo = alo / blo;
+    __divmod_quot_hi = 0;
+    __divmod_rem_lo  = alo - __divmod_quot_lo;
+    __divmod_rem_hi  = 0;
+    return;
+  }
+
   var diff: i64 = ahi - bhi;
   var cmp = <i32>(diff != 0 ? diff : alo - blo); // TODO optimize this
 
   if (cmp < 0) {
-    __divmod_quot_lo = 0;
+    __divmod_quot_lo =
     __divmod_quot_hi = 0;
-
     __divmod_rem_lo  = alo;
     __divmod_rem_hi  = ahi;
     return;
   } else if (cmp == 0) {
     __divmod_quot_lo = 1;
-    __divmod_quot_hi = 0;
-    __divmod_rem_lo  = 0;
+    __divmod_quot_hi =
+    __divmod_rem_lo  =
     __divmod_rem_hi  = 0;
     return;
   }
