@@ -103,15 +103,32 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
     // TODO
     // __divmod_quot = a >> btz
     // b++
-    // __divmod_rem = b & a
+    // __divmod_rem = a & b
     return;
   }
 
   if (!(ahi | bhi)) {
-    __divmod_quot_lo = alo / blo;
-    __divmod_quot_hi = 0;
-    __divmod_rem_lo  = alo - __divmod_quot_lo;
+    __divmod_quot_hi =
     __divmod_rem_hi  = 0;
+
+    // if `b.lo` is power of two
+    if (!(blo & (blo - 1))) {
+      __divmod_quot_lo = alo >> btz;
+      __divmod_rem_lo  = 0;
+    } else {
+      __divmod_quot_lo = alo / blo;
+      __divmod_rem_lo  = alo - __divmod_quot_lo;
+    }
+    return;
+  }
+
+  // if `b.hi` is power of two
+  if (!(bhi & (bhi - 1))) {
+    __divmod_rem_hi =
+    __divmod_rem_lo = 0;
+
+    // TODO
+
     return;
   }
 
