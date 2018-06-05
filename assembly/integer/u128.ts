@@ -475,6 +475,10 @@ export class u128 {
     return <u32>this.lo;
   }
 
+  /**
+  * Convert to 1-bit boolean
+  * @return 1-bit boolean
+  */
   @inline
   toBool(): bool {
     return <bool>(this.lo | this.hi);

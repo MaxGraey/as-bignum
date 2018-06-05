@@ -1,3 +1,4 @@
+import { i128 } from './i128';
 import { u128 } from './u128';
 
 export class u256 {
@@ -237,11 +238,31 @@ export class u256 {
   }
   */
 
+  /**
+  * Convert to 128-bit signed integer
+  * @return 256-bit signed integer
+  */
+  @inline
+  toI128(): i128 {
+    return new i128(
+       this.lo1,
+      (this.lo2 & 0x7FFFFFFFFFFFFFFF) | (this.hi2 & 0x8000000000000000)
+    );
+  }
+
+  /**
+  * Convert to 128-bit unsigned integer
+  * @return 128-bit unsigned integer
+  */
   @inline
   toU128(): u128 {
     return new u128(this.lo1, this.lo2);
   }
 
+  /**
+  * Convert to 64-bit signed integer
+  * @return 64-bit signed integer
+  */
   @inline
   toI64(): i64 {
     return <i64>(
@@ -250,21 +271,37 @@ export class u256 {
     );
   }
 
+  /**
+  * Convert to 64-bit unsigned integer
+  * @return 64-bit unsigned integer
+  */
   @inline
   toU64(): u64 {
     return this.lo1;
   }
 
+  /**
+  * Convert to 32-bit signed integer
+  * @return 32-bit signed integer
+  */
   @inline
   toI32(): i32 {
     return <i32>this.toI64();
   }
 
+  /**
+  * Convert to 32-bit unsigned integer
+  * @return 32-bit unsigned integer
+  */
   @inline
   toU32(): u32 {
     return <u32>this.lo1;
   }
 
+  /**
+  * Convert to 1-bit boolean
+  * @return 1-bit boolean
+  */
   @inline
   toBool(): bool {
     return <bool>(this.lo1 | this.lo2 | this.hi1 | this.hi2);
