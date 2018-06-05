@@ -46,10 +46,6 @@ TODO
 - [ ] `i128` signed type
 - [ ] `i256` signed type
 ---
-- [ ] `safe.u32` unsigned type
-- [ ] `safe.u64` unsigned type
-- [ ] `safe.i32` signed type
-- [ ] `safe.i64` signed type
 - [ ] `safe.u128` unsigned type
 - [ ] `safe.u256` unsigned type
 - [ ] `safe.i128` signed type
@@ -57,9 +53,8 @@ TODO
 ---
 - [ ] `fp128<Q>` generic fixed point signed type٭
 - [ ] `fp256<Q>` generic fixed point signed type٭
-,
 ---
 - [ ] `safe.fp128<Q>` generic fixed point signed type٭
 - [ ] `safe.fp256<Q>` generic fixed point signed type٭
 
-٭ _typename_ `Q` _is count of fractional bits_
+٭ _typename_ `Q` _is a count of fractional bits_

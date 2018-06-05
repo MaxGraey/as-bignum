@@ -319,13 +319,6 @@ export class u128 {
     return new u128(lo, hi);
   }
 
-  // wide mul: u128 * u128 = u256
-  static mul256(a: u128, b: u128): u256 {
-    // TODO
-    unreachable();
-    return u256.Zero;
-  }
-
   @inline @operator('/')
   static div(a: u128, b: u128): u128 {
     // TODO
@@ -338,6 +331,20 @@ export class u128 {
     // TODO
     unreachable();
     return u128.Zero;
+  }
+
+  @operator('**')
+  static pow(base: u128, exponent: i32): u128 {
+    switch (exponent) {
+      case 0: return u128.One;
+      case 1: return this.clone();
+      case 2: return u128.sqr(base);
+      case 3: return base * u128.sqr(base);
+      default: break;
+    }
+    // TODO
+    unreachable();
+    return u256.Zero;
   }
 
   @inline @operator('==')
@@ -396,6 +403,20 @@ export class u128 {
   @inline
   static abs(value: u128): i32 {
     return value < 0 ? value.neg() : value;
+  }
+
+  // result = value ^ 2
+  static sqr(value: u128): u128 {
+    // TODO
+    unreachable();
+    return u256.Zero;
+  }
+
+  // wide mul: u128 * u128 = u256
+  static hmul(a: u128, b: u128): u256 {
+    // TODO
+    unreachable();
+    return u256.Zero;
   }
 
   /**
