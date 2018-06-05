@@ -476,6 +476,22 @@ export class u128 {
     return __floatuntidf(this.lo, this.hi);
   }
 
+  // Simpler and faster alternative of "toF64" but non-deteministic
+  toF64Unsafe(): f64 {
+    let shift = reinterpret<f64>(0x43F0000000000000); // 2 ^ 64
+    if (hi >= 0)
+      return <f64>hi * shift + <f64>lo;
+
+    var rh: i64 = ~hi;
+    var rl: u64 = ~lo;
+
+    var cy = ((rl & 1) + (rl >> 1)) >> 63;
+    rl += 1;
+    rh += cy;
+
+    return -(<f64>rh * shift + <f64>rl);
+  }
+
   /**
   * Convert to 32-bit float number
   * @return 32-bit float

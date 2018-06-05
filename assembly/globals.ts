@@ -15,9 +15,7 @@
  */
 @global
 export function __floatuntidf(lo: u64, hi: u64): f64 {
-  /*
-  // LLVM implementation of __floatuntidf ported to AssemblyScript
-
+  // __floatuntidf ported from LLVM sources
   if (lo == 0 && hi == 0) return 0.0;
 
   var v  = new u128(lo, hi);
@@ -25,6 +23,7 @@ export function __floatuntidf(lo: u64, hi: u64): f64 {
   var e  = sd - 1;
 
   if (sd > 53) {
+    // FIXME. This branch contain bug
     if (sd != 55) {
       if (sd == 54) {
         v = u128.shl(v, 1);
@@ -53,22 +52,4 @@ export function __floatuntidf(lo: u64, hi: u64): f64 {
   var w: u64 = u128.shr(v, 32).lo & 0x000FFFFF;
   var u: u64 = <u64>(((e + 1023) << 20) | w) << 32; // high part
   return reinterpret<f64>(u | (v.lo & 0xFFFFFFFF));
-  */
-
-  // Simpler and faster alternative
-  let shift = reinterpret<f64>(0x43F0000000000000); // 2 ^ 64
-  if (hi >= 0)
-    return <f64>hi * shift + <f64>lo;
-
-  var rh: i64 = ~hi;
-  var rl: u64 = ~lo;
-
-  // rl += 1;
-  // rh += <i64>(rl == 0);
-
-  var cy = ((rl & 1) + (rl >> 1)) >> 63;
-  rl += 1;
-  rh += cy;
-
-  return -(<f64>rh * shift + <f64>rl);
 }
