@@ -266,6 +266,11 @@ export class u256 {
   }
 
   @inline
+  toBool(): bool {
+    return <bool>(this.lo1 | this.lo2 | this.hi1 | this.hi2);
+  }
+
+  @inline
   toBytes(le: bool = true): u8[] {
     return le ? this.toBytesLE() : this.toBytesBE();
   }

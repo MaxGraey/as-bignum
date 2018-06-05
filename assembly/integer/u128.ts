@@ -475,6 +475,11 @@ export class u128 {
     return <u32>this.lo;
   }
 
+  @inline
+  toBool(): bool {
+    return <bool>(this.lo | this.hi);
+  }
+
   /**
   * Convert to 64-bit float number in deteministic way
   * @return 64-bit float
