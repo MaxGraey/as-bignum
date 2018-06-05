@@ -34,7 +34,6 @@ export namespace safe {
       );
     }
 
-    // tmp approach
     @inline @operator('*')
     static mul(a: u128, b: u128): u128 {
       // count leading zero bits for operands
@@ -55,7 +54,6 @@ export namespace safe {
       return changetype<u128>(U128.mul(a, b));
     }
 
-    // tmp approach
     @inline @operator('/')
     static div(a: u128, b: u128): u128 {
       assert(a != 0);
@@ -64,7 +62,6 @@ export namespace safe {
       return changetype<u128>(U128.Zero);
     }
 
-    // tmp approach
     @inline @operator('%')
     static rem(a: u128, b: u128): u128 {
       assert(a != 0);

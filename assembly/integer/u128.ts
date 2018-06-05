@@ -2,7 +2,16 @@ import { u256 } from './u256';
 
 // TODO import this on top level 'index.ts'
 import {
+  __clz128,
+  __ctz128,
   __floatuntidf,
+
+  __udivmod128,
+  __divmod_quot_lo,
+  __divmod_quot_hi,
+  __divmod_rem_lo,
+  __divmod_rem_hi,
+
 } from '../globals';
 
 const HEX_CHARS = '0123456789abcdef';
@@ -392,20 +401,12 @@ export class u128 {
 
   @inline
   static clz(value: u128): i32 {
-    // return <i32>(value.hi ? clz(value.hi) : clz(value.lo) + 64);
-    var lo = value.lo,
-        hi = value.hi;
-    var mask: i64 = -(<i64>(hi == 0));
-    return <i32>clz((hi & ~mask) | (lo & mask)) + (<i32>mask & 64);
+    return __clz128(value.lo, value.hi);
   }
 
   @inline
   static ctz(value: u128): i32 {
-    // return <i32>(value.lo ? ctz(value.lo) : ctz(value.hi) + 64);
-    var lo = value.lo,
-        hi = value.hi;
-    var mask: i64 = ~-(<i64>(lo == 0));
-    return <i32>ctz((hi & ~mask) | (lo & mask)) + (<i32>mask & 64);
+    return __ctz128(value.lo, value.hi);
   }
 
   @inline

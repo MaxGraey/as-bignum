@@ -5,6 +5,7 @@ import { u128 } from '../integer/u128';
 // fp128<u8>  =>  8 bits
 // fp128<u16> => 16 bits
 // fp128<u32> => 32 bits
+// fp128<u64> => 64 bits
 
 export class fp128<Q> {
 
