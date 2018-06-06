@@ -240,11 +240,6 @@ export class u128 {
   }
 
   @inline @operator('>>')
-  static sar(value: u128, shift: i32): u128 {
-    return u128.shr(value, shift);
-  }
-
-  @inline @operator('>>>')
   static shr(value: u128, shift: i32): u128 {
     shift &= 127;
 
@@ -266,18 +261,25 @@ export class u128 {
     return new u128(lo & mod2, hi & mod2);
   }
 
+  @inline @operator('>>>')
+  static shr_u(value: u128, shift: i32): u128 {
+    return u128.shr(value, shift);
+  }
+
   @inline
   static rol(value: u128, shift: i32): u128 {
-    if ((shift & 127) ==  0) return this.clone();
-    if ((shift & 127) == 64) return new u128(value.hi, value.lo);
+    shift &= 127;
+    if (shift ==  0) return this.clone();
+    if (shift == 64) return new u128(value.hi, value.lo);
     // TODO optimize this
     return u128.shl(value, shift) | u128.shr(value, 128 - shift);
   }
 
   @inline
   static ror(value: u128, shift: i32): u128 {
-    if ((shift & 127) ==  0) return this.clone();
-    if ((shift & 127) == 64) return new u128(value.hi, value.lo);
+    shift &= 127;
+    if (shift ==  0) return this.clone();
+    if (shift == 64) return new u128(value.hi, value.lo);
     // TODO optimize this
     return u128.shr(value, shift) | u128.shl(value, 128 - shift);
   }
