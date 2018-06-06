@@ -344,6 +344,11 @@ export class u128 {
 
   @operator('**')
   static pow(base: u128, exponent: i32): u128 {
+
+    // negative exponent produce zero
+    if (exponent < 0)
+      return u128.Zero;
+
     // always overflow
     if (exponent > 128) {
       // 1 ^ n always return 1
@@ -376,7 +381,7 @@ export class u128 {
 
     var result = u128.One;
     var tmp    = base.clone();
-    var bs     = 32 - Math.clz32(exponent);
+    var bs     = 32 - clz(exponent);
 
     switch (bs) {
       case 7:
