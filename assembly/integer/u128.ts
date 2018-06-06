@@ -349,15 +349,6 @@ export class u128 {
     if (exponent < 0)
       return u128.Zero;
 
-    // always overflow
-    if (exponent > 128) {
-      // 1 ^ n always return 1
-      if (base.hi == 0 && base.lo == 1)
-        return u128.One;
-
-      return u128.Zero;
-    }
-
     // 1 ^ n always return 1
     if (base.hi == 0 && base.lo == 1)
       return u128.One;

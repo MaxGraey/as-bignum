@@ -58,7 +58,9 @@ export namespace safe {
 
     @inline @operator('**')
     static pow(base: u128, exponent: i32): u128 {
+      assert(exponent <= 128);
       // TODO assert overflow
+
       return changetype<u128>(U128.pow(changetype<U128>(base), exponent));
     }
 
