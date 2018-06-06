@@ -122,8 +122,8 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
     return;
   }
 
-  // if `b.hi` is power of two
-  if (!(bhi & (bhi - 1))) {
+  // if `b.hi` and b.lo == 0 is power of two
+  if (!blo && !(bhi & (bhi - 1))) {
     __divmod_rem_hi =
     __divmod_rem_lo = 0;
 
