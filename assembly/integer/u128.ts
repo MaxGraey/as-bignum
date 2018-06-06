@@ -357,18 +357,16 @@ export class u128 {
 
     if (base.hi == 0) {
       // 1 ^ n always return 1
-      if (base.lo == 1) {
+      if (base.lo == 1)
         return u128.One;
-      }
+
       // if base is power of two do "1 << log2(base) * exp"
-      if (!(base.lo & (base.lo - 1))) {
+      if (!(base.lo & (base.lo - 1)))
         return u128.One << (128 - clz(base.lo - 1) - 64) * exponent;
-      }
     } else if (base.lo == 0) {
       // if base is power of two do "1 << log2(base) * exp"
-      if (!(base.hi & (base.hi - 1))) {
+      if (!(base.hi & (base.hi - 1)))
         return u128.One << (128 - clz(base.hi - 1)) * exponent;
-      }
     }
 
     switch (exponent) {
@@ -390,6 +388,7 @@ export class u128 {
     var tmp    = base.clone();
     var bs     = 32 - clz(exponent);
 
+    // 128 = 2 ^ 7, so need only seven cases
     switch (bs) {
       case 7:
         if (exponent & 1) result *= tmp;
