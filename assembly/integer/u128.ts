@@ -344,19 +344,69 @@ export class u128 {
 
   @operator('**')
   static pow(base: u128, exponent: i32): u128 {
+    // always overflow
+    if (exponent > 128) {
+      // 1 ^ n always return 1
+      if (base.hi == 0 && base.lo == 1)
+        return u128.One;
+
+      return u128.Zero;
+    }
+
+    // 1 ^ n always return 1
+    if (base.hi == 0 && base.lo == 1)
+      return u128.One;
+
     switch (exponent) {
       case 0: return u128.One;
-      case 1: return this.clone();
+      case 1: return base.clone();
       case 2: return u128.sqr(base);
       case 3: return base * u128.sqr(base);
       default: break;
     }
 
+    /*
     var result = base.clone();
     for (let i = 31 - Math.clz32(exponent) - 1; i >= 0; --i) {
       result = u128.sqr(r);
       if ((exponent >>> i) & 1)
         result *= base;
+    }
+    */
+
+    var result = u128.One;
+    var tmp    = base.clone();
+    var bs     = 32 - Math.clz32(exponent);
+
+    switch (bs) {
+      case 7:
+        if (exponent & 1) result *= tmp;
+        exponent >>= 1;
+        tmp = u128.sqr(tmp);
+      case 6:
+        if (exponent & 1) result *= tmp;
+        exponent >>= 1;
+        tmp = u128.sqr(tmp);
+      case 5:
+        if (exponent & 1) result *= tmp;
+        exponent >>= 1;
+        tmp = u128.sqr(tmp);
+      case 4:
+        if (exponent & 1) result *= tmp;
+        exponent >>= 1;
+        tmp = u128.sqr(tmp);
+      case 3:
+        if (exponent & 1) result *= tmp;
+        exponent >>= 1;
+        tmp = u128.sqr(tmp);
+      case 2:
+        if (exponent & 1) result *= tmp;
+        exponent >>= 1;
+        tmp = u128.sqr(tmp);
+      case 1:
+        if (exponent & 1) result *= tmp;
+
+      default: break;
     }
 
     return result;

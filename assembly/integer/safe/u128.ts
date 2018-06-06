@@ -51,7 +51,15 @@ export namespace safe {
       if (azn == 127) return changetype<u128>(b.clone());
       if (bzn == 127) return changetype<u128>(a.clone());
 
-      return changetype<u128>(U128.mul(a, b));
+      return changetype<u128>(
+        U128.mul(changetype<U128>(a), changetype<U128>(b))
+      );
+    }
+
+    @inline @operator('**')
+    static pow(base: u128, exponent: i32): u128 {
+      // TODO assert overflow
+      return changetype<u128>(U128.pow(changetype<U128>(base), exponent));
     }
 
     //
