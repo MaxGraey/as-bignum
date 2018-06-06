@@ -390,6 +390,10 @@ export class u128 {
 
     // 128 = 2 ^ 7, so need only seven cases
     switch (bs) {
+      case 8: // FIXME really need eight step? Will decide during tests
+        if (exponent & 1) result *= tmp;
+        exponent >>= 1;
+        tmp = u128.sqr(tmp);
       case 7:
         if (exponent & 1) result *= tmp;
         exponent >>= 1;
