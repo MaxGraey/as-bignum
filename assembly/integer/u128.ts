@@ -349,13 +349,29 @@ export class u128 {
     if (exponent < 0)
       return u128.Zero;
 
-    // 1 ^ n always return 1
-    if (base.hi == 0 && base.lo == 1)
-      return u128.One;
-
     switch (exponent) {
       case 0: return u128.One;
       case 1: return base.clone();
+      default: break;
+    }
+
+    if (base.hi == 0) {
+      // 1 ^ n always return 1
+      if (base.lo == 1) {
+        return u128.One;
+      }
+      // if base is power of two do "1 << log2(base) * exp"
+      if (!(base.lo & (base.lo - 1))) {
+        return u128.One << (128 - clz(base.lo - 1) - 64) * exponent;
+      }
+    } else if (base.lo == 0) {
+      // if base is power of two do "1 << log2(base) * exp"
+      if (!(base.hi & (base.hi - 1))) {
+        return u128.One << (128 - clz(base.hi - 1)) * exponent;
+      }
+    }
+
+    switch (exponent) {
       case 2: return u128.sqr(base);
       case 3: return base * u128.sqr(base);
       default: break;
