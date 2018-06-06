@@ -28,5 +28,19 @@ export class i128 {
     return !value || !value.isZero();
   }
 
+  @inline @operator.prefix('-')
+  neg(): i128 {
+    var lo = ~this.lo, hi = ~this.hi;
+    var cy = ((lo & 1) + (lo >> 1)) >> 63;
+    return new i128(lo + 1, hi + cy);
+  }
+
+  /*
+  @inline
+  static abs(value: i128): i128 {
+    return value < 0 ? value.neg() : value;
+  }
+  */
+
   // TODO
 }

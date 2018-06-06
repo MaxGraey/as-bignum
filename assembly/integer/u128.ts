@@ -345,7 +345,7 @@ export class u128 {
   @operator('**')
   static pow(base: u128, exponent: i32): u128 {
 
-    // negative exponent produce zero
+    // any negative exponent produce zero
     if (exponent < 0)
       return u128.Zero;
 
@@ -356,7 +356,7 @@ export class u128 {
     }
 
     if (base.hi == 0) {
-      // 1 ^ n always return 1
+      // "1 ^ exponent" always return "1"
       if (base.lo == 1)
         return u128.One;
 
@@ -476,12 +476,11 @@ export class u128 {
     return __ctz128(value.lo, value.hi);
   }
 
-  @inline
-  static abs(value: u128): i32 {
-    return value < 0 ? value.neg() : value;
-  }
-
-  // result = value ^ 2
+  /**
+   * Calculate squared value (value ** 2)
+   * @param  value 128-bit unsigned integer
+   * @return       128-bit unsigned integer
+   */
   static sqr(value: u128): u128 {
     var u = value.lo, v = value.hi;
 
@@ -506,7 +505,7 @@ export class u128 {
   }
 
   // wide mul: u128 * u128 = u256
-  static hmul(a: u128, b: u128): u256 {
+  static mulq(a: u128, b: u128): u256 {
     // TODO
     unreachable();
     return u256.Zero;
