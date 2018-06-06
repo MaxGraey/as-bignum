@@ -351,9 +351,15 @@ export class u128 {
       case 3: return base * u128.sqr(base);
       default: break;
     }
-    // TODO
-    unreachable();
-    return u256.Zero;
+
+    var result = base.clone();
+    for (let i = 31 - Math.clz32(exponent) - 1; i >= 0; --i) {
+      result = u128.sqr(r);
+      if ((exponent >>> i) & 1)
+        result *= base;
+    }
+
+    return result;
   }
 
   @inline @operator('==')

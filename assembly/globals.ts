@@ -116,13 +116,14 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
       __divmod_quot_lo = alo >> btz;
       __divmod_rem_lo  = 0;
     } else {
-      __divmod_quot_lo = alo / blo;
-      __divmod_rem_lo  = alo - __divmod_quot_lo * blo;
+      let dlo = alo / blo;
+      __divmod_quot_lo = dlo
+      __divmod_rem_lo  = alo - dlo * blo;
     }
     return;
   }
 
-  // if `b.hi` and b.lo == 0 is power of two
+  // if b.lo == 0 and `b.hi` is power of two
   if (!blo && !(bhi & (bhi - 1))) {
     __divmod_rem_hi =
     __divmod_rem_lo = 0;
