@@ -40,6 +40,9 @@ export namespace safe {
       var azn = U128.clz(a);
       var bzn = U128.clz(b);
 
+      // overflow guard
+      assert(azn + bzn >= 128);
+
       // if a == 0 || b == 0
       if (azn == 128 || azn == 128)
         return changetype<u128>(U128.Zero);
@@ -48,14 +51,11 @@ export namespace safe {
       if (azn == 127) return changetype<u128>(b.clone());
       if (bzn == 127) return changetype<u128>(a.clone());
 
-      // overflow guard
-      assert(azn + bzn >= 128);
-
       return changetype<u128>(U128.mul(a, b));
     }
 
     //
     // div and rem already contain traps
-    // 
+    //
   }
 }
