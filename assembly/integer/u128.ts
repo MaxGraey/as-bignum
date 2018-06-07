@@ -611,6 +611,31 @@ export class u128 {
     return <f32>this.toF64();
   }
 
+  @inline
+  as<T>(): T {
+    var dummy: T;
+
+         if (dummy instanceof bool) return <T>this.toBool();
+    else if (dummy instanceof i8)   return <T>this.toI64();
+    else if (dummy instanceof u8)   return <T>this.toU64();
+    else if (dummy instanceof i16)  return <T>this.toI64();
+    else if (dummy instanceof u16)  return <T>this.toU64();
+    else if (dummy instanceof i32)  return <T>this.toI64();
+    else if (dummy instanceof i64)  return <T>this.toI64();
+    else if (dummy instanceof u32)  return <T>this.toU64();
+    else if (dummy instanceof u64)  return <T>this.toU64();
+    else if (dummy instanceof f32)  return <T>this.toF64();
+    else if (dummy instanceof f64)  return <T>this.toF64();
+    else if (dummy instanceof u128) return <T>this.clone();
+    else if (dummy instanceof u256) return <T>this.toU256();
+    else if (dummy instanceof u8[]) return <T>this.toBytes();
+    // TODO
+    // else if (dummy instanceof String) return <T>this.toString();
+
+    // or unreachable() ?
+    return <T>this;
+  }
+
   /**
    * Convert to byte array
    * @param le Little or Big Endian? Default: true
