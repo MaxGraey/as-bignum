@@ -46,7 +46,7 @@ export namespace safe {
       assert(azn + bzn >= 128);
 
       // if a == 0 || b == 0
-      if (azn == 128 || azn == 128)
+      if (!(azn - 128 & bzn - 128))
         return changetype<u128>(U128.Zero);
 
       // if a == 1 || b == 1
