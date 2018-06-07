@@ -611,6 +611,11 @@ export class u128 {
     return <f32>this.toF64();
   }
 
+  /**
+   * Convert to generic type T. Useful inside other generics methods
+   * @param  T  is bool | i8 | u8 | i16 | u16 | i32 | u32 | i64 | u64 | f32 | f64 | u128 | u256 | u8[]
+   * @return    type of T
+   */
   @inline
   as<T>(): T {
     var dummy: T;
