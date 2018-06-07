@@ -463,8 +463,10 @@ export class u128 {
 
   @inline
   static cmp(a: u128, b: u128): i32 {
-    var diff: i64 = a.hi - b.hi;
-    return <i32>(diff != 0 ? diff : a.lo - b.lo);
+    var dlo: i64 = a.lo - b.lo;
+    var dhi: i64 = a.hi - b.hi;
+    // return <i32>(dhi != 0 ? dhi : dlo);
+    return <i32>select<i64>(dhi, dlo, dhi != 0);
   }
 
   @inline
