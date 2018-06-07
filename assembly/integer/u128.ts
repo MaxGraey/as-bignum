@@ -401,6 +401,7 @@ export class u128 {
     switch (exponent) {
       case 2: return u128.sqr(base);
       case 3: return base * u128.sqr(base);
+      case 4: return u128.sqr(base).sqr();
       default: break;
     }
 
