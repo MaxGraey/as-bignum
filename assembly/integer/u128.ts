@@ -422,31 +422,31 @@ export class u128 {
       case 8: // FIXME really need eight step? Will decide during tests
         if (exponent & 1) result *= tmp;
         exponent >>= 1;
-        tmp = u128.sqr(tmp);
+        tmp.sqr();
       case 7:
         if (exponent & 1) result *= tmp;
         exponent >>= 1;
-        tmp = u128.sqr(tmp);
+        tmp.sqr();
       case 6:
         if (exponent & 1) result *= tmp;
         exponent >>= 1;
-        tmp = u128.sqr(tmp);
+        tmp.sqr();
       case 5:
         if (exponent & 1) result *= tmp;
         exponent >>= 1;
-        tmp = u128.sqr(tmp);
+        tmp.sqr();
       case 4:
         if (exponent & 1) result *= tmp;
         exponent >>= 1;
-        tmp = u128.sqr(tmp);
+        tmp.sqr();
       case 3:
         if (exponent & 1) result *= tmp;
         exponent >>= 1;
-        tmp = u128.sqr(tmp);
+        tmp.sqr();
       case 2:
         if (exponent & 1) result *= tmp;
         exponent >>= 1;
-        tmp = u128.sqr(tmp);
+        tmp.sqr();
       case 1:
         if (exponent & 1) result *= tmp;
 
@@ -517,7 +517,23 @@ export class u128 {
    * @return       128-bit unsigned integer
    */
   static sqr(value: u128): u128 {
-    var u = value.lo, v = value.hi;
+    return u128.fromU128(value).sqr();
+  }
+
+  // wide mul: u128 * u128 = u256
+  static mulq(a: u128, b: u128): u256 {
+    // TODO
+    unreachable();
+    return u256.Zero;
+  }
+
+  /**
+   * Calculate inplace squared 128-bit unsigned integer (this ** 2)
+   * @return 128-bit unsigned integer
+   */
+  sqr(): this {
+    var u = this.lo,
+        v = this.hi;
 
     var u1 = u & 0xFFFFFFFF;
     var t  = u1 * u1;
@@ -536,14 +552,10 @@ export class u128 {
         hi  += v * u;
         hi <<= 1;
 
-    return new u128(lo, hi);
-  }
+    this.lo = lo;
+    this.hi = hi;
 
-  // wide mul: u128 * u128 = u256
-  static mulq(a: u128, b: u128): u256 {
-    // TODO
-    unreachable();
-    return u256.Zero;
+    return this;
   }
 
   /**
