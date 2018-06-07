@@ -200,14 +200,6 @@ export class u256 {
 
   @inline
   static popcnt(value: u256): i32 {
-    /*
-    return <i32>(
-      popcnt(value.lo1) +
-      popcnt(value.lo2) +
-      popcnt(value.hi1) +
-      popcnt(value.hi2)
-    );
-    */
     var count             = popcnt(value.lo1);
     if (value.lo2) count += popcnt(value.lo2);
     if (value.hi1) count += popcnt(value.hi1);
@@ -231,13 +223,6 @@ export class u256 {
     else                return <i32>(ctz(value.hi2) + 192);
   }
 
-  /*
-  @inline
-  static abs(value: u256): i32 {
-    return value < 0 ? value.neg() : value;
-  }
-  */
-
   /**
   * Convert to 128-bit signed integer
   * @return 256-bit signed integer
@@ -246,7 +231,8 @@ export class u256 {
   toI128(): i128 {
     return new i128(
        this.lo1,
-      (this.lo2 & 0x7FFFFFFFFFFFFFFF) | (this.hi2 & 0x8000000000000000)
+      (this.lo2 & 0x7FFFFFFFFFFFFFFF) |
+      (this.hi2 & 0x8000000000000000)
     );
   }
 

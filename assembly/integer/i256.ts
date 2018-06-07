@@ -29,5 +29,12 @@ export class i256 {
     return !value || !value.isZero();
   }
 
+  /*
+  @inline
+  static abs(value: i128): i128 {
+    return value < 0 ? value.neg() : value;
+  }
+  */
+
   // TODO
 }

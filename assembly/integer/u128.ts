@@ -492,7 +492,7 @@ export class u128 {
 
     var u1 = u & 0xFFFFFFFF;
     var t  = u1 * u1;
-    var w  = t  & 0xFFFFFFFF;
+    var w  = t & 0xFFFFFFFF;
     var k  = t >> 32;
 
     u >>= 32;
