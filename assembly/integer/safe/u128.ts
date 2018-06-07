@@ -4,7 +4,8 @@ export namespace safe {
   export class u128 extends U128 {
     @inline @operator.prefix('++')
     preInc(): this {
-      assert(this.hi != <u64>-1);
+      if (this.lo == <u64>-1) assert(this.hi != <u64>-1);
+
       // TODO
       // super.inc();
       return this;
@@ -12,7 +13,8 @@ export namespace safe {
 
     @inline @operator.prefix('--')
     preDec(): this {
-      assert(this.lo != 0);
+      if (!this.hi) assert(this.lo);
+
       // TODO
       // super.dec();
       return this;
