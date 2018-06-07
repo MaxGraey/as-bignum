@@ -1,3 +1,6 @@
+
+import { i128 } from './i128';
+import { i256 } from './i256';
 import { u256 } from './u256';
 
 // TODO import this on top level 'index.ts'
@@ -106,6 +109,30 @@ export class u128 {
   @inline
   static fromF32(value: f32): u128 {
     return new u128(<u64>value);
+  }
+
+  /**
+   * Create 128-bit unsigned integer from generic type T
+   * @param  value
+   * @return 128-bit unsigned integer
+   */
+  @inline
+  static from<T>(value: T): u128 {
+         if (value instanceof bool) return u128.fromU64(<u64>value);
+    else if (value instanceof i8)   return u128.fromI64(<i64>value);
+    else if (value instanceof u8)   return u128.fromU64(<u64>value);
+    else if (value instanceof i16)  return u128.fromI64(<i64>value);
+    else if (value instanceof u16)  return u128.fromU64(<u64>value);
+    else if (value instanceof i32)  return u128.fromI64(<i64>value);
+    else if (value instanceof u32)  return u128.fromU64(<u64>value);
+    else if (value instanceof i64)  return u128.fromI64(<i64>value);
+    else if (value instanceof u64)  return u128.fromU64(<u64>value);
+    else if (value instanceof f32)  return u128.fromF64(<f64>value);
+    else if (value instanceof f64)  return u128.fromF64(<f64>value);
+    else if (value instanceof u128) return u128.fromU128(<u128>value);
+    else if (value instanceof u256) return u128.fromU256(<u256>value);
+    else if (value instanceof u8[]) return u128.fromBytes(<u8[]>value);
+    else return u128.Zero;
   }
 
   // TODO
@@ -613,7 +640,7 @@ export class u128 {
 
   /**
    * Convert to generic type T. Useful inside other generics methods
-   * @param  T  is bool | i8 | u8 | i16 | u16 | i32 | u32 | i64 | u64 | f32 | f64 | u128 | u256 | u8[]
+   * @param  T  is <bool | i8 | u8 | i16 | u16 | i32 | u32 | i64 | u64 | f32 | f64 | u128 | u256 | u8[]>
    * @return    type of T
    */
   @inline
