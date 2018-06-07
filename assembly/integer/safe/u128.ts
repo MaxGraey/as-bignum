@@ -39,19 +39,19 @@ export namespace safe {
     @inline @operator('*')
     static mul(a: u128, b: u128): u128 {
       // count leading zero bits for operands
-      var azn = U128.clz(a);
-      var bzn = U128.clz(b);
+      var azn = U128.clz(changetype<U128>(a));
+      var bzn = U128.clz(changetype<U128>(b));
 
       // overflow guard
       assert(azn + bzn >= 128);
 
       // if a == 0 || b == 0
       if (!(azn - 128 & bzn - 128))
-        return changetype<u128>(U128.Zero);
+        return u128.Zero;
 
       // if a == 1 || b == 1
-      if (azn == 127) return changetype<u128>(b.clone());
-      if (bzn == 127) return changetype<u128>(a.clone());
+      if (azn == 127) return b.clone();
+      if (bzn == 127) return a.clone();
 
       return changetype<u128>(
         U128.mul(changetype<U128>(a), changetype<U128>(b))
