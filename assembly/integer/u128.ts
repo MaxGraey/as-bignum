@@ -30,8 +30,18 @@ export class u128 {
   static readonly Max:  u128 = new u128(u64.MAX_VALUE, u64.MAX_VALUE)
 
   @inline
+  static fromI256(value: i256): u128 {
+    return new u128(value.lo1, value.lo2);
+  }
+
+  @inline
   static fromU256(value: u256): u128 {
     return new u128(value.lo1, value.lo2);
+  }
+
+  @inline
+  static fromI128(value: i128): u128 {
+    return new u128(value.lo, value.hi);
   }
 
   @inline
@@ -47,6 +57,20 @@ export class u128 {
   @inline
   static fromU64(value: u64): u128 {
     return new u128(value);
+  }
+
+  // TODO need improvement
+  // max safe uint for f64 actually 53-bits
+  @inline
+  static fromF64(value: f64): u128 {
+    return new u128(<u64>value, -(<u64>(value < 0)));
+  }
+
+  // TODO need improvement
+  // max safe int for f32 actually 23-bits
+  @inline
+  static fromF32(value: f32): u128 {
+    return new u128(<u64>value, -(<u64>(value < 0)));
   }
 
   @inline
@@ -97,20 +121,6 @@ export class u128 {
     return new u128(lo, hi);
   }
 
-  // TODO need improvement
-  // max safe uint for f64 actually 52-bits
-  @inline
-  static fromF64(value: f64): u128 {
-    return new u128(<u64>value);
-  }
-
-  // TODO need improvement
-  // max safe int for f32 actually 23-bits
-  @inline
-  static fromF32(value: f32): u128 {
-    return new u128(<u64>value);
-  }
-
   /**
    * Create 128-bit unsigned integer from generic type T
    * @param  value
@@ -129,7 +139,9 @@ export class u128 {
     else if (value instanceof u64)  return u128.fromU64(<u64>value);
     else if (value instanceof f32)  return u128.fromF64(<f64>value);
     else if (value instanceof f64)  return u128.fromF64(<f64>value);
+    else if (value instanceof i128) return u128.fromI128(<i128>value);
     else if (value instanceof u128) return u128.fromU128(<u128>value);
+    else if (value instanceof i256) return u128.fromI256(<i256>value);
     else if (value instanceof u256) return u128.fromU256(<u256>value);
     else if (value instanceof u8[]) return u128.fromBytes(<u8[]>value);
     else return u128.Zero;
@@ -576,12 +588,39 @@ export class u128 {
   }
 
   /**
+  * Convert to 256-bit signed integer
+  * @return 256-bit signed integer
+  */
+  @inline
+  toI256(): i256 {
+    return new i256(this.lo, this.hi);
+  }
+
+  /**
   * Convert to 256-bit unsigned integer
   * @return 256-bit unsigned integer
   */
   @inline
   toU256(): u256 {
     return new u256(this.lo, this.hi);
+  }
+
+  /**
+  * Convert to 128-bit signed integer
+  * @return 128-bit signed integer
+  */
+  @inline
+  toI128(): i128 {
+    return new i128(this.lo, this.hi);
+  }
+
+  /**
+  * Convert to 128-bit unsigned integer
+  * @return 128-bit unsigned integer
+  */
+  @inline
+  toU128(): this {
+    return this;
   }
 
   /**
@@ -687,14 +726,15 @@ export class u128 {
     else if (dummy instanceof u64)  return <T>this.toU64();
     else if (dummy instanceof f32)  return <T>this.toF64();
     else if (dummy instanceof f64)  return <T>this.toF64();
-    else if (dummy instanceof u128) return <T>this.clone();
-    else if (dummy instanceof u256) return <T>this.toU256();
-    else if (dummy instanceof u8[]) return <T>this.toBytes();
+    else if (dummy instanceof i128) return changetype<T>(this.toI128());
+    else if (dummy instanceof u128) return changetype<T>(this.toU128());
+    else if (dummy instanceof u256) return changetype<T>(this.toU256());
+    else if (dummy instanceof u8[]) return changetype<T>(this.toBytes());
     // TODO
     // else if (dummy instanceof String) return <T>this.toString();
 
     // or unreachable() ?
-    return <T>this;
+    return changetype<T>(this);
   }
 
   /**
