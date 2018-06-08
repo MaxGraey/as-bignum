@@ -79,44 +79,44 @@ export function __floatuntfdi(value: f64): void {
   } else if (value < reinterpret<f64>(0xC3F0000000000000)) { // // -(2^64-1)
     let lo: u64, hi: u64, m: u64;
 
-		m = (u & 0x000FFFFFFFFFFFFF) | (1 << 52);
+    m = (u & 0x000FFFFFFFFFFFFF) | (1 << 52);
     u = (u & 0x7FFFFFFFFFFFFFFF) >> 52;
 
     u -= 1075;
-		if (u > 64) {
-			lo = 0;
-			hi = m << (u - 64);
-		} else {
-			lo = m << u;
-			hi = m >> (64 - u);
-		}
-		__float_u128_lo = ~lo;
+    if (u > 64) {
+      lo = 0;
+      hi = m << (u - 64);
+    } else {
+      lo = m << u;
+      hi = m >> (64 - u);
+    }
+    __float_u128_lo = ~lo;
     __float_u128_hi = ~hi;
-  // } else if (value < 9.2233720368547e18) { // 2^63-1 // for i128
+    // } else if (value < 9.2233720368547e18) { // 2^63-1 // for i128
   } else if (value < reinterpret<f64>(0x43F0000000000000)) { // 2^64-1
     // fit in a u64
-		__float_u128_lo = <u64>value;
+    __float_u128_lo = <u64>value;
     // __float_u128_hi = (x < 0) ? -1 : 0; // for int
     __float_u128_hi = 0;
-  // } else if (value < 1.7014118346046e38) {
+    // } else if (value < 1.7014118346046e38) {
   } else if (value < reinterpret<f64>(0x47F0000000000000)) { // 2^128-1
     let lo: u64, hi: u64, m: u64;
 
-		m = (u & 0x000FFFFFFFFFFFFF) | (1 << 52);
-		u = (u & 0x7FFFFFFFFFFFFFFF) >> 52;
-		u -= 1075;
-		if (u > 64) {
-			lo = 0;
-			hi = m << (u - 64);
-		} else {
-			lo = m << u;
-			hi = m >> (64 - u);
+    m = (u & 0x000FFFFFFFFFFFFF) | (1 << 52);
+    u = (u & 0x7FFFFFFFFFFFFFFF) >> 52;
+    u -= 1075;
+    if (u > 64) {
+      lo = 0;
+      hi = m << (u - 64);
+    } else {
+      lo = m << u;
+      hi = m >> (64 - u);
     }
     __float_u128_lo = lo;
     __float_u128_hi = hi;
   } else {
     // overflow positive
-		__float_u128_lo = <u64>-1;
+    __float_u128_lo = <u64>-1;
     __float_u128_hi = <u64>-1; // 0x7FFFFFFFFFFFFFFF for i128
   }
 }
