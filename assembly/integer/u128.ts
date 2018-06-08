@@ -313,21 +313,37 @@ export class u128 {
 
   @inline @operator('+')
   static add(a: u128, b: u128): u128 {
+    // TODO test perf two approaches
+    /*
     var al = a.lo;
     var bl = b.lo;
     var lo = al   + bl;
     var hi = a.hi + b.hi;
     var cy = (al & bl & 1) + (al >> 1) + (bl >> 1);
-    return new u128(lo, hi + (cy >> 63));
+    */
+    var bl = b.lo;
+    var lo = a.lo + bl;
+    var hi = a.hi + b.hi;
+        hi += <u64>(lo < bl);
+    return new u128(lo, hi);
   }
 
   @inline @operator('-')
   static sub(a: u128, b: u128): u128 {
+    // TODO test perf two approaches
+    /*
     var bl = b.lo;
     var lo = a.lo - bl;
     var hi = a.hi - b.hi;
     var cy = (lo & bl & 1) + (bl >> 1) + (lo >> 1);
     return new u128(lo, hi - (cy >> 63));
+    */
+    var al = a.lo;
+    var lo = al   - b.lo;
+    var hi = a.hi - b.hi;
+        hi -= <u64>(lo > al);
+
+    return new u128(lo, hi);
   }
 
   // mul: u128 x u128 = u128
