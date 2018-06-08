@@ -628,7 +628,7 @@ export class u128 {
   // Simpler and faster alternative of "toF64"
   // but non-deteministic (using float point arithmetics)
   toF64Unsafe(): f64 {
-    let shift = reinterpret<f64>(0x43F0000000000000); // 2 ^ 64
+    const shift = reinterpret<f64>(0x43F0000000000000); // 2 ^ 64
     if (hi >= 0)
       return <f64>hi * shift + <f64>lo;
 

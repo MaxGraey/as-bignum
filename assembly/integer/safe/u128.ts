@@ -2,6 +2,7 @@ import { u128 as U128 } from '../u128';
 
 export namespace safe {
   export class u128 extends U128 {
+
     @inline @operator.prefix('++')
     preInc(): this {
       if (this.lo == <u64>-1) assert(this.hi != <u64>-1);
@@ -24,7 +25,9 @@ export namespace safe {
     static add(a: u128, b: u128): u128 {
       // overflow guard
       assert(clz(a.hi) | clz(b.hi));
-      return changetype<u128>(U128.add(a, b));
+      return changetype<u128>(
+        U128.add(changetype<U128>(a), changetype<U128>(b))
+      );
     }
 
     @inline @operator('-')
@@ -39,8 +42,8 @@ export namespace safe {
     @inline @operator('*')
     static mul(a: u128, b: u128): u128 {
       // count leading zero bits for operands
-      var azn = U128.clz(changetype<U128>(a));
-      var bzn = U128.clz(changetype<U128>(b));
+      var azn = u128.clz(a);
+      var bzn = u128.clz(b);
 
       // overflow guard
       assert(azn + bzn >= 128);
