@@ -7,7 +7,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build:debug": "asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --sourceMap --validate",
-    "build:release": "asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --passes flatten --sourceMap --validate --optimize --noDebug",
+    "build:release": "asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O4 --sourceMap --validate --optimize --noDebug",
     "build:wasm": "yarn build:debug && yarn build:release"
   },
   "devDependencies": {
