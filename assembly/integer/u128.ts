@@ -335,8 +335,8 @@ export class u128 {
     */
     var bl = b.lo;
     var lo = a.lo + bl;
-    var hi = a.hi + b.hi;
-        hi += <u64>(lo < bl);
+    var hi = a.hi + b.hi + (<u64>(lo < bl));
+
     return new u128(lo, hi);
   }
 
@@ -352,8 +352,7 @@ export class u128 {
     */
     var al = a.lo;
     var lo = al   - b.lo;
-    var hi = a.hi - b.hi;
-        hi -= <u64>(lo > al);
+    var hi = a.hi - b.hi - (<u64>(lo > al));
 
     return new u128(lo, hi);
   }

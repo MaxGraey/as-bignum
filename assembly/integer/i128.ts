@@ -82,6 +82,25 @@ export class i128 {
     return new i128(lo & mod2, hi & mod2);
   }
 
+  @inline @operator('+')
+  static add(a: i128, b: i128): i128 {
+    var bl = b.lo;
+    var lo = a.lo + bl   - (<i64>(b  <  0));
+    var hi = a.hi + b.hi + (<i64>(lo < bl));
+
+    return new i128(lo, hi);
+  }
+
+  @inline @operator('-')
+  static sub(a: i128, b: i128): i128 {
+    var al = a.lo;
+    var lo = al   - b.lo + (<i64>(b  <  0));
+    var hi = a.hi - b.hi - (<i64>(lo > al));
+
+    return new i128(lo, hi);
+  }
+
+
   /*
   @inline
   static abs(value: i128): i128 {
