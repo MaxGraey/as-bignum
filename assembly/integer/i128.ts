@@ -65,19 +65,19 @@ export class i128 {
     shift &= 127;
 
     // need for preventing redundant i32 -> u64 extends
-    var shift64: u64 = shift;
+    var shift64: i64 = shift;
 
-    var mod1: u64 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
-    var mod2: u64 = (shift64 >> 6) - 1;
+    var mod1: i64 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
+    var mod2: i64 = (shift64 >> 6) - 1;
 
     shift64 &= 63;
 
-    var vl = <u64>value.lo;
+    var vl = value.lo;
     var lo = vl << shift64;
     var hi = lo & ~mod2;
 
-    hi |= <u64>value.hi << shift64;
-    hi |= (vl >> (64 - shift64)) & mod1;
+    hi |= value.hi << shift64;
+    hi |= (vl >>> (64 - shift64)) & mod1;
 
     return new i128(lo & mod2, hi & mod2);
   }
