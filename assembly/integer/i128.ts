@@ -76,10 +76,9 @@ export class i128 {
     var lo = vl << shift64;
     var hi = lo & ~mod2;
 
-    hi |= value.hi << shift64;
-    hi |= (vl >>> (64 - shift64)) & mod1;
+    hi |= ((value.hi << shift64) | ((vl >>> (64 - shift64)) & mod1)) & mod2;
 
-    return new i128(lo & mod2, hi & mod2);
+    return new i128(lo & mod2, hi);
   }
 
   @inline @operator('+')

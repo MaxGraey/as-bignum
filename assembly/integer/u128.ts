@@ -272,10 +272,9 @@ export class u128 {
     var lo = vl << shift64;
     var hi = lo & ~mod2;
 
-    hi |= value.hi << shift64;
-    hi |= (vl >> (64 - shift64)) & mod1;
+    hi |= ((value.hi << shift64) | ((vl >> (64 - shift64)) & mod1)) & mod2;
 
-    return new u128(lo & mod2, hi & mod2);
+    return new u128(lo & mod2, hi);
   }
 
   @inline @operator('>>')
@@ -294,10 +293,9 @@ export class u128 {
     var hi = vh >> shift64;
     var lo = hi & ~mod2;
 
-    lo |= value.lo >> shift64;
-    lo |= (vh << (64 - shift64)) & mod1;
+    lo |= ((value.lo >> shift64) | ((vh << (64 - shift64)) & mod1)) & mod2;
 
-    return new u128(lo & mod2, hi & mod2);
+    return new u128(lo, hi & mod2);
   }
 
   @inline @operator('>>>')
