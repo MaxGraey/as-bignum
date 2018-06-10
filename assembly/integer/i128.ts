@@ -3,6 +3,19 @@ import { u128 } from './u128';
 import { i256 } from './i256';
 import { u256 } from './u256';
 
+import {
+  __clz128,
+  __ctz128,
+  __floatuntidf,
+
+  __udivmod128,
+  __divmod_quot_lo,
+  __divmod_quot_hi,
+  __divmod_rem_lo,
+  __divmod_rem_hi,
+
+} from '../globals';
+
 export class i128 {
 
   static readonly Zero: i128 = new i128()
@@ -212,12 +225,66 @@ export class i128 {
   }
 
 
-  /*
+
+  @inline @operator('==')
+  static eq(a: i128, b: i128): bool {
+    return a.hi == b.hi && a.lo == b.lo;
+  }
+
+  @inline @operator('!=')
+  static ne(a: i128, b: i128): bool {
+    return !u128.eq(a, b);
+  }
+
+  @inline @operator('<')
+  static lt(a: i128, b: i128): bool {
+    var ah = a.hi, bh = b.hi;
+    return ah == bh ? a.lo < b.lo : ah < bh;
+  }
+
+  @inline @operator('>')
+  static gt(a: i128, b: i128): bool {
+    var ah = a.hi, bh = b.hi;
+    return ah == bh ? a.lo > b.lo : ah > bh;
+  }
+
+  @inline @operator('<=')
+  static le(a: i128, b: i128): bool {
+    return !u128.gt(a, b);
+  }
+
+  @inline @operator('>=')
+  static ge(a: i128, b: i128): bool {
+    return !u128.lt(a, b);
+  }
+
+  @inline
+  static cmp(a: i128, b: i128): i32 {
+    var dlo = a.lo - b.lo;
+    var dhi = a.hi - b.hi;
+    // return <i32>(dhi != 0 ? dhi : dlo);
+    return <i32>select<i64>(dhi, dlo, dhi != 0);
+  }
+
+  @inline
+  static popcnt(value: i128): i32 {
+    return <i32>(popcnt(value.lo) + popcnt(value.hi));
+  }
+
+  @inline
+  static clz(value: i128): i32 {
+    return __clz128(value.lo, value.hi);
+  }
+
+  @inline
+  static ctz(value: i128): i32 {
+    return __ctz128(value.lo, value.hi);
+  }
+
   @inline
   static abs(value: i128): i128 {
     return value < 0 ? value.neg() : value;
   }
-  */
 
   // TODO
 }

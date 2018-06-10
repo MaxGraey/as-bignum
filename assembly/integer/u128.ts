@@ -552,6 +552,11 @@ export class u128 {
     return __ctz128(value.lo, value.hi);
   }
 
+  @inline
+  static abs(value: u128): u128 {
+    return value;
+  }
+
   /**
    * Calculate squared value (value ** 2)
    * @param  value 128-bit unsigned integer
