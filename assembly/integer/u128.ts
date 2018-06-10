@@ -416,18 +416,21 @@ export class u128 {
     }
 
     if (base.hi == 0) {
+      let lo  = base.lo;
+      let lo1 = lo - 1;
       // "1 ^ exponent" always return "1"
-      if (base.lo == 1)
-        return u128.One;
+      if (!lo1) return u128.One;
 
       // if base is power of two do "1 << log2(base) * exp"
-      if (!(base.lo & (base.lo - 1))) {
-        return u128.One << <i32>(128 - clz(base.lo - 1) - 64) * exponent;
+      if (!(lo & lo1)) {
+        return u128.One << <i32>(128 - clz(lo1) - 64) * exponent;
       }
-    } else if (base.lo == 0) {
+    } else if (!lo) {
+      let hi  = base.hi;
+      let hi1 = hi - 1;
       // if base is power of two do "1 << log2(base) * exp"
-      if (!(base.hi & (base.hi - 1))) {
-        return new u128(0, 1 << <i32>(128 - clz(base.hi - 1)) * exponent);
+      if (!(hi & hi1)) {
+        return new u128(0, 1 << <i32>(128 - clz(hi1)) * exponent);
       }
     }
 
