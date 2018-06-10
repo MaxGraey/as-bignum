@@ -1,3 +1,5 @@
+[![](https://tokei.rs/b1/github/MaxGraey/bignum.wasm?style=flat-square)](https://github.com/MaxGraey/bignum.wasm)
+
 ## Work in progress
 #### (Not useful and untested yet)
 
