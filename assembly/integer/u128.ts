@@ -415,8 +415,10 @@ export class u128 {
       default: break;
     }
 
-    if (base.hi == 0) {
-      let lo  = base.lo;
+    var lo = base.lo;
+    var hi = base.hi;
+
+    if (!hi) {
       let lo1 = lo - 1;
       // "1 ^ exponent" always return "1"
       if (!lo1) return u128.One;
@@ -426,7 +428,6 @@ export class u128 {
         return u128.One << <i32>(128 - clz(lo1) - 64) * exponent;
       }
     } else if (!lo) {
-      let hi  = base.hi;
       let hi1 = hi - 1;
       // if base is power of two do "1 << log2(base) * exp"
       if (!(hi & hi1)) {
