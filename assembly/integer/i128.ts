@@ -1,5 +1,7 @@
 
 import { u128 } from './u128';
+import { i256 } from './i256';
+import { u256 } from './u256';
 
 export class i128 {
 
@@ -7,6 +9,116 @@ export class i128 {
   static readonly One:  i128 = new i128(1)
   static readonly Min:  i128 = new i128(0, 0x8000000000000000)
   static readonly Max:  i128 = new i128(u64.MAX_VALUE, 0x7FFFFFFFFFFFFFFF)
+
+  @inline
+  static fromI256(value: i256): i128 {
+    return new i128(value.lo1, value.lo2);
+  }
+
+  @inline
+  static fromU256(value: u256): i128 {
+    return new i128(<i64>value.lo1, <i64>value.lo2);
+  }
+
+  @inline
+  static fromI128(value: i128): i128 {
+    return new i128(value.lo, value.hi);
+  }
+
+  @inline
+  static fromU128(value: u128): i128 {
+    return new i128(<i64>value.lo, <i64>value.hi);
+  }
+
+  @inline
+  static fromI64(value: i64): i128 {
+    return new i128(value, -(<i64>(value < 0)));
+  }
+
+  @inline
+  static fromU64(value: u64): i128 {
+    return new i128(<i64>value);
+  }
+
+  // TODO need improvement
+  // max safe uint for f64 actually 53-bits
+  @inline
+  static fromF64(value: f64): i128 {
+    return new u128(<u64>value, -(<u64>(value < 0)));
+  }
+
+  // TODO need improvement
+  // max safe int for f32 actually 23-bits
+  @inline
+  static fromF32(value: f32): i128 {
+    return new i128(<i64>value, -(<i64>(value < 0)));
+  }
+
+  @inline
+  static fromI32(value: i32): i128 {
+    return new i128(<i64>value, -(<i64>(value < 0)));
+  }
+
+  @inline
+  static fromU32(value: u32): i128 {
+    return new i128(<u64>value);
+  }
+
+  @inline
+  static from64Bits(lo: u64, hi: u64): u128 {
+    return new u128(<i64>lo, <i64>hi);
+  }
+
+  @inline
+  static fromBytes(array: u8[], le: bool = true): i128 {
+    return le ? i128.fromBytesLE(array) : u128.fromBytesBE(array);
+  }
+
+  static fromBytesLE(array: u8[]): i128 {
+    assert(array && array.length == 16);
+
+    var lo: i64 = 0, hi: i64 = 0;
+    for (let i = 0; i <  8; ++i) lo |= unchecked(array[i]) << (i << 3);
+    for (let i = 8; i < 16; ++i) hi |= unchecked(array[i]) << (i << 3);
+
+    return new i128(lo, hi);
+  }
+
+  static fromBytesBE(array: u8[]): i128 {
+    assert(array && array.length == 16);
+
+    var lo: i64 = 0, hi: i64 = 0;
+    for (let i = 0; i <  8; ++i) hi |= unchecked(array[i]) << ((7  - i) << 3);
+    for (let i = 8; i < 16; ++i) lo |= unchecked(array[i]) << ((15 - i) << 3);
+
+    return new i128(lo, hi);
+  }
+
+  /**
+   * Create 128-bit signed integer from generic type T
+   * @param  value
+   * @return 128-bit signed integer
+   */
+  @inline
+  static from<T>(value: T): i128 {
+         if (value instanceof bool) return i128.fromU64(<u64>value);
+    else if (value instanceof i8)   return i128.fromI64(<i64>value);
+    else if (value instanceof u8)   return i128.fromU64(<u64>value);
+    else if (value instanceof i16)  return i128.fromI64(<i64>value);
+    else if (value instanceof u16)  return i128.fromU64(<u64>value);
+    else if (value instanceof i32)  return i128.fromI64(<i64>value);
+    else if (value instanceof u32)  return i128.fromU64(<u64>value);
+    else if (value instanceof i64)  return i128.fromI64(<i64>value);
+    else if (value instanceof u64)  return i128.fromU64(<u64>value);
+    else if (value instanceof f32)  return i128.fromF64(<f64>value);
+    else if (value instanceof f64)  return i128.fromF64(<f64>value);
+    else if (value instanceof i128) return i128.fromI128(<i128>value);
+    else if (value instanceof u128) return i128.fromU128(<u128>value);
+    else if (value instanceof i256) return i128.fromI256(<i256>value);
+    else if (value instanceof u256) return i128.fromU256(<u256>value);
+    else if (value instanceof u8[]) return i128.fromBytes(<u8[]>value);
+    else return i128.Zero;
+  }
 
   constructor(
     public lo: i64 = 0,
