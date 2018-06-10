@@ -435,11 +435,14 @@ export class u128 {
       }
     }
 
-    switch (exponent) {
-      case 2: return u128.sqr(base);
-      case 3: return base * u128.sqr(base);
-      case 4: return u128.sqr(base).sqr();
-      default: break;
+    if (exponent <= 4) {
+      let sqrbase = u128.sqr(base);
+      switch (exponent) {
+        case 2: return sqrbase;        // base ^ 2
+        case 3: return sqrbase * base; // base ^ 2 * base
+        case 4: return sqrbase.sqr();  // base ^ 2 * base ^ 2
+        default: break;
+      }
     }
 
     /*
