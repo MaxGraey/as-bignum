@@ -382,7 +382,7 @@ export class u128 {
     t = u1 * v + k;
 
     var lo  = w1 + (t << 32);
-    var hi  = u * v + w;
+    var hi  = u  * v + w;
         hi += ah * bl;
         hi += al * bh;
         hi += t >> 32;
@@ -424,11 +424,11 @@ export class u128 {
 
       // if base is power of two do "1 << log2(base) * exp"
       if (!(base.lo & (base.lo - 1)))
-        return u128.One << (128 - clz(base.lo - 1) - 64) * exponent;
+        return u128.One << <i32>(128 - clz(base.lo - 1) - 64) * exponent;
     } else if (base.lo == 0) {
       // if base is power of two do "1 << log2(base) * exp"
       if (!(base.hi & (base.hi - 1)))
-        return u128.One << (128 - clz(base.hi - 1)) * exponent;
+        return u128.One << <i32>(128 - clz(base.hi - 1)) * exponent;
     }
 
     switch (exponent) {
@@ -689,6 +689,8 @@ export class u128 {
   // but non-deteministic (using float point arithmetics)
   toF64Unsafe(): f64 {
     const shift = reinterpret<f64>(0x43F0000000000000); // 2 ^ 64
+    var lo = this.lo, hi = this.hi;
+
     if (hi >= 0)
       return <f64>hi * shift + <f64>lo;
 
