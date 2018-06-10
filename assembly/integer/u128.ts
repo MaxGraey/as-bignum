@@ -360,7 +360,13 @@ export class u128 {
   // mul: u128 x u128 = u128
   @operator('*')
   static mul(a: u128, b: u128): u128 {
-    var u = a.lo, v = b.lo;
+    var al = a.lo,
+        bl = b.lo;
+    var ah = a.hi,
+        bh = b.hi;
+    var u  = al,
+        v  = bl;
+
     var w: u64, k: u64;
 
     var u1 = u & 0xFFFFFFFF;
@@ -377,8 +383,8 @@ export class u128 {
 
     var lo  = w1 + (t << 32);
     var hi  = u * v + w;
-        hi += a.hi * b.lo;
-        hi += a.lo * b.hi;
+        hi += ah * bl;
+        hi += al * bh;
         hi += t >> 32;
 
     return new u128(lo, hi);
