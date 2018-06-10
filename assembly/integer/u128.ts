@@ -421,12 +421,14 @@ export class u128 {
         return u128.One;
 
       // if base is power of two do "1 << log2(base) * exp"
-      if (!(base.lo & (base.lo - 1)))
+      if (!(base.lo & (base.lo - 1))) {
         return u128.One << <i32>(128 - clz(base.lo - 1) - 64) * exponent;
+      }
     } else if (base.lo == 0) {
       // if base is power of two do "1 << log2(base) * exp"
-      if (!(base.hi & (base.hi - 1)))
-        return u128.One << <i32>(128 - clz(base.hi - 1)) * exponent;
+      if (!(base.hi & (base.hi - 1))) {
+        return new u128(0, 1 << <i32>(128 - clz(base.hi - 1)) * exponent);
+      }
     }
 
     switch (exponent) {
