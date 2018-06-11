@@ -2,10 +2,21 @@ import { i128 } from '../integer/i128';
 import { u128 } from '../integer/u128';
 
 // Support only this fractions:
-// fp128<u8>  =>  8 bits
-// fp128<u16> => 16 bits
-// fp128<u32> => 32 bits
-// fp128<u64> => 64 bits
+// fp128<u8>   =>   8 bits (~ 2  decimal digits)
+// fp128<u16>  =>  16 bits (~ 4  decimal digits)
+// fp128<u24>  =>  24 bits (~ 7  decimal digits)
+// fp128<u32>  =>  32 bits (~ 9  decimal digits)
+// fp128<u40>  =>  40 bits (~ 12 decimal digits)
+// fp128<u48>  =>  48 bits (~ 14 decimal digits)
+// fp128<u56>  =>  56 bits (~ 16 decimal digits)
+// fp128<u64>  =>  64 bits (~ 19 decimal digits)
+// fp128<u72>  =>  72 bits (~ 21 decimal digits)
+// fp128<u80>  =>  80 bits (~ 24 decimal digits)
+// fp128<u88>  =>  88 bits (~ 26 decimal digits)
+// fp128<u96>  =>  96 bits (~ 28 decimal digits)
+// fp128<u104> => 104 bits (~ 31 decimal digits)
+// fp128<u112> => 112 bits (~ 33 decimal digits)
+// fp128<u120> => 120 bits (~ 36 decimal digits)
 
 export class fp128<Q> {
 
@@ -23,19 +34,19 @@ export class fp128<Q> {
 
   @inline
   get fractBits(): i32 {
-    return 8 * sizeof<Q>();
+    return 8 * offsetof<Q>();
   }
 
   /*
   @inline
   get integer(): i128 {
-    return this.value >> (8 * sizeof<Q>);
+    return this.value >> (8 * offsetof<Q>);
   }
   */
 
   @inline
   get fract(): u128 {
-    return u128.shl(changetype<u128>(this.value), 32 - 8 * sizeof<Q>);
+    return u128.shl(changetype<u128>(this.value), 32 - 8 * offsetof<Q>);
   }
 
   // TODO
