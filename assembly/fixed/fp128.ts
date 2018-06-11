@@ -34,19 +34,23 @@ export class fp128<Q> {
 
   @inline
   get fractBits(): i32 {
-    return 8 * offsetof<Q>();
+    if (isReference<Q>()) {
+      return 8 * offsetof<Q>();
+    } else {
+      return 8 * sizeof<Q>();
+    }
   }
 
   /*
   @inline
   get integer(): i128 {
-    return this.value >> (8 * offsetof<Q>);
+    return this.value >> this.fractBits;
   }
   */
 
   @inline
   get fract(): u128 {
-    return u128.shl(changetype<u128>(this.value), 32 - 8 * offsetof<Q>);
+    return (chagetype<u128>(this.value)) << this.integerBits;
   }
 
   // TODO
