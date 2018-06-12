@@ -60,7 +60,19 @@ export function __floatuntidf(lo: u64, hi: u64): f64 {
   return reinterpret<f64>(u | (v.lo & 0xFFFFFFFF));
 }
 
+@global
+function __umulh64(u: u64, v: u64): u64 {
+  var u0 = u & 0xFFFFFFFF;
+  var v0 = v & 0xFFFFFFFF;
+  var u1 = u >> 32;
+  var v1 = v >> 32;
 
+  var l = u0 * v0;
+  var t = u1 * v0 + (l >> 32);
+  var w = u0 * v1 + (t & 0xFFFFFFFF);
+
+  return u1 * v1 + (t >> 32) + (w >> 32);
+}
 
 export var __float_u128_lo: u64 = 0;
 export var __float_u128_hi: u64 = 0;
