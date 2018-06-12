@@ -20,6 +20,9 @@ import { u128 } from '../integer/u128';
 
 export class fp128<Q> {
 
+  static readonly Zero: fp128<Q> = new fp128<Q>(0);
+  static readonly One:  fp128<Q> = new fp128<Q>(1);
+
   protected value: i128 = i128.Zero;
 
   constructor(lo: i64 = 0, hi: i64 = 0) {
@@ -28,7 +31,7 @@ export class fp128<Q> {
   }
 
   @inline
-  get integerBits(): i32 {
+  get intBits(): i32 {
     return 128 - this.fractBits;
   }
 
@@ -43,14 +46,14 @@ export class fp128<Q> {
 
   /*
   @inline
-  get integer(): i128 {
+  get int(): i128 {
     return this.value >> this.fractBits;
   }
   */
 
   @inline
   get fract(): u128 {
-    return (chagetype<u128>(this.value)) << this.integerBits;
+    return (chagetype<u128>(this.value)) << this.intBits;
   }
 
   // TODO

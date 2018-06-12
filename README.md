@@ -62,5 +62,7 @@ TODO
 ---
 - [ ] `safe.fp128<Q>` generic fixed point signed type٭
 - [ ] `safe.fp256<Q>` generic fixed point signed type٭
+---
+- [ ] `f128` 128-bit float (quadruple float precision)
 
 ٭ _typename_ `Q` _is a type representing count of fractional bits_
