@@ -56,9 +56,16 @@ export namespace safe {
       if (azn == 127) return b.clone();
       if (bzn == 127) return a.clone();
 
+      /*
       return changetype<u128>(
         U128.mul(changetype<U128>(a), changetype<U128>(b))
-      );
+      );*/
+
+      // for non-overflowing mul we can simplificate multiplication a bit
+      var ra: u64 = (a - (u128.One << azn)).lo;
+      var rb: u64 = (b - (u128.One << bzn)).lo;
+
+      return (a << bzn) + (b << azn) + (new u128(ra * rb));
     }
 
     @inline @operator('**')
