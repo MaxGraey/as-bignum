@@ -183,6 +183,19 @@ export class u256 {
     return new u256(lo1 + 1, lo2 + cy, hi1 + cy1, hi2 + cy2);
   }
 
+  @inline @operator('+')
+  static add(a: u256, b: u256) {
+    var alo1 = new u128(a.lo1);
+    var blo1 = new u128(b.lo1);
+    var lo   = alo1 + blo1;
+    var amid = new u128(a.lo1, a.hi1);
+    var bmid = new u128(b.lo1, b.hi1);
+    var mid  = amid + bmid + (lo >> 64);
+    var hi   = a.hi2 + b.hi2 + mid.hi;
+
+    return new u256(lo, mid.lo, mid.hi, hi);
+  }
+
   @inline @operator('|')
   static or(a: u256, b: u256): u256 {
     return new u256(a.lo1 | b.lo1, a.lo2 | b.lo2, a.hi1 | b.hi1, a.hi2 | b.hi2);
