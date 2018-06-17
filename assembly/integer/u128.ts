@@ -387,7 +387,7 @@ export class u128 {
 
   static div10(value: u128): u128 {
     if (!value.hi) {
-      if (!value.lo) return u128.Zero;
+      if (value.lo < 10) return u128.Zero;
       return u128.fromU64(value / 10);
     }
 
@@ -400,7 +400,7 @@ export class u128 {
   	q += q >> 8;
   	q += q >> 16;
     q += q >> 32;
-    q += q >> 64;
+    q += u128.fromU64(q.hi); // q >> 64
   	q >>= 3;
   	r = n - (((q << 2) + q) << 1);
     n = q + u128.fromBool(r > 9);
