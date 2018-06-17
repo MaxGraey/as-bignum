@@ -13,7 +13,9 @@ export var __divmod_quot_hi: u64 = 0;
 export var __divmod_rem_lo: u64  = 0;
 export var __divmod_rem_hi: u64  = 0;
 
-export var __mulq64_hi: u64 = 0;
+// used for returning low and high part of __mulq64, __multi3 etc
+export var __res128_lo: u64 = 0;
+export var __res128_hi: u64 = 0;
 
 /**
  * Convert 128-bit unsigned integer to 64-bit float
@@ -62,8 +64,8 @@ export function __floatuntidf(lo: u64, hi: u64): f64 {
   return reinterpret<f64>(u | (v.lo & 0xFFFFFFFF));
 }
 
-@global
-function __umulh64(u: u64, v: u64): u64 {
+@global @inline
+export function __umulh64(u: u64, v: u64): u64 {
   var u0 = u & 0xFFFFFFFF;
   var v0 = v & 0xFFFFFFFF;
 
@@ -81,7 +83,7 @@ function __umulh64(u: u64, v: u64): u64 {
 }
 
 @global
-function __umulq64(u: u64, v: u64): u64 {
+export function __umulq64(_res: usize, u: u64, v: u64): void {
   var u1, v1, w0, w1, t;
 
   u1 = u & 0xFFFFFFFF;
@@ -96,8 +98,35 @@ function __umulq64(u: u64, v: u64): u64 {
   w1 = t >> 32;
   t  = u1 * v + (t & 0xFFFFFFFF);
 
-  __mulq64_hi = u * v + w1 + (t >> 32);
-  return (t << 32) + w0;
+  __res128_lo = (t << 32) + w0;
+  __res128_hi = u * v + w1 + (t >> 32);
+}
+
+@global
+export function __multi3(_res: usize, al: u64, ah: u64, bl: u64, bh: u64): void {
+  var u = al, v = bl;
+  var w: u64, k: u64;
+
+  var u1 = u & 0xFFFFFFFF;
+  var v1 = v & 0xFFFFFFFF;
+  var t  = u1 * v1;
+  var w1 = t & 0xFFFFFFFF;
+
+  u = u >> 32;
+  t = u * v1 + (t >> 32);
+  k = t & 0xFFFFFFFF;
+  w = t >> 32;
+  v = v >> 32;
+  t = u1 * v + k;
+
+  var lo  = w1 + (t << 32);
+  var hi  = u  * v + w;
+      hi += ah * bl;
+      hi += al * bh;
+      hi += t >> 32;
+
+  __res128_lo = lo;
+  __res128_hi = hi;
 }
 
 export var __float_u128_lo: u64 = 0;
