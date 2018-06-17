@@ -13,6 +13,8 @@ export var __divmod_quot_hi: u64 = 0;
 export var __divmod_rem_lo: u64  = 0;
 export var __divmod_rem_hi: u64  = 0;
 
+export var __mulq64_hi: u64 = 0;
+
 /**
  * Convert 128-bit unsigned integer to 64-bit float
  * @param  lo lower  64-bit part of unsigned 128-bit integer
@@ -76,6 +78,26 @@ function __umulh64(u: u64, v: u64): u64 {
   w >>= 32;
 
   return u1 * v1 + t + w;
+}
+
+@global
+function __umulq64(u: u64, v: u64): u64 {
+  var u1, v1, w0, w1, t;
+
+  u1 = u & 0xFFFFFFFF;
+  v1 = v & 0xFFFFFFFF;
+
+  u >>= 32;
+  v >>= 32;
+
+  t  = u1 * v1;
+  w0 = t & 0xFFFFFFFF;
+  t  = u * v1 + (t >> 32);
+  w1 = t >> 32;
+  t  = u1 * v + (t & 0xFFFFFFFF);
+
+  __mulq64_hi = u * v + w1 + (t >> 32);
+  return (t << 32) + w0;
 }
 
 export var __float_u128_lo: u64 = 0;
