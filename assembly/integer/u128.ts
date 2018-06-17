@@ -88,6 +88,11 @@ export class u128 {
   }
 
   @inline
+  static fromBool(value: bool): u128 {
+    return new u128(<u64>value);
+  }
+
+  @inline
   static from64Bits(lo: u64, hi: u64): u128 {
     return new u128(lo, hi);
   }
@@ -378,6 +383,29 @@ export class u128 {
     // TODO
     unreachable();
     return u128.Zero;
+  }
+
+  static div10(value: u128): u128 {
+    if (!value.hi) {
+      if (!value.lo) return u128.Zero;
+      return u128.fromU64(value / 10);
+    }
+
+    var q: u128, r: u128;
+    var n = value.clone();
+
+    q  = n >> 1;
+    q += n >> 2;
+  	q += q >> 4;
+  	q += q >> 8;
+  	q += q >> 16;
+    q += q >> 32;
+    q += q >> 64;
+  	q >>= 3;
+  	r = n - (((q << 2) + q) << 1);
+    n = q + u128.fromBool(r > 9);
+
+    return n;
   }
 
   @operator('**')
