@@ -396,13 +396,13 @@ export class u128 {
 
     q  = n >> 1;
     q += n >> 2;
-  	q += q >> 4;
-  	q += q >> 8;
-  	q += q >> 16;
+    q += q >> 4;
+    q += q >> 8;
+    q += q >> 16;
     q += q >> 32;
     q += u128.fromU64(q.hi); // q >> 64
-  	q >>= 3;
-  	r = n - (((q << 2) + q) << 1);
+    q >>= 3;
+    r = n - (((q << 2) + q) << 1);
     n = q + u128.fromBool(r > 9);
 
     return n;
