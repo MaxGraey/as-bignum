@@ -29,8 +29,8 @@ import { u128 } from "bignum.wasm/assembly/integer";
 
 declare function console_log(value: f64): void;
 
-var a = u128.Zero;
-var b = u128.from<i32>(-32);
+var a = u128.One;
+var b = u128.from(-32); // same as u128.from<i32>(-32)
 var c = new u128(0x1, -0xF);
 var d = u128.from<u64>(1 << 40);
 
