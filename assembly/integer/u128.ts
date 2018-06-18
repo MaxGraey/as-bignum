@@ -14,6 +14,7 @@ import {
   __res128_hi,
 
   __udivmod128,
+  __udivmod128_10,
   __divmod_quot_lo,
   __divmod_quot_hi,
   __divmod_rem_lo,
@@ -385,27 +386,16 @@ export class u128 {
     return u128.Zero;
   }
 
+  @inline
   static div10(value: u128): u128 {
-    if (!value.hi) {
-      if (value.lo < 10) return u128.Zero;
-      return u128.fromU64(value / 10);
-    }
+    __udivmod128_10(null, null, null, null, value.lo, value.hi);
+    return new u128(__divmod_quot_lo, __divmod_quot_hi);
+  }
 
-    var q: u128, r: u128;
-    var n = value.clone();
-
-    q  = n >> 1;
-    q += n >> 2;
-    q += q >> 4;
-    q += q >> 8;
-    q += q >> 16;
-    q += q >> 32;
-    q += u128.fromU64(q.hi); // q >> 64
-    q >>= 3;
-    r = n - (((q << 2) + q) << 1);
-    n = q + u128.fromBool(r > 9);
-
-    return n;
+  @inline
+  static rem10(value: u128): u128 {
+    __udivmod128_10(null, null, null, null, value.lo, value.hi);
+    return new u128(__divmod_rem_lo, __divmod_rem_hi);
   }
 
   @operator('**')

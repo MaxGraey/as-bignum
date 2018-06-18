@@ -288,3 +288,41 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
     // __udivmod128core
   }
 }
+
+@global @inline
+export function __udivmod128_10(_qlo: u64, _qhi: u64, _rlo: u64, _rhi: u64, lo: u64, hi: u64): void {
+  if (!hi) {
+    if (lo < 10) {
+      __divmod_quot_lo =
+      __divmod_quot_hi =
+      __divmod_rem_lo  =
+      __divmod_rem_hi  = 0;
+      return;
+    }
+    let qlo = lo / 10;
+    __divmod_quot_lo = qlo;
+    __divmod_quot_hi = 0;
+    __divmod_rem_lo  = lo - qlo * 10;
+    __divmod_rem_hi  = 0;
+    return;
+  }
+
+  var q: u128, r: u128;
+  var n = value.clone();
+
+  q  = n >> 1;
+  q += n >> 2;
+  q += q >> 4;
+  q += q >> 8;
+  q += q >> 16;
+  q += q >> 32;
+  q += u128.fromU64(q.hi); // q >> 64
+  q >>= 3;
+  r = n - (((q << 2) + q) << 1);
+  n = q + u128.fromBool(r.lo > 9);
+
+  __divmod_quot_lo = n.lo;
+  __divmod_quot_hi = n.hi;
+  __divmod_rem_lo  = r.lo;
+  __divmod_rem_hi  = r.hi;
+}
