@@ -290,7 +290,7 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
 }
 
 @global @inline
-export function __udivmod128_10(_qlo: u64, _qhi: u64, _rlo: u64, _rhi: u64, lo: u64, hi: u64): void {
+export function __udivmod128_10(_q: usize, _r: usize, lo: u64, hi: u64): void {
   if (!hi) {
     if (lo < 10) {
       __divmod_quot_lo =
