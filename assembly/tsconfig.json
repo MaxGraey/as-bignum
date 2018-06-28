@@ -9,25 +9,25 @@
     "noEmitOnError": true,
     "strictNullChecks": true,
     "experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": true,
     "allowJs": false
   },
 
   "rootDir": ".",
-	"skipDefaultLibCheck": true,
-	"skipLibCheck": true,
+  "skipDefaultLibCheck": true,
+  "skipLibCheck": true,
 
-	"filesGlob": [
-		"**/*.ts"
-	],
+  "filesGlob": [
+    "**/*.ts"
+  ],
 
-	"paths": [
-		"../node_modules/assemblyscript/std/assembly.d.ts"
-	],
+  "paths": [
+    "../node_modules/assemblyscript/std/assembly.d.ts"
+  ],
 
   "atom": {
-		"rewriteTsconfig": false
-	},
+    "rewriteTsconfig": false
+  },
 
-	"compileOnSave": false
+  "compileOnSave": false
 }

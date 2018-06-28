@@ -284,6 +284,8 @@ export class i128 {
   @inline
   static abs(value: i128): i128 {
     return value < 0 ? value.neg() : value;
+    // var mask = value >> 127;
+    // return (value ^ mask) - mask;
   }
 
   // TODO
