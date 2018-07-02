@@ -292,7 +292,7 @@ export class u128 {
     shift &= 127;
 
     // need for preventing redundant i32 -> u64 extends
-    var shift64: u64 = shift64;
+    var shift64: u64 = shift;
 
     var mod1: u64 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
     var mod2: u64 = (shift64 >> 6) - 1;
@@ -314,21 +314,48 @@ export class u128 {
   }
 
   @inline
-  static rol(value: u128, shift: i32): u128 {
+  static rotl(value: u128, shift: i32): u128 {
+    // shift &= 127;
+    // if (shift ==  0) return this.clone();
+    // return u128.shl(value, shift) | u128.shr(value, 128 - shift);
+
+    if (shift == 0) return this.clone();
+
     shift &= 127;
-    if (shift ==  0) return this.clone();
-    if (shift == 64) return new u128(value.hi, value.lo);
-    // TODO optimize this
-    return u128.shl(value, shift) | u128.shr(value, 128 - shift);
+    var shift64: u64 = 128 - shift;
+
+    var mod1: u64 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
+    var mod2: u64 = (shift64 >> 6) - 1;
+
+    shift64 &= 63;
+
+    var vl = value.lo;
+    var vh = value.hi;
+    var hi1 = vh >> shift64;
+    var lo1 = hi1 & ~mod2;
+
+    lo1 |= ((vl >> shift64) | ((vh << (64 - shift64)) & mod1)) & mod2;
+    hi1 &= mod2;
+
+    shift64 = shift;
+
+    mod1 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
+    mod2 = (shift64 >> 6) - 1;
+
+    shift64 &= 63;
+
+    var lo2 = vl << shift64;
+    var hi2 = lo2 & ~mod2;
+
+    hi2 |= ((vh << shift64) | ((vl >> (64 - shift64)) & mod1)) & mod2;
+    lo2 &= mod2;
+
+    return new u128(lo1 | lo2, hi1 | hi2);
   }
 
   @inline
-  static ror(value: u128, shift: i32): u128 {
-    // shift &= 127;
-    // if (shift ==  0) return this.clone();
-    // if (shift == 64) return new u128(value.hi, value.lo);
-    // TODO optimize this
-    // return u128.shr(value, shift) | u128.shl(value, 128 - shift);
+  static rotr(value: u128, shift: i32): u128 {
+    if (shift == 0) return this.clone();
 
     shift &= 127;
     var shift64: u64 = 128 - shift;
@@ -344,7 +371,7 @@ export class u128 {
     var hi1 = lo1 & ~mod2;
 
     hi1 |= ((vh << shift64) | ((vl >> (64 - shift64)) & mod1)) & mod2;
-    lo1 &= lo1;
+    lo1 &= mod2;
 
     shift64 = shift;
 
