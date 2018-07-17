@@ -27,6 +27,7 @@ or
 import "allocator/arena";
 import { u128 } from "bignum.wasm/assembly/integer";
 
+@external("env", "console_log")
 declare function console_log(value: f64): void;
 
 var a = u128.One;
