@@ -23,6 +23,8 @@ export namespace safe {
 
     @inline @operator('+')
     static add(a: u128, b: u128): u128 {
+      assert(a, "value shouldn't be null");
+      assert(b, "value shouldn't be null");
       // overflow guard
       assert(clz(a.hi) | clz(b.hi));
       return changetype<u128>(
@@ -32,6 +34,8 @@ export namespace safe {
 
     @inline @operator('-')
     static sub(a: u128, b: u128): u128 {
+      assert(a, "value shouldn't be null");
+      assert(b, "value shouldn't be null");
       // underflow guard
       assert(changetype<U128>(a) >= changetype<U128>(b));
       return changetype<u128>(
@@ -41,6 +45,9 @@ export namespace safe {
 
     @inline @operator('*')
     static mul(a: u128, b: u128): u128 {
+      assert(a, "value shouldn't be null");
+      assert(b, "value shouldn't be null");
+
       // count leading zero bits for operands
       var azn = u128.clz(a);
       var bzn = u128.clz(b);
@@ -63,6 +70,7 @@ export namespace safe {
 
     @inline @operator('**')
     static pow(base: u128, exponent: i32): u128 {
+      assert(base, "value shouldn't be null");
       assert(exponent <= 128);
       // TODO assert overflow
 

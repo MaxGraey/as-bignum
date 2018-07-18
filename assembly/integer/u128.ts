@@ -172,6 +172,7 @@ export class u128 {
 
   @inline
   set(value: u128): this {
+    assert(value, "value shouldn't be null");
     this.lo = value.lo;
     this.hi = value.hi;
     return this;
@@ -253,21 +254,29 @@ export class u128 {
 
   @inline @operator('|')
   static or(a: u128, b: u128): u128 {
+    assert(a, "value shouldn't be null");
+    assert(b, "value shouldn't be null");
     return new u128(a.lo | b.lo, a.hi | b.hi);
   }
 
   @inline @operator('^')
   static xor(a: u128, b: u128): u128 {
+    assert(a, "value shouldn't be null");
+    assert(b, "value shouldn't be null");
     return new u128(a.lo ^ b.lo, a.hi ^ b.hi);
   }
 
   @inline @operator('&')
   static and(a: u128, b: u128): u128 {
+    assert(a, "value shouldn't be null");
+    assert(b, "value shouldn't be null");
     return new u128(a.lo & b.lo, a.hi & b.hi);
   }
 
   @inline @operator('<<')
   static shl(value: u128, shift: i32): u128 {
+    assert(value, "value shouldn't be null");
+
     shift &= 127;
 
     // need for preventing redundant i32 -> u64 extends
@@ -289,6 +298,8 @@ export class u128 {
 
   @inline @operator('>>')
   static shr(value: u128, shift: i32): u128 {
+    assert(value, "value shouldn't be null");
+
     shift &= 127;
 
     // need for preventing redundant i32 -> u64 extends
@@ -315,6 +326,8 @@ export class u128 {
 
   @inline
   static rotl(value: u128, shift: i32): u128 {
+    assert(value, "value shouldn't be null");
+
     // shift &= 127;
     // if (shift ==  0) return this.clone();
     // return u128.shl(value, shift) | u128.shr(value, 128 - shift);
@@ -355,6 +368,8 @@ export class u128 {
 
   @inline
   static rotr(value: u128, shift: i32): u128 {
+    assert(value, "value shouldn't be null");
+
     if (shift == 0) return this.clone();
 
     shift &= 127;
@@ -391,6 +406,9 @@ export class u128 {
 
   @inline @operator('+')
   static add(a: u128, b: u128): u128 {
+    assert(a, "value shouldn't be null");
+    assert(b, "value shouldn't be null");
+
     // TODO test perf two approaches
     /*
     var al = a.lo;
@@ -408,6 +426,9 @@ export class u128 {
 
   @inline @operator('-')
   static sub(a: u128, b: u128): u128 {
+    assert(a, "value shouldn't be null");
+    assert(b, "value shouldn't be null");
+
     // TODO test perf two approaches
     /*
     var bl = b.lo;
@@ -426,12 +447,16 @@ export class u128 {
   // mul: u128 x u128 = u128
   @inline @operator('*')
   static mul(a: u128, b: u128): u128 {
+    assert(a, "value shouldn't be null");
+    assert(b, "value shouldn't be null");
     __multi3(null, a.lo, a.hi, b.lo, b.hi);
     return new u128(__res128_lo, __res128_hi);
   }
 
   @inline @operator('/')
   static div(a: u128, b: u128): u128 {
+    assert(a, "value shouldn't be null");
+    assert(b, "value shouldn't be null");
     // TODO
     unreachable();
     return u128.Zero;
@@ -439,6 +464,8 @@ export class u128 {
 
   @inline @operator('%')
   static rem(a: u128, b: u128): u128 {
+    assert(a, "value shouldn't be null");
+    assert(b, "value shouldn't be null");
     // TODO
     unreachable();
     return u128.Zero;
@@ -446,19 +473,21 @@ export class u128 {
 
   @inline
   static div10(value: u128): u128 {
+    assert(value, "value shouldn't be null");
     __udivmod128_10(null, null, value.lo, value.hi);
     return new u128(__divmod_quot_lo, __divmod_quot_hi);
   }
 
   @inline
   static rem10(value: u128): u128 {
+    assert(value, "value shouldn't be null");
     __udivmod128_10(null, null, value.lo, value.hi);
     return new u128(__divmod_rem);
   }
 
   @operator('**')
   static pow(base: u128, exponent: i32): u128 {
-
+    assert(base, "value shouldn't be null");
     // any negative exponent produce zero
     if (exponent < 0)
       return u128.Zero;
@@ -553,22 +582,30 @@ export class u128 {
 
   @inline @operator('==')
   static eq(a: u128, b: u128): bool {
+    assert(a, "value shouldn't be null");
+    assert(b, "value shouldn't be null");
     return a.hi == b.hi && a.lo == b.lo;
   }
 
   @inline @operator('!=')
   static ne(a: u128, b: u128): bool {
+    assert(a, "value shouldn't be null");
+    assert(b, "value shouldn't be null");
     return !u128.eq(a, b);
   }
 
   @inline @operator('<')
   static lt(a: u128, b: u128): bool {
+    assert(a, "value shouldn't be null");
+    assert(b, "value shouldn't be null");
     var ah = a.hi, bh = b.hi;
     return ah == bh ? a.lo < b.lo : ah < bh;
   }
 
   @inline @operator('>')
   static gt(a: u128, b: u128): bool {
+    assert(a, "value shouldn't be null");
+    assert(b, "value shouldn't be null");
     var ah = a.hi, bh = b.hi;
     return ah == bh ? a.lo > b.lo : ah > bh;
   }
@@ -585,6 +622,9 @@ export class u128 {
 
   @inline
   static cmp(a: u128, b: u128): i32 {
+    assert(a, "value shouldn't be null");
+    assert(b, "value shouldn't be null");
+
     var dlo: i64 = a.lo - b.lo;
     var dhi: i64 = a.hi - b.hi;
     // return <i32>(dhi != 0 ? dhi : dlo);
@@ -593,21 +633,25 @@ export class u128 {
 
   @inline
   static popcnt(value: u128): i32 {
+    assert(value, "value shouldn't be null");
     return <i32>(popcnt(value.lo) + popcnt(value.hi));
   }
 
   @inline
   static clz(value: u128): i32 {
+    assert(value, "value shouldn't be null");
     return __clz128(value.lo, value.hi);
   }
 
   @inline
   static ctz(value: u128): i32 {
+    assert(value, "value shouldn't be null");
     return __ctz128(value.lo, value.hi);
   }
 
   @inline
   static abs(value: u128): u128 {
+    assert(value, "value shouldn't be null");
     return value;
   }
 
@@ -617,11 +661,14 @@ export class u128 {
    * @return       128-bit unsigned integer
    */
   static sqr(value: u128): u128 {
+    assert(value, "value shouldn't be null");
     return u128.fromU128(value).sqr();
   }
 
   // wide mul: u128 * u128 = u256
   static mulq(a: u128, b: u128): u256 {
+    assert(a, "value shouldn't be null");
+    assert(b, "value shouldn't be null");
     // TODO
     unreachable();
     return u256.Zero;
