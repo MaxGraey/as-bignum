@@ -1,4 +1,5 @@
-[![](https://tokei.rs/b1/github/MaxGraey/bignum.wasm?style=flat-square)](https://github.com/MaxGraey/bignum.wasm)
+[![Build Status](https://travis-ci.com/MaxGraey/bignum.wasm.svg?branch=master)](https://travis-ci.com/MaxGraey/bignum.wasm)
+[![Lines of Code](https://tokei.rs/b1/github/MaxGraey/bignum.wasm?style=flat-square)](https://github.com/MaxGraey/bignum.wasm)
 
 ## Work in progress
 #### (Not useful and untested yet)
