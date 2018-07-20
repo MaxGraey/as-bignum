@@ -83,7 +83,7 @@ export function __umulh64(u: u64, v: u64): u64 {
 
 @global
 export function __umulq64(_res: usize, u: u64, v: u64): void {
-  var u1 : u64 , v1 : u64, w0 : u64, w1 : u64, t : u64;
+  var u1: u64 , v1: u64, w0: u64, w1: u64, t: u64;
 
   u1 = u & 0xFFFFFFFF;
   v1 = v & 0xFFFFFFFF;

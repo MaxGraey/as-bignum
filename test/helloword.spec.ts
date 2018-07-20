@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { describe, it } from "mocha";
 import * as fs from 'fs';
+import { comparei32withU128 } from './utils/test_utils';
 
 describe('Sanity check for WebAssembly', () => {
     it("should be available", () => {
@@ -39,24 +40,14 @@ describe('Basic u128 operations', () => {
     })
     it("should add 1000000 plus 1000000", () => {
         let p = instance.plus(1000000,1000000);
-        for (var i = 0; i < 32; i++) {
-            if (i >= 4) var bitValue = 0;
-            else var bitValue = (2000000 >> (i * 8)) & 0xff;
-            expect(buffer[i + p]).to.be.eq(bitValue);
-        }
+        expect(comparei32withU128(2000000, buffer.subarray(p, p + 16))).to.be.eq(true);
     })
     let a = 0x0000000001
-    let b = 0x0000000001
     for (var j = 0; j < 31; j+=2) {
         let _a = a << j;
         it("should add two " + _a, () => {
-            let _b = b << j;
-            let p = instance.plus(_a, _b);
-            for (var i = 0; i < 32; i++) {
-                if (i >= 4) var bitValue = 0;
-                else var bitValue = (_a + _b >> (i * 8)) & 0xff;
-                expect(buffer[i + p]).to.be.eq(bitValue);
-            }
+            let p = instance.plus(_a, _a);
+            expect(comparei32withU128(_a + _a, buffer.subarray(p, p + 16))).to.be.eq(true);
         })
     }
 })
