@@ -112,21 +112,21 @@ export class u128 {
   }
 
   static fromBytesLE(array: u8[]): u128 {
-    assert(array && array.length == 16);
+    assert(<bool>array && array.length == 16);
 
     var lo: u64 = 0, hi: u64 = 0;
-    for (let i = 0; i <  8; ++i) lo |= unchecked(array[i]) << (i << 3);
-    for (let i = 8; i < 16; ++i) hi |= unchecked(array[i]) << (i << 3);
+    for (let i = 0; i <  8; ++i) lo |= <u64>unchecked(array[i]) << (i << 3);
+    for (let i = 8; i < 16; ++i) hi |= <u64>unchecked(array[i]) << (i << 3);
 
     return new u128(lo, hi);
   }
 
   static fromBytesBE(array: u8[]): u128 {
-    assert(array && array.length == 16);
+    assert(<bool>array && array.length == 16);
 
     var lo: u64 = 0, hi: u64 = 0;
-    for (let i = 0; i <  8; ++i) hi |= unchecked(array[i]) << ((7  - i) << 3);
-    for (let i = 8; i < 16; ++i) lo |= unchecked(array[i]) << ((15 - i) << 3);
+    for (let i = 0; i <  8; ++i) hi |= <u64>unchecked(array[i]) << ((7  - i) << 3);
+    for (let i = 8; i < 16; ++i) lo |= <u64>unchecked(array[i]) << ((15 - i) << 3);
 
     return new u128(lo, hi);
   }
@@ -153,7 +153,7 @@ export class u128 {
     else if (value instanceof u128) return u128.fromU128(<u128>value);
     else if (value instanceof i256) return u128.fromI256(<i256>value);
     else if (value instanceof u256) return u128.fromU256(<u256>value);
-    else if (value instanceof u8[]) return u128.fromBytes(<u8[]>value);
+    else if (value instanceof Array<u8>) return u128.fromBytes(<u8[]>value);
     else throw new TypeError("Unsupported generic type");
   }
 
@@ -332,7 +332,7 @@ export class u128 {
     // if (shift ==  0) return this.clone();
     // return u128.shl(value, shift) | u128.shr(value, 128 - shift);
 
-    if (shift == 0) return this.clone();
+    if (shift == 0) return value.clone();
 
     shift &= 127;
     var shift64: u64 = 128 - shift;
@@ -370,7 +370,7 @@ export class u128 {
   static rotr(value: u128, shift: i32): u128 {
     assert(value, "value shouldn't be null");
 
-    if (shift == 0) return this.clone();
+    if (shift == 0) return value.clone();
 
     shift &= 127;
     var shift64: u64 = 128 - shift;
@@ -849,7 +849,7 @@ export class u128 {
     else if (dummy instanceof i128) return changetype<T>(this.toI128());
     else if (dummy instanceof u128) return changetype<T>(this.toU128());
     else if (dummy instanceof u256) return changetype<T>(this.toU256());
-    else if (dummy instanceof u8[]) return changetype<T>(this.toBytes());
+    else if (dummy instanceof Array<u8>) return changetype<T>(this.toBytes());
     // TODO
     // else if (dummy instanceof String) return <T>this.toString();
 
