@@ -17,7 +17,9 @@ describe('Basic u128 operations', () => {
 
     var imports = {
         env: {
-            abort: () => {},
+            abort: (msg : string, file: string, line: number, column: number) => {
+                console.error(`abort called at ${ file } (${ line }:${ column })`);
+            },
             memory: memory
         }
     };
