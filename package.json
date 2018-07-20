@@ -10,6 +10,7 @@
     "build:release": "asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O4 --sourceMap --validate --optimize --noDebug",
     "build:wasm": "yarn build:debug && yarn build:release",
     "build:test": "mkdir -p test/build && asc test/u128/u128.ts -b test/build/u128.wasm -t test/build/u128.wat --validate --sourceMap --importMemory",
+    "build": "yarn build:wasm",
     "test": "mocha -r ts-node/register test/**/*.spec.ts"
   },
   "devDependencies": {
