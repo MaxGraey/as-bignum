@@ -6,10 +6,10 @@
   "author": "MaxGraey <maxgraey@gmail.com>",
   "license": "Apache-2.0",
   "scripts": {
-    "build:debug": "asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --sourceMap --validate",
-    "build:release": "asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O4 --sourceMap --validate --optimize --noDebug",
+    "build:debug": "npx asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --sourceMap --validate",
+    "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O4 --sourceMap --validate --optimize --noDebug",
     "build:wasm": "yarn build:debug && yarn build:release",
-    "build:test": "mkdir -p test/build && asc test/u128/u128.ts -b test/build/u128.wasm -t test/build/u128.wat --validate --sourceMap --importMemory",
+    "build:test": "mkdir -p tests/build && npx asc tests/assembly/u128.ts -b tests/assembly/build/u128.wasm -t tests/assembly/build/u128.wat --validate --sourceMap --importMemory",
     "build": "yarn build:wasm",
     "test": "mocha -r ts-node/register test/**/*.spec.ts"
   },
