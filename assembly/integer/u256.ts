@@ -188,7 +188,7 @@ export class u256 {
   }
 
   @inline @operator('+')
-  static add(a: u256, b: u256) {
+  static add(a: u256, b: u256): u256 {
     assert(a, "value shouldn't be null");
     assert(b, "value shouldn't be null");
 

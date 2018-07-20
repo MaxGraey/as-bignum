@@ -9,10 +9,18 @@
     "build:debug": "asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --sourceMap --validate",
     "build:release": "asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O4 --sourceMap --validate --optimize --noDebug",
     "build:wasm": "yarn build:debug && yarn build:release",
-    "build": "yarn build:wasm"
+    "build:test": "mkdir -p test/build && asc test/u128/u128.ts -b test/build/u128.wasm -t test/build/u128.wat --validate --sourceMap --importMemory",
+    "build": "yarn build:wasm",
+    "test": "mocha -r ts-node/register test/**/*.spec.ts"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.5.2",
     "assemblyscript": "AssemblyScript/assemblyscript",
-    "tslint": "^5.10.0"
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "ts-node": "^7.0.0",
+    "typescript": "^2.9.2"
   }
 }

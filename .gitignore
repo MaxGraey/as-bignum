@@ -1,2 +1,4 @@
 node_modules/
 playground/
+*.code-workspace
+test/build
