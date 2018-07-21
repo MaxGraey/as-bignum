@@ -153,7 +153,7 @@ export class u128 {
     else if (value instanceof u128) return u128.fromU128(<u128>value);
     else if (value instanceof i256) return u128.fromI256(<i256>value);
     else if (value instanceof u256) return u128.fromU256(<u256>value);
-    else if (value instanceof Array<u8>) return u128.fromBytes(<u8[]>value);
+    else if (value instanceof u8[]) return u128.fromBytes(<u8[]>value);
     else throw new TypeError("Unsupported generic type");
   }
 
@@ -651,7 +651,6 @@ export class u128 {
 
   @inline
   static abs(value: u128): u128 {
-    assert(value, "value shouldn't be null");
     return value;
   }
 
@@ -670,7 +669,6 @@ export class u128 {
     assert(a, "value shouldn't be null");
     assert(b, "value shouldn't be null");
     // TODO
-    unreachable();
     return u256.Zero;
   }
 
@@ -849,7 +847,7 @@ export class u128 {
     else if (dummy instanceof i128) return changetype<T>(this.toI128());
     else if (dummy instanceof u128) return changetype<T>(this.toU128());
     else if (dummy instanceof u256) return changetype<T>(this.toU256());
-    else if (dummy instanceof Array<u8>) return changetype<T>(this.toBytes());
+    else if (dummy instanceof u8[]) return changetype<T>(this.toBytes());
     // TODO
     // else if (dummy instanceof String) return <T>this.toString();
 
@@ -912,7 +910,7 @@ export class u128 {
   }
 
   // TODO compleate and improve this
-  toString(radix: i32 = 16): string {
+  /*toString(radix: i32 = 16): string {
     if (this.lo == 0 && this.hi == 0)
       return '0';
 
@@ -928,5 +926,5 @@ export class u128 {
     }
 
     return result;
-  }
+  }*/
 }

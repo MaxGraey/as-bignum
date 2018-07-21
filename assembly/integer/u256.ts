@@ -192,15 +192,15 @@ export class u256 {
     assert(a, "value shouldn't be null");
     assert(b, "value shouldn't be null");
 
-    var alo1 = new u128(a.lo1);
-    var blo1 = new u128(b.lo1);
-    var lo   = alo1 + blo1;
-    var amid = new u128(a.lo1, a.hi1);
-    var bmid = new u128(b.lo1, b.hi1);
-    var mid  = amid + bmid + (lo >> 64);
+    var alo  = a.lo1;
+    var blo  = b.lo1;
+    var lo   = new u128(alo) + new u128(blo);
+    var amid = new u128(alo, a.hi1);
+    var bmid = new u128(blo, b.hi1);
+    var mid  = amid + bmid + new u128(lo.hi);
     var hi   = a.hi2 + b.hi2 + mid.hi;
 
-    return new u256(lo, mid.lo, mid.hi, hi);
+    return new u256(lo.lo, mid.lo, mid.hi, hi);
   }
 
   @inline @operator('|')
