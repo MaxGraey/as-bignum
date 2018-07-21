@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { describe, it } from "mocha";
 import * as fs from 'fs';
-import { comparei32withU128 } from './utils/test_utils';
+import { comparei32withU128 } from './utils/helpers';
 
 describe('Sanity check for WebAssembly', () => {
   it("should be available", () => {
