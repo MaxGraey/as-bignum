@@ -458,7 +458,7 @@ export class u128 {
     assert(a, "value shouldn't be null");
     assert(b, "value shouldn't be null");
     // TODO
-    unreachable();
+    // unreachable();
     return u128.Zero;
   }
 
@@ -467,7 +467,7 @@ export class u128 {
     assert(a, "value shouldn't be null");
     assert(b, "value shouldn't be null");
     // TODO
-    unreachable();
+    // unreachable();
     return u128.Zero;
   }
 

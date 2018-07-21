@@ -63,7 +63,7 @@ export function __floatuntidf(lo: u64, hi: u64): f64 {
   return reinterpret<f64>(u | (v.lo & 0xFFFFFFFF));
 }
 
-@global @inline
+@global
 export function __umulh64(u: u64, v: u64): u64 {
   var u0 = u & 0xFFFFFFFF;
   var v0 = v & 0xFFFFFFFF;
@@ -282,7 +282,7 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
   }
 }
 
-@global @inline
+@global
 export function __udivmod128_10(_q: usize, _r: usize, lo: u64, hi: u64): void {
   if (!hi) {
     if (lo < 10) {
@@ -299,7 +299,7 @@ export function __udivmod128_10(_q: usize, _r: usize, lo: u64, hi: u64): void {
   }
 
   var q: u128, r: u128;
-  var n = value.clone();
+  var n = new u128(lo, hi);
 
   q  = n >> 1;
   q += n >> 2;
