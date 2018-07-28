@@ -20,6 +20,7 @@ import {
   __divmod_rem,
 
 } from '../globals';
+import { utoa10 } from '../utils';
 
 const HEX_CHARS = '0123456789abcdef';
 
@@ -925,49 +926,11 @@ export class u128 {
       return result;
     }
     else if (radix == 10) {
-      return this.doubleDabble();
+      return utoa10(this);
     }
     else {
       return "unknown";
     }
   }
 
-  private doubleDabble(): string {
-    var length = 40;
-    var digits = new Int8Array(length);
-
-    for (let i = 63; i != -1; i--) {
-      let left_bit = this.hi & (1 << i) ? 1 : 0;
-      for (let digit_index = 0; digit_index < length; digit_index++) {
-        digits[digit_index] += digits[digit_index] >= 5 ? 3 : 0;
-      }
-      for (let j = length - 1; j != -1; j--) {
-        digits[j] <<= 1;
-        if (j < (length - 1)) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
-        digits[j] &= 15;
-      }
-      digits[0] += <u8>left_bit;
-    }
-
-    for (let i = 63; i != -1; i--) {
-      let left_bit = this.lo & (1 << i) ? 1 : 0;
-      for (let digit_index = 0; digit_index < length; digit_index++) {
-        digits[digit_index] += digits[digit_index] >= 5 ? 3 : 0;
-      }
-      for (let j = length - 1; j != -1; j--) {
-        digits[j] <<= 1;
-        if (j < (length - 1)) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
-        digits[j] &= 15;
-      }
-      digits[0] += <u8>left_bit;
-    }
-
-    var result = "";
-    var start = false;
-    for (let digit_index = length-1; digit_index != -1; digit_index--) {
-      if (!start && digits[digit_index] > 0) start = true;
-      if (start) result = result.concat(HEX_CHARS.charAt(digits[digit_index]));
-    }
-    return result;
-  }
 }
