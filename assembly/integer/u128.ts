@@ -112,21 +112,21 @@ export class u128 {
   }
 
   static fromBytesLE(array: u8[]): u128 {
-    assert(array != null && array.length == 16);
+    assert(<bool>array && array.length == 16);
 
     var lo: u64 = 0, hi: u64 = 0;
-    for (let i = 0; i <  8; ++i) lo |= unchecked(array[i]) << <u8>(i << 3);
-    for (let i = 8; i < 16; ++i) hi |= unchecked(array[i]) << <u8>(i << 3);
+    for (let i = 0; i <  8; ++i) lo |= <u64>unchecked(array[i]) << (i << 3);
+    for (let i = 8; i < 16; ++i) hi |= <u64>unchecked(array[i]) << (i << 3);
 
     return new u128(lo, hi);
   }
 
   static fromBytesBE(array: u8[]): u128 {
-    assert(array && array.length == 16);
+    assert(<bool>array && array.length == 16);
 
     var lo: u64 = 0, hi: u64 = 0;
-    for (let i = 0; i <  8; ++i) hi |= unchecked(array[i]) << ((7  - i) << 3);
-    for (let i = 8; i < 16; ++i) lo |= unchecked(array[i]) << ((15 - i) << 3);
+    for (let i = 0; i <  8; ++i) hi |= <u64>unchecked(array[i]) << ((7  - i) << 3);
+    for (let i = 8; i < 16; ++i) lo |= <u64>unchecked(array[i]) << ((15 - i) << 3);
 
     return new u128(lo, hi);
   }
@@ -332,7 +332,7 @@ export class u128 {
     // if (shift ==  0) return this.clone();
     // return u128.shl(value, shift) | u128.shr(value, 128 - shift);
 
-    if (shift == 0) return this.clone();
+    if (shift == 0) return value.clone();
 
     shift &= 127;
     var shift64: u64 = 128 - shift;
@@ -370,7 +370,7 @@ export class u128 {
   static rotr(value: u128, shift: i32): u128 {
     assert(value, "value shouldn't be null");
 
-    if (shift == 0) return this.clone();
+    if (shift == 0) return value.clone();
 
     shift &= 127;
     var shift64: u64 = 128 - shift;
@@ -458,7 +458,7 @@ export class u128 {
     assert(a, "value shouldn't be null");
     assert(b, "value shouldn't be null");
     // TODO
-    unreachable();
+    // unreachable();
     return u128.Zero;
   }
 
@@ -467,7 +467,7 @@ export class u128 {
     assert(a, "value shouldn't be null");
     assert(b, "value shouldn't be null");
     // TODO
-    unreachable();
+    // unreachable();
     return u128.Zero;
   }
 
@@ -651,7 +651,6 @@ export class u128 {
 
   @inline
   static abs(value: u128): u128 {
-    assert(value, "value shouldn't be null");
     return value;
   }
 
@@ -670,7 +669,6 @@ export class u128 {
     assert(a, "value shouldn't be null");
     assert(b, "value shouldn't be null");
     // TODO
-    unreachable();
     return u256.Zero;
   }
 
@@ -912,7 +910,7 @@ export class u128 {
   }
 
   // TODO compleate and improve this
-  toString(radix: i32 = 16): string {
+  /*toString(radix: i32 = 16): string {
     if (this.lo == 0 && this.hi == 0)
       return '0';
 
@@ -928,5 +926,5 @@ export class u128 {
     }
 
     return result;
-  }
+  }*/
 }

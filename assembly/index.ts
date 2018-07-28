@@ -1,14 +1,10 @@
 
-import {
-  // i128,
-  u128,
-  // i256,
-  u256,
-} from "./integer";
+import 'allocator/arena';
+
+import { u128 } from "./integer/u128";
+import { u256 } from "./integer/u256";
 
 export {
-  // i128,
   u128,
-  // i256,
   u256,
 };

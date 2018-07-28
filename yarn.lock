@@ -24,10 +24,10 @@ arrify@^1.0.0:
 
 assemblyscript@AssemblyScript/assemblyscript:
   version "0.5.0"
-  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/9e508de69a7cefd75909b4e80d6924f3d599cf5b"
+  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/00fb45fcad45c75d5a682361d85bc12b7756c6a8"
   dependencies:
     "@protobufjs/utf8" "^1.1.0"
-    binaryen "48.0.0-nightly.20180712"
+    binaryen "49.0.0-nightly.20180718"
     long "^4.0.0"
 
 assertion-error@^1.0.1:
@@ -38,9 +38,9 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
 
-binaryen@48.0.0-nightly.20180712:
-  version "48.0.0-nightly.20180712"
-  resolved "https://registry.yarnpkg.com/binaryen/-/binaryen-48.0.0-nightly.20180712.tgz#6f2196f8942b550614fd2ecdd34315c748bd7ce5"
+binaryen@49.0.0-nightly.20180718:
+  version "49.0.0-nightly.20180718"
+  resolved "https://registry.yarnpkg.com/binaryen/-/binaryen-49.0.0-nightly.20180718.tgz#f2dc871fa65c2e22ba7e3adb8fb301c26dadc1d2"
 
 brace-expansion@^1.1.7:
   version "1.1.11"

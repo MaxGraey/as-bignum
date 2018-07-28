@@ -1,4 +1,13 @@
+._*
+~*.docx
+.DS_Store
+Thumbs.db
+.idea
+*.iml
+*.code-workspace
+yarn-error.log
+.vscode/
 node_modules/
 playground/
-*.code-workspace
+coverage/
 test/build

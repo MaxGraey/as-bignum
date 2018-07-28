@@ -3,9 +3,8 @@ import { describe, it } from "mocha";
 import * as fs from 'fs';
 
 describe('Basic Operations Test', () => {
-    var file = fs.readFileSync("test/build/u128.wasm");
+    var file = fs.readFileSync("tests/build/u128.wasm");
     var memory = new WebAssembly.Memory({initial: 2});
-    var buffer = new Uint8Array(memory.buffer);
     var instance : any;
 
     var imports = {
