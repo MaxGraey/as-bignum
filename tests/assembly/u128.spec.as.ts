@@ -1,7 +1,16 @@
 import 'allocator/arena';
 import { u128 } from '../../assembly/integer/u128';
 
-const HEX_CHARS = '0123456789abcdef';
+declare function logString(len : i32, pointer: usize) : void;
+
+export class StringConversionTest {
+  shouldConvertToString(): boolean {
+    let a = new u128(10248516654965971928,5)
+    let stringA = a.toString(10);
+    //logString(stringA.length, stringA.toUTF8());
+    return "102482237023513730008" == stringA;
+  }
+}
 
 export class BasicOperationsTest {
   shouldAddTwoNumbers(): boolean {

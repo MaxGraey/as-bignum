@@ -31,3 +31,24 @@ export function bufferToBinaryString(buffer: Uint8Array) {
     }
     return result;
 }
+
+export function buildImports(name: string, memory: WebAssembly.Memory, buffer: Uint8Array): any {
+    var imports: any = {
+        env: {
+            abort: (msg: string, file: string, line: number, column: number) => {
+                console.error(`abort called at ${file} (${line}:${column})`);
+            },
+            memory: memory
+        }
+    };
+    imports[name] = {
+        logString: (size: number, index: number) => {
+            let s = "";
+            for (let i = index; i < index + size; ++i) {
+                s += String.fromCharCode(buffer[i]);
+            }
+            console.log(s);
+        }
+    }
+    return imports
+}
