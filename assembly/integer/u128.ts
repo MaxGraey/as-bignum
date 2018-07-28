@@ -112,11 +112,11 @@ export class u128 {
   }
 
   static fromBytesLE(array: u8[]): u128 {
-    assert(array && array.length == 16);
+    assert(array != null && array.length == 16);
 
     var lo: u64 = 0, hi: u64 = 0;
-    for (let i = 0; i <  8; ++i) lo |= unchecked(array[i]) << (i << 3);
-    for (let i = 8; i < 16; ++i) hi |= unchecked(array[i]) << (i << 3);
+    for (let i = 0; i <  8; ++i) lo |= unchecked(array[i]) << <u8>(i << 3);
+    for (let i = 8; i < 16; ++i) hi |= unchecked(array[i]) << <u8>(i << 3);
 
     return new u128(lo, hi);
   }

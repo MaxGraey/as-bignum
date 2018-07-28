@@ -10,3 +10,24 @@ export function comparei32withU128(num: number, buffer: Uint8Array): boolean {
     }
     return true;
 }
+
+export function bufferToString(charArray: Uint8Array) {
+    let result = "";
+    for (var i = 0; i < charArray.length; i++) {
+        if (charArray[i])
+        result = result.concat(String.fromCharCode(charArray[i]));
+    }
+    return result;
+}
+
+export function bufferToBinaryString(buffer: Uint8Array) {
+    const binary = "01";
+    let result = "";
+    for (var i = 0; i < buffer.length; i++) {
+        for (var j = 7; j > -1; j--) {
+            let bit = (buffer[i] & (1 << j)) > 0;
+            result = result.concat(binary.charAt(bit ? 1 : 0));
+        }
+    }
+    return result;
+}
