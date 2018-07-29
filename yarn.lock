@@ -27,11 +27,8 @@ assemblyscript@AssemblyScript/assemblyscript:
   resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/671121bf702273c930d39999f02643d4f52b2e3d"
   dependencies:
     "@protobufjs/utf8" "^1.1.0"
-    binaryen "48.0.0-nightly.20180520"
-    glob "^7.1.2"
+    binaryen "49.0.0-nightly.20180718"
     long "^4.0.0"
-    minimist "^1.2.0"
-    ts-node "^6.0.3"
 
 assertion-error@^1.0.1:
   version "1.1.0"
@@ -41,9 +38,9 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
 
-binaryen@48.0.0-nightly.20180520:
-  version "48.0.0-nightly.20180520"
-  resolved "https://registry.yarnpkg.com/binaryen/-/binaryen-48.0.0-nightly.20180520.tgz#24ce2172da6c6e44af97889fce5b1d96542db596"
+binaryen@49.0.0-nightly.20180718:
+  version "49.0.0-nightly.20180718"
+  resolved "https://registry.yarnpkg.com/binaryen/-/binaryen-49.0.0-nightly.20180718.tgz#f2dc871fa65c2e22ba7e3adb8fb301c26dadc1d2"
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -111,7 +108,7 @@ get-func-name@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/get-func-name/-/get-func-name-2.0.0.tgz#ead774abee72e20409433a066366023dd6887a41"
 
-glob@7.1.2, glob@^7.1.2:
+glob@7.1.2:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
   dependencies:
@@ -223,19 +220,6 @@ supports-color@5.4.0:
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-5.4.0.tgz#1c6b337402c2137605efe19f10fec390f6faab54"
   dependencies:
     has-flag "^3.0.0"
-
-ts-node@^6.0.3:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-6.2.0.tgz#65a0ae2acce319ea4fd7ac8d7c9f1f90c5da6baf"
-  dependencies:
-    arrify "^1.0.0"
-    buffer-from "^1.1.0"
-    diff "^3.1.0"
-    make-error "^1.1.1"
-    minimist "^1.2.0"
-    mkdirp "^0.5.1"
-    source-map-support "^0.5.6"
-    yn "^2.0.0"
 
 ts-node@^7.0.0:
   version "7.0.0"
