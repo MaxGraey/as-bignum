@@ -1,8 +1,5 @@
-import { should } from 'chai';
-import { describe, it } from 'mocha';
+import { test } from 'ava';
 
-describe('Sanity check for WebAssembly', () => {
-  it('should be available', () => {
-    should().exist(WebAssembly);
-  });
+test('WebAssembly should be available', (t) => {
+  t.not(WebAssembly, undefined);
 });

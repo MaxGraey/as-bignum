@@ -1,8 +1,7 @@
 import * as fs    from 'fs';
 import * as path  from 'path';
 import * as util  from 'util';
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
+import { test } from "ava";
 import {
   demangle,
   buildImports,
@@ -14,24 +13,20 @@ const readFile = util.promisify(fs.readFile);
 const memory = new WebAssembly.Memory({ initial: 2 });
 const buffer = new Uint8Array(memory.buffer);
 const imports = buildImports('u128.spec.as', memory, buffer);
+var instance: any;
 
-describe("u128", function () {
-  let instance: any;
-
-  before(async (done) => {
+let x = async() => {
     const file   = await readFile(path.join(__dirname, 'build/u128.wasm'));
     const result = await WebAssembly.instantiate(file, imports);
     instance = demangle(result.instance.exports);
-    done();
-  });
+};
 
+x().then(()=> {
   for (const tests in instance) {
-    describe(camelToSpaced(tests), () => {
-      for (const test in instance[tests]) {
-        it(camelToSpaced(test), () => {
-          expect(instance[tests][test]()).to.be.eq(1);
-        });
-      }
-    });
+    for (const testName in instance[tests]) {
+      test(camelToSpaced(testName), (t) => {
+        t.is(instance[tests][testName](), 1);
+      });
+    }
   }
 });
