@@ -45,7 +45,7 @@ export function utoa10(value: u128): string {
       }
       for (let j = length - 1; j != -1; j--) {
         digits[j] <<= 1;
-        if (j < (length - 1)) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
+        if (j < length - 1) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
         digits[j] &= 15;
       }
       digits[0] += <u8>left_bit;
@@ -58,7 +58,7 @@ export function utoa10(value: u128): string {
       }
       for (let j = length - 1; j != -1; j--) {
         digits[j] <<= 1;
-        if (j < (length - 1)) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
+        if (j < length - 1) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
         digits[j] &= 15;
       }
       digits[0] += <u8>left_bit;

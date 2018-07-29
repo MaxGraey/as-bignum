@@ -138,23 +138,23 @@ export class u128 {
    */
   @inline
   static from<T>(value: T): u128 {
-         if (value instanceof bool) return u128.fromU64(<u64>value);
-    else if (value instanceof i8)   return u128.fromI64(<i64>value);
-    else if (value instanceof u8)   return u128.fromU64(<u64>value);
-    else if (value instanceof i16)  return u128.fromI64(<i64>value);
-    else if (value instanceof u16)  return u128.fromU64(<u64>value);
-    else if (value instanceof i32)  return u128.fromI64(<i64>value);
-    else if (value instanceof u32)  return u128.fromU64(<u64>value);
-    else if (value instanceof i64)  return u128.fromI64(<i64>value);
-    else if (value instanceof u64)  return u128.fromU64(<u64>value);
-    else if (value instanceof f32)  return u128.fromF64(<f64>value);
-    else if (value instanceof f64)  return u128.fromF64(<f64>value);
-    else if (value instanceof i128) return u128.fromI128(<i128>value);
-    else if (value instanceof u128) return u128.fromU128(<u128>value);
-    else if (value instanceof i256) return u128.fromI256(<i256>value);
-    else if (value instanceof u256) return u128.fromU256(<u256>value);
-    else if (value instanceof u8[]) return u128.fromBytes(<u8[]>value);
-    else throw new TypeError("Unsupported generic type");
+         if (value instanceof bool) { return u128.fromU64(<u64>value); }
+    else if (value instanceof i8)   { return u128.fromI64(<i64>value); }
+    else if (value instanceof u8)   { return u128.fromU64(<u64>value); }
+    else if (value instanceof i16)  { return u128.fromI64(<i64>value); }
+    else if (value instanceof u16)  { return u128.fromU64(<u64>value); }
+    else if (value instanceof i32)  { return u128.fromI64(<i64>value); }
+    else if (value instanceof u32)  { return u128.fromU64(<u64>value); }
+    else if (value instanceof i64)  { return u128.fromI64(<i64>value); }
+    else if (value instanceof u64)  { return u128.fromU64(<u64>value); }
+    else if (value instanceof f32)  { return u128.fromF64(<f64>value); }
+    else if (value instanceof f64)  { return u128.fromF64(<f64>value); }
+    else if (value instanceof i128) { return u128.fromI128(<i128>value); }
+    else if (value instanceof u128) { return u128.fromU128(<u128>value); }
+    else if (value instanceof i256) { return u128.fromI256(<i256>value); }
+    else if (value instanceof u256) { return u128.fromU256(<u256>value); }
+    else if (value instanceof u8[]) { return u128.fromBytes(<u8[]>value); }
+    else { throw new TypeError("Unsupported generic type"); }
   }
 
   // TODO
@@ -833,25 +833,24 @@ export class u128 {
   as<T>(): T {
     var dummy: T;
 
-         if (dummy instanceof bool) return <T>this.toBool();
-    else if (dummy instanceof i8)   return <T>this.toI64();
-    else if (dummy instanceof u8)   return <T>this.toU64();
-    else if (dummy instanceof i16)  return <T>this.toI64();
-    else if (dummy instanceof u16)  return <T>this.toU64();
-    else if (dummy instanceof i32)  return <T>this.toI64();
-    else if (dummy instanceof i64)  return <T>this.toI64();
-    else if (dummy instanceof u32)  return <T>this.toU64();
-    else if (dummy instanceof u64)  return <T>this.toU64();
-    else if (dummy instanceof f32)  return <T>this.toF64();
-    else if (dummy instanceof f64)  return <T>this.toF64();
-    else if (dummy instanceof i128) return changetype<T>(this.toI128());
-    else if (dummy instanceof u128) return changetype<T>(this.toU128());
-    else if (dummy instanceof u256) return changetype<T>(this.toU256());
-    else if (dummy instanceof u8[]) return changetype<T>(this.toBytes());
+         if (dummy instanceof bool) { return <T>this.toBool(); }
+    else if (dummy instanceof i8)   { return <T>this.toI64(); }
+    else if (dummy instanceof u8)   { return <T>this.toU64(); }
+    else if (dummy instanceof i16)  { return <T>this.toI64(); }
+    else if (dummy instanceof u16)  { return <T>this.toU64(); }
+    else if (dummy instanceof i32)  { return <T>this.toI64(); }
+    else if (dummy instanceof i64)  { return <T>this.toI64(); }
+    else if (dummy instanceof u32)  { return <T>this.toU64(); }
+    else if (dummy instanceof u64)  { return <T>this.toU64(); }
+    else if (dummy instanceof f32)  { return <T>this.toF64(); }
+    else if (dummy instanceof f64)  { return <T>this.toF64(); }
+    else if (dummy instanceof i128) { return changetype<T>(this.toI128()); }
+    else if (dummy instanceof u128) { return changetype<T>(this.toU128()); }
+    else if (dummy instanceof u256) { return changetype<T>(this.toU256()); }
+    else if (dummy instanceof u8[]) { return changetype<T>(this.toBytes()); }
     // TODO
     // else if (dummy instanceof String) return <T>this.toString();
-
-    throw new TypeError('Unsupported generic type');
+    else { throw new TypeError('Unsupported generic type'); }
   }
 
   /**

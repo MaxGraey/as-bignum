@@ -117,23 +117,23 @@ export class i128 {
    */
   @inline
   static from<T>(value: T): i128 {
-         if (value instanceof bool) return i128.fromU64(<u64>value);
-    else if (value instanceof i8)   return i128.fromI64(<i64>value);
-    else if (value instanceof u8)   return i128.fromU64(<u64>value);
-    else if (value instanceof i16)  return i128.fromI64(<i64>value);
-    else if (value instanceof u16)  return i128.fromU64(<u64>value);
-    else if (value instanceof i32)  return i128.fromI64(<i64>value);
-    else if (value instanceof u32)  return i128.fromU64(<u64>value);
-    else if (value instanceof i64)  return i128.fromI64(<i64>value);
-    else if (value instanceof u64)  return i128.fromU64(<u64>value);
-    else if (value instanceof f32)  return i128.fromF64(<f64>value);
-    else if (value instanceof f64)  return i128.fromF64(<f64>value);
-    else if (value instanceof i128) return i128.fromI128(<i128>value);
-    else if (value instanceof u128) return i128.fromU128(<u128>value);
-    else if (value instanceof i256) return i128.fromI256(<i256>value);
-    else if (value instanceof u256) return i128.fromU256(<u256>value);
-    else if (value instanceof u8[]) return i128.fromBytes(<u8[]>value);
-    else return i128.Zero;
+         if (value instanceof bool) { return i128.fromU64(<u64>value); }
+    else if (value instanceof i8)   { return i128.fromI64(<i64>value); }
+    else if (value instanceof u8)   { return i128.fromU64(<u64>value); }
+    else if (value instanceof i16)  { return i128.fromI64(<i64>value); }
+    else if (value instanceof u16)  { return i128.fromU64(<u64>value); }
+    else if (value instanceof i32)  { return i128.fromI64(<i64>value); }
+    else if (value instanceof u32)  { return i128.fromU64(<u64>value); }
+    else if (value instanceof i64)  { return i128.fromI64(<i64>value); }
+    else if (value instanceof u64)  { return i128.fromU64(<u64>value); }
+    else if (value instanceof f32)  { return i128.fromF64(<f64>value); }
+    else if (value instanceof f64)  { return i128.fromF64(<f64>value); }
+    else if (value instanceof i128) { return i128.fromI128(<i128>value); }
+    else if (value instanceof u128) { return i128.fromU128(<u128>value); }
+    else if (value instanceof i256) { return i128.fromI256(<i256>value); }
+    else if (value instanceof u256) { return i128.fromU256(<u256>value); }
+    else if (value instanceof u8[]) { return i128.fromBytes(<u8[]>value); }
+    else { throw new TypeError("Unsupported generic type"); }
   }
 
   constructor(
