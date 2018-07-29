@@ -17,7 +17,8 @@ import {
 
   __divmod_quot_lo,
   __divmod_quot_hi,
-  __divmod_rem,
+  __divmod_rem_lo,
+  __divmod_rem_hi
 
 } from '../globals';
 import { utoa10 } from '../utils';
@@ -457,18 +458,16 @@ export class u128 {
   static div(a: u128, b: u128): u128 {
     assert(a, "value shouldn't be null");
     assert(b, "value shouldn't be null");
-    // TODO
-    // unreachable();
-    return u128.Zero;
+    __udivmod128(a.lo, a.hi, b.lo, b.hi);
+    return new u128(__divmod_quot_lo, __divmod_quot_hi);
   }
 
   @inline @operator('%')
   static rem(a: u128, b: u128): u128 {
     assert(a, "value shouldn't be null");
     assert(b, "value shouldn't be null");
-    // TODO
-    // unreachable();
-    return u128.Zero;
+    __udivmod128(a.lo, a.hi, b.lo, b.hi);
+    return new u128(__divmod_rem_lo, __divmod_rem_hi);
   }
 
   @inline
@@ -482,7 +481,7 @@ export class u128 {
   static rem10(value: u128): u128 {
     assert(value, "value shouldn't be null");
     __udivmod128_10(null, null, value.lo, value.hi);
-    return new u128(__divmod_rem);
+    return new u128(__divmod_rem_lo, __divmod_rem_hi);
   }
 
   @operator('**')
@@ -926,10 +925,12 @@ export class u128 {
         shift  -= 4;
       }
       return result;
-    } else if (radix == 10) {
+    } 
+    else if (radix == 10) {
       return utoa10(this);
     }
-
-    return "undefined";
+    else {
+      return "undefined";
+    }
   }
 }
