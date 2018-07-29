@@ -462,11 +462,11 @@ export class u128 {
   }
 
   @inline @operator('%')
-  static rem(a: u128, b: u128): u64 {
+  static rem(a: u128, b: u128): u128 {
     assert(a, "value shouldn't be null");
     assert(b, "value shouldn't be null");
     __udivmod128(a.lo, a.hi, b.lo, b.hi);
-    return __divmod_rem;
+    return u128.from(__divmod_rem);
   }
 
   @inline
@@ -477,10 +477,10 @@ export class u128 {
   }
 
   @inline
-  static rem10(value: u128): u64 {
+  static rem10(value: u128): u128 {
     assert(value, "value shouldn't be null");
     __udivmod128_10(null, null, value.lo, value.hi);
-    return __divmod_rem;
+    return u128.from(__divmod_rem);
   }
 
   @operator('**')
