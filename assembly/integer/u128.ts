@@ -910,7 +910,13 @@ export class u128 {
   }
 
   // TODO compleate and improve this
-  toString(radix: i32 = 16): string {
+  toString(radix: i32 = 0): string {
+    if (!radix) radix = 10;
+
+    if (radix != 10 || radix != 16) {
+      throw new TypeError('radix argument must be between 10 or 16');
+    }
+
     if (this.lo == 0 && this.hi == 0)
       return '0';
 
@@ -924,13 +930,10 @@ export class u128 {
         shift  -= 4;
       }
       return result;
-    }
-    else if (radix == 10) {
+    } else if (radix == 10) {
       return utoa10(this);
     }
-    else {
-      return "unknown";
-    }
-  }
 
+    return "undefined";
+  }
 }
