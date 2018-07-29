@@ -1,4 +1,23 @@
-export { demangle } from '../../node_modules/assemblyscript/lib/loader';
+import * as fs    from 'fs';
+import * as path  from 'path';
+import * as util  from 'util';
+
+import { demangle } from '../../node_modules/assemblyscript/lib/loader';
+
+type ExportedEntry   = { [key: string]: Function };
+type ExportedEntries = { [key: string]: ExportedEntry };
+
+const readFile = util.promisify(fs.readFile);
+
+export async function setup(testName: string): Promise<ExportedEntries> {
+  const file     = await readFile(path.resolve(__dirname, `../build/${ testName }.wasm`));
+  const memory   = new WebAssembly.Memory({ initial: 2 });
+  const buffer   = new Uint8Array(memory.buffer);
+  const imports  = buildImports(`${ testName }.spec.as`, memory, buffer);
+  const result   = await WebAssembly.instantiate(file, imports);
+  const instance = demangle<ExportedEntries>(result.instance.exports);
+  return instance;
+}
 
 export function bufferToString(charArray: Uint8Array): string {
   let result = '';
