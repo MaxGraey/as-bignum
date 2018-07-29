@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - '9'
+  - '10'
 notifications:
   email: false
 cache: yarn
@@ -13,4 +13,4 @@ jobs:
     - stage:  build-tests
       script: yarn build:test
     - stage: test
-      script: yarn build:test && yarn test
+      script: yarn build:test && yarn test:ci

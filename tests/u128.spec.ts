@@ -1,37 +1,31 @@
 import * as fs    from 'fs';
 import * as path  from 'path';
 import * as util  from 'util';
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
+import { test }   from 'ava';
 import {
   demangle,
+  decamelize,
   buildImports,
-  camelToSpaced
 } from './utils/helpers';
+
+type ExportedEntry   = { [key: string]: Function };
+type ExportedEntries = { [key: string]: ExportedEntry };
 
 const readFile = util.promisify(fs.readFile);
 
-const memory = new WebAssembly.Memory({ initial: 2 });
-const buffer = new Uint8Array(memory.buffer);
-const imports = buildImports('u128.spec.as', memory, buffer);
-
-describe("u128", function () {
-  let instance: any;
-
-  before(async (done) => {
-    const file   = await readFile(path.join(__dirname, 'build/u128.wasm'));
-    const result = await WebAssembly.instantiate(file, imports);
-    instance = demangle(result.instance.exports);
-    done();
-  });
+(async () => {
+  const file     = await readFile(path.join(__dirname, 'build/u128.wasm'));
+  const memory   = new WebAssembly.Memory({ initial: 2 });
+  const buffer   = new Uint8Array(memory.buffer);
+  const imports  = buildImports('u128.spec.as', memory, buffer);
+  const result   = await WebAssembly.instantiate(file, imports);
+  const instance = demangle<ExportedEntries>(result.instance.exports);
 
   for (const tests in instance) {
-    describe(camelToSpaced(tests), () => {
-      for (const test in instance[tests]) {
-        it(camelToSpaced(test), () => {
-          expect(instance[tests][test]()).to.be.eq(1);
-        });
-      }
-    });
+    for (const testName in instance[tests]) {
+      test(decamelize(testName), t => {
+        t.truthy(instance[tests][testName]());
+      });
+    }
   }
-});
+})();
