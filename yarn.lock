@@ -14,9 +14,9 @@
   version "5.2.5"
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-5.2.5.tgz#8a4accfc403c124a0bafe8a9fc61a05ec1032073"
 
-"@types/node@^10.5.2":
-  version "10.5.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.5.2.tgz#f19f05314d5421fe37e74153254201a7bf00a707"
+"@types/node@^10.5.4":
+  version "10.5.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.5.4.tgz#6eccc158504357d1da91434d75e86acde94bb10b"
 
 arrify@^1.0.0:
   version "1.0.1"
@@ -24,7 +24,7 @@ arrify@^1.0.0:
 
 assemblyscript@AssemblyScript/assemblyscript:
   version "0.5.0"
-  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/00fb45fcad45c75d5a682361d85bc12b7756c6a8"
+  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/671121bf702273c930d39999f02643d4f52b2e3d"
   dependencies:
     "@protobufjs/utf8" "^1.1.0"
     binaryen "49.0.0-nightly.20180718"
