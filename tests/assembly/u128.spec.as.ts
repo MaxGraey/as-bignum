@@ -23,6 +23,70 @@ export class StringConversionTest {
 }
 
 export class BasicOperationsTest {
+
+  static shouldEquateTwoNumbers(): boolean {
+    let a = new u128(100, 255);
+    let b = new u128(100, 255);
+    let eq = a == b;
+    return eq == true;
+  }
+
+  static shouldCompareLtTwoNumbers1(): boolean {
+    let a = new u128(100, 100);
+    let b = new u128(50, 100);
+    let lt = b < a;
+    return lt == true;
+  }
+
+  static shouldCompareLtTwoNumbers2(): boolean {
+    let a = new u128(100, 100);
+    let b = new u128(100, 100);
+    let lt = b < a;
+    return lt == false;
+  }
+
+  static shouldCompareLteTwoNumbers1(): boolean {
+    let a = new u128(100, 100);
+    let b = new u128(50, 100);
+    let lt = b <= a;
+    return lt == true;
+  }
+
+  static shouldCompareLteTwoNumbers2(): boolean {
+    let a = new u128(100, 100);
+    let b = new u128(100, 100);
+    let lt = b <= a;
+    return lt == true;
+  }
+
+  static shouldCompareGtTwoNumbers1(): boolean {
+    let a = new u128(100, 100);
+    let b = new u128(50, 100);
+    let lt = a > b;
+    return lt == true;
+  }
+
+  static shouldCompareGtTwoNumbers2(): boolean {
+    let a = new u128(100, 100);
+    let b = new u128(100, 100);
+    let lt = a > b;
+    return lt == false;
+  }
+
+  static shouldCompareGteTwoNumbers1(): boolean {
+    let a = new u128(100, 100);
+    let b = new u128(50, 100);
+    let lt = a >= b;
+    return lt == true;
+  }
+
+  static shouldCompareGteTwoNumbers2(): boolean {
+    let a = new u128(100, 100);
+    let b = new u128(100, 100);
+    let lt = a >= b;
+    return lt == true;
+  }
+
   static shouldAddTwoNumbers(): boolean {
     let a = new u128(100, 255);
     let b = new u128(255, 100);
@@ -53,12 +117,12 @@ export class BasicOperationsTest {
     return c == new u128(10248516654965971928,5);
   }
 
-  static shouldDivideTwoNumbers(): boolean {
-    let a = u128.from(43545453452);
-    let b = u128.from(2353454354);
-    let c = new u128(10248516654965971928,5);
-    return c / a == b;
-  }
+  // static shouldDivideTwoNumbers(): boolean {
+  //   let a = u128.from(43545453452);
+  //   let b = u128.from(2353454354);
+  //   let c = new u128(10248516654965971928,5);
+  //   return c / a == b;
+  // }
 
   static shouldIncrementNumber(): boolean {
     let a = new u128(10248516654965971928,5);
