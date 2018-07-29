@@ -52,3 +52,7 @@ export function buildImports(name: string, memory: WebAssembly.Memory, buffer: U
   }
   return imports
 }
+
+export function camelToSpaced(s: string): string {
+  return s.replace(/([A-Z])/g, ' $1');
+}
