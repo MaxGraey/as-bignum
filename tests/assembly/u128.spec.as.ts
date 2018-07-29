@@ -173,25 +173,25 @@ export class DivisionAndModOperationTest {
   static shouldModTwoNumbersWithoutRemainder1(): boolean {
     let a = new u128(10248516657319426282,5);
     let b = u128.from(2353454354);
-    return a % b == u128.Zero;
+    return a % b == 0;
   }
 
   static shouldModTwoNumbersWithoutRemainder2(): boolean {
     let a = new u128(10248516654965971928,5);
     let b = u128.from(43545453452);
-    return a % b == u128.Zero;
+    return a % b == 0;
   }
 
   static shouldModTwoNumbersWithRemainder1(): boolean {
     let a = new u128(3152652666208173568,2);
     let b = u128.from(43543534534534);
-    return a % b == u128.from(22972907047680);
+    return a % b == 22972907047680;
   }
 
   static shouldModTwoNumbersWithRemainder2(): boolean {
     let a = new u128(3152652666208178,0);
     let b = u128.from(43543534534534);
-    return a % b == u128.from(17518179721730);
+    return a % b == 17518179721730;
   }
 
   static shouldDivideTwoSameNumbers(): boolean {
@@ -214,12 +214,12 @@ export class DivisionAndModOperationTest {
   static shouldModNumberWithOne(): boolean {
     let a = new u128(10248516654965971928,5);
     let b = u128.One;
-    return a % b == u128.Zero;
+    return a % b == 0;
   }
 
   static shouldModNumberSameNumber(): boolean {
     let a = new u128(10248516654965971928,5);
-    return a % a == u128.Zero;
+    return a % a == 0;
   }
 
 }

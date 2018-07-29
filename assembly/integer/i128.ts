@@ -11,8 +11,7 @@ import {
   __udivmod128,
   __divmod_quot_lo,
   __divmod_quot_hi,
-  __divmod_rem_lo,
-  __divmod_rem_hi,
+  __divmod_rem,
 
 } from '../globals';
 

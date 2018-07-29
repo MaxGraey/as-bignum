@@ -17,8 +17,7 @@ import {
 
   __divmod_quot_lo,
   __divmod_quot_hi,
-  __divmod_rem_lo,
-  __divmod_rem_hi
+  __divmod_rem,
 
 } from '../globals';
 import { utoa10 } from '../utils';
@@ -463,11 +462,11 @@ export class u128 {
   }
 
   @inline @operator('%')
-  static rem(a: u128, b: u128): u128 {
+  static rem(a: u128, b: u128): u64 {
     assert(a, "value shouldn't be null");
     assert(b, "value shouldn't be null");
     __udivmod128(a.lo, a.hi, b.lo, b.hi);
-    return new u128(__divmod_rem_lo, __divmod_rem_hi);
+    return __divmod_rem;
   }
 
   @inline
@@ -478,10 +477,10 @@ export class u128 {
   }
 
   @inline
-  static rem10(value: u128): u128 {
+  static rem10(value: u128): u64 {
     assert(value, "value shouldn't be null");
     __udivmod128_10(null, null, value.lo, value.hi);
-    return new u128(__divmod_rem_lo, __divmod_rem_hi);
+    return __divmod_rem;
   }
 
   @operator('**')
