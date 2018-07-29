@@ -418,7 +418,7 @@ assemblyscript@AssemblyScript/assemblyscript:
   resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/671121bf702273c930d39999f02643d4f52b2e3d"
   dependencies:
     "@protobufjs/utf8" "^1.1.0"
-    binaryen "48.0.0-nightly.20180712"
+    binaryen "49.0.0-nightly.20180718"
     long "^4.0.0"
 
 assign-symbols@^1.0.0:
@@ -559,9 +559,9 @@ binary-extensions@^1.0.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.11.0.tgz#46aa1751fb6a2f93ee5e689bb1087d4b14c6c205"
 
-binaryen@48.0.0-nightly.20180712:
-  version "48.0.0-nightly.20180712"
-  resolved "https://registry.yarnpkg.com/binaryen/-/binaryen-48.0.0-nightly.20180712.tgz#6f2196f8942b550614fd2ecdd34315c748bd7ce5"
+binaryen@49.0.0-nightly.20180718:
+  version "49.0.0-nightly.20180718"
+  resolved "https://registry.yarnpkg.com/binaryen/-/binaryen-49.0.0-nightly.20180718.tgz#f2dc871fa65c2e22ba7e3adb8fb301c26dadc1d2"
 
 bluebird@^3.5.1:
   version "3.5.1"
