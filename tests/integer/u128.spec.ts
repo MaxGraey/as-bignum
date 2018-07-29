@@ -1,5 +1,5 @@
-import { test }  from 'ava';
-import { setup, decamelize } from './utils/helpers';
+import { test } from 'ava';
+import { setup, decamelize } from '../utils/helpers';
 
 (async () => {
   const instance = await setup('u128');
