@@ -2,28 +2,29 @@ import 'allocator/arena';
 import { u128 } from '../../assembly/integer/u128';
 import { __clz128 } from '../../assembly/globals';
 
-declare function logString(len : i32, pointer: usize) : void;
+declare function logString(len: i32, pointer: usize) : void;
 
 export class StringConversionTest {
   static shouldConvertToDecimalString1(): boolean {
-    let a = new u128(10248516654965971928,5);
-    let stringA = a.toString(10);
+    let a = new u128(10248516654965971928, 5);
+    let stringA = a.toString();
     //logString(stringA.length, stringA.toUTF8());
-    return "102482237023513730008" == stringA;
+    return '102482237023513730008' == stringA;
   }
+
   static shouldConvertToDecimalString2(): boolean {
-    let a = new u128(0xFFFFFFFFFFFFFFFF,0xFFFFFFFFFFFFFFFF);
-    let stringA = a.toString(10);
-    return "340282366920938463463374607431768211455" == stringA;
+    let a = new u128(0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF);
+    return '340282366920938463463374607431768211455' == a.toString();
   }
+
   static shouldConvertToDecimalString3(): boolean {
-    let a = new u128(0,0);
-    let stringA = a.toString(10);
-    return "0" == stringA;
+    let a = u128.Zero;
+    return '0' == a.toString();
   }
 }
 
 export class BasicOperationsTest {
+
   static shouldEquateTwoNumbers(): boolean {
     let a = new u128(100, 255);
     let b = new u128(100, 255);
@@ -40,7 +41,7 @@ export class BasicOperationsTest {
 
   static shouldCompareLtTwoNumbers1(): boolean {
     let a = new u128(100, 100);
-    let b = new u128(50, 100);
+    let b = new u128(50,  100);
     let lt = b < a;
     return lt == true;
   }
@@ -54,7 +55,7 @@ export class BasicOperationsTest {
 
   static shouldCompareLteTwoNumbers1(): boolean {
     let a = new u128(100, 100);
-    let b = new u128(50, 100);
+    let b = new u128(50,  100);
     let lt = b <= a;
     return lt == true;
   }
@@ -68,7 +69,7 @@ export class BasicOperationsTest {
 
   static shouldCompareGtTwoNumbers1(): boolean {
     let a = new u128(100, 100);
-    let b = new u128(50, 100);
+    let b = new u128(50,  100);
     let lt = a > b;
     return lt == true;
   }
@@ -82,7 +83,7 @@ export class BasicOperationsTest {
 
   static shouldCompareGteTwoNumbers1(): boolean {
     let a = new u128(100, 100);
-    let b = new u128(50, 100);
+    let b = new u128(50,  100);
     let lt = a >= b;
     return lt == true;
   }
@@ -97,7 +98,7 @@ export class BasicOperationsTest {
   static shouldAddTwoNumbers(): boolean {
     let a = new u128(100, 255);
     let b = new u128(255, 100);
-    let c : u128 = a + b;
+    let c = a + b;
     return c == new u128(355, 355);
   }
 
@@ -121,7 +122,7 @@ export class BasicOperationsTest {
     let a = u128.from(43545453452);
     let b = u128.from(2353454354);
     let c = a * b;
-    return c == new u128(10248516654965971928,5);
+    return c == new u128(10248516654965971928, 5);
   }
 
   static shouldIncrementNumber(): boolean {
@@ -221,5 +222,4 @@ export class DivisionAndModOperationTest {
     let a = new u128(10248516654965971928,5);
     return a % a == u128.Zero;
   }
-
 }
