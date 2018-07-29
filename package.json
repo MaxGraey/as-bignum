@@ -1,26 +1,35 @@
 {
-  "name": "bignum",
-  "version": "0.0.1",
-  "description": "128 and 256 bits integer and fixed point arithmetics. Also support checking overflow/underflow",
-  "main": "js/index.js",
-  "author": "MaxGraey <maxgraey@gmail.com>",
-  "license": "Apache-2.0",
-  "scripts": {
-    "build:debug": "npx asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --sourceMap --validate",
-    "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate --optimize --noAssert --noDebug",
-    "build:wasm": "yarn build:debug && yarn build:release",
-    "build:test": "mkdir -p tests/build && npx asc tests/assembly/u128.spec.as.ts -b tests/build/u128.wasm -t tests/build/u128.wat --validate --sourceMap --importMemory",
-    "build": "yarn build:wasm",
-    "test": "mocha -r ts-node/register tests/**/*.spec.ts"
-  },
-  "devDependencies": {
-    "@types/chai": "^4.1.4",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^10.5.4",
-    "assemblyscript": "AssemblyScript/assemblyscript",
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0",
-    "ts-node": "^7.0.0",
-    "typescript": "^2.9.2"
-  }
+ "name": "bignum",
+ "version": "0.0.1",
+ "description": "128 and 256 bits integer and fixed point arithmetics. Also support checking overflow/underflow",
+ "main": "js/index.js",
+ "author": "MaxGraey <maxgraey@gmail.com>",
+ "license": "Apache-2.0",
+ "scripts": {
+  "build:debug": "npx asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --sourceMap --validate",
+  "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate --optimize --noAssert --noDebug",
+  "build:wasm": "yarn build:debug && yarn build:release",
+  "build:test": "mkdir -p tests/build && npx asc tests/assembly/u128.spec.as.ts -b tests/build/u128.wasm -t tests/build/u128.wat --validate --sourceMap --importMemory",
+  "build": "yarn build:wasm",
+  "test": "ava"
+ },
+ "devDependencies": {
+  "@types/node": "^10.5.4",
+  "assemblyscript": "AssemblyScript/assemblyscript",
+  "ava": "1.0.0-beta.6",
+  "ts-node": "^7.0.0",
+  "typescript": "^2.9.2"
+ },
+ "ava": {
+  "compileEnhancements": false,
+  "extensions": [
+   "ts"
+  ],
+  "require": [
+   "ts-node/register"
+  ],
+  "files": [
+   "tests/**/*.spec.ts"
+  ]
+ }
 }
