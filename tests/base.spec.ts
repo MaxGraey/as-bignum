@@ -1,8 +1,7 @@
-import { should } from 'chai';
-import { describe, it } from 'mocha';
+declare const expect: any;
 
 describe('Sanity check for WebAssembly', () => {
-  it('should be available', () => {
-    should().exist(WebAssembly);
+  test('should be available', () => {
+    expect(WebAssembly).toBeDefined();
   });
 });

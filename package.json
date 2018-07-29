@@ -11,15 +11,14 @@
     "build:wasm": "yarn build:debug && yarn build:release",
     "build:test": "mkdir -p tests/build && npx asc tests/assembly/u128.spec.as.ts -b tests/build/u128.wasm -t tests/build/u128.wat --validate --sourceMap --importMemory",
     "build": "yarn build:wasm",
-    "test": "mocha -r ts-node/register tests/**/*.spec.ts"
+    "test": "npx jest"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.4",
-    "@types/mocha": "^5.2.5",
+    "@types/jest": "^23.3.1",
     "@types/node": "^10.5.4",
-    "assemblyscript": "AssemblyScript/assemblyscript",
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0",
+    "assemblyscript": "AssemblyScript/assemblyscript#671121bf702273c930d39999f02643d4f52b2e3d",
+    "jest-tap-reporter": "^1.9.0",
+    "ts-jest": "^23.0.1",
     "ts-node": "^7.0.0",
     "typescript": "^2.9.2"
   }
