@@ -1,7 +1,7 @@
 export { demangle } from '../../node_modules/assemblyscript/lib/loader';
 
 export function bufferToString(charArray: Uint8Array) {
-  let result = "";
+  let result = '';
   for (var i = 0; i < charArray.length; i++) {
     if (charArray[i])
       result = result.concat(String.fromCharCode(charArray[i]));
@@ -10,8 +10,8 @@ export function bufferToString(charArray: Uint8Array) {
 }
 
 export function bufferToBinaryString(buffer: Uint8Array) {
-  const binary = "01";
-  let result = "";
+  const binary = '01';
+  let result = '';
   for (var i = 0; i < buffer.length; i++) {
     for (var j = 7; j > -1; j--) {
       let bit = (buffer[i] & (1 << j)) > 0;
@@ -32,7 +32,7 @@ export function buildImports(name: string, memory: WebAssembly.Memory, buffer: U
   };
   imports[name] = {
     logString: (size: number, index: number) => {
-      let s = "";
+      let s = '';
       for (let i = index; i < index + size; ++i) {
         s += String.fromCharCode(buffer[i]);
       }
