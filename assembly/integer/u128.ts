@@ -1,4 +1,3 @@
-
 import { i128 } from './i128';
 import { i256 } from './i256';
 import { u256 } from './u256';
@@ -21,6 +20,7 @@ import {
   __divmod_rem,
 
 } from '../globals';
+import { utoa10 } from '../utils';
 
 const HEX_CHARS = '0123456789abcdef';
 
@@ -910,7 +910,7 @@ export class u128 {
   }
 
   // TODO compleate and improve this
-  /*toString(radix: i32 = 16): string {
+  toString(radix: i32 = 16): string {
     if (this.lo == 0 && this.hi == 0)
       return '0';
 
@@ -920,11 +920,17 @@ export class u128 {
       let shift: i32 = 124 - (u128.clz(it) & ~3);
       while (shift >= 0) {
         it     >>= shift;
-        result += HEX_CHARS.charCodeAt(<i32>(it.lo & 15));
+        result = result.concat(HEX_CHARS.charAt(<i32>(it.lo & 15)));
         shift  -= 4;
       }
+      return result;
     }
+    else if (radix == 10) {
+      return utoa10(this);
+    }
+    else {
+      return "unknown";
+    }
+  }
 
-    return result;
-  }*/
 }

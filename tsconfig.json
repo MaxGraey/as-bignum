@@ -9,7 +9,7 @@
     "noImplicitReturns": true,
     "baseUrl": "./",
     "paths": {},
-    "typeRoots": ["test/types", "node_modules/@types"],
+    "typeRoots": ["tests/types", "node_modules/@types"],
     "types": ["webassembly", "node"],
     "esModuleInterop": true,
     "experimentalDecorators": true,

@@ -9,9 +9,9 @@
     "build:debug": "npx asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --sourceMap --validate",
     "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate --optimize --noAssert --noDebug",
     "build:wasm": "yarn build:debug && yarn build:release",
-    "build:test": "mkdir -p tests/build && npx asc tests/assembly/u128.ts -b tests/assembly/build/u128.wasm -t tests/assembly/build/u128.wat --validate --sourceMap --importMemory",
+    "build:test": "mkdir -p tests/build && npx asc tests/assembly/u128.spec.as.ts -b tests/build/u128.wasm -t tests/build/u128.wat --validate --sourceMap --importMemory",
     "build": "yarn build:wasm",
-    "test": "mocha -r ts-node/register test/**/*.spec.ts"
+    "test": "mocha -r ts-node/register tests/**/*.spec.ts"
   },
   "devDependencies": {
     "@types/chai": "^4.1.4",
