@@ -13,14 +13,12 @@ export class StringConversionTest {
 
   static shouldConvertToDecimalString2(): boolean {
     let a = new u128(0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF);
-    let stringA = a.toString();
-    return '340282366920938463463374607431768211455' == stringA;
+    return '340282366920938463463374607431768211455' == a.toString();
   }
 
   static shouldConvertToDecimalString3(): boolean {
-    let a = new u128(0,0);
-    let stringA = a.toString();
-    return '0' == stringA;
+    let a = u128.Zero;
+    return '0' == a.toString();
   }
 }
 
