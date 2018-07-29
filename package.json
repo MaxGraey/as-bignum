@@ -23,11 +23,9 @@
  },
  "ava": {
   "compileEnhancements": false,
-  "extensions": [
-   "ts"
-  ],
+  "extensions": ["ts"],
   "require": [
-   "ts-node/register"
+   "ts-node/register/transpile-only"
   ],
   "files": [
    "tests/**/*.spec.ts"

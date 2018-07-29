@@ -31,56 +31,56 @@ export class BasicOperationsTest {
     return eq == true;
   }
 
-  static shouldCompareLtTwoNumbers1(): boolean {
+  static shouldCompareLessTwoNumbers1(): boolean {
     let a = new u128(100, 100);
     let b = new u128(50,  100);
     let lt = b < a;
     return lt == true;
   }
 
-  static shouldCompareLtTwoNumbers2(): boolean {
+  static shouldCompareLessTwoNumbers2(): boolean {
     let a = new u128(100, 100);
     let b = new u128(100, 100);
     let lt = b < a;
     return lt == false;
   }
 
-  static shouldCompareLteTwoNumbers1(): boolean {
+  static shouldCompareLessOrEualTwoNumbers1(): boolean {
     let a = new u128(100, 100);
     let b = new u128(50,  100);
     let lt = b <= a;
     return lt == true;
   }
 
-  static shouldCompareLteTwoNumbers2(): boolean {
+  static shouldCompareLessOrEualTwoNumbers2(): boolean {
     let a = new u128(100, 100);
     let b = new u128(100, 100);
     let lt = b <= a;
     return lt == true;
   }
 
-  static shouldCompareGtTwoNumbers1(): boolean {
+  static shouldCompareGreaterTwoNumbers1(): boolean {
     let a = new u128(100, 100);
     let b = new u128(50,  100);
     let lt = a > b;
     return lt == true;
   }
 
-  static shouldCompareGtTwoNumbers2(): boolean {
+  static shouldCompareGreaterTwoNumbers2(): boolean {
     let a = new u128(100, 100);
     let b = new u128(100, 100);
     let lt = a > b;
     return lt == false;
   }
 
-  static shouldCompareGteTwoNumbers1(): boolean {
+  static shouldCompareGreaterOrEqualTwoNumbers1(): boolean {
     let a = new u128(100, 100);
     let b = new u128(50,  100);
     let lt = a >= b;
     return lt == true;
   }
 
-  static shouldCompareGteTwoNumbers2(): boolean {
+  static shouldCompareGreaterOrEqualTwoNumbers2(): boolean {
     let a = new u128(100, 100);
     let b = new u128(100, 100);
     let lt = a >= b;
@@ -100,14 +100,34 @@ export class BasicOperationsTest {
     return c - b == new u128(255, 100);
   }
 
-  static shouldLeftShiftOneNumber(): boolean {
+  static shouldLeftShiftOneNumber1(): boolean {
     let a = new u128(1, 0);
     return a << 65 == new u128(0, 2);
+  }
+
+  static shouldPeriodicLeftShiftOneNumber(): boolean {
+    let a = new u128(1, 0);
+    return a << (65 + 128) == new u128(0, 2);
+  }
+
+  static shouldInvariantLeftShiftZeroNumber(): boolean {
+    let a = new u128(1, 1);
+    return a << 0 == a;
   }
 
   static shouldRightShiftOneNumber(): boolean {
     let a = new u128(0, 100);
     return a >> 65 == new u128(50, 0);
+  }
+
+  static shouldPeriodicRightShiftOneNumber(): boolean {
+    let a = new u128(0, 100);
+    return a >> (65 + 128) == new u128(50, 0);
+  }
+
+  static shouldInvariantRightShiftZeroNumber(): boolean {
+    let a = new u128(1, 1);
+    return a >> 0 == a;
   }
 
   static shouldMultiplyTwoNumbers(): boolean {
@@ -124,16 +144,28 @@ export class BasicOperationsTest {
   //   return c / a == b;
   // }
 
-  static shouldIncrementNumber(): boolean {
+  static shouldIncrementNumber1(): boolean {
     let a = new u128(10248516654965971928, 5);
     ++a;
     return a == new u128(10248516654965971929, 5);
   }
 
-  static shouldDecrementNumber(): boolean {
+  static shouldIncrementNumber2(): boolean {
+    let a = new u128(0xFFFFFFFFFFFFFFFF, 0);
+    ++a;
+    return a == new u128(0, 1);
+  }
+
+  static shouldDecrementNumber1(): boolean {
     let a = new u128(10248516654965971928, 5);
     --a;
     return a == new u128(10248516654965971927, 5);
+  }
+
+  static shouldDecrementNumber2(): boolean {
+    let a = new u128(0, 1);
+    --a;
+    return a == new u128(0xFFFFFFFFFFFFFFFF, 0);
   }
 
 }
