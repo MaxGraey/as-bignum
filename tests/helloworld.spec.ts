@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { describe, it } from "mocha";
+import { describe, it } from 'mocha';
 
 describe('Sanity check for WebAssembly', () => {
   it("should be available", () => {
