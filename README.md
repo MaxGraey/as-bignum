@@ -1,3 +1,4 @@
+[![Project Stage Badge: Concept](https://img.shields.io/badge/Project%20Stage-Development-yellowgreen.svg)]()
 [![Build Status](https://travis-ci.com/MaxGraey/bignum.wasm.svg?branch=master)](https://travis-ci.com/MaxGraey/bignum.wasm)
 [![Lines of Code](https://tokei.rs/b1/github/MaxGraey/bignum.wasm?style=flat-square)](https://github.com/MaxGraey/bignum.wasm)
 [![issues:](https://img.shields.io/github/issues/MaxGraey/bignum.wasm.svg)](https://github.com/MaxGraey/bignum.wasm/issues)
