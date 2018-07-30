@@ -10,7 +10,7 @@ import { u128 } from './integer/u128';
 // used for returning quotient and reminder from __divmod128
 export var __divmod_quot_lo: u64 = 0;
 export var __divmod_quot_hi: u64 = 0;
-export var __divmod_rem:     u64 = 0;
+export var __divmod_rem:  u64 = 0;
 
 // used for returning low and high part of __mulq64, __multi3 etc
 export var __res128_lo: u64 = 0;
@@ -240,7 +240,7 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
     // if `b.lo` is power of two
     if (!(blo & (blo - 1))) {
       __divmod_quot_lo = alo >> btz;
-      __divmod_rem     = 0;
+      __divmod_rem  = 0;
     } else {
       let dlo = alo / blo;
       __divmod_quot_lo = dlo
@@ -276,10 +276,48 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
   if (bzn - azn <= 5) {
     // TODO
     // fast path
+    __udivmod128core(alo, ahi, blo, bhi);
   } else {
-    // TODO
-    // __udivmod128core
+    __udivmod128core(alo, ahi, blo, bhi);
   }
+}
+
+@global
+export function __udivmod128core(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
+  let a = new u128(alo, ahi);
+  let b = new u128(blo, bhi);
+  let q = u128.Zero;
+  let n = a.clone();
+  // get leading zeros for left alignment
+  let alz = __clz128(n.lo, n.hi);
+  let blz = __clz128(b.lo, b.hi);
+  let lshf = blz - alz;
+  let l_aligned_b = b << lshf;
+
+  // create a mask with the length of b
+  let mask = u128.One;
+  mask <<= (128 - blz);
+  --mask;
+  mask <<= lshf;
+
+  let i = 0;
+  while (n >= b) {
+    ++i;
+    q <<= 1;
+    if ((n & mask) >= l_aligned_b) {
+      ++q;
+      n -= l_aligned_b;
+    }
+
+    mask |= (mask >> 1);
+    l_aligned_b >>= 1;
+  }
+  q <<= (blz - alz - i + 1);
+
+  __divmod_quot_lo = q.lo;
+  __divmod_quot_hi = q.hi;
+  __divmod_rem  = <u64> n.lo;
+
 }
 
 @global
