@@ -22,7 +22,7 @@
   "typescript": "^2.9.2"
  },
  "ava": {
-  "compileEnhancements": false,
+  "compileEnhancements": true,
   "extensions": ["ts"],
   "require": [
    "ts-node/register/transpile-only"

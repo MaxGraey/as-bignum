@@ -1,14 +1,23 @@
 import test from 'ava';
-import { setup, decamelize } from '../utils/helpers';
+import { setup, decamelize, isThrowable } from '../utils/helpers';
 
 (async () => {
   const instance = await setup('u128');
 
   for (const tests in instance) {
-    for (const testName in instance[tests]) {
-      test(decamelize(testName), t => {
-        t.truthy(instance[tests][testName]());
-      });
+    const testsInstance = instance[tests];
+    if (isThrowable(tests)) {
+      for (const testName in testsInstance) {
+        test(decamelize(testName), t => {
+          t.throws(() => testsInstance[testName]());
+        });
+      }
+    } else {
+      for (const testName in testsInstance) {
+        test(decamelize(testName), t => {
+          t.truthy(testsInstance[testName]());
+        });
+      }
     }
   }
 })();

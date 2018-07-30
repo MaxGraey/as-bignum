@@ -63,3 +63,7 @@ export function decamelize(str: string): string {
   const c = str.replace(/([A-Z0-9])/g, ' $1');
   return c.charAt(0).toUpperCase() + c.slice(1).toLowerCase();
 }
+
+export function isThrowable(name: string): boolean {
+  return name.toLowerCase().includes('throwable');
+}

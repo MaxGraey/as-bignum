@@ -4,7 +4,7 @@ import { __clz128 } from '../../assembly/globals';
 
 declare function logString(len: i32, pointer: usize): void;
 
-export class StringConversionTest {
+export class StringConversionTests {
   static shouldConvertToDecimalString1(): boolean {
     var a = new u128(10248516654965971928, 5);
     return '102482237023513730008' == a.toString();
@@ -21,7 +21,7 @@ export class StringConversionTest {
   }
 }
 
-export class BasicOperationsTest {
+export class BasicOperationsTests {
   static shouldEquateTwoNumbers(): boolean {
     var a = new u128(100, 255);
     var b = new u128(100, 255);
@@ -116,12 +116,12 @@ export class BasicOperationsTest {
 
   static shouldRightShiftOneNumber(): boolean {
     var a = new u128(0, 100);
-    return a >> 65 == new u128(50, 0);
+    return a >> 65 == new u128(50);
   }
 
   static shouldPeriodicRightShiftOneNumber(): boolean {
     var a = new u128(0, 100);
-    return a >> (65 + 128) == new u128(50, 0);
+    return a >> (65 + 128) == new u128(50);
   }
 
   static shouldInvariantRightShiftZeroNumber(): boolean {
@@ -161,28 +161,28 @@ export class BasicOperationsTest {
 
 }
 
-export class DivisionAndModOperationTest {
+export class DivisionAndModOperationTests {
 
   static shouldDivideTwoNumbersWithoutRemainder1(): boolean {
-    let a = new u128(10248516657319426282,5);
+    let a = new u128(10248516657319426282, 5);
     let b = u128.from(2353454354);
     return a / b == u128.from(43545453453);
   }
 
   static shouldDivideTwoNumbersWithoutRemainder2(): boolean {
-    let a = new u128(10248516654965971928,5);
+    let a = new u128(10248516654965971928, 5);
     let b = u128.from(43545453452);
     return a / b == u128.from(2353454354);
   }
 
   static shouldDivideTwoNumbersWithoutRemainder3(): boolean {
-    let a = new u128(3152652666208173568,2);
+    let a = new u128(3152652666208173568, 2);
     let b = u128.from(4354545345312);
     return a / b == u128.from(9196400);
   }
 
   static shouldDivideTwoNumbersWithRemainder1(): boolean {
-    let a = new u128(3152652666208173568,2);
+    let a = new u128(3152652666208173568, 2);
     let b = u128.from(43543534534534);
     return a / b == u128.from(919680);
   }
@@ -194,55 +194,66 @@ export class DivisionAndModOperationTest {
   }
 
   static shouldModTwoNumbersWithoutRemainder1(): boolean {
-    let a = new u128(10248516657319426282,5);
+    let a = new u128(10248516657319426282, 5);
     let b = u128.from(2353454354);
     return a % b == u128.Zero;
   }
 
   static shouldModTwoNumbersWithoutRemainder2(): boolean {
-    let a = new u128(10248516654965971928,5);
+    let a = new u128(10248516654965971928, 5);
     let b = u128.from(43545453452);
     return a % b == u128.Zero;
   }
 
   static shouldModTwoNumbersWithRemainder1(): boolean {
-    let a = new u128(3152652666208173568,2);
+    let a = new u128(3152652666208173568, 2);
     let b = u128.from(43543534534534);
     return a % b == u128.from(22972907047680);
   }
 
   static shouldModTwoNumbersWithRemainder2(): boolean {
-    let a = new u128(3152652666208178,0);
+    let a = new u128(3152652666208178);
     let b = u128.from(43543534534534);
     return a % b == u128.from(17518179721730);
   }
 
   static shouldDivideTwoSameNumbers(): boolean {
-    let a = new u128(10248516654965971928,5);
+    let a = new u128(10248516654965971928, 5);
     return a / a == u128.One;
   }
 
   static shouldDivideZeroWithNumber(): boolean {
     let a = u128.Zero;
-    let b = new u128(10248516654965971928,5);
+    let b = new u128(10248516654965971928, 5);
     return a / b == u128.Zero;
   }
 
   static shouldDivideNumberWithOne(): boolean {
-    let a = new u128(10248516654965971928,5);
+    let a = new u128(10248516654965971928, 5);
     let b = u128.One;
     return a / b == a;
   }
 
   static shouldModNumberWithOne(): boolean {
-    let a = new u128(10248516654965971928,5);
+    let a = new u128(10248516654965971928, 5);
     let b = u128.One;
     return a % b == u128.Zero;
   }
 
   static shouldModNumberSameNumber(): boolean {
-    let a = new u128(10248516654965971928,5);
+    let a = new u128(10248516654965971928, 5);
     return a % a == u128.Zero;
   }
+}
 
+export class DivisionAndModOperationThrowableTests {
+  static shouldThrowWhenDivideNumberByZero(): boolean {
+    let a = new u128(1,1);
+    return !(a / u128.Zero);
+  }
+
+  static shouldThrowWhenModNumberByZero(): boolean {
+    let a = new u128(1,1);
+    return !(a % u128.Zero);
+  }
 }
