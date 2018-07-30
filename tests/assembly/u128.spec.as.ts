@@ -1,6 +1,5 @@
 import 'allocator/arena';
 import { u128 } from '../../assembly/integer/u128';
-import { __clz128 } from '../../assembly/globals';
 
 declare function logString(len: i32, pointer: usize): void;
 

@@ -36,9 +36,8 @@ declare namespace console {
 var a = u128.One;
 var b = u128.from(-32); // same as u128.from<i32>(-32)
 var c = new u128(0x1, -0xF);
-var d = u128.from(0x123456789123456789); // same as u128.from<i64>(0x123456789123456789)
-
-var r = a * d + (b << 5);
+var d = u128.from(0x0123456789ABCDEF); // same as u128.from<i64>(0x0123456789ABCDEF)
+var r = d / c + (b << 5);
 
 console.logf(r.as<f64>());
 ```
