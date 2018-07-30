@@ -11,8 +11,8 @@
   "build:wasm": "yarn build:debug && yarn build:release",
   "build:test": "mkdir -p tests/build && npx asc tests/assembly/u128.spec.as.ts -b tests/build/u128.wasm -t tests/build/u128.wat --validate --sourceMap --importMemory",
   "build": "yarn build:wasm",
-  "test": "ava --verbose",
-  "test:ci": "ava"
+  "test": "ava -v",
+  "test:ci": "ava --fail-fast"
  },
  "devDependencies": {
   "@types/node": "^10.5.4",
@@ -23,11 +23,9 @@
  },
  "ava": {
   "compileEnhancements": false,
-  "extensions": [
-   "ts"
-  ],
+  "extensions": ["ts"],
   "require": [
-   "ts-node/register"
+   "ts-node/register/transpile-only"
   ],
   "files": [
    "tests/**/*.spec.ts"

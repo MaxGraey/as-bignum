@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.com/MaxGraey/bignum.wasm.svg?branch=master)](https://travis-ci.com/MaxGraey/bignum.wasm)
 [![Lines of Code](https://tokei.rs/b1/github/MaxGraey/bignum.wasm?style=flat-square)](https://github.com/MaxGraey/bignum.wasm)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Work in progress
 #### (Not useful and untested yet)
@@ -26,19 +27,20 @@ or
 
 ```ts
 import "allocator/arena";
-import { u128 } from "bignum.wasm/assembly/integer";
+import { u128 } from "../node_modules/bignum.wasm/assembly/index";
 
-@external("env", "console_log")
-declare function console_log(value: f64): void;
+declare namespace console {
+  function logf(value: f64): void;
+}
 
 var a = u128.One;
 var b = u128.from(-32); // same as u128.from<i32>(-32)
 var c = new u128(0x1, -0xF);
-var d = u128.from<u64>(1 << 40);
+var d = u128.from(0x123456789123456789); // same as u128.from<i64>(0x123456789123456789)
 
 var r = a * d + (b << 5);
 
-console_log(r.as<f64>());
+console.logf(r.as<f64>());
 ```
 
 ### Usage via JavaScript/Typescript
