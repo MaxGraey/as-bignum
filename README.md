@@ -1,7 +1,6 @@
-[![Project Stage Badge: Concept](https://img.shields.io/badge/Project%20Stage-Development-yellowgreen.svg)]()
+[![Project Stage Badge: Concept](https://img.shields.io/badge/Project%20Stage-Development-yellowgreen.svg)](https://github.com/MaxGraey/bignum.wasm/commits/master)
 [![Build Status](https://travis-ci.com/MaxGraey/bignum.wasm.svg?branch=master)](https://travis-ci.com/MaxGraey/bignum.wasm)
 [![Lines of Code](https://tokei.rs/b1/github/MaxGraey/bignum.wasm?style=flat-square)](https://github.com/MaxGraey/bignum.wasm)
-[![issues:](https://img.shields.io/github/issues/MaxGraey/bignum.wasm.svg)](https://github.com/MaxGraey/bignum.wasm/issues)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Work in progress
