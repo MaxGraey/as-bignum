@@ -8,15 +8,11 @@ import { setup, decamelize, isThrowable } from '../utils/helpers';
     const testsInstance = instance[tests];
     if (isThrowable(tests)) {
       for (const testName in testsInstance) {
-        test(decamelize(testName), t => {
-          t.throws(() => testsInstance[testName]());
-        });
+        test(decamelize(testName), t => t.throws(() => testsInstance[testName]()));
       }
     } else {
       for (const testName in testsInstance) {
-        test(decamelize(testName), t => {
-          t.truthy(testsInstance[testName]());
-        });
+        test(decamelize(testName), t => t.truthy(testsInstance[testName]()));
       }
     }
   }

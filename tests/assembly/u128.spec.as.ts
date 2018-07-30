@@ -187,6 +187,16 @@ export class BasicOperationsTests {
     return a * b == new u128(10248516654965971928, 5);
   }
 
+  static shouldMultiplyTwoNumbersWithOverflow1(): bool {
+    var a = new u128(0, 1);
+    return (a * a) == u128.Zero;
+  }
+
+  static shouldMultiplyTwoNumbersWithOverflow2(): bool {
+    var a = new u128(1, 1);
+    return (a * a) == new u128(1, 2);
+  }
+
   static shouldPrefixIncrementNumber1(): bool {
     var a = new u128(10248516654965971928, 5);
     ++a;
@@ -229,17 +239,16 @@ export class ExponentionOperationTests {
   }
 
   static shouldPowerOfTwoReturnSquaredNumber2(): bool {
-    var a = new u128(0xFFFFFF);
+    var a = new u128(0xFFFFFFFF);
     return (a ** 2) == (a * a);
   }
 
   // FAIL
-  /*
-  static shouldPowerOfTwoReturnSquaredNumber3(): bool {
-    var a = new u128(-1, 0xFFFF);
-    return (a ** 2) == (a * a);
-  }
-  */
+  // TODO need investigate u128#sqr
+  /*static shouldPowerOfTwoReturnSquaredNumberWithOverflow(): bool {
+    var a = new u128(0, 1);
+    return (a ** 2) == u128.Zero;
+  }*/
 }
 
 export class DivisionAndModOperationTests {

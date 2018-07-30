@@ -9,14 +9,15 @@ type ExportedEntries = { [key: string]: ExportedEntry };
 
 const readFile = util.promisify(fs.readFile);
 
-export async function setup(testName: string): Promise<ExportedEntries> {
-  const file     = await readFile(path.resolve(__dirname, `../build/${ testName }.wasm`));
-  const memory   = new WebAssembly.Memory({ initial: 2 });
-  const buffer   = new Uint8Array(memory.buffer);
-  const imports  = buildImports(`${ testName }.spec.as`, memory, buffer);
-  const result   = await WebAssembly.instantiate(file, imports);
-  const instance = demangle<ExportedEntries>(result.instance.exports);
-  return instance;
+export async function setup(testFileName: string): Promise<ExportedEntries> {
+  const memory  = new WebAssembly.Memory({ initial: 2 });
+  const buffer  = new Uint8Array(memory.buffer);
+
+  const file    = await readFile(path.resolve(__dirname, `../build/${ testFileName }.wasm`));
+  const imports = buildImports(`${ testFileName }.spec.as`, memory, buffer);
+  const result  = await WebAssembly.instantiate(file, imports);
+
+  return demangle<ExportedEntries>(result.instance.exports);
 }
 
 export function bufferToString(charArray: Uint8Array): string {
@@ -43,13 +44,13 @@ export function bufferToBinaryString(buffer: Uint8Array): string {
 export function buildImports(name: string, memory: WebAssembly.Memory, buffer: Uint8Array): { [key: string]: object } {
   return {
     env: {
-      abort(msg: string, file: string, line: number, column: number): void {
+      abort(msg: string, file: string, line: number, column: number) {
         console.error(`abort called at ${ file } (${ line }:${ column })`);
       },
       memory
     },
     [name]: {
-      logString(size: number, index: number): void {
+      logString(size: number, index: number) {
         let s = '';
         for (let i = index, len = index + size; i < len; ++i)
           s += String.fromCharCode(buffer[i]);
