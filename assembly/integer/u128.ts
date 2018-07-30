@@ -249,7 +249,7 @@ export class u128 {
 
   @inline @operator.prefix('!')
   static isEmpty(value: u128): bool {
-    return !value || value.isZero();
+    return value === null || !(value.lo | value.hi);
   }
 
   @inline @operator('|')
@@ -525,15 +525,6 @@ export class u128 {
         default: break;
       }
     }
-
-    /*
-    var result = base.clone();
-    for (let i = 31 - clz(exponent) - 1; i >= 0; --i) {
-      result = u128.sqr(r);
-      if ((exponent >>> i) & 1)
-        result *= base;
-    }
-    */
 
     var result = u128.One;
     var tmp    = base.clone();
