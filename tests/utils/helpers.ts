@@ -4,19 +4,24 @@ import * as util  from 'util';
 
 import { demangle } from '../../node_modules/assemblyscript/lib/loader';
 
-type ExportedEntry   = { [key: string]: Function };
-type ExportedEntries = { [key: string]: ExportedEntry };
+export type ExportedEntry   = { [key: string]: Function };
+export type ExportedEntries = { [key: string]: ExportedEntry };
 
 const readFile = util.promisify(fs.readFile);
 
+export function isThrowable(name: string): boolean {
+  return name.toLowerCase().includes('throwable');
+}
+
+export function decamelize(str: string): string {
+  const c = str.replace(/([A-Z0-9])/g, ' $1');
+  return c.charAt(0).toUpperCase() + c.slice(1).toLowerCase();
+}
+
 export async function setup(testFileName: string): Promise<ExportedEntries> {
-  const memory  = new WebAssembly.Memory({ initial: 2 });
-  const buffer  = new Uint8Array(memory.buffer);
-
+  const imports = buildImports(`${ testFileName }.spec.as`, new WebAssembly.Memory({ initial: 2 }));
   const file    = await readFile(path.resolve(__dirname, `../build/${ testFileName }.wasm`));
-  const imports = buildImports(`${ testFileName }.spec.as`, memory, buffer);
   const result  = await WebAssembly.instantiate(file, imports);
-
   return demangle<ExportedEntries>(result.instance.exports);
 }
 
@@ -41,30 +46,22 @@ export function bufferToBinaryString(buffer: Uint8Array): string {
   return result;
 }
 
-export function buildImports(name: string, memory: WebAssembly.Memory, buffer: Uint8Array): { [key: string]: object } {
+function buildImports(name: string, memory: WebAssembly.Memory): { [key: string]: object } {
+  const buffer = new Uint8Array(memory.buffer);
+
   return {
     env: {
+      memory,
       abort(msg: string, file: string, line: number, column: number) {
         console.error(`abort called at ${ file } (${ line }:${ column })`);
-      },
-      memory
+      }
     },
     [name]: {
       logString(size: number, index: number) {
-        let s = '';
-        for (let i = index, len = index + size; i < len; ++i)
-          s += String.fromCharCode(buffer[i]);
-        console.log(s);
+        for (var i = index, str = '', len = index + size; i < len; ++i)
+          str += String.fromCharCode(buffer[i]);
+        console.log(str);
       }
     }
   };
-}
-
-export function decamelize(str: string): string {
-  const c = str.replace(/([A-Z0-9])/g, ' $1');
-  return c.charAt(0).toUpperCase() + c.slice(1).toLowerCase();
-}
-
-export function isThrowable(name: string): boolean {
-  return name.toLowerCase().includes('throwable');
 }
