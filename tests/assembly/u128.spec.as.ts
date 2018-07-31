@@ -291,6 +291,32 @@ export class SpecialOperationTests {
   static shouldCountLeadingZeros4(): bool {
     return u128.clz(new u128(-1, -1)) == 0;
   }
+
+  static shouldCountTrailingZeros1(): bool {
+    return u128.ctz(u128.Zero) == 128;
+  }
+
+  static shouldCountTrailingZeros2(): bool {
+    return u128.ctz(u128.One) == 0;
+  }
+
+  static shouldCountTrailingZeros3(): bool {
+    return u128.ctz(new u128(2)) == 1;
+  }
+
+  static shouldCountTrailingZeros4(): bool {
+    return u128.ctz(new u128(0, 1)) == 64;
+  }
+
+  static shouldCountTrailingZeros5(): bool {
+    return u128.ctz(new u128(-1, -1)) == 0;
+  }
+
+  /*
+  static shouldCountTrailingZeros6(): bool {
+    return u128.ctz(new u128(0, 0x8000000000000000)) == 127;
+  }
+  */
 }
 
 export class DivisionAndModOperationTests {

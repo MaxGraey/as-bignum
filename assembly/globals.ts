@@ -191,15 +191,15 @@ export function __floatuntfdi(value: f64): void {
 @global @inline
 export function __clz128(lo: u64, hi: u64): i32 {
   // return <i32>(hi ? clz(hi) : clz(lo) + 64);
-  var mask: i64 = -(<i64>(hi == 0));
+  var mask: u64 = -(<u64>(hi == 0));
   return <i32>clz((hi & ~mask) | (lo & mask)) + (<i32>mask & 64);
 }
 
 @global @inline
 export function __ctz128(lo: u64, hi: u64): i32 {
   // return <i32>(lo ? ctz(lo) : ctz(hi) + 64);
-  var mask: i64 = ~-(<i64>(lo == 0));
-  return <i32>ctz((hi & ~mask) | (lo & mask)) + (<i32>mask & 64);
+  var mask: u64 = -(<u64>(lo == 0));
+  return <i32>ctz((hi & mask) | (lo & ~mask)) + (<i32>mask & 64);
 }
 
 
