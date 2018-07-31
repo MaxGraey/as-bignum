@@ -11,4 +11,4 @@ jobs:
     #   script: yarn build
     #   env: Builds and tests the bundle on latest stable node.js
     - stage: test
-      script: yarn build:test && yarn test:ci
+      script: yarn test:ci

@@ -29,6 +29,9 @@ export async function setup(testFileName: string): Promise<ExportedEntries> {
   return demangle<ExportedEntries>(result.instance.exports);
 }
 
+const F64 = new Float64Array(1);
+const U64 = new Uint32Array(F64.buffer);
+
 export function bufferToString(charArray: Uint8Array): string {
   let result = '';
   for (let i = 0, len = charArray.length; i < len; ++i) {
@@ -48,6 +51,15 @@ export function bufferToBinaryString(buffer: Uint8Array): string {
     }
   }
   return result;
+}
+
+function packedU128ToString(lo: number, hi: number): string {
+  var result = '';
+  F64[0] = hi;
+  result += U64[1].toString(16) + U64[0].toString(16);
+  F64[0] = lo;
+  result += U64[1].toString(16) + U64[0].toString(16);
+  return '0x' + result.padStart(32, '0');
 }
 
 function getString(ptr: number, buffer: ArrayBuffer): string {
@@ -84,8 +96,15 @@ function buildImports(name: string, memory: WebAssembly.Memory): { [key: string]
       }
     },
     [name]: {
-      logStr(strPtr: number) {
-        console.log(getString(strPtr, memory.buffer));
+      logStr(msgPtr: number) {
+        console.log(getString(msgPtr, memory.buffer));
+      },
+      logU128Packed(msgPtr: number, lo: number, hi: number) {
+        if (msgPtr) {
+          console.log(`[u128] ${ getString(msgPtr, memory.buffer) }: ${ packedU128ToString(lo, hi) }`);
+        } else {
+          console.log(`[u128]: ${ packedU128ToString(lo, hi) }`);
+        }
       }
     }
   };

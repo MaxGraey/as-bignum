@@ -2,6 +2,15 @@ import 'allocator/arena';
 import { u128 } from '../../assembly/integer/u128';
 
 declare function logString(len: i32, pointer: usize): void;
+declare function logU128Packed(msg: string, lo: f64, hi: f64): void;
+
+function logU128(value: u128, msg: string = null): void {
+  assert(value);
+  logU128Packed(msg,
+    reinterpret<f64>(value.lo),
+    reinterpret<f64>(value.hi)
+  );
+}
 
 export class StringConversionTests {
   static shouldConvertToDecimalString1(): bool {
@@ -18,6 +27,38 @@ export class StringConversionTests {
     var a = u128.Zero;
     return '0' == a.toString();
   }
+}
+
+export class BufferConversionTests {
+  static shouldConvertFromBytesLittleEndian1(): bool {
+    return u128.fromBytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] as u8[]) == u128.Zero;
+  }
+
+  static shouldConvertFromBytesLittleEndian2(): bool {
+    return u128.fromBytes([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] as u8[]) == u128.One;
+  }
+
+  /*
+  static shouldConvertFromBytesLittleEndian3(): bool {
+    var arr: u8[] = [
+      0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
+      0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
+    ];
+
+    logU128(u128.fromBytes(arr));
+    return u128.fromBytes(arr) == new u128(0x12ffeeddccbbaa99, 0x8877665544332211);
+  }
+
+  static shouldConvertFromBytesBigEndian1(): bool {
+    return u128.fromBytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] as u8[], false) == u128.Zero;
+  }*/
+
+  /*
+  static shouldConvertFromBytesBigEndian2(): bool {
+    logU128(u128.fromBytes([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] as u8[], false));
+    return u128.fromBytes([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] as u8[], false) == u128.One;
+  }
+  */
 }
 
 export class BasicOperationsTests {
