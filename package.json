@@ -16,14 +16,16 @@
   },
   "devDependencies": {
     "@types/node": "^10.5.4",
-    "assemblyscript": "AssemblyScript/assemblyscript",
+    "assemblyscript": "github:AssemblyScript/assemblyscript#671121bf702273c930d39999f02643d4f52b2e3d",
     "ava": "1.0.0-beta.6",
     "ts-node": "^7.0.0",
     "typescript": "^2.9.2"
   },
   "ava": {
     "compileEnhancements": true,
-    "extensions": ["ts"],
+    "extensions": [
+      "ts"
+    ],
     "require": [
       "ts-node/register/transpile-only"
     ],
