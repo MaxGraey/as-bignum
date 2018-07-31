@@ -114,13 +114,13 @@ export class BasicOperationsTests {
     return (a & b) == new u128(0, 106);
   }
 
-  static shouldEquateTwoNumbers(): bool {
+  static shouldEqualTwoNumbers(): bool {
     var a = new u128(100, 255);
     var b = new u128(100, 255);
     return a == b;
   }
 
-  static shouldNonEquateTwoNumbers(): bool {
+  static shouldNonEqualTwoNumbers(): bool {
     var a = new u128(1, 1);
     var b = new u128(1, 0);
     return a != b;
@@ -463,6 +463,30 @@ export class DivisionAndModOperationTests {
 }
 
 export class ThrowableTests {
+  static shouldThrowFromBytesWithNull1(): bool {
+    return !(u128.fromBytes(changetype<u8[]>(null)));
+  }
+
+  static shouldThrowFromBytesWithNull2(): bool {
+    return !(u128.fromBytes(changetype<u8[]>(null), false));
+  }
+
+  static shouldThrowFromBytesWithWrongByteArrayLength1(): bool {
+    return !(u128.fromBytes(<u8[]>[]));
+  }
+
+  static shouldThrowFromBytesWithWrongByteArrayLength2(): bool {
+    return !(u128.fromBytes(<u8[]>[], false));
+  }
+
+  static shouldThrowFromBytesWithWrongByteArrayLength3(): bool {
+    return !(u128.fromBytes(<u8[]>[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]));
+  }
+
+  static shouldThrowFromBytesWithWrongByteArrayLength4(): bool {
+    return !(u128.fromBytes(<u8[]>[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17], false));
+  }
+
   static shouldThrowThenNullRefs(): bool {
     let a = changetype<u128>(null);
     let b = u128.Zero;
