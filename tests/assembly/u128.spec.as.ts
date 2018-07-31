@@ -255,7 +255,7 @@ export class ExponentionOperationTests {
   }*/
 }
 
-export class SpecialOperationTests {
+export class BinaryOperationCountTests {
   static shouldPopcount1(): bool {
     return u128.popcnt(u128.Zero) == 0;
   }
@@ -312,11 +312,9 @@ export class SpecialOperationTests {
     return u128.ctz(new u128(-1, -1)) == 0;
   }
 
-  /*
   static shouldCountTrailingZeros6(): bool {
     return u128.ctz(new u128(0, 0x8000000000000000)) == 127;
   }
-  */
 }
 
 export class DivisionAndModOperationTests {

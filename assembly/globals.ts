@@ -10,7 +10,7 @@ import { u128 } from './integer/u128';
 // used for returning quotient and reminder from __divmod128
 export var __divmod_quot_lo: u64 = 0;
 export var __divmod_quot_hi: u64 = 0;
-export var __divmod_rem:  u64 = 0;
+export var __divmod_rem:     u64 = 0;
 
 // used for returning low and high part of __mulq64, __multi3 etc
 export var __res128_lo: u64 = 0;
