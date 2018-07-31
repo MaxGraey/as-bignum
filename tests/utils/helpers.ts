@@ -47,9 +47,9 @@ export function bufferToBinaryString(buffer: Uint8Array): string {
 }
 
 function getString(ptr: number, buffer: ArrayBuffer): string {
-  var U8  = new Uint8Array(buffer);
   var U16 = new Uint16Array(buffer);
-  var dataLength = U8[ptr];
+  var U32 = new Uint32Array(buffer);
+  var dataLength = U32[ptr >>> 2];
   var dataOffset = (ptr + 4) >>> 1;
   var dataRemain = dataLength;
   var parts = [];
