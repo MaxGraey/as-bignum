@@ -51,9 +51,8 @@ export class BasicOperationsTests {
     return !a;
   }
 
-  static shouldNumberIsEmpty3(): bool {
-    var a: u128 = changetype<u128>(null);
-    return !a;
+  static shouldNumberIsEmpty2(): bool {
+    return !changetype<u128>(null);
   }
 
   static shouldBinaryOrNumbers(): bool {
@@ -140,7 +139,7 @@ export class BasicOperationsTests {
     return a + b == new u128(355, 355);
   }
 
-  static shouldSubtractTwoNumbers1(): bool {
+  static shouldSubtractTwoNumbers(): bool {
     var a = new u128(355, 355);
     var b = new u128(100, 255);
     return a - b == new u128(255, 100);
@@ -151,7 +150,7 @@ export class BasicOperationsTests {
     return u128.Zero - a == -a;
   }
 
-  static shouldLeftShiftOneNumber1(): bool {
+  static shouldLeftShiftOneNumber(): bool {
     var a = new u128(1, 0);
     return a << 65 == new u128(0, 2);
   }
@@ -189,12 +188,12 @@ export class BasicOperationsTests {
 
   static shouldMultiplyTwoNumbersWithOverflow1(): bool {
     var a = new u128(0, 1);
-    return (a * a) == u128.Zero;
+    return a * a == u128.Zero;
   }
 
   static shouldMultiplyTwoNumbersWithOverflow2(): bool {
     var a = new u128(1, 1);
-    return (a * a) == new u128(1, 2);
+    return a * a == new u128(1, 2);
   }
 
   static shouldPrefixIncrementNumber1(): bool {
@@ -223,6 +222,11 @@ export class BasicOperationsTests {
 }
 
 export class ExponentionOperationTests {
+  static shouldPowerOfNegativeReturnZeroNumber(): bool {
+    var a = new u128(-1, -1);
+    return a ** -2 == u128.Zero;
+  }
+
   static shouldPowerOfZeroReturnOneNumber(): bool {
     var a = new u128(-1, -1);
     return a ** 0 == u128.One;
@@ -249,6 +253,44 @@ export class ExponentionOperationTests {
     var a = new u128(0, 1);
     return (a ** 2) == u128.Zero;
   }*/
+}
+
+export class SpecialOperationTests {
+  static shouldPopcount1(): bool {
+    return u128.popcnt(u128.Zero) == 0;
+  }
+
+  static shouldPopcount2(): bool {
+    return u128.popcnt(new u128(1)) == 1;
+  }
+
+  static shouldPopcount3(): bool {
+    return u128.popcnt(new u128(1, 1)) == 2;
+  }
+
+  static shouldPopcount4(): bool {
+    return u128.popcnt(new u128(0, 1)) == 1;
+  }
+
+  static shouldPopcount5(): bool {
+    return u128.popcnt(new u128(-1, -1)) == 128;
+  }
+
+  static shouldCountLeadingZeros1(): bool {
+    return u128.clz(u128.Zero) == 128;
+  }
+
+  static shouldCountLeadingZeros2(): bool {
+    return u128.clz(u128.One) == 127;
+  }
+
+  static shouldCountLeadingZeros3(): bool {
+    return u128.clz(new u128(0, 1)) == 63;
+  }
+
+  static shouldCountLeadingZeros4(): bool {
+    return u128.clz(new u128(-1, -1)) == 0;
+  }
 }
 
 export class DivisionAndModOperationTests {
@@ -282,6 +324,18 @@ export class DivisionAndModOperationTests {
     return a / b == u128.from(72);
   }
 
+  static shouldDivideZeroWithNumber(): bool {
+    let a = u128.Zero;
+    let b = new u128(10248516654965971928, 5);
+    return a / b == u128.Zero;
+  }
+
+  static shouldDivideNumberWithOne(): bool {
+    let a = new u128(10248516654965971928, 5);
+    let b = u128.One;
+    return a / b == a;
+  }
+
   static shouldModTwoNumbersWithoutRemainder1(): bool {
     let a = new u128(10248516657319426282, 5);
     let b = u128.from(2353454354);
@@ -306,23 +360,6 @@ export class DivisionAndModOperationTests {
     return a % b == u128.from(17518179721730);
   }
 
-  static shouldDivideTwoSameNumbers(): bool {
-    let a = new u128(10248516654965971928, 5);
-    return a / a == u128.One;
-  }
-
-  static shouldDivideZeroWithNumber(): bool {
-    let a = u128.Zero;
-    let b = new u128(10248516654965971928, 5);
-    return a / b == u128.Zero;
-  }
-
-  static shouldDivideNumberWithOne(): bool {
-    let a = new u128(10248516654965971928, 5);
-    let b = u128.One;
-    return a / b == a;
-  }
-
   static shouldModNumberWithOne(): bool {
     let a = new u128(10248516654965971928, 5);
     let b = u128.One;
@@ -333,9 +370,20 @@ export class DivisionAndModOperationTests {
     let a = new u128(10248516654965971928, 5);
     return a % a == u128.Zero;
   }
+
+  static shouldDivideTwoSameNumbers(): bool {
+    let a = new u128(10248516654965971928, 5);
+    return a / a == u128.One;
+  }
 }
 
-export class DivisionAndModOperationThrowableTests {
+export class ThrowableTests {
+  static shouldThrowThenNullRefs(): bool {
+    let a = changetype<u128>(null);
+    let b = u128.Zero;
+    return !(a + b);
+  }
+
   static shouldThrowWhenDivideNumberByZero(): bool {
     let a = new u128(1,1);
     return !(a / u128.Zero);

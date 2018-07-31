@@ -46,21 +46,42 @@ export function bufferToBinaryString(buffer: Uint8Array): string {
   return result;
 }
 
-function buildImports(name: string, memory: WebAssembly.Memory): { [key: string]: object } {
-  const buffer = new Uint8Array(memory.buffer);
+function getString(ptr: number, buffer: ArrayBuffer): string {
+  var U8  = new Uint8Array(buffer);
+  var U16 = new Uint16Array(buffer);
+  var dataLength = U8[ptr];
+  var dataOffset = (ptr + 4) >>> 1;
+  var dataRemain = dataLength;
+  var parts = [];
+  const chunkSize = 1024;
+  while (dataRemain > chunkSize) {
+    let last = U16[dataOffset + chunkSize - 1];
+    let size = last >= 0xD800 && last < 0xDC00 ? chunkSize - 1 : chunkSize;
+    let part = U16.subarray(dataOffset, dataOffset += size);
+    parts.push(String.fromCharCode.apply(String, part));
+    dataRemain -= size;
+  }
+  return parts.join('') + String.fromCharCode.apply(String, U16.subarray(dataOffset, dataOffset + dataRemain));
+}
 
+function buildImports(name: string, memory: WebAssembly.Memory): { [key: string]: object } {
+  const buffer = memory.buffer;
   return {
     env: {
       memory,
-      abort(msg: string, file: string, line: number, column: number) {
-        console.error(`abort called at ${ file } (${ line }:${ column })`);
+      abort(msgPtr: number, filePtr: number, line: number, column: number) {
+        if (msgPtr) {
+          throw new Error(
+            `Abort called by reason "${ getString(msgPtr, buffer) }" at ${ getString(filePtr, memory.buffer) } [${ line }:${ column }]`
+          );
+        } else {
+          throw new Error(`Abort called at ${ getString(filePtr, memory.buffer) } [${ line }:${ column }]`);
+        }
       }
     },
     [name]: {
-      logString(size: number, index: number) {
-        for (var i = index, str = '', len = index + size; i < len; ++i)
-          str += String.fromCharCode(buffer[i]);
-        console.log(str);
+      logStr(strPtr: number) {
+        console.log(getString(strPtr, memory.buffer));
       }
     }
   };
