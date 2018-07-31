@@ -142,8 +142,8 @@ export class i128 {
   ) {}
 
   @inline
-  isNegative(): bool {
-    return <bool>(this.hi >> 63);
+  isNeg(): bool {
+    return <bool>(this.hi >>> 63);
   }
 
   @inline
@@ -313,7 +313,7 @@ export class i128 {
   @inline
   static abs(value: i128): i128 {
     assert(value, "value shouldn't be null");
-    return value < 0 ? value.neg() : value;
+    return value.isNeg() ? value.neg() : value;
     // var mask = value >> 127;
     // return (value ^ mask) - mask;
   }
