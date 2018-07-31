@@ -12,7 +12,7 @@
     "build:test": "mkdir -p tests/build && npx asc tests/assembly/u128.spec.as.ts -b tests/build/u128.wasm -t tests/build/u128.wat --validate --sourceMap --importMemory",
     "build": "yarn build:wasm",
     "test": "yarn build:test && ava -v",
-    "test:ci": "build:test && ava --no-color --fail-fast"
+    "test:ci": "yarn build:test && ava --no-color --fail-fast"
   },
   "devDependencies": {
     "@types/node": "^10.5.4",
