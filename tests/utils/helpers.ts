@@ -53,13 +53,13 @@ export function bufferToBinaryString(buffer: Uint8Array): string {
   return result;
 }
 
-function packedU128ToString(lo: number, hi: number): string {
-  var result = '';
-  F64[0] = hi;
-  result += U64[1].toString(16) + U64[0].toString(16);
-  F64[0] = lo;
-  result += U64[1].toString(16) + U64[0].toString(16);
-  return '0x' + result.padStart(32, '0');
+function unpackToString64(value: number): string {
+  F64[0] = value;
+  return U64[1].toString(16) + U64[0].toString(16);
+}
+
+function unpackToString128(lo: number, hi: number): string {
+  return `0x${ (unpackToString64(hi) + unpackToString64(lo)).padStart(32, '0') }`;
 }
 
 function getString(ptr: number, buffer: ArrayBuffer): string {
@@ -88,22 +88,22 @@ function buildImports(name: string, memory: WebAssembly.Memory): { [key: string]
       abort(msgPtr: number, filePtr: number, line: number, column: number) {
         if (msgPtr) {
           throw new Error(
-            `Abort called by reason "${ getString(msgPtr, buffer) }" at ${ getString(filePtr, memory.buffer) } [${ line }:${ column }]`
+            `Abort called by reason "${ getString(msgPtr, buffer) }" at ${ getString(filePtr, buffer) } [${ line }:${ column }]`
           );
         } else {
-          throw new Error(`Abort called at ${ getString(filePtr, memory.buffer) } [${ line }:${ column }]`);
+          throw new Error(`Abort called at ${ getString(filePtr, buffer) } [${ line }:${ column }]`);
         }
       }
     },
     [name]: {
       logStr(msgPtr: number) {
-        console.log(getString(msgPtr, memory.buffer));
+        console.log(getString(msgPtr, buffer));
       },
       logU128Packed(msgPtr: number, lo: number, hi: number) {
         if (msgPtr) {
-          console.log(`[u128] ${ getString(msgPtr, memory.buffer) }: ${ packedU128ToString(lo, hi) }`);
+          console.log(`[u128] ${ getString(msgPtr, buffer) }: ${ unpackToString128(lo, hi) }`);
         } else {
-          console.log(`[u128]: ${ packedU128ToString(lo, hi) }`);
+          console.log(`[u128]: ${ unpackToString128(lo, hi) }`);
         }
       }
     }
