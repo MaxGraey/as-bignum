@@ -247,12 +247,32 @@ export class ExponentionOperationTests {
     return (a ** 2) == (a * a);
   }
 
+  static shouldPowerOfTwoReturnSquaredNumber3(): bool {
+    var a = new u128(0xFFFF);
+    return (a ** 2) == new u128(<u64>0xFFFF * <u64>0xFFFF);
+  }
+
+  static shouldPowerOfTwoReturnSquaredNumber4(): bool {
+    var a = new u128(0xFFFF - 1);
+    return (a ** 2) == new u128((0xFFFF - 1) * (0xFFFF - 1));
+  }
+
   // FAIL
   // TODO need investigate u128#sqr
   /*static shouldPowerOfTwoReturnSquaredNumberWithOverflow(): bool {
     var a = new u128(0, 1);
     return (a ** 2) == u128.Zero;
   }*/
+
+  static shouldPowerOfThreeReturnNumber(): bool {
+    var a = new u128(0xFFFF);
+    return (a ** 3) == new u128(0xFFFD0002FFFF);
+  }
+
+  static shouldPowerOfThreeReturnNumber2(): bool {
+    var a = new u128(12345678);
+    return (a ** 3) == new u128(0x017FEC50E04509B8, 0x66);
+  }
 }
 
 export class BinaryOperationCountTests {

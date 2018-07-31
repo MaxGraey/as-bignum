@@ -241,8 +241,6 @@ export class i128 {
     return new i128(lo, hi);
   }
 
-
-
   @inline @operator('==')
   static eq(a: i128, b: i128): bool {
     assert(a, "value shouldn't be null");
