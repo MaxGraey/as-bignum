@@ -94,7 +94,7 @@ export function atou128(str: string, radix: i32 = 0): u128 {
     return u128.Zero;
   }
   var isNeg = first == CharCode.MINUS;
-  var index = <i32>isNeg;
+  var index = <i32>(isNeg || first == CharCode.PLUS);
 
   if (str.charCodeAt(index) == CharCode._0) {
     ++index;

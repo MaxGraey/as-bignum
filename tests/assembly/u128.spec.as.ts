@@ -40,16 +40,42 @@ export class StringConversionTests {
     return u128.from('123456789') == new u128(123456789);
   }
 
+  static shouldConvertFromDecimalWithInvalidCharsString(): bool {
+    return u128.from('00000123abc') == new u128(123);
+  }
+
+  static shouldConvertFromDecimalWithInvalidCharsString2(): bool {
+    return u128.from('x00000123abc') == u128.Zero;
+  }
+
+  static shouldConvertFromDecimalWithInvalidCharsString3(): bool {
+    return u128.from('-x') == u128.Zero;
+  }
+
+  /* fail
+  static shouldConvertFromDecimalWithInvalidCharsString4(): bool {
+    return u128.from('--01234') == u128.Zero;
+  }
+  */
+
   static shouldConvertFromDecimalString4(): bool {
-    return u128.from('-123456789') == new u128(-123456789, -1);
+    return u128.from('-123456789') == u128.from(-123456789);
   }
 
   static shouldConvertFromDecimalString5(): bool {
-    return u128.fromString('123456789', 10) == new u128(123456789);
+    return u128.from('+123456789') == new u128(123456789);
   }
 
   static shouldConvertFromDecimalString6(): bool {
+    return u128.fromString('123456789', 10) == new u128(123456789);
+  }
+
+  static shouldConvertFromMixedCaseHexString(): bool {
     return u128.from('0xabcdefABCDEF') == new u128(0xabcdefABCDEF);
+  }
+
+  static shouldConvertFromOctalString(): bool {
+    return u128.from('0o01234567') == u128.from(0o01234567);
   }
 }
 
