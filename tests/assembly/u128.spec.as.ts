@@ -27,6 +27,30 @@ export class StringConversionTests {
     var a = u128.Zero;
     return '0' == a.toString();
   }
+
+  static shouldConvertFromDecimalString1(): bool {
+    return u128.from('') == u128.Zero;
+  }
+
+  static shouldConvertFromDecimalString2(): bool {
+    return u128.from('0') == u128.Zero;
+  }
+
+  static shouldConvertFromDecimalString3(): bool {
+    return u128.from('123456789') == new u128(123456789);
+  }
+
+  static shouldConvertFromDecimalString4(): bool {
+    return u128.from('-123456789') == new u128(-123456789, -1);
+  }
+
+  static shouldConvertFromDecimalString5(): bool {
+    return u128.fromString('123456789', 10) == new u128(123456789);
+  }
+
+  static shouldConvertFromDecimalString6(): bool {
+    return u128.from('0xffab11009c') == new u128(0xffab11009c);
+  }
 }
 
 export class BufferConversionTests {

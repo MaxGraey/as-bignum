@@ -81,29 +81,33 @@ export function utoa10(value: u128): string {
   return result;
 }
 
+// TODO handle also upprecased high radix decimals in LUT
 export function atou128(str: string, radix: i32 = 0): u128 {
-  if (radix != 0 || radix < 2 || radix > 36) {
+  if (!radix) radix = 10;
+  if (radix < 2 || radix > 36) {
     throw new Error("Invalid radix");
   }
+  var len = str.length;
+  if (!len) return u128.Zero;
 
-  var len   = str.length;
-  var isNeg = str.charCodeAt(0) == CharCode.MINUS;
+  var first = str.charCodeAt(0);
+  if (len == 1 && first == CharCode._0) {
+    return u128.Zero;
+  }
+  var isNeg = first == CharCode.MINUS;
   var index = <i32>isNeg;
 
   if (str.charCodeAt(index) == CharCode._0) {
     ++index;
-    let ch = str.charCodeAt(index);
-    if (ch == CharCode.x || ch == CharCode.X) {
+    let second = str.charCodeAt(index);
+    if (second == CharCode.x || second == CharCode.X) {
       radix = 16; ++index;
-    } else if (ch == CharCode.o || ch == CharCode.O) {
+    } else if (second == CharCode.o || second == CharCode.O) {
       radix = 8; ++index;
-    } else if (ch == CharCode.b || ch == CharCode.B) {
+    } else if (second == CharCode.b || second == CharCode.B) {
       radix = 2; ++index;
     }
   }
-
-  if (!radix) radix = 10;
-
   var result   = u128.Zero;
   var radix128 = u128.fromI32(radix);
 
