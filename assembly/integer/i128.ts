@@ -48,7 +48,7 @@ export class i128 {
 
   @inline
   static fromI64(value: i64): i128 {
-    return new i128(value, -(<i64>(value < 0)));
+    return new i128(value, value >> 63);
   }
 
   @inline
@@ -72,7 +72,7 @@ export class i128 {
 
   @inline
   static fromI32(value: i32): i128 {
-    return new i128(<i64>value, -(<i64>(value < 0)));
+    return new i128(<i64>value, <i64>value >> 63);
   }
 
   @inline

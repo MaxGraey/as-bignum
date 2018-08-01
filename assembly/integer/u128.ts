@@ -56,7 +56,7 @@ export class u128 {
 
   @inline
   static fromI64(value: i64): u128 {
-    return new u128(<u64>value, -(<u64>(value < 0)));
+    return new u128(<u64>value, <u64>(value >> 63));
   }
 
   @inline
@@ -80,7 +80,7 @@ export class u128 {
 
   @inline
   static fromI32(value: i32): u128 {
-    return new u128(<u64>value, -(<u64>(value < 0)));
+    return new u128(<u64>value, <u64>(<i64>value >> 64));
   }
 
   @inline
@@ -224,7 +224,7 @@ export class u128 {
   @inline
   setI64(value: i64): this {
     this.lo = value;
-    this.hi = -(<u64>(value < 0));
+    this.hi = value >> 63;
     return this;
   }
 
@@ -238,7 +238,7 @@ export class u128 {
   @inline
   setI32(value: i32): this {
     this.lo = value;
-    this.hi = -(<u64>(value < 0));
+    this.hi = (<i64>value >> 63);
     return this;
   }
 
