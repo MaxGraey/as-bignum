@@ -52,11 +52,9 @@ export class StringConversionTests {
     return u128.from('-x') == u128.Zero;
   }
 
-  /* fail
   static shouldConvertFromDecimalWithInvalidCharsString4(): bool {
     return u128.from('--01234') == u128.Zero;
   }
-  */
 
   static shouldConvertFromDecimalString4(): bool {
     return u128.from('-123456789') == u128.from(-123456789);

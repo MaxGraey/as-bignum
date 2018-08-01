@@ -108,10 +108,12 @@ export function atou128(str: string, radix: i32 = 0): u128 {
     }
   }
   var result   = u128.Zero;
-  var radix128 = u128.fromI32(radix);
+  var radix128 = u128.fromU64(radix);
 
   do {
-    let num = RadixChars[str.charCodeAt(index) - 48];
+    let n = str.charCodeAt(index) - 48;
+    if (n < 0) return result;
+    let num = RadixChars[n];
     if (num >= <u32>radix) return result;
     result *= radix128;
     result += u128.fromU32(num);
