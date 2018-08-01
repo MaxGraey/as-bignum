@@ -26,7 +26,7 @@ export class u256 {
 
   @inline
   static fromI64(value: i64): u256 {
-    var mask = -(<u64>(value < 0));
+    var mask = value >> 63;
     return new u256(value, mask, mask, mask);
   }
 
@@ -37,22 +37,12 @@ export class u256 {
 
   @inline
   static fromI32(value: i32): u256 {
-    var mask = -(<u64>(value < 0));
+    var mask = <i64>value >> 63;
     return new u256(value, mask, mask, mask);
   }
 
   @inline
-  static from128Bits(lo: u128, hi: u128): u256 {
-    return new u256(lo.lo, lo.hi, hi.lo, hi.hi);
-  }
-
-  @inline
-  static from64Bits(lo1: u64, lo2: u64, hi1: u64, hi2: u64): u256 {
-    return new u256(lo1, lo2, hi1, hi2);
-  }
-
-  @inline
-  static from32Bits(
+  static fromBits(
     l0: u32, l1: u32, l2: u32, l3: u32,
     h0: u32, h1: u32, h2: u32, h3: u32,
   ): u256 {
@@ -117,7 +107,7 @@ export class u256 {
 
   @inline
   setI64(value: i64): this {
-    var mask = -(<u64>(value < 0));
+    var mask: u64 = value >> 63;
     this.lo1 = value;
     this.lo2 = mask;
     this.hi1 = mask;
@@ -136,7 +126,7 @@ export class u256 {
 
   @inline
   setI32(value: i32): this {
-    var mask = -(<u64>(value < 0));
+    var mask: u64 = <i64>value >> 63;
     this.lo1 = value;
     this.lo2 = mask;
     this.hi1 = mask;
@@ -160,7 +150,7 @@ export class u256 {
 
   @inline @operator.prefix('!')
   static isEmpty(value: u256): bool {
-    return !value || !value.isZero();
+    return value === null || !value.isZero();
   }
 
   @inline @operator.prefix('~')

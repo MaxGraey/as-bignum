@@ -80,7 +80,7 @@ export class u128 {
 
   @inline
   static fromI32(value: i32): u128 {
-    return new u128(<u64>value, <u64>(<i64>value >> 64));
+    return new u128(<u64>value, <u64>(<i64>value >> 63));
   }
 
   @inline
@@ -94,12 +94,7 @@ export class u128 {
   }
 
   @inline
-  static from64Bits(lo: u64, hi: u64): u128 {
-    return new u128(lo, hi);
-  }
-
-  @inline
-  static from32Bits(lo1: u32, lo2: u32, hi1: u32, hi2: u32): u128 {
+  static fromBits(lo1: u32, lo2: u32, hi1: u32, hi2: u32): u128 {
     return new u128(
       <u64>lo1 | ((<u64>lo2) << 32),
       <u64>hi1 | ((<u64>hi2) << 32),

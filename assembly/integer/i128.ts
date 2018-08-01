@@ -170,7 +170,7 @@ export class i128 {
 
   @inline @operator.prefix('!')
   static isEmpty(value: i128): bool {
-    return !value || !value.isZero();
+    return value === null || !value.isZero();
   }
 
   @inline @operator('|')

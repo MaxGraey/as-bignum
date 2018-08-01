@@ -15,8 +15,8 @@ export class i256 {
   ) {}
 
   @inline
-  isNegative(): bool {
-    return <bool>(this.hi2 >> 63);
+  isNeg(): bool {
+    return <bool>(this.hi2 >>> 63);
   }
 
   @inline
@@ -26,7 +26,7 @@ export class i256 {
 
   @inline @operator.prefix('!')
   static isEmpty(value: i256): bool {
-    return !value || !value.isZero();
+    return value === null || !value.isZero();
   }
 
   /*
