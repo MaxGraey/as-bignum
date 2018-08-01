@@ -20,7 +20,7 @@ import {
   __divmod_rem,
 
 } from '../globals';
-import { utoa10 } from '../utils';
+import { utoa10, atou128 } from '../utils';
 
 const HEX_CHARS = '0123456789abcdef';
 
@@ -35,22 +35,32 @@ export class u128 {
   static readonly Max:  u128 = new u128(u64.MAX_VALUE, u64.MAX_VALUE)
 
   @inline
+  static fromString(value: string, radix: i32 = 0): u128 {
+    assert(value, "value shouldn't be null");
+    return atou128(value, radix);
+  }
+
+  @inline
   static fromI256(value: i256): u128 {
+    assert(value, "value shouldn't be null");
     return new u128(value.lo1, value.lo2);
   }
 
   @inline
   static fromU256(value: u256): u128 {
+    assert(value, "value shouldn't be null");
     return new u128(value.lo1, value.lo2);
   }
 
   @inline
   static fromI128(value: i128): u128 {
+    assert(value, "value shouldn't be null");
     return new u128(value.lo, value.hi);
   }
 
   @inline
   static fromU128(value: u128): u128 {
+    assert(value, "value shouldn't be null");
     return new u128(value.lo, value.hi);
   }
 
