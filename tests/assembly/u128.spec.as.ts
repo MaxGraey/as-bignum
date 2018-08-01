@@ -49,7 +49,7 @@ export class StringConversionTests {
   }
 
   static shouldConvertFromDecimalString6(): bool {
-    return u128.from('0xffab11009c') == new u128(0xffab11009c);
+    return u128.from('0xabcdefABCDEF') == new u128(0xabcdefABCDEF);
   }
 }
 
