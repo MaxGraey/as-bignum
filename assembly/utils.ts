@@ -82,8 +82,7 @@ export function utoa10(value: u128): string {
 }
 
 export function atou128(str: string, radix: i32 = 0): u128 {
-  if (!radix) radix = 10;
-  if (radix < 2 || radix > 36) {
+  if (radix != 0 || radix < 2 || radix > 36) {
     throw new Error("Invalid radix");
   }
 
@@ -103,12 +102,14 @@ export function atou128(str: string, radix: i32 = 0): u128 {
     }
   }
 
+  if (!radix) radix = 10;
+
   var result   = u128.Zero;
   var radix128 = u128.fromI32(radix);
 
   do {
     let num = RadixChars[str.charCodeAt(index) - 48];
-    if (num >= radix) return result;
+    if (num >= <u32>radix) return result;
     result *= radix128;
     result += u128.fromU32(num);
   } while (++index < len);

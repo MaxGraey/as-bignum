@@ -1,6 +1,4 @@
 
-import 'allocator/arena';
-
 import { u128 } from "./integer/u128";
 import { u256 } from "./integer/u256";
 
