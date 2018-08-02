@@ -52,7 +52,7 @@ TODO
 
 ### List of types
 
-- [ ] [`u128`](https://github.com/MaxGraey/bignum.wasm/blob/master/assembly/integer/u128.ts) unsigned type (mostly complete)
+- [x] [`u128`](https://github.com/MaxGraey/bignum.wasm/blob/master/assembly/integer/u128.ts) unsigned type (test phase)
 - [ ] [`u256`](https://github.com/MaxGraey/bignum.wasm/blob/master/assembly/integer/u256.ts) unsigned type (very basic)
 - [ ] `i128` signed type
 - [ ] `i256` signed type
