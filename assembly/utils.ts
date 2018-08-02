@@ -111,8 +111,8 @@ export function atou128(str: string, radix: i32 = 0): u128 {
       radix = 2; ++index;
     }
   }
-  var result   = u128.Zero;
-  var lut      = radixCharsTable();
+  var result = u128.Zero;
+  var table  = radixCharsTable();
 
   if (ASC_SHRINK_LEVEL >= 1) {
     let radix128 = u128.fromU64(radix);
@@ -120,7 +120,7 @@ export function atou128(str: string, radix: i32 = 0): u128 {
       let n: u32 = str.charCodeAt(index) - CharCode._0;
       if (n > <u32>(CharCode.z - CharCode._0)) break;
 
-      let num = lut[n];
+      let num = table[n];
       if (num >= <u32>radix) break;
 
       result *= radix128;
@@ -148,10 +148,22 @@ export function atou128(str: string, radix: i32 = 0): u128 {
       }
       case 16: {
         do {
+          /*
           let n: u32 = str.charCodeAt(index) - CharCode._0;
           if (n > <u32>(CharCode.z - CharCode._0)) break;
 
-          let num = lut[n];
+          let num = table[n];
+          if (num >= 16) break;
+          */
+
+          let num: u32 = str.charCodeAt(index);
+          if (num - CharCode._0 <= 9) {
+            num -= <u32>CharCode._0;
+          } else if (num - 0x61 <= 5) {
+            num -= 0x61 - 10;
+          } else if (num - 0x41 <= 5) {
+            num -= 0x41 - 10;
+          }
           if (num >= 16) break;
 
           result <<= 4;
@@ -165,7 +177,7 @@ export function atou128(str: string, radix: i32 = 0): u128 {
           let n: u32 = str.charCodeAt(index) - CharCode._0;
           if (n > <u32>(CharCode.z - CharCode._0)) break;
 
-          let num = lut[n];
+          let num = table[n];
           if (num >= <u32>radix) break;
 
           result *= radix128;
