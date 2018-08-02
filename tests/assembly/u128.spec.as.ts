@@ -57,10 +57,18 @@ export class StringConversionTests {
   }
 
   static shouldConvertFromDecimalWithInvalidCharsString5(): bool {
-    return u128.from('{0123') == u128.Zero;
+    return u128.from('123\u3012') == new u128(123);
   }
 
   static shouldConvertFromDecimalWithInvalidCharsString6(): bool {
+    return u128.from(String.fromCodePoint(0x10000)) == u128.Zero;
+  }
+
+  static shouldConvertFromDecimalWithInvalidCharsString7(): bool {
+    return u128.from('{0123') == u128.Zero;
+  }
+
+  static shouldConvertFromDecimalWithInvalidCharsString8(): bool {
     return u128.from('/0123') == u128.Zero;
   }
 
