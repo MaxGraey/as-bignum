@@ -40,6 +40,22 @@ export class StringConversionTests {
     return u128.from('123456789') == new u128(123456789);
   }
 
+  static shouldConvertFromDecimalString4(): bool {
+    return u128.from('340282366920938463463374607431768211455') == u128.Max;
+  }
+
+  static shouldConvertFromDecimalString5(): bool {
+    return u128.from('-123456789') == u128.from(-123456789);
+  }
+
+  static shouldConvertFromDecimalString6(): bool {
+    return u128.from('+123456789') == new u128(123456789);
+  }
+
+  static shouldConvertFromDecimalString7(): bool {
+    return u128.fromString('123456789', 10) == new u128(123456789);
+  }
+
   static shouldConvertFromDecimalWithInvalidCharsString(): bool {
     return u128.from('00000123abc') == new u128(123);
   }
@@ -72,18 +88,6 @@ export class StringConversionTests {
     return u128.from('/0123') == u128.Zero;
   }
 
-  static shouldConvertFromDecimalString4(): bool {
-    return u128.from('-123456789') == u128.from(-123456789);
-  }
-
-  static shouldConvertFromDecimalString5(): bool {
-    return u128.from('+123456789') == new u128(123456789);
-  }
-
-  static shouldConvertFromDecimalString6(): bool {
-    return u128.fromString('123456789', 10) == new u128(123456789);
-  }
-
   static shouldConvertFromHexString(): bool {
     return u128.fromString('123456abcdef', 16) == new u128(0x123456abcdef);
   }
@@ -94,6 +98,10 @@ export class StringConversionTests {
 
   static shouldConvertFromOctalString(): bool {
     return u128.from('0o01234567') == u128.from(0o01234567);
+  }
+
+  static shouldConvertFromBinaryString(): bool {
+    return u128.from('0b10101010101010101010') == u128.from(0b10101010101010101010);
   }
 }
 

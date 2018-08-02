@@ -15,12 +15,20 @@ import {
 
 } from '../globals';
 
+import { atou128 } from '../utils';
+
 export class i128 {
 
   static readonly Zero: i128 = new i128()
   static readonly One:  i128 = new i128(1)
   static readonly Min:  i128 = new i128(0, 0x8000000000000000)
   static readonly Max:  i128 = new i128(u64.MAX_VALUE, 0x7FFFFFFFFFFFFFFF)
+
+  @inline
+  static fromString(value: string, radix: i32 = 0): i128 {
+    assert(value, "value shouldn't be null");
+    return atou128(value, radix).toI128();
+  }
 
   @inline
   static fromI256(value: i256): i128 {

@@ -124,7 +124,7 @@ export function atou128(str: string, radix: i32 = 0): u128 {
     if (num >= <u32>radix) return result;
 
     result *= radix128;
-    result += u128.fromU32(num);
+    result += u128.fromU64(num);
   } while (++index < len);
 
   return isNeg ? -result : result;
