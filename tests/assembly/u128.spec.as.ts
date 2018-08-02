@@ -137,6 +137,48 @@ export class BufferConversionTests {
   */
 }
 
+export class BasicTypeConversionTests {
+  static shouldConvertToUinsignedLongInt1(): bool {
+    var a = u128.Max;
+    return a.as<u64>() == u64.MAX_VALUE;
+  }
+
+  static shouldConvertToSignedLongInt1(): bool {
+    var a = u128.from(-123456789);
+    return a.as<i64>() == -123456789;
+  }
+
+  static shouldConvertToSignedLongInt2(): bool {
+    var a = u128.Max;
+    return a.as<i64>() == <i64>-1;
+  }
+
+  static shouldConvertToUnsignedByte(): bool {
+    var a = u128.Max;
+    return a.as<u8>() == 0xFF;
+  }
+
+  static shouldConvertToDouble1(): bool {
+    var a = u128.Zero;
+    return a.as<f64>() == 0.0;
+  }
+
+  static shouldConvertToDouble2(): bool {
+    var a = u128.One;
+    return a.as<f64>() == 1.0;
+  }
+
+  static shouldConvertToDouble3(): bool {
+    var a = new u128(33333);
+    return a.as<f64>() == 33333.0;
+  }
+
+  static shouldConvertToDoubleMaxSafeLongInteger(): bool {
+    var a = new u128(9007199254740991);
+    return a.as<f64>() == 9007199254740991.0;
+  }
+}
+
 export class BasicOperationsTests {
   static shouldNumberIsZero1(): bool {
     var a = u128.Zero;

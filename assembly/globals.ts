@@ -25,7 +25,7 @@ export var __res128_hi: u64 = 0;
 @global
 export function __floatuntidf(lo: u64, hi: u64): f64 {
   // __floatuntidf ported from LLVM sources
-  if (lo == 0 && hi == 0) return 0.0;
+  if (!(lo | hi)) return 0.0;
 
   var v  = new u128(lo, hi);
   var sd = 128 - __clz128(lo, hi);
@@ -40,20 +40,21 @@ export function __floatuntidf(lo: u64, hi: u64): f64 {
       else {
         v = (
           u128.shr(v, sd - 55) |
-          u128.fromU32(<u32>((v & u128.fromU32(u32.MAX_VALUE >> (128 + 55 - sd))) != 0))
+          u128.fromU64((v & u128.fromU32(u32.MAX_VALUE >> (128 + 55 - sd))) != 0)
         );
       }
     }
 
-    v.lo |= (v.lo & 4) != 0;
+    v.lo |= <u64>((v.lo & 4) != 0);
     v.preInc();
 
     v = u128.shr(v, 2);
 
-    if ((v & u128.fromU64(1 << 53)).toBool()) {
+    if (u128.and(v, (u128.fromU64(1 << 53))).toBool()) {
       v = u128.shr(v, 1);
       ++e;
     }
+
   } else {
     v = u128.shl(v, 53 - sd);
   }

@@ -950,8 +950,7 @@ export class u128 {
     if (!radix) radix = 10;
     assert(radix == 10 || radix == 16, 'radix argument must be between 10 or 16');
 
-    if (this.lo == 0 && this.hi == 0)
-      return '0';
+    if (this.isZero()) return '0';
 
     var result = '';
     var it = this.clone();
