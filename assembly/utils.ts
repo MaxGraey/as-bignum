@@ -102,8 +102,7 @@ export function atou128(str: string, radix: i32 = 0): u128 {
   var index = <i32>(isNeg || first == CharCode.PLUS);
 
   if (str.charCodeAt(index) == CharCode._0) {
-    ++index;
-    let second = str.charCodeAt(index);
+    let second = str.charCodeAt(++index);
     if (second == CharCode.x || second == CharCode.X) {
       radix = 16; ++index;
     } else if (second == CharCode.o || second == CharCode.O) {
@@ -117,11 +116,11 @@ export function atou128(str: string, radix: i32 = 0): u128 {
   var lut      = radixCharsTable();
 
   do {
-    let n = str.charCodeAt(index) - 48;
-    if (<u32>n >= 75) return result;
+    let n = str.charCodeAt(index) - CharCode._0;
+    if (<u32>n > <u32>(CharCode.z - CharCode._0)) break;
 
     let num = lut[n];
-    if (num >= <u32>radix) return result;
+    if (num >= <u32>radix) break;
 
     result *= radix128;
     result += u128.fromU64(num);
