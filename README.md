@@ -37,7 +37,9 @@ var a = u128.One;
 var b = u128.from(-32); // same as u128.from<i32>(-32)
 var c = new u128(0x1, -0xF);
 var d = u128.from(0x0123456789ABCDEF); // same as u128.from<i64>(0x0123456789ABCDEF)
-var r = d / c + (b << 5);
+var e = u128.from('0x0123456789ABCDEF01234567');
+var f = u128.fromString('11100010101100101', 2); // same as u128.from('0b11100010101100101')
+var r = d / c + (b << 5) + e;
 
 console.logf(r.as<f64>());
 ```
