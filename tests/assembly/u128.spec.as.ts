@@ -56,6 +56,14 @@ export class StringConversionTests {
     return u128.from('--01234') == u128.Zero;
   }
 
+  static shouldConvertFromDecimalWithInvalidCharsString5(): bool {
+    return u128.from('{0123') == u128.Zero;
+  }
+
+  static shouldConvertFromDecimalWithInvalidCharsString6(): bool {
+    return u128.from('/0123') == u128.Zero;
+  }
+
   static shouldConvertFromDecimalString4(): bool {
     return u128.from('-123456789') == u128.from(-123456789);
   }
@@ -66,6 +74,10 @@ export class StringConversionTests {
 
   static shouldConvertFromDecimalString6(): bool {
     return u128.fromString('123456789', 10) == new u128(123456789);
+  }
+
+  static shouldConvertFromHexString(): bool {
+    return u128.fromString('123456abcdef', 16) == new u128(0x123456abcdef);
   }
 
   static shouldConvertFromMixedCaseHexString(): bool {
@@ -511,6 +523,14 @@ export class DivisionAndModOperationTests {
 }
 
 export class ThrowableTests {
+  static shouldThrowFromStringWithUnsupportedRadix1(): bool {
+    return !(u128.fromString('0000', 1));
+  }
+
+  static shouldThrowFromStringWithUnsupportedRadix2(): bool {
+    return !(u128.fromString('1234', 37));
+  }
+
   static shouldThrowFromBytesWithNull1(): bool {
     return !(u128.fromBytes(changetype<u8[]>(null)));
   }

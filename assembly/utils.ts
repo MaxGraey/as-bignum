@@ -25,7 +25,7 @@ const Pows10_64: u64[] = [
   10000000000000000000,
 ];
 
-// Use LUT wrapped by function for speedup compilation
+// Use LUT wrapped by function for lazy compilation
 @inline
 function radixCharsTable(): u32[] {
   const table: u32[] = [
@@ -118,7 +118,7 @@ export function atou128(str: string, radix: i32 = 0): u128 {
 
   do {
     let n = str.charCodeAt(index) - 48;
-    if (<u32>n > 75) return result;
+    if (<u32>n >= 75) return result;
 
     let num = lut[n];
     if (num >= <u32>radix) return result;
