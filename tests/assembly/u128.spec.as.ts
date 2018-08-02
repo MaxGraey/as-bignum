@@ -3,6 +3,7 @@ import { u128 } from '../../assembly/integer/u128';
 
 declare function logString(len: i32, pointer: usize): void;
 declare function logU128Packed(msg: string, lo: f64, hi: f64): void;
+declare function logF64(val: f64): void;
 
 function logU128(value: u128, msg: string = null): void {
   assert(value);
@@ -176,6 +177,41 @@ export class BasicTypeConversionTests {
   static shouldConvertToDoubleMaxSafeLongInteger(): bool {
     var a = new u128(9007199254740991);
     return a.as<f64>() == 9007199254740991.0;
+  }
+
+  static shouldConvertMaximumToDouble(): bool {
+    var a = u128.Max;
+    return a.as<f64>() == 3.402823669209385e+38;
+  }
+
+  static shouldConvertToDouble4(): bool {
+    var a = new u128(1 << 54);
+    return a.as<f64>() == 18014398509481984.0;
+  }
+
+  static shouldConvertToDouble5(): bool {
+    var a = new u128(1 << 55);
+    return a.as<f64>() == 36028797018963970.0;
+  }
+
+  static shouldConvertToDouble6(): bool {
+    var a = new u128(1 << 56);
+    return a.as<f64>() == 72057594037927940.0;
+  }
+
+  static shouldConvertToDouble7(): bool {
+    var a = new u128(1 << 57);
+    return a.as<f64>() == 144115188075855870.0;
+  }
+
+  static shouldConvertToDouble8(): bool {
+    var a = new u128(1 << 63);
+    return a.as<f64>() == 9223372036854776000.0;
+  }
+
+  static shouldConvertToDouble9(): bool {
+    var a = new u128(u64.MAX_VALUE);
+    return a.as<f64>() == 18446744073709552000.0;
   }
 }
 

@@ -822,7 +822,7 @@ export class u128 {
   */
   @inline
   toBool(): bool {
-    return <bool>(this.lo | this.hi);
+    return (this.lo | this.hi) != 0;
   }
 
   /**

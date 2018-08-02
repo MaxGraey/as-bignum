@@ -32,25 +32,23 @@ export function __floatuntidf(lo: u64, hi: u64): f64 {
   var e  = sd - 1;
 
   if (sd > 53) {
-    // FIXME. This branch contain bug
     if (sd != 55) {
       if (sd == 54) {
         v = u128.shl(v, 1);
-      }
-      else {
-        v = (
-          u128.shr(v, sd - 55) |
-          u128.fromU64((v & u128.fromU32(u32.MAX_VALUE >> (128 + 55 - sd))) != 0)
+      } else {
+        v = u128.or(
+          u128.shr(v, sd - 55),
+          u128.fromBool(u128.and(v, u128.shr(u128.Max, 128 + 55 - sd)).toBool())
         );
       }
     }
 
-    v.lo |= <u64>((v.lo & 4) != 0);
+    v.lo |= (v.lo & 4) >> 2;
     v.preInc();
 
     v = u128.shr(v, 2);
 
-    if (u128.and(v, (u128.fromU64(1 << 53))).toBool()) {
+    if (v.lo & (1 << 53)) {
       v = u128.shr(v, 1);
       ++e;
     }
@@ -60,7 +58,7 @@ export function __floatuntidf(lo: u64, hi: u64): f64 {
   }
 
   var w: u64 = u128.shr(v, 32).lo & 0x000FFFFF;
-  var u: u64 = <u64>(((e + 1023) << 20) | w) << 32; // high part
+  var u: u64 = <u64>(((e + 1023) << 20) | w) << 32;
   return reinterpret<f64>(u | (v.lo & 0xFFFFFFFF));
 }
 
