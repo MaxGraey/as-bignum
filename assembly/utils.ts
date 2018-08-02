@@ -112,19 +112,69 @@ export function atou128(str: string, radix: i32 = 0): u128 {
     }
   }
   var result   = u128.Zero;
-  var radix128 = u128.fromU64(radix);
   var lut      = radixCharsTable();
 
-  do {
-    let n = str.charCodeAt(index) - CharCode._0;
-    if (<u32>n > <u32>(CharCode.z - CharCode._0)) break;
+  if (ASC_SHRINK_LEVEL >= 1) {
+    let radix128 = u128.fromU64(radix);
+    do {
+      let n: u32 = str.charCodeAt(index) - CharCode._0;
+      if (n > <u32>(CharCode.z - CharCode._0)) break;
 
-    let num = lut[n];
-    if (num >= <u32>radix) break;
+      let num = lut[n];
+      if (num >= <u32>radix) break;
 
-    result *= radix128;
-    result += u128.fromU64(num);
-  } while (++index < len);
+      result *= radix128;
+      result += u128.fromU64(num);
+    } while (++index < len);
+  } else {
+    switch (radix) {
+      case 2: {
+        do {
+          let num: u32 = str.charCodeAt(index) - CharCode._0;
+          if (num >= 2) break;
+          result <<= 1;
+          result |= u128.fromU64(num);
+        } while (++index < len);
+        break;
+      }
+      case 10: {
+        do {
+          let num: u32 = str.charCodeAt(index) - CharCode._0;
+          if (num >= 10) break;
+          result  = (result << 3) + (result << 1);
+          result += u128.fromU64(num);
+        } while (++index < len);
+        break;
+      }
+      case 16: {
+        do {
+          let n: u32 = str.charCodeAt(index) - CharCode._0;
+          if (n > <u32>(CharCode.z - CharCode._0)) break;
+
+          let num = lut[n];
+          if (num >= 16) break;
+
+          result <<= 4;
+          result |= u128.fromU64(num);
+        } while (++index < len);
+        break;
+      }
+      default: {
+        let radix128 = u128.fromU64(radix);
+        do {
+          let n: u32 = str.charCodeAt(index) - CharCode._0;
+          if (n > <u32>(CharCode.z - CharCode._0)) break;
+
+          let num = lut[n];
+          if (num >= <u32>radix) break;
+
+          result *= radix128;
+          result += u128.fromU64(num);
+        } while (++index < len);
+        break;
+      }
+    }
+  }
 
   return isNeg ? -result : result;
 }
