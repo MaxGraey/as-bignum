@@ -9,14 +9,14 @@
     "build:debug": "npx asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --sourceMap --validate",
     "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate --optimize --noAssert --noDebug",
     "build:wasm": "yarn build:debug && yarn build:release",
-    "build:test": "mkdir -p tests/build && npx asc tests/assembly/u128.spec.as.ts -b tests/build/u128.wasm -t tests/build/u128.wat --validate --sourceMap --importMemory",
+    "build:test": "npx asc tests/assembly/u128.spec.as.ts -b tests/build/u128.wasm -t tests/build/u128.wat --validate --sourceMap --importMemory",
     "build": "yarn build:wasm",
     "test": "yarn build:test && ava -v",
     "test:ci": "yarn build:test && ava --fail-fast"
   },
   "devDependencies": {
     "@types/node": "^10.5.5",
-    "assemblyscript": "github:AssemblyScript/assemblyscript#631478c7c919123a4be8fcb66bfd7ece7f49bb2c",
+    "assemblyscript": "github:AssemblyScript/assemblyscript#7965776133f37e29630a832e7374c1b316a5dbe0",
     "ava": "1.0.0-beta.6",
     "ts-node": "^7.0.0",
     "typedoc": "^0.11.1",

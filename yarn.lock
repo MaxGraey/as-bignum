@@ -470,9 +470,9 @@ arrify@^1.0.0, arrify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
 
-"assemblyscript@github:AssemblyScript/assemblyscript#631478c7c919123a4be8fcb66bfd7ece7f49bb2c":
+"assemblyscript@github:AssemblyScript/assemblyscript#7965776133f37e29630a832e7374c1b316a5dbe0":
   version "0.5.0"
-  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/631478c7c919123a4be8fcb66bfd7ece7f49bb2c"
+  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/7965776133f37e29630a832e7374c1b316a5dbe0"
   dependencies:
     "@protobufjs/utf8" "^1.1.0"
     binaryen "49.0.0-nightly.20180731"
