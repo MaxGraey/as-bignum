@@ -559,7 +559,7 @@ export class u128 {
         return shift < 128 ? u128.One << shift : u128.Zero;
       }
     } else if (!lo) {
-      // 1 << 64 * exponent always return "0"
+      // 1 << 64 * exponent (exp > 1) always return "0"
       if (!(hi & (hi - 1))) return u128.Zero;
     }
 
