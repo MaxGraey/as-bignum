@@ -181,7 +181,7 @@ export class BasicTypeConversionTests {
 
   static shouldConvertMaximumToDouble(): bool {
     var a = u128.Max;
-    return a.as<f64>() == 3.402823669209385e+38;
+    return a.as<f64>() == 340282366920938463463374607431768211455.0;
   }
 
   static shouldConvertToDouble4(): bool {
@@ -467,6 +467,16 @@ export class ExponentionOperationTests {
   static shouldPowerOfThreeReturnNumber2(): bool {
     var a = new u128(12345678);
     return (a ** 3) == new u128(0x017FEC50E04509B8, 0x66);
+  }
+
+  static shouldPowerOfThreeReturnNumber3(): bool {
+    var a = new u128(1 << 20);
+    return (a ** 4) == new u128(0, 0x10000);
+  }
+
+  static shouldPowerOfThreeReturnNumber4(): bool {
+    var a = new u128(0, 1);
+    return (a ** 4) == u128.Zero;
   }
 }
 

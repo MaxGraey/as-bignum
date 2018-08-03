@@ -315,7 +315,7 @@ export function __udivmod128core(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
 
   __divmod_quot_lo = q.lo;
   __divmod_quot_hi = q.hi;
-  __divmod_rem  = <u64> n.lo;
+  __divmod_rem     = n.lo;
 
 }
 
