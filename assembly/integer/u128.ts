@@ -182,7 +182,7 @@ export class u128 {
   /**
    * Create 128-bit unsigned integer from generic type T
    * @param  value
-   * @return 128-bit unsigned integer
+   * @returns 128-bit unsigned integer
    */
   @inline
   static from<T>(value: T): u128 {
@@ -536,7 +536,7 @@ export class u128 {
    * Calculate power of base with exponent
    * @param  base     128-bit unsigned integer
    * @param  exponent 32-bit signed integer
-   * @return          128-bit unsigned integer
+   * @returns         128-bit unsigned integer
    */
   @operator('**')
   static pow(base: u128, exponent: i32): u128 {
@@ -676,7 +676,7 @@ export class u128 {
   /**
    * Compute count of set (populated) bits
    * @param  value 128-bit unsigned integer
-   * @return       32-bit signed integer
+   * @returns      32-bit signed integer
    */
   @inline
   static popcnt(value: u128): i32 {
@@ -687,7 +687,7 @@ export class u128 {
   /**
    * Compute bit count of leading zeros
    * @param  value 128-bit unsigned integer
-   * @return       32-bit signed integer
+   * @returns      32-bit signed integer
    */
   @inline
   static clz(value: u128): i32 {
@@ -698,7 +698,7 @@ export class u128 {
   /**
    * Compute bit count of trailing zeros
    * @param  value 128-bit unsigned integer
-   * @return       32-bit signed integer
+   * @returns      32-bit signed integer
    */
   @inline
   static ctz(value: u128): i32 {
@@ -709,7 +709,7 @@ export class u128 {
   /**
    * Calculate squared value (value ** 2)
    * @param  value 128-bit unsigned integer
-   * @return       128-bit unsigned integer
+   * @returns      128-bit unsigned integer
    */
   static sqr(value: u128): u128 {
     assert(value, "value shouldn't be null");
@@ -726,7 +726,7 @@ export class u128 {
 
   /**
    * Calculate inplace squared 128-bit unsigned integer (this ** 2)
-   * @return 128-bit unsigned integer
+   * @returns 128-bit unsigned integer
    */
   sqr(): this {
     var u = this.lo,
@@ -757,7 +757,7 @@ export class u128 {
 
   /**
   * Convert to 256-bit signed integer
-  * @return 256-bit signed integer
+  * @returns 256-bit signed integer
   */
   @inline
   toI256(): i256 {
@@ -766,7 +766,7 @@ export class u128 {
 
   /**
   * Convert to 256-bit unsigned integer
-  * @return 256-bit unsigned integer
+  * @returns 256-bit unsigned integer
   */
   @inline
   toU256(): u256 {
@@ -775,7 +775,7 @@ export class u128 {
 
   /**
   * Convert to 128-bit signed integer
-  * @return 128-bit signed integer
+  * @returns 128-bit signed integer
   */
   @inline
   toI128(): i128 {
@@ -784,7 +784,7 @@ export class u128 {
 
   /**
   * Convert to 128-bit unsigned integer
-  * @return 128-bit unsigned integer
+  * @returns 128-bit unsigned integer
   */
   @inline
   toU128(): this {
@@ -793,7 +793,7 @@ export class u128 {
 
   /**
   * Convert to 64-bit signed integer
-  * @return 64-bit signed integer
+  * @returns 64-bit signed integer
   */
   @inline
   toI64(): i64 {
@@ -805,7 +805,7 @@ export class u128 {
 
   /**
   * Convert to 64-bit unsigned integer
-  * @return 64-bit unsigned integer
+  * @returns 64-bit unsigned integer
   */
   @inline
   toU64(): u64 {
@@ -814,7 +814,7 @@ export class u128 {
 
   /**
   * Convert to 32-bit signed integer
-  * @return 32-bit signed integer
+  * @returns 32-bit signed integer
   */
   @inline
   toI32(): i32 {
@@ -823,7 +823,7 @@ export class u128 {
 
   /**
   * Convert to 32-bit unsigned integer
-  * @return 32-bit unsigned integer
+  * @returns 32-bit unsigned integer
   */
   @inline
   toU32(): u32 {
@@ -832,7 +832,7 @@ export class u128 {
 
   /**
   * Convert to 1-bit boolean
-  * @return 1-bit boolean
+  * @returns 1-bit boolean
   */
   @inline
   toBool(): bool {
@@ -841,7 +841,7 @@ export class u128 {
 
   /**
   * Convert to 64-bit float number in deteministic way
-  * @return 64-bit float
+  * @returns 64-bit float
   */
   @inline
   toF64(): f64 {
@@ -869,7 +869,7 @@ export class u128 {
 
   /**
   * Convert to 32-bit float number
-  * @return 32-bit float
+  * @returns 32-bit float
   */
   @inline
   toF32(): f32 {
@@ -879,7 +879,7 @@ export class u128 {
   /**
    * Convert to generic type T. Useful inside other generics methods
    * @param  T  is <bool | i8 | u8 | i16 | u16 | i32 | u32 | i64 | u64 | f32 | f64 | u128 | u256 | u8[]>
-   * @return    type of T
+   * @returns   type of T
    */
   @inline
   as<T>(): T {
@@ -907,7 +907,7 @@ export class u128 {
   /**
    * Convert to byte array
    * @param le Little or Big Endian? Default: true
-   * @return   Array of bytes
+   * @returns  Array of bytes
    */
   @inline
   toBytes(le: bool = true): u8[] {
@@ -916,7 +916,7 @@ export class u128 {
 
   /**
   * Convert to Little Endian byte array
-  * @return Array of bytes
+  * @returns Array of bytes
   */
   toBytesLE(): u8[] {
     var hi = this.hi, lo = this.lo;
@@ -952,7 +952,7 @@ export class u128 {
 
   /**
   * Return copy of current 128-bit value
-  * @return 128-bit unsigned integer
+  * @returns 128-bit unsigned integer
   */
   @inline
   clone(): u128 {
