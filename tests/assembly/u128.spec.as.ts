@@ -107,35 +107,23 @@ export class StringConversionTests {
 }
 
 export class BufferConversionTests {
-  static shouldConvertFromBytesLittleEndian1(): bool {
-    return u128.fromBytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] as u8[]) == u128.Zero;
-  }
-
-  static shouldConvertFromBytesLittleEndian2(): bool {
-    return u128.fromBytes([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] as u8[]) == u128.One;
-  }
-
-  /*
-  static shouldConvertFromBytesLittleEndian3(): bool {
+  static shouldConvertFromBytesLittleEndian(): bool {
     var arr: u8[] = [
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
     ];
 
-    logU128(u128.fromBytes(arr));
-    return u128.fromBytes(arr) == new u128(0x12ffeeddccbbaa99, 0x8877665544332211);
+    return u128.fromBytes(arr) == new u128(0x8877665544332211, 0x12ffeeddccbbaa99);
   }
 
-  static shouldConvertFromBytesBigEndian1(): bool {
-    return u128.fromBytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] as u8[], false) == u128.Zero;
-  }*/
+  static shouldConvertFromBytesBigEndian(): bool {
+    var arr: u8[] = [
+      0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
+      0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
+    ];
 
-  /*
-  static shouldConvertFromBytesBigEndian2(): bool {
-    logU128(u128.fromBytes([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] as u8[], false));
-    return u128.fromBytes([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] as u8[], false) == u128.One;
+    return u128.fromBytes(arr, true) == new u128(0x99aabbccddeeff12, 0x1122334455667788);
   }
-  */
 }
 
 export class BasicTypeConversionTests {

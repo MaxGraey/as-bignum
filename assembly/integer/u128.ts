@@ -112,71 +112,54 @@ export class u128 {
   }
 
   @inline
-  static fromBytes(array: u8[], le: bool = true): u128 {
-    return le ? u128.fromBytesLE(array) : u128.fromBytesBE(array);
+  static fromBytes(array: u8[], bigEndian: bool = false): u128 {
+    return bigEndian ? u128.fromBytesBE(array) : u128.fromBytesLE(array);
   }
 
   static fromBytesLE(array: u8[]): u128 {
     assert(array !== null && array.length == 16);
-
-    /*
-    var lo: u64 = 0, hi: u64 = 0, i = 0;
-    for (; i <  8; ++i) lo |= <u64>unchecked(array[i]) << ((i - 0) << 3);
-    for (; i < 16; ++i) hi |= <u64>unchecked(array[i]) << ((i - 8) << 3);
-    */
-
     return new u128(
-      <u64>array[0] <<  0 |
-      <u64>array[1] <<  8 |
-      <u64>array[2] << 16 |
-      <u64>array[3] << 24 |
-      <u64>array[4] << 32 |
-      <u64>array[5] << 40 |
-      <u64>array[6] << 48 |
-      <u64>array[7] << 56,
+      <u64>unchecked(array[0]) <<  0 |
+      <u64>unchecked(array[1]) <<  8 |
+      <u64>unchecked(array[2]) << 16 |
+      <u64>unchecked(array[3]) << 24 |
+      <u64>unchecked(array[4]) << 32 |
+      <u64>unchecked(array[5]) << 40 |
+      <u64>unchecked(array[6]) << 48 |
+      <u64>unchecked(array[7]) << 56,
 
-      <u64>array[8]  <<  0 |
-      <u64>array[9]  <<  8 |
-      <u64>array[10] << 16 |
-      <u64>array[11] << 24 |
-      <u64>array[12] << 32 |
-      <u64>array[13] << 40 |
-      <u64>array[14] << 48 |
-      <u64>array[15] << 56,
+      <u64>unchecked(array[8])  <<  0 |
+      <u64>unchecked(array[9])  <<  8 |
+      <u64>unchecked(array[10]) << 16 |
+      <u64>unchecked(array[11]) << 24 |
+      <u64>unchecked(array[12]) << 32 |
+      <u64>unchecked(array[13]) << 40 |
+      <u64>unchecked(array[14]) << 48 |
+      <u64>unchecked(array[15]) << 56,
     );
-
-    return new u128(lo, hi);
   }
 
   static fromBytesBE(array: u8[]): u128 {
     assert(array !== null && array.length == 16);
-
-    /*var lo: u64 = 0, hi: u64 = 0, i = 0;
-    for (; i <  8; ++i) hi |= <u64>unchecked(array[15 - i]) << (i << 3);
-    for (; i < 16; ++i) lo |= <u64>unchecked(array[15 - i]) << (i << 3);
-    */
-
     return new u128(
-      <u64>array[8]  << 56 |
-      <u64>array[9]  << 48 |
-      <u64>array[10] << 40 |
-      <u64>array[11] << 32 |
-      <u64>array[12] << 24 |
-      <u64>array[13] << 16 |
-      <u64>array[14] <<  8 |
-      <u64>array[15] <<  0,
+      <u64>unchecked(array[8])  << 56 |
+      <u64>unchecked(array[9])  << 48 |
+      <u64>unchecked(array[10]) << 40 |
+      <u64>unchecked(array[11]) << 32 |
+      <u64>unchecked(array[12]) << 24 |
+      <u64>unchecked(array[13]) << 16 |
+      <u64>unchecked(array[14]) <<  8 |
+      <u64>unchecked(array[15]) <<  0,
 
-      <u64>array[0] << 56 |
-      <u64>array[1] << 48 |
-      <u64>array[2] << 40 |
-      <u64>array[3] << 32 |
-      <u64>array[4] << 24 |
-      <u64>array[5] << 16 |
-      <u64>array[6] <<  8 |
-      <u64>array[7] <<  0
+      <u64>unchecked(array[0]) << 56 |
+      <u64>unchecked(array[1]) << 48 |
+      <u64>unchecked(array[2]) << 40 |
+      <u64>unchecked(array[3]) << 32 |
+      <u64>unchecked(array[4]) << 24 |
+      <u64>unchecked(array[5]) << 16 |
+      <u64>unchecked(array[6]) <<  8 |
+      <u64>unchecked(array[7]) <<  0,
     );
-
-    // return new u128(lo, hi);
   }
 
   /**
@@ -910,8 +893,8 @@ export class u128 {
    * @returns  Array of bytes
    */
   @inline
-  toBytes(le: bool = true): u8[] {
-    return le ? this.toBytesLE() : this.toBytesBE();
+  toBytes(bigEndian: bool = false): u8[] {
+    return bigEndian ? this.toBytesBE() : this.toBytesLE();
   }
 
   /**
