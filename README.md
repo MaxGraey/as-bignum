@@ -1,6 +1,4 @@
-[![Build Status](https://travis-ci.com/MaxGraey/bignum.wasm.svg?branch=master)](https://travis-ci.com/MaxGraey/bignum.wasm)
-[![Lines of Code](https://tokei.rs/b1/github/MaxGraey/bignum.wasm?style=flat-square)](https://github.com/MaxGraey/bignum.wasm)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Build Status](https://img.shields.io/travis/com/MaxGraey/bignum.wasm.svg?style=flat-square&label=linux%20%26%20osx)](https://travis-ci.com/MaxGraey/bignum.wasm)[![License](https://img.shields.io/badge/license-Apache%202.0-ba68c8.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0)
 
 ## Work in progress
 
