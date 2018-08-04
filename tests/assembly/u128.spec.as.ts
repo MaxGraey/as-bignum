@@ -615,6 +615,10 @@ export class DivisionAndModOperationTests {
 }
 
 export class ThrowableTests {
+  static shouldThrowFromStringWithNull(): bool {
+    return !(u128.fromString(changetype<String>(null)));
+  }
+
   static shouldThrowFromStringWithUnsupportedRadix1(): bool {
     return !(u128.fromString('0000', 1));
   }
@@ -628,38 +632,44 @@ export class ThrowableTests {
   }
 
   static shouldThrowFromBytesWithNull2(): bool {
-    return !(u128.fromBytes(changetype<u8[]>(null), false));
+    return !(u128.fromBytes(changetype<u8[]>(null), true));
   }
 
   static shouldThrowFromBytesWithWrongByteArrayLength1(): bool {
-    return !(u128.fromBytes(<u8[]>[]));
+    return !(u128.fromBytes([]));
   }
 
   static shouldThrowFromBytesWithWrongByteArrayLength2(): bool {
-    return !(u128.fromBytes(<u8[]>[], false));
+    return !(u128.fromBytes([], true));
   }
 
   static shouldThrowFromBytesWithWrongByteArrayLength3(): bool {
-    return !(u128.fromBytes(<u8[]>[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]));
+    return !(u128.fromBytes([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]));
   }
 
   static shouldThrowFromBytesWithWrongByteArrayLength4(): bool {
-    return !(u128.fromBytes(<u8[]>[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17], false));
+    return !(u128.fromBytes([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], true));
   }
 
-  static shouldThrowThenNullRefs(): bool {
+  static shouldThrowThenNullRefs1(): bool {
     let a = changetype<u128>(null);
     let b = u128.Zero;
     return !(a + b);
   }
 
+  static shouldThrowThenNullRefs2(): bool {
+    let a = u128.Zero;
+    let b = changetype<u128>(null);
+    return !(a + b);
+  }
+
   static shouldThrowWhenDivideNumberByZero(): bool {
-    let a = new u128(1,1);
+    let a = new u128(1, 1);
     return !(a / u128.Zero);
   }
 
   static shouldThrowWhenModNumberByZero(): bool {
-    let a = new u128(1,1);
+    let a = new u128(1, 1);
     return !(a % u128.Zero);
   }
 }
