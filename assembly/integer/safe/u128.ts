@@ -1,6 +1,6 @@
 import { u128 as U128 } from '../u128';
 
-export namespace safe {
+// export namespace safe {
   export class u128 extends U128 {
 
     @inline @operator.prefix('++')
@@ -26,7 +26,8 @@ export namespace safe {
       assert(a, "value shouldn't be null");
       assert(b, "value shouldn't be null");
       // overflow guard
-      assert(clz(a.hi) | clz(b.hi));
+      // assert(clz(a.hi) | clz(b.hi));
+      assert(clz(a.hi | b.hi));
       return changetype<u128>(
         U128.add(changetype<U128>(a), changetype<U128>(b))
       );
@@ -81,4 +82,4 @@ export namespace safe {
     // div and rem already contain traps
     //
   }
-}
+// }

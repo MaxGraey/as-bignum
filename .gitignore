@@ -11,3 +11,4 @@ node_modules/
 playground/
 coverage/
 tests/build
+build/
