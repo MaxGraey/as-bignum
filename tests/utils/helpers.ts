@@ -2,12 +2,16 @@ import * as fs   from 'fs';
 import * as path from 'path';
 import * as util from 'util';
 
-import { demangle } from '../../node_modules/assemblyscript/lib/loader';
+import { demangle } from 'assemblyscript/lib/loader';
 
 export type ExportedEntry   = { [key: string]: Function };
 export type ExportedEntries = { [key: string]: ExportedEntry };
 
 const readFile = util.promisify(fs.readFile);
+
+const F64 = new Float64Array(1);
+const U64 = new Uint32Array(F64.buffer);
+
 
 export function isThrowable(name: string): boolean {
   return name.toLowerCase().includes('throwable');
@@ -29,30 +33,6 @@ export async function setup(testFileName: string): Promise<ExportedEntries> {
   const imports = buildImports(`${ testFileName }.spec.as`, new WebAssembly.Memory({ initial: 2 }));
   const result  = await WebAssembly.instantiate(file, imports);
   return demangle<ExportedEntries>(result.instance.exports);
-}
-
-const F64 = new Float64Array(1);
-const U64 = new Uint32Array(F64.buffer);
-
-export function bufferToString(charArray: Uint8Array): string {
-  let result = '';
-  for (let i = 0, len = charArray.length; i < len; ++i) {
-    if (charArray[i])
-      result += String.fromCharCode(charArray[i]);
-  }
-  return result;
-}
-
-export function bufferToBinaryString(buffer: Uint8Array): string {
-  const binary = '01';
-  let result = '';
-  for (let i = 0, len = buffer.length; i < len; ++i) {
-    for (let j = 7; j > -1; j--) {
-      let bit = (buffer[i] & (1 << j)) > 0;
-      result += binary.charAt(+bit);
-    }
-  }
-  return result;
 }
 
 function unpackToString64(value: number): string {

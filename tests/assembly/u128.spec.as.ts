@@ -1,7 +1,7 @@
 import 'allocator/arena';
 import { u128 } from '../../assembly/integer/u128';
 
-declare function logString(len: i32, pointer: usize): void;
+declare function logStr(str: string): void;
 declare function logU128Packed(msg: string, lo: f64, hi: f64): void;
 declare function logF64(val: f64): void;
 
