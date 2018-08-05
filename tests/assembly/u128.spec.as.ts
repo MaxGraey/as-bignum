@@ -494,18 +494,33 @@ export class ExponentionOperationTests {
   }
 
   static shouldPowerOfThreeReturnNumber4(): bool {
-    var a = new u128(0, 1);
-    return (a ** 4) == u128.Zero;
-  }
-
-  static shouldPowerOfThreeReturnNumber5(): bool {
     var a = new u128((1 << 40) + 1);
     return (a ** 3) == new u128(0x0000030000000001, 0x100000000030000);
+  }
+
+  static shouldPowerOfFourReturnNumber5(): bool {
+    var a = new u128(0, 1);
+    return (a ** 4) == u128.Zero;
   }
 
   static shouldPowerOf18ReturnNumber(): bool {
     var a = new u128(123);
     return (a ** 18) == new u128(0xB8C3F9BBD49E3CD9, 0x1F3D196F2C2AF26A);
+  }
+
+  static shouldPowerOf127ReturnNumber1(): bool {
+    var a = new u128(2);
+    return (a ** 127) == new u128(0, 0x8000000000000000);
+  }
+
+  static shouldPowerOf127ReturnNumber2(): bool {
+    var a = new u128(3);
+    return (a ** 127) == new u128(0x2AC0B180838228AB, 0x4C1D8529A9294BCC);
+  }
+
+  static shouldPowerOf128ReturnNumber(): bool {
+    var a = new u128(2);
+    return (a ** 128) == u128.Zero;
   }
 }
 

@@ -528,8 +528,7 @@ export class u128 {
   static pow(base: u128, exponent: i32): u128 {
     assert(base, "value shouldn't be null");
     // any negative exponent produce zero
-    if (exponent < 0)
-      return u128.Zero;
+    if (exponent < 0) return u128.Zero;
 
     switch (exponent) {
       case 0: return u128.One;
@@ -554,6 +553,7 @@ export class u128 {
       }
     }
 
+    if (exponent >= 128) return u128.Zero;
     if (exponent <= 4) {
       let sqrbase = u128.sqr(base);
       switch (exponent) {
