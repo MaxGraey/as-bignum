@@ -22,6 +22,9 @@ import {
 } from '../globals';
 import { utoa10, atou128 } from '../utils';
 
+// @external("u128.spec.as", "logStr")
+// declare function logStr(str: string): void;
+
 const HEX_CHARS = '0123456789abcdef';
 
 export class u128 {
@@ -696,7 +699,7 @@ export class u128 {
    */
   static sqr(value: u128): u128 {
     assert(value, "value shouldn't be null");
-    return u128.fromU128(value).sqr();
+    return value.clone().sqr();
   }
 
   // wide mul: u128 * u128 = u256
@@ -728,9 +731,9 @@ export class u128 {
     t = m + (t & 0xFFFFFFFF);
 
     var lo = (t << 32) + w;
-    var hi   = u * u + w1 + (t >> 32);
-        hi  += v * u;
-        hi <<= 1;
+    var hi  = u * u;
+        hi += w1 + (t >> 32);
+        hi += u * v << 1;
 
     this.lo = lo;
     this.hi = hi;

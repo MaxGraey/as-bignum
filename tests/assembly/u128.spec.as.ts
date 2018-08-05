@@ -463,12 +463,15 @@ export class ExponentionOperationTests {
     return (a ** 2) == new u128((0xFFFF - 1) * (0xFFFF - 1));
   }
 
-  // FAIL
-  // TODO need investigate u128#sqr
-  /*static shouldPowerOfTwoReturnSquaredNumberWithOverflow(): bool {
+  static shouldPowerOfTwoReturnSquaredNumberWithOverflow(): bool {
     var a = new u128(0, 1);
     return (a ** 2) == u128.Zero;
-  }*/
+  }
+
+  static shouldPowerOfTwoReturnSquaredNumberWithOverflow2(): bool {
+    var a = new u128(0, 3);
+    return (a ** 2) == u128.Zero;
+  }
 
   static shouldPowerOfThreeReturnNumber(): bool {
     var a = new u128(0xFFFF);
@@ -488,6 +491,16 @@ export class ExponentionOperationTests {
   static shouldPowerOfThreeReturnNumber4(): bool {
     var a = new u128(0, 1);
     return (a ** 4) == u128.Zero;
+  }
+
+  static shouldPowerOfThreeReturnNumber5(): bool {
+    var a = new u128((1 << 40) + 1);
+    return (a ** 3) == new u128(0x0000030000000001, 0x100000000030000);
+  }
+
+  static shouldPowerOf18ReturnNumber(): bool {
+    var a = new u128(123);
+    return (a ** 18) == new u128(0xB8C3F9BBD49E3CD9, 0x1F3D196F2C2AF26A);
   }
 }
 
