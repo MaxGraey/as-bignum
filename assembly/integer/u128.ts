@@ -540,6 +540,9 @@ export class u128 {
     var lo = base.lo;
     var hi = base.hi;
 
+    // if base > u64::max always return "0"
+    if (!lo) return u128.Zero;
+
     if (!hi) {
       let lo1 = lo - 1;
       // "1 ^ exponent" always return "1"
@@ -550,9 +553,6 @@ export class u128 {
         let shift = <i32>(64 - clz(lo1)) * exponent;
         return shift < 128 ? u128.One << shift : u128.Zero;
       }
-    } else if (!lo) {
-      // 1 << 64 * exponent (exp > 1) always return "0"
-      if (!(hi & (hi - 1))) return u128.Zero;
     }
 
     if (exponent <= 4) {
