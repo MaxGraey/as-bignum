@@ -82,7 +82,7 @@ function buildImports(name: string, memory: WebAssembly.Memory): { [key: string]
         console.log(`[f64]: ${ value }`);
       },
       logStr(msgPtr: number) {
-        console.log(`[str]: ${ getString(msgPtr, buffer) }`);
+        if (msgPtr) console.log(`[str]: ${ getString(msgPtr, buffer) }`);
       },
       logU128Packed(msgPtr: number, lo: number, hi: number) {
         if (msgPtr) {

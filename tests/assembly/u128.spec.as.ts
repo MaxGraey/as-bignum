@@ -1,11 +1,11 @@
 import 'allocator/arena';
 import { u128 } from '../../assembly/integer/u128';
 
-declare function logStr(str: string): void;
-declare function logU128Packed(msg: string, lo: f64, hi: f64): void;
+declare function logStr(str: string | null): void;
+declare function logU128Packed(msg: string | null, lo: f64, hi: f64): void;
 declare function logF64(val: f64): void;
 
-function logU128(value: u128, msg: string = null): void {
+function logU128(value: u128, msg: string | null = null): void {
   assert(value);
   logU128Packed(msg,
     reinterpret<f64>(value.lo),
@@ -57,7 +57,7 @@ export class StringConversionTests {
     return u128.fromString('123456789', 10) == new u128(123456789);
   }
 
-  static shouldConvertFromDecimalWithInvalidCharsString(): bool {
+  static shouldConvertFromDecimalWithInvalidCharsString1(): bool {
     return u128.from('00000123abc') == new u128(123);
   }
 
