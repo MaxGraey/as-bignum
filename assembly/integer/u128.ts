@@ -368,7 +368,7 @@ export class u128 {
     // return u128.shl(value, shift) | u128.shr(value, 128 - shift);
 
     shift &= 127;
-    if (shift == 0) return value.clone();
+    if (shift == 0) return value;
 
     var shift64 = (128 - shift) as u64;
 
@@ -406,7 +406,7 @@ export class u128 {
     assert(value, "value shouldn't be null");
 
     shift &= 127;
-    if (shift == 0) return value.clone();
+    if (shift == 0) return value;
 
     var shift64 = (128 - shift) as u64;
 

@@ -20,7 +20,7 @@ export class StringConversionTests {
   }
 
   static shouldConvertToDecimalString2(): bool {
-    var a = new u128(0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF);
+    var a = u128.Max;
     return '340282366920938463463374607431768211455' == a.toString();
   }
 
