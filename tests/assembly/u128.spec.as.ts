@@ -438,6 +438,11 @@ export class ExponentionOperationTests {
     return a ** 0 == u128.One;
   }
 
+  static shouldAnyPowerForZeroReturnNumber(): bool {
+    var a = u128.Zero;
+    return a ** 10 == u128.Zero && a ** 1 == u128.Zero && a ** 2 == u128.Zero;
+  }
+
   static shouldPowerOfOneReturnSameNumber(): bool {
     var a = new u128(-1, -1);
     return a ** 1 == a;
