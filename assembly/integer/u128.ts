@@ -533,7 +533,6 @@ export class u128 {
     switch (exponent) {
       case 0: return u128.One;
       case 1: return base.clone();
-      default: break;
     }
 
     var lo = base.lo;
@@ -553,7 +552,6 @@ export class u128 {
       }
     }
 
-    if (exponent >= 128) return u128.Zero;
     if (exponent <= 4) {
       let sqrbase = u128.sqr(base);
       switch (exponent) {
@@ -570,10 +568,7 @@ export class u128 {
 
     // 128 = 2 ^ 7, so need only seven cases
     switch (bs) {
-      case 8: // FIXME really need eight step? Will decide during tests
-        if (exponent & 1) result *= tmp;
-        exponent >>= 1;
-        tmp.sqr();
+      default:
       case 7:
         if (exponent & 1) result *= tmp;
         exponent >>= 1;
@@ -600,8 +595,6 @@ export class u128 {
         tmp.sqr();
       case 1:
         if (exponent & 1) result *= tmp;
-
-      default: break;
     }
 
     return result;
