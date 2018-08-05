@@ -315,10 +315,10 @@ export class u128 {
     shift &= 127;
 
     // need for preventing redundant i32 -> u64 extends
-    var shift64: u64 = shift;
+    var shift64 = shift as u64;
 
-    var mod1: u64 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
-    var mod2: u64 = (shift64 >> 6) - 1;
+    var mod1 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
+    var mod2 = (shift64 >> 6) - 1;
 
     shift64 &= 63;
 
@@ -338,10 +338,10 @@ export class u128 {
     shift &= 127;
 
     // need for preventing redundant i32 -> u64 extends
-    var shift64: u64 = shift;
+    var shift64 = shift as u64;
 
-    var mod1: u64 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
-    var mod2: u64 = (shift64 >> 6) - 1;
+    var mod1 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
+    var mod2 = (shift64 >> 6) - 1;
 
     shift64 &= 63;
 
@@ -367,13 +367,13 @@ export class u128 {
     // if (shift ==  0) return this.clone();
     // return u128.shl(value, shift) | u128.shr(value, 128 - shift);
 
+    shift &= 127;
     if (shift == 0) return value.clone();
 
-    shift &= 127;
-    var shift64: u64 = 128 - shift;
+    var shift64 = (128 - shift) as u64;
 
-    var mod1: u64 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
-    var mod2: u64 = (shift64 >> 6) - 1;
+    var mod1 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
+    var mod2 = (shift64 >> 6) - 1;
 
     shift64 &= 63;
 
@@ -405,13 +405,13 @@ export class u128 {
   static rotr(value: u128, shift: i32): u128 {
     assert(value, "value shouldn't be null");
 
+    shift &= 127;
     if (shift == 0) return value.clone();
 
-    shift &= 127;
-    var shift64: u64 = 128 - shift;
+    var shift64 = (128 - shift) as u64;
 
-    var mod1: u64 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
-    var mod2: u64 = (shift64 >> 6) - 1;
+    var mod1 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
+    var mod2 = (shift64 >> 6) - 1;
 
     shift64 &= 63;
 
