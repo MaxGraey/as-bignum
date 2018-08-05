@@ -14,8 +14,10 @@ export function isThrowable(name: string): boolean {
 }
 
 export function decamelize(str: string): string {
-  const c = str.replace(/([A-Z0-9])/g, ' $1');
-  return c.charAt(0).toUpperCase() + c.slice(1).toLowerCase();
+  const t = str
+    .replace(/([0-9]{1,})/g, ' $1')
+    .replace(/([A-Z]{1,})/g, m => ' ' + (m.length === 1 ? m.toLowerCase() : m));
+  return t.charAt(0).toUpperCase() + t.slice(1);
 }
 
 export async function setup(testFileName: string): Promise<ExportedEntries> {
