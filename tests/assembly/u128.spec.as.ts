@@ -150,6 +150,11 @@ export class BufferConversionTests {
 }
 
 export class BasicTypeConversionTests {
+  static shouldConvertFromInteger1(): bool {
+    var a = u128.from(-1);
+    return a.lo == u64.MAX_VALUE && a.hi == u64.MAX_VALUE;
+  }
+
   static shouldConvertToUinsignedLongInt1(): bool {
     var a = u128.Max;
     return a.as<u64>() == u64.MAX_VALUE;
