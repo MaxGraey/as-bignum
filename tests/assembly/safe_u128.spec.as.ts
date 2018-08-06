@@ -12,3 +12,28 @@ function logU128(value: u128, msg: string = null): void {
     reinterpret<f64>(value.hi)
   );
 }
+
+export class BasicOperationsTests {
+  static shouldAddTwoNumbers(): bool {
+    var a = new u128(100, 255);
+    var b = new u128(255, 100);
+    return a + b == new u128(355, 355);
+  }
+
+  static shouldSubtractTwoNumbers(): bool {
+    var a = new u128(355, 355);
+    var b = new u128(100, 255);
+    return a - b == new u128(255, 100);
+  }
+}
+
+export class OverflowUnderflowThrowableTests {
+  // fail
+  /*
+  static shouldThrowWhenAddTwoNumbers1(): bool {
+    var a = u128.One;
+    var b = u128.Max;
+    return !(a + b);
+  }
+  */
+}

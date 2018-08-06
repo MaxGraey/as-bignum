@@ -30,8 +30,8 @@ import { u128 as U128 } from '../u128';
       assert(a, "value shouldn't be null");
       assert(b, "value shouldn't be null");
       // overflow guard
-      // assert(clz(a.hi) | clz(b.hi));
-      assert(clz(a.hi | b.hi), "overflow");
+      assert(u128.clz(a) | u128.clz(b), "overflow"); // FIXME Wrong idea
+      // assert(clz(a.hi | b.hi), "overflow");
       return changetype<u128>(
         U128.add(changetype<U128>(a), changetype<U128>(b))
       );
@@ -86,7 +86,7 @@ import { u128 as U128 } from '../u128';
     }
 
     //
-    // div and rem already contain traps
+    // unsigned div and rem already contain traps
     //
   }
 // }
