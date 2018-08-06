@@ -564,39 +564,46 @@ export class u128 {
 
     var result = u128.One;
     var tmp    = base.clone();
-    var bs     = 32 - clz(exponent);
+    var log    = 32 - clz(exponent);
 
-    // 128 = 2 ^ 7, so need only seven cases
-    switch (bs) {
-      default:
-      case 7:
-        if (exponent & 1) result *= tmp;
-        exponent >>= 1;
-        tmp.sqr();
-      case 6:
-        if (exponent & 1) result *= tmp;
-        exponent >>= 1;
-        tmp.sqr();
-      case 5:
-        if (exponent & 1) result *= tmp;
-        exponent >>= 1;
-        tmp.sqr();
-      case 4:
-        if (exponent & 1) result *= tmp;
-        exponent >>= 1;
-        tmp.sqr();
-      case 3:
-        if (exponent & 1) result *= tmp;
-        exponent >>= 1;
-        tmp.sqr();
-      case 2:
-        if (exponent & 1) result *= tmp;
-        exponent >>= 1;
-        tmp.sqr();
-      case 1:
-        if (exponent & 1) result *= tmp;
+    if (log >= 7) {
+      // 128 = 2 ^ 7, so need only seven cases
+      switch (log) {
+        case 7:
+          if (exponent & 1) result *= tmp;
+          exponent >>= 1;
+          tmp.sqr();
+        case 6:
+          if (exponent & 1) result *= tmp;
+          exponent >>= 1;
+          tmp.sqr();
+        case 5:
+          if (exponent & 1) result *= tmp;
+          exponent >>= 1;
+          tmp.sqr();
+        case 4:
+          if (exponent & 1) result *= tmp;
+          exponent >>= 1;
+          tmp.sqr();
+        case 3:
+          if (exponent & 1) result *= tmp;
+          exponent >>= 1;
+          tmp.sqr();
+        case 2:
+          if (exponent & 1) result *= tmp;
+          exponent >>= 1;
+          tmp.sqr();
+        case 1:
+          if (exponent & 1) result *= tmp;
+      }
+      return result;
     }
 
+    while (exponent > 0) {
+      if (exponent & 1) result *= tmp;
+      exponent >>= 1;
+      tmp.sqr();
+    }
     return result;
   }
 
