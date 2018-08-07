@@ -213,7 +213,7 @@ declare function logStr(str: string): void;
       assert(a, "value shouldn't be null");
       assert(b, "value shouldn't be null");
       // underflow guard
-      assert(changetype<U128>(a) >= changetype<U128>(b), "overflow");
+      assert(a >= b, "overflow");
       return changetype<u128>(
         U128.sub(changetype<U128>(a), changetype<U128>(b))
       );
@@ -259,5 +259,9 @@ declare function logStr(str: string): void;
     //
     // unsigned div and rem already contain traps
     //
+
+    clone(): u128 {
+      return new u128(this.lo, this.hi);
+    }
   }
 // }

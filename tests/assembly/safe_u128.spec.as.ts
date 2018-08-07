@@ -49,6 +49,12 @@ export class BasicOperationsTests {
     var b = u128.Zero;
     return a - b == u128.Max;
   }
+
+  static shouldMultiplyTwoNumbers(): bool {
+    var a = u128.from(43545453452);
+    var b = u128.from(2353454354);
+    return a * b == new u128(10248516654965971928, 5);
+  }
 }
 
 export class OverflowUnderflowThrowableTests {
@@ -86,5 +92,15 @@ export class OverflowUnderflowThrowableTests {
     var a = u128.Zero;
     var b = u128.One;
     return !(a - b);
+  }
+
+  static shouldMultiplyTwoNumbersWithOverflow1(): bool {
+    var a = new u128(0, 1);
+    return !(a * a);
+  }
+
+  static shouldMultiplyTwoNumbersWithOverflow2(): bool {
+    var a = new u128(1, 1);
+    return !(a * a);
   }
 }
