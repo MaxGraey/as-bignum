@@ -25,6 +25,9 @@ import { utoa10, atou128 } from '../utils';
 // @external("u128.spec.as", "logStr")
 // declare function logStr(str: string): void;
 
+// @external("u128.spec.as", "logF64")
+// declare function logF64(v: f64): void;
+
 const HEX_CHARS = '0123456789abcdef';
 
 export class u128 {
@@ -35,7 +38,7 @@ export class u128 {
   static readonly Zero: u128 = new u128()
   static readonly One:  u128 = new u128(1)
   static readonly Min:  u128 = u128.Zero
-  static readonly Max:  u128 = new u128(u64.MAX_VALUE, u64.MAX_VALUE)
+  static readonly Max:  u128 = new u128(-1, -1)
 
   @inline
   static fromString(value: string, radix: i32 = 0): u128 {

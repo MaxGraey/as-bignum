@@ -1,7 +1,18 @@
 import { u128 as U128 } from '../u128';
 
+// @external("safe_u128.spec.as", "logStr")
+// declare function logStr(str: string): void;
+
+// @external("safe_u128.spec.as", "logF64")
+// declare function logF64(v: f64): void;
+
 // export namespace safe {
   export class u128 extends U128 {
+
+    static readonly Zero: u128 = new u128()
+    static readonly One:  u128 = new u128(1)
+    static readonly Min:  u128 = u128.Zero
+    static readonly Max:  u128 = new u128(-1, -1)
 
     @inline @operator.prefix('++')
     preInc(): this {
@@ -29,12 +40,23 @@ import { u128 as U128 } from '../u128';
     static add(a: u128, b: u128): u128 {
       assert(a, "value shouldn't be null");
       assert(b, "value shouldn't be null");
-      // overflow guard
-      assert(u128.clz(a) | u128.clz(b), "overflow"); // FIXME Wrong idea
-      // assert(clz(a.hi | b.hi), "overflow");
-      return changetype<u128>(
-        U128.add(changetype<U128>(a), changetype<U128>(b))
-      );
+
+      var bl = b.lo;
+      var lo = a.lo + bl;
+      var c  = lo < bl;
+      var x  = a.hi;
+      var y  = b.hi;
+      var hi = x + y + <u64>c;
+      /*
+      if (hi < x + <u64>c) {
+        throw new Error('Overflow');
+      }
+      */
+      var out = new u128(lo, hi);
+      if (out < a) { // TODO find better way
+        throw new Error('Overflow');
+      }
+      return out;
     }
 
     @inline @operator('-')

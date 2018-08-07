@@ -308,6 +308,12 @@ export class BasicOperationsTests {
     return !(b < a);
   }
 
+  static shouldCompareLessTwoNumbers3(): bool {
+    var a = u128.One;
+    var b = u128.Max;
+    return a < b;
+  }
+
   static shouldCompareLessOrEqualTwoNumbers1(): bool {
     var a = new u128(100, 100);
     var b = new u128(50,  100);

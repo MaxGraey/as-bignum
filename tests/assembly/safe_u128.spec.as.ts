@@ -28,12 +28,9 @@ export class BasicOperationsTests {
 }
 
 export class OverflowUnderflowThrowableTests {
-  // fail
-  /*
   static shouldThrowWhenAddTwoNumbers1(): bool {
     var a = u128.One;
     var b = u128.Max;
     return !(a + b);
   }
-  */
 }
