@@ -350,10 +350,16 @@ export class BasicOperationsTests {
     return a >= b == true;
   }
 
-  static shouldAddTwoNumbers(): bool {
+  static shouldAddTwoNumbers1(): bool {
     var a = new u128(100, 255);
     var b = new u128(255, 100);
     return a + b == new u128(355, 355);
+  }
+
+  static shouldAddTwoNumbers2(): bool {
+    var a = u128.from(-2);
+    var b = u128.One;
+    return a + b == u128.Max;
   }
 
   static shouldSubtractTwoNumbers(): bool {
