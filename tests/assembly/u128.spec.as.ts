@@ -409,6 +409,12 @@ export class BasicOperationsTests {
     return a * b == new u128(10248516654965971928, 5);
   }
 
+  static shouldMultiplyTwoNumbers1(): bool {
+    var a = u128.Max;
+    var b = u128.One;
+    return a * b == a;
+  }
+
   static shouldMultiplyTwoNumbersWithOverflow1(): bool {
     var a = new u128(0, 1);
     return a * a == u128.Zero;

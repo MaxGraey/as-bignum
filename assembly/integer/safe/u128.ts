@@ -229,7 +229,7 @@ declare function logStr(str: string): void;
       var bzn = u128.clz(b);
 
       // overflow guard
-      assert(azn + bzn >= 128, "overflow");
+      assert(azn + bzn >= 127, "overflow");
 
       // if a == 0 || b == 0
       if (!(azn - 128 & bzn - 128))
