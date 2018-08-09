@@ -228,16 +228,12 @@ declare function logStr(str: string): void;
       var azn = u128.clz(a);
       var bzn = u128.clz(b);
 
-      // overflow guard
-      assert(azn + bzn >= 127, "overflow");
-
       // if a == 0 || b == 0
       if (!(azn - 128 & bzn - 128))
         return u128.Zero;
 
-      // if a == 1 || b == 1
-      if (azn == 127) return b.clone();
-      if (bzn == 127) return a.clone();
+      // overflow guard
+      assert(azn + bzn >= 127, "overflow");
 
       return changetype<u128>(
         U128.mul(changetype<U128>(a), changetype<U128>(b))
