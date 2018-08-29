@@ -490,66 +490,72 @@ export class u128 {
 
     var lo = base.lo;
     var hi = base.hi;
+    var result: u128, tmp: u128;
 
-    // if base > u64::max and exp > 1 always return "0"
-    if (!lo) return u128.Zero;
-    if (!hi) {
-      let lo1 = lo - 1;
-      // "1 ^ exponent" always return "1"
-      if (!lo1) return u128.One;
+    if (ASC_SHRINK_LEVEL < 1) {
+      // if base > u64::max and exp > 1 always return "0"
+      if (!lo) return u128.Zero;
+      if (!hi) {
+        let lo1 = lo - 1;
+        // "1 ^ exponent" always return "1"
+        if (!lo1) return u128.One;
 
-      // if base is power of two do "1 << log2(base) * exp"
-      if (!(lo & lo1)) {
-        let shift = <i32>(64 - clz(lo1)) * exponent;
-        return shift < 128 ? u128.One << shift : u128.Zero;
+        // if base is power of two do "1 << log2(base) * exp"
+        if (!(lo & lo1)) {
+          let shift = <i32>(64 - clz(lo1)) * exponent;
+          return shift < 128 ? u128.One << shift : u128.Zero;
+        }
       }
-    }
 
-    if (exponent <= 4) {
-      let sqrbase = u128.sqr(base);
-      switch (exponent) {
-        case 2: return sqrbase;        // base ^ 2
-        case 3: return sqrbase * base; // base ^ 2 * base
-        case 4: return sqrbase.sqr();  // base ^ 2 * base ^ 2
-        default: break;
+      if (exponent <= 4) {
+        let sqrbase = u128.sqr(base);
+        switch (exponent) {
+          case 2: return sqrbase;        // base ^ 2
+          case 3: return sqrbase * base; // base ^ 2 * base
+          case 4: return sqrbase.sqr();  // base ^ 2 * base ^ 2
+          default: break;
+        }
       }
-    }
 
-    var result = u128.One;
-    var tmp    = base.clone();
-    var log    = 32 - clz(exponent);
+      result = u128.One;
+      tmp    = base.clone();
 
-    if (log <= 7) {
-      // 128 = 2 ^ 7, so need only seven cases
-      switch (log) {
-        case 7:
-          if (exponent & 1) result *= tmp;
-          exponent >>= 1;
-          tmp.sqr();
-        case 6:
-          if (exponent & 1) result *= tmp;
-          exponent >>= 1;
-          tmp.sqr();
-        case 5:
-          if (exponent & 1) result *= tmp;
-          exponent >>= 1;
-          tmp.sqr();
-        case 4:
-          if (exponent & 1) result *= tmp;
-          exponent >>= 1;
-          tmp.sqr();
-        case 3:
-          if (exponent & 1) result *= tmp;
-          exponent >>= 1;
-          tmp.sqr();
-        case 2:
-          if (exponent & 1) result *= tmp;
-          exponent >>= 1;
-          tmp.sqr();
-        case 1:
-          if (exponent & 1) result *= tmp;
+      let log = 32 - clz(exponent);
+      if (log <= 7) {
+        // 128 = 2 ^ 7, so need usually only seven cases
+        switch (log) {
+          case 7:
+            if (exponent & 1) result *= tmp;
+            exponent >>= 1;
+            tmp.sqr();
+          case 6:
+            if (exponent & 1) result *= tmp;
+            exponent >>= 1;
+            tmp.sqr();
+          case 5:
+            if (exponent & 1) result *= tmp;
+            exponent >>= 1;
+            tmp.sqr();
+          case 4:
+            if (exponent & 1) result *= tmp;
+            exponent >>= 1;
+            tmp.sqr();
+          case 3:
+            if (exponent & 1) result *= tmp;
+            exponent >>= 1;
+            tmp.sqr();
+          case 2:
+            if (exponent & 1) result *= tmp;
+            exponent >>= 1;
+            tmp.sqr();
+          case 1:
+            if (exponent & 1) result *= tmp;
+        }
+        return result;
       }
-      return result;
+    } else {
+      result = u128.One;
+      tmp    = base.clone();
     }
 
     while (exponent > 0) {
