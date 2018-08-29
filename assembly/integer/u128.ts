@@ -519,7 +519,7 @@ export class u128 {
     var tmp    = base.clone();
     var log    = 32 - clz(exponent);
 
-    if (log >= 7) {
+    if (log <= 7) {
       // 128 = 2 ^ 7, so need only seven cases
       switch (log) {
         case 7:
