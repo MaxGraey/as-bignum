@@ -16,31 +16,26 @@ declare function logStr(str: string): void;
 
     @inline
     static fromString(value: string, radix: i32 = 0): u128 {
-      assert(value, "value shouldn't be null");
       return atou128(value, radix);
     }
 
     @inline
     static fromI256(value: i256): u128 {
-      assert(value, "value shouldn't be null");
       return new u128(value.lo1, value.lo2);
     }
 
     @inline
     static fromU256(value: u256): u128 {
-      assert(value, "value shouldn't be null");
       return new u128(value.lo1, value.lo2);
     }
 
     @inline
     static fromI128(value: i128): u128 {
-      assert(value, "value shouldn't be null");
       return new u128(value.lo, value.hi);
     }
 
     @inline
     static fromU128(value: u128): u128 {
-      assert(value, "value shouldn't be null");
       return new u128(value.lo, value.hi);
     }
 
@@ -193,9 +188,6 @@ declare function logStr(str: string): void;
 
     @inline @operator('+')
     static add(a: u128, b: u128): u128 {
-      assert(a, "value shouldn't be null");
-      assert(b, "value shouldn't be null");
-
       var bl = b.lo;
       var lo = a.lo + bl;
       var c  = <u64>(lo < bl);
@@ -210,8 +202,6 @@ declare function logStr(str: string): void;
 
     @inline @operator('-')
     static sub(a: u128, b: u128): u128 {
-      assert(a, "value shouldn't be null");
-      assert(b, "value shouldn't be null");
       // underflow guard
       assert(a >= b, "overflow");
       return changetype<u128>(
@@ -221,9 +211,6 @@ declare function logStr(str: string): void;
 
     @inline @operator('*')
     static mul(a: u128, b: u128): u128 {
-      assert(a, "value shouldn't be null");
-      assert(b, "value shouldn't be null");
-
       // count leading zero bits for operands
       var azn = u128.clz(a);
       var bzn = u128.clz(b);
@@ -242,7 +229,6 @@ declare function logStr(str: string): void;
 
     @inline @operator('**')
     static pow(base: u128, exponent: i32): u128 {
-      assert(base, "value shouldn't be null");
       assert(exponent <= 128, "overflow");
       if (exponent > 1 && !U128.isZero(base)) {
         assert(base.lo != 0, "overflow");

@@ -9,13 +9,11 @@ export class u256 {
 
   @inline
   static fromU256(value: u256): u256 {
-    assert(value, "value shouldn't be null");
     return new u256(value.lo1, value.lo2, value.hi1, value.hi2);
   }
 
   @inline
   static fromU128(value: u128): u256 {
-    assert(value, "value shouldn't be null");
     return new u256(value.lo, value.hi);
   }
 
@@ -87,7 +85,6 @@ export class u256 {
 
   @inline
   set(value: u256): this {
-    assert(value, "value shouldn't be null");
     this.lo1 = value.lo1;
     this.lo2 = value.lo2;
     this.hi1 = value.hi1;
@@ -97,7 +94,6 @@ export class u256 {
 
   @inline
   setU128(value: u128): this {
-    assert(value, "value shouldn't be null");
     this.lo1 = value.lo;
     this.lo2 = value.hi;
     this.hi1 = 0;
@@ -179,9 +175,6 @@ export class u256 {
 
   @inline @operator('+')
   static add(a: u256, b: u256): u256 {
-    assert(a, "value shouldn't be null");
-    assert(b, "value shouldn't be null");
-
     var alo  = a.lo1;
     var blo  = b.lo1;
     var lo   = new u128(alo) + new u128(blo);
@@ -195,28 +188,21 @@ export class u256 {
 
   @inline @operator('|')
   static or(a: u256, b: u256): u256 {
-    assert(a, "value shouldn't be null");
-    assert(b, "value shouldn't be null");
     return new u256(a.lo1 | b.lo1, a.lo2 | b.lo2, a.hi1 | b.hi1, a.hi2 | b.hi2);
   }
 
   @inline @operator('^')
   static xor(a: u256, b: u256): u256 {
-    assert(a, "value shouldn't be null");
-    assert(b, "value shouldn't be null");
     return new u256(a.lo1 ^ b.lo1, a.lo2 ^ b.lo2, a.hi1 ^ b.hi1, a.hi2 ^ b.hi2);
   }
 
   @inline @operator('&')
   static and(a: u256, b: u256): u256 {
-    assert(a, "value shouldn't be null");
-    assert(b, "value shouldn't be null");
     return new u256(a.lo1 & b.lo1, a.lo2 & b.lo2, a.hi1 & b.hi1, a.hi2 & b.hi2);
   }
 
   @inline
   static popcnt(value: u256): i32 {
-    assert(value, "value shouldn't be null");
     var count             = popcnt(value.lo1);
     if (value.lo2) count += popcnt(value.lo2);
     if (value.hi1) count += popcnt(value.hi1);
@@ -226,7 +212,6 @@ export class u256 {
 
   @inline
   static clz(value: u256): i32 {
-    assert(value, "value shouldn't be null");
          if (value.hi2) return <i32>(clz(value.hi2) + 0);
     else if (value.hi1) return <i32>(clz(value.hi1) + 64);
     else if (value.lo2) return <i32>(clz(value.lo2) + 128);
@@ -235,7 +220,6 @@ export class u256 {
 
   @inline
   static ctz(value: u256): i32 {
-    assert(value, "value shouldn't be null");
          if (value.lo1) return <i32>(ctz(value.lo1) + 0);
     else if (value.lo2) return <i32>(ctz(value.lo2) + 64);
     else if (value.hi1) return <i32>(ctz(value.hi1) + 128);

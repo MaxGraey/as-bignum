@@ -730,18 +730,6 @@ export class ThrowableTests {
     return !(u128.fromBytes([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], true));
   }
 
-  static shouldThrowThenNullRefs1(): bool {
-    let a = changetype<u128>(null);
-    let b = u128.Zero;
-    return !(a + b);
-  }
-
-  static shouldThrowThenNullRefs2(): bool {
-    let a = u128.Zero;
-    let b = changetype<u128>(null);
-    return !(a + b);
-  }
-
   static shouldThrowWhenDivideNumberByZero(): bool {
     let a = new u128(1, 1);
     return !(a / u128.Zero);

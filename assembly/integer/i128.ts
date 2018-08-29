@@ -26,31 +26,26 @@ export class i128 {
 
   @inline
   static fromString(value: string, radix: i32 = 0): i128 {
-    assert(value, "value shouldn't be null");
     return atou128(value, radix).toI128();
   }
 
   @inline
   static fromI256(value: i256): i128 {
-    assert(value, "value shouldn't be null");
     return new i128(value.lo1, value.lo2);
   }
 
   @inline
   static fromU256(value: u256): i128 {
-    assert(value, "value shouldn't be null");
     return new i128(<i64>value.lo1, <i64>value.lo2);
   }
 
   @inline
   static fromI128(value: i128): i128 {
-    assert(value, "value shouldn't be null");
     return new i128(value.lo, value.hi);
   }
 
   @inline
   static fromU128(value: u128): i128 {
-    assert(value, "value shouldn't be null");
     return new i128(<i64>value.lo, <i64>value.hi);
   }
 
@@ -183,29 +178,21 @@ export class i128 {
 
   @inline @operator('|')
   static or(a: i128, b: i128): i128 {
-    assert(a, "value shouldn't be null");
-    assert(b, "value shouldn't be null");
     return new i128(a.lo | b.lo, a.hi | b.hi);
   }
 
   @inline @operator('^')
   static xor(a: i128, b: u128): i128 {
-    assert(a, "value shouldn't be null");
-    assert(b, "value shouldn't be null");
     return new i128(a.lo ^ b.lo, a.hi ^ b.hi);
   }
 
   @inline @operator('&')
   static and(a: i128, b: i128): i128 {
-    assert(a, "value shouldn't be null");
-    assert(b, "value shouldn't be null");
     return new i128(a.lo & b.lo, a.hi & b.hi);
   }
 
   @inline @operator('<<')
   static shl(value: i128, shift: i32): i128 {
-    assert(value, "value shouldn't be null");
-
     shift &= 127;
 
     // need for preventing redundant i32 -> u64 extends
@@ -227,9 +214,6 @@ export class i128 {
 
   @inline @operator('+')
   static add(a: i128, b: i128): i128 {
-    assert(a, "value shouldn't be null");
-    assert(b, "value shouldn't be null");
-
     var bl = b.lo;
     var lo = a.lo + bl   - (<i64>(b  <  0));
     var hi = a.hi + b.hi + (<i64>(lo < bl));
@@ -239,9 +223,6 @@ export class i128 {
 
   @inline @operator('-')
   static sub(a: i128, b: i128): i128 {
-    assert(a, "value shouldn't be null");
-    assert(b, "value shouldn't be null");
-
     var al = a.lo;
     var lo = al   - b.lo + (<i64>(b  <  0));
     var hi = a.hi - b.hi - (<i64>(lo > al));
@@ -251,9 +232,6 @@ export class i128 {
 
   @inline @operator('==')
   static eq(a: i128, b: i128): bool {
-    assert(a, "value shouldn't be null");
-    assert(b, "value shouldn't be null");
-
     return a.hi == b.hi && a.lo == b.lo;
   }
 
@@ -264,16 +242,12 @@ export class i128 {
 
   @inline @operator('<')
   static lt(a: i128, b: i128): bool {
-    assert(a, "value shouldn't be null");
-    assert(b, "value shouldn't be null");
     var ah = a.hi, bh = b.hi;
     return ah == bh ? a.lo < b.lo : ah < bh;
   }
 
   @inline @operator('>')
   static gt(a: i128, b: i128): bool {
-    assert(a, "value shouldn't be null");
-    assert(b, "value shouldn't be null");
     var ah = a.hi, bh = b.hi;
     return ah == bh ? a.lo > b.lo : ah > bh;
   }
@@ -290,8 +264,6 @@ export class i128 {
 
   @inline
   static cmp(a: i128, b: i128): i32 {
-    assert(a, "value shouldn't be null");
-    assert(b, "value shouldn't be null");
     var dlo = a.lo - b.lo;
     var dhi = a.hi - b.hi;
     // return <i32>(dhi != 0 ? dhi : dlo);
@@ -300,25 +272,21 @@ export class i128 {
 
   @inline
   static popcnt(value: i128): i32 {
-    assert(value, "value shouldn't be null");
     return <i32>(popcnt(value.lo) + popcnt(value.hi));
   }
 
   @inline
   static clz(value: i128): i32 {
-    assert(value, "value shouldn't be null");
     return __clz128(value.lo, value.hi);
   }
 
   @inline
   static ctz(value: i128): i32 {
-    assert(value, "value shouldn't be null");
     return __ctz128(value.lo, value.hi);
   }
 
   @inline
   static abs(value: i128): i128 {
-    assert(value, "value shouldn't be null");
     return value.isNeg() ? value.neg() : value;
     // var mask = value >> 127;
     // return (value ^ mask) - mask;
