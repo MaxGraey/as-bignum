@@ -483,14 +483,16 @@ export class u128 {
     // any negative exponent produce zero
     if (exponent < 0) return u128.Zero;
 
+    var result = u128.One;
+    var tmp    = base.clone();
+
     switch (exponent) {
-      case 0: return u128.One;
-      case 1: return base.clone();
+      case 0: return result;
+      case 1: return tmp;
     }
 
     var lo = base.lo;
     var hi = base.hi;
-    var result: u128, tmp: u128;
 
     if (ASC_SHRINK_LEVEL < 1) {
       // if base > u64::max and exp > 1 always return "0"
@@ -516,9 +518,6 @@ export class u128 {
           default: break;
         }
       }
-
-      result = u128.One;
-      tmp    = base.clone();
 
       let log = 32 - clz(exponent);
       if (log <= 7) {
@@ -553,9 +552,6 @@ export class u128 {
         }
         return result;
       }
-    } else {
-      result = u128.One;
-      tmp    = base.clone();
     }
 
     while (exponent > 0) {
