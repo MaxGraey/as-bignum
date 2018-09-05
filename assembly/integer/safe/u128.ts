@@ -9,10 +9,10 @@ declare function logStr(str: string): void;
 // export namespace safe {
   export class u128 extends U128 {
 
-    static readonly Zero: u128 = new u128()
-    static readonly One:  u128 = new u128(1)
-    static readonly Min:  u128 = u128.Zero
-    static readonly Max:  u128 = new u128(-1, -1)
+    @inline static get Zero(): u128 { return new u128(); }
+    @inline static get One():  u128 { return new u128(1); }
+    @inline static get Min():  u128 { return new u128(); }
+    @inline static get Max():  u128 { return new u128(-1, -1); }
 
     @inline
     static fromString(value: string, radix: i32 = 0): u128 {
@@ -166,23 +166,17 @@ declare function logStr(str: string): void;
 
     @inline @operator.prefix('++')
     preInc(): this {
-      if (this.lo == <u64>-1) {
-        assert(this.hi != <u64>-1, "overflow");
-      }
-
+      assert(this.lo != <u64>-1 && this.hi != <u64>-1, "overflow");
       // TODO
-      // super.inc();
+      // super.preInc();
       return this;
     }
 
     @inline @operator.prefix('--')
     preDec(): this {
-      if (!this.hi) {
-        assert(this.lo, "overflow");
-      }
-
+      assert(this.hi != 0 && this.lo != 0, "overflow");
       // TODO
-      // super.dec();
+      // super.preDec();
       return this;
     }
 

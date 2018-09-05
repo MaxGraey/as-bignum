@@ -2,10 +2,11 @@ import { i128 } from './i128';
 import { u128 } from './u128';
 
 export class u256 {
-  static readonly Zero: u256 = new u256()
-  static readonly One:  u256 = new u256(1)
-  static readonly Min:  u256 = u256.Zero
-  static readonly Max:  u256 = new u256(u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE)
+
+  @inline static get Zero(): u256 { return new u256(); }
+  @inline static get One():  u256 { return new u256(1); }
+  @inline static get Min():  u256 { return new u256(); }
+  @inline static get Max():  u256 { return new u256(u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE); }
 
   @inline
   static fromU256(value: u256): u256 {

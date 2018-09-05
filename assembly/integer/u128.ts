@@ -32,13 +32,10 @@ const HEX_CHARS = '0123456789abcdef';
 
 export class u128 {
 
-  // TODO need decide
-  // still possible mutate by unary increment/decrement operations
-  // May be better use get accsessors?
-  static readonly Zero: u128 = new u128()
-  static readonly One:  u128 = new u128(1)
-  static readonly Min:  u128 = u128.Zero
-  static readonly Max:  u128 = new u128(-1, -1)
+  @inline static get Zero(): u128 { return new u128(); }
+  @inline static get One():  u128 { return new u128(1); }
+  @inline static get Min():  u128 { return new u128(); }
+  @inline static get Max():  u128 { return new u128(-1, -1); }
 
   @inline
   static fromString(value: string, radix: i32 = 0): u128 {

@@ -437,6 +437,18 @@ export class BasicOperationsTests {
     return a == new u128(0, 1);
   }
 
+  static shouldPrefixIncrementNumber3(): bool {
+    var a = u128.Zero;
+    ++a;
+    return a == u128.One;
+  }
+
+  static shouldPrefixIncrementNumber4(): bool {
+    var a = new u128(<u64>-2, <u64>-1);
+    ++a;
+    return a == u128.Max;
+  }
+
   static shouldPrefixDecrementNumber1(): bool {
     var a = new u128(10248516654965971928, 5);
     --a;
