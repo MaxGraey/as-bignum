@@ -94,14 +94,14 @@ export class u128 {
   // max safe uint for f64 actually 53-bits
   @inline
   static fromF64(value: f64): u128 {
-    return new u128(value, -(value < 0));
+    return new u128(<u64>value, -(value < 0));
   }
 
   // TODO need improvement
   // max safe int for f32 actually 23-bits
   @inline
   static fromF32(value: f32): u128 {
-    return new u128(value, -(value < 0));
+    return new u128(<u64>value, -(value < 0));
   }
 
   @inline
