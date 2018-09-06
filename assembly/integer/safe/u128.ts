@@ -223,11 +223,10 @@ declare function logStr(str: string): void;
 
     @inline @operator('**')
     static pow(base: u128, exponent: i32): u128 {
-      assert(exponent <= 128, "overflow");
-      if (exponent > 1 && !U128.isZero(base)) {
-        assert(base.lo != 0, "overflow");
+      if (exponent > 1 && base > u128.One) {
+        assert(exponent <= 128, "overflow");
+        assert(u128.clz(base) * exponent <= 128);
       }
-      // TODO assert overflow
 
       return changetype<u128>(U128.pow(changetype<U128>(base), exponent));
     }
