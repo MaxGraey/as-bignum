@@ -25,6 +25,69 @@ const Pows10_64: u64[] = [
   10000000000000000000,
 ];
 
+@inline
+function maxBaseForExponent128(base: u64, exponent: i32): bool {
+  const table: u64[] = [
+    u64.MAX_VALUE,       // 0
+    u64.MAX_VALUE,       // 1
+    u64.MAX_VALUE,       // 2
+    0x000006597FA94F5B,  // 3
+    0x00000000FFFFFFFF,  // 4
+    0x0000000003080C00,  // 5
+    0x0000000000285145,  // 6
+    0x000000000004E045,  // 7
+    0x000000000000FFFF,  // 8
+    0x0000000000004AA8,  // 9
+    0x0000000000001BDB,  // 10
+    0x0000000000000C6F,  // 11
+    0x0000000000000659,  // 12
+    0x0000000000000398,  // 13
+    0x0000000000000235,  // 14
+    0x0000000000000172,  // 15
+    0x00000000000000FF,  // 16
+    0x00000000000000B8,  // 17
+    0x000000000000008A,  // 18
+    0x000000000000006A,  // 19
+    0x0000000000000054,  // 20
+    0x0000000000000044,  // 21
+    0x0000000000000038,  // 22
+    0x000000000000002F,  // 23
+    0x0000000000000028,  // 24
+    0x0000000000000022,  // 25
+    0x000000000000001E,  // 26
+    0x000000000000001A,  // 27
+    0x0000000000000017,  // 28
+    0x0000000000000015,  // 29
+    0x0000000000000013,  // 30
+    0x0000000000000011,  // 31
+    0x000000000000000F,  // 32
+    0x000000000000000E,  // 33
+    0x000000000000000D,  // 34
+    0x000000000000000C,  // 35
+    0x000000000000000B,  // 36
+    0x000000000000000B,  // 37
+    0x000000000000000A,  // 38
+  ];
+  return table;
+}
+
+export function isPowerOverflow128(base: u128, exponent: i32): bool {
+  if (base.hi != 0 || exponent >= 128) return true;
+  var low = base.lo;
+  switch (low) {
+    case 2: return exponent > 127;
+    case 3: return exponent > 80;
+    case 4: return exponent > 63;
+    case 5: return exponent > 55;
+    case 6: return exponent > 49;
+    case 7: return exponent > 45;
+    case 8: return exponent > 42;
+    case 9: return exponent > 40;
+  }
+  var table = maxBaseForExponent128();
+  return low > table[exponent];
+}
+
 // Use LUT wrapped by function for lazy compilation
 @inline
 function radixCharsTable(): u32[] {
