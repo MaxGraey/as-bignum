@@ -106,10 +106,8 @@ export class u128 {
 
   @inline
   static fromI32(value: i32): u128 {
-    // return new u128(value, <i64>val >> 63);
     // Workaround. See issue #247 in AS repositary
-    var val = <i64>value << 32 >> 32;
-    return new u128(val, val >> 63);
+    return new u128(<i64>value, <i64>value >> 63);
   }
 
   @inline

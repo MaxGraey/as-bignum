@@ -66,8 +66,7 @@ import { u128 as U128 } from '../u128';
     @inline
     static fromI32(value: i32): u128 {
       // Workaround. See issue #247 in AS repositary
-      var val = <i64>value << 32 >> 32;
-      return new u128(val, val >> 63);
+      return new u128(<i64>value, <i64>value >> 63);
     }
 
     @inline
