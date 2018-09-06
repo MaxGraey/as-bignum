@@ -1,7 +1,7 @@
 import { u128 as U128 } from '../u128';
 
-@external("safe_u128.spec.as", "logStr")
-declare function logStr(str: string): void;
+// @external("safe_u128.spec.as", "logStr")
+// declare function logStr(str: string): void;
 
 // @external("safe_u128.spec.as", "logF64")
 // declare function logF64(v: f64): void;
@@ -166,7 +166,7 @@ declare function logStr(str: string): void;
 
     @inline @operator.prefix('++')
     preInc(): this {
-      assert(this.lo != <u64>-1 && this.hi != <u64>-1, "overflow");
+      assert(this.lo != <u64>-1 && this.hi != <u64>-1, "Overflow during prefix incrementing");
       // TODO
       // super.preInc();
       return this;
@@ -174,7 +174,7 @@ declare function logStr(str: string): void;
 
     @inline @operator.prefix('--')
     preDec(): this {
-      assert(this.hi != 0 && this.lo != 0, "overflow");
+      assert(this.hi != 0 && this.lo != 0, "Overflow during prefix decrementing");
       // TODO
       // super.preDec();
       return this;
@@ -189,7 +189,7 @@ declare function logStr(str: string): void;
       var y  = b.hi;
       var hi = x + y + c;
       if (((hi ^ x) & (hi ^ y)) < c) {
-        throw new Error('Overflow');
+        throw new Error('Overflow during addision');
       }
       return new u128(lo, hi);
     }
@@ -197,7 +197,7 @@ declare function logStr(str: string): void;
     @inline @operator('-')
     static sub(a: u128, b: u128): u128 {
       // underflow guard
-      assert(a >= b, "overflow");
+      assert(a >= b, "Overflow during substraction");
       return changetype<u128>(
         U128.sub(changetype<U128>(a), changetype<U128>(b))
       );
@@ -205,17 +205,8 @@ declare function logStr(str: string): void;
 
     @inline @operator('*')
     static mul(a: u128, b: u128): u128 {
-      // count leading zero bits for operands
-      var azn = u128.clz(a);
-      var bzn = u128.clz(b);
-
-      // if a == 0 || b == 0
-      if (!(azn - 128 & bzn - 128))
-        return u128.Zero;
-
       // overflow guard
-      assert(azn + bzn >= 127, "overflow");
-
+      assert(u128.clz(a) + u128.clz(b) >= 127, "Overflow during multiply");
       return changetype<u128>(
         U128.mul(changetype<U128>(a), changetype<U128>(b))
       );
@@ -224,8 +215,8 @@ declare function logStr(str: string): void;
     @inline @operator('**')
     static pow(base: u128, exponent: i32): u128 {
       if (exponent > 1 && base > u128.One) {
-        assert(exponent <= 128, "overflow");
-        assert(u128.clz(base) * exponent <= 128);
+        assert(exponent <= 128, "Overflow during power");
+        // TODO assert overflow for pow using LUT table
       }
 
       return changetype<u128>(U128.pow(changetype<U128>(base), exponent));
