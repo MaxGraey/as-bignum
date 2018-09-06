@@ -155,6 +155,11 @@ export class BasicTypeConversionTests {
     return a.lo == u64.MAX_VALUE && a.hi == u64.MAX_VALUE;
   }
 
+  static shouldConvertFromInteger2(): bool {
+    var a = u128.fromI32(-1);
+    return a.lo == u64.MAX_VALUE && a.hi == u64.MAX_VALUE;
+  }
+
   static shouldConvertToUinsignedLongInt1(): bool {
     var a = u128.Max;
     return a.as<u64>() == u64.MAX_VALUE;

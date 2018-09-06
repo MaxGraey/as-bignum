@@ -41,7 +41,7 @@ import { u128 as U128 } from '../u128';
 
     @inline
     static fromI64(value: i64): u128 {
-      return new u128(<u64>value, <u64>(value >> 63));
+      return new u128(value, value >> 63);
     }
 
     @inline
@@ -53,29 +53,31 @@ import { u128 as U128 } from '../u128';
     // max safe uint for f64 actually 53-bits
     @inline
     static fromF64(value: f64): u128 {
-      return new u128(<u64>value, -(<u64>(value < 0)));
+      return new u128(<u64>value, -(value < 0));
     }
 
     // TODO need improvement
     // max safe int for f32 actually 23-bits
     @inline
     static fromF32(value: f32): u128 {
-      return new u128(<u64>value, -(<u64>(value < 0)));
+      return new u128(value, -(value < 0));
     }
 
     @inline
     static fromI32(value: i32): u128 {
-      return new u128(<u64>value, <u64>(<i64>value >> 63));
+      // Workaround. See issue #247 in AS repositary
+      var val = <i64>value << 32 >> 32;
+      return new u128(val, val >> 63);
     }
 
     @inline
     static fromU32(value: u32): u128 {
-      return new u128(<u64>value);
+      return new u128(value);
     }
 
     @inline
     static fromBool(value: bool): u128 {
-      return new u128(<u64>value);
+      return new u128(value);
     }
 
     @inline

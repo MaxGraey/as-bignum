@@ -28,6 +28,19 @@ import { utoa10, atou128 } from '../utils';
 // @external("u128.spec.as", "logF64")
 // declare function logF64(v: f64): void;
 
+/*
+@external("u128.spec.as", "logU128Packed")
+declare function logU128Packed(msg: string | null, lo: f64, hi: f64): void;
+
+function logU128(value: u128, msg: string | null = null): void {
+  assert(value);
+  logU128Packed(msg,
+    reinterpret<f64>(value.lo),
+    reinterpret<f64>(value.hi)
+  );
+}
+*/
+
 const HEX_CHARS = '0123456789abcdef';
 
 export class u128 {
@@ -69,7 +82,7 @@ export class u128 {
 
   @inline
   static fromI64(value: i64): u128 {
-    return new u128(<u64>value, <u64>(value >> 63));
+    return new u128(value, value >> 63);
   }
 
   @inline
@@ -81,29 +94,32 @@ export class u128 {
   // max safe uint for f64 actually 53-bits
   @inline
   static fromF64(value: f64): u128 {
-    return new u128(<u64>value, -(<u64>(value < 0)));
+    return new u128(value, -(value < 0));
   }
 
   // TODO need improvement
   // max safe int for f32 actually 23-bits
   @inline
   static fromF32(value: f32): u128 {
-    return new u128(<u64>value, -(<u64>(value < 0)));
+    return new u128(value, -(value < 0));
   }
 
   @inline
   static fromI32(value: i32): u128 {
-    return new u128(<u64>value, <u64>(<i64>value >> 63));
+    // return new u128(value, <i64>val >> 63);
+    // Workaround. See issue #247 in AS repositary
+    var val = <i64>value << 32 >> 32;
+    return new u128(val, val >> 63);
   }
 
   @inline
   static fromU32(value: u32): u128 {
-    return new u128(<u64>value);
+    return new u128(value);
   }
 
   @inline
   static fromBool(value: bool): u128 {
-    return new u128(<u64>value);
+    return new u128(value);
   }
 
   @inline
