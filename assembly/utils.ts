@@ -87,7 +87,9 @@ function radixCharsTable(): u32[] {
 }
 
 export function isPowerOverflow128(base: u128, exponent: i32): bool {
-  if (base.hi != 0 || exponent >= 128) return true;
+  if (!(exponent > 1 && base > u128.One)) return false;
+  if (base.hi != 0 || exponent >= 128)    return true;
+
   var low = base.lo;
   if (low <= 9) {
     switch (<i32>low) {

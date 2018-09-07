@@ -216,11 +216,9 @@ import { isPowerOverflow128 } from '../../utils';
 
     @inline @operator('**')
     static pow(base: u128, exponent: i32): u128 {
-      if (exponent > 1 && base > u128.One) {
-        if (isPowerOverflow128(base, exponent)) {
-          throw new Error("Overflow during power");
-        }
-      }
+      if (isPowerOverflow128(base, exponent))
+        throw new Error("Overflow during power");
+
       return changetype<u128>(U128.pow(changetype<U128>(base), exponent));
     }
 
