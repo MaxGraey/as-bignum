@@ -26,7 +26,7 @@ const Pows10_64: u64[] = [
 ];
 
 @inline
-function maxBaseForExponent128(base: u64, exponent: i32): bool {
+function maxBaseForExponent128(): u64[] {
   const table: u64[] = [
     u64.MAX_VALUE,       // 0
     u64.MAX_VALUE,       // 1
@@ -74,15 +74,17 @@ function maxBaseForExponent128(base: u64, exponent: i32): bool {
 export function isPowerOverflow128(base: u128, exponent: i32): bool {
   if (base.hi != 0 || exponent >= 128) return true;
   var low = base.lo;
-  switch (low) {
-    case 2: return exponent > 127;
-    case 3: return exponent > 80;
-    case 4: return exponent > 63;
-    case 5: return exponent > 55;
-    case 6: return exponent > 49;
-    case 7: return exponent > 45;
-    case 8: return exponent > 42;
-    case 9: return exponent > 40;
+  if (low <= 9) {
+    switch (<i32>low) {
+      case 2: return exponent > 127;
+      case 3: return exponent > 80;
+      case 4: return exponent > 63;
+      case 5: return exponent > 55;
+      case 6: return exponent > 49;
+      case 7: return exponent > 45;
+      case 8: return exponent > 42;
+      case 9: return exponent > 40;
+    }
   }
   var table = maxBaseForExponent128();
   return low > table[exponent];
