@@ -1,6 +1,8 @@
 import { u128 } from "./integer";
 import { CharCode } from "internal/string";
 
+const HEX_CHARS = '0123456789abcdef';
+
 const Pows10_64: u64[] = [
   1,
   10,
@@ -71,6 +73,19 @@ function maxBaseForExponent128(): u64[] {
   return table;
 }
 
+// Use LUT wrapped by function for lazy compilation
+@inline
+function radixCharsTable(): u32[] {
+  const table: u32[] = [
+     0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 36, 36, 36, 36, 36, 36,
+    36, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+    25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 36, 36, 36, 36,
+    36, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+    25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35
+  ];
+  return table;
+}
+
 export function isPowerOverflow128(base: u128, exponent: i32): bool {
   if (base.hi != 0 || exponent >= 128) return true;
   var low = base.lo;
@@ -89,21 +104,6 @@ export function isPowerOverflow128(base: u128, exponent: i32): bool {
   var table = maxBaseForExponent128();
   return low > table[exponent];
 }
-
-// Use LUT wrapped by function for lazy compilation
-@inline
-function radixCharsTable(): u32[] {
-  const table: u32[] = [
-     0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 36, 36, 36, 36, 36, 36,
-    36, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-    25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 36, 36, 36, 36,
-    36, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-    25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35
-  ];
-  return table;
-}
-
-const HEX_CHARS = '0123456789abcdef';
 
 export function digits10(value: u64): i32 {
   var l = 64 - <i32>clz(value); // log2
