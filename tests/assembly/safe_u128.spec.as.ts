@@ -105,6 +105,10 @@ export class BasicOperationsTests {
   static shouldPowerNumber8(): bool {
     return new u128(6) ** 49 == new u128(0x4286000000000000, 0x6558E2A0921FE069);
   }
+
+  static shouldPowerNumber9(): bool {
+    return new u128(0, 1) ** 1 == new u128(0, 1);
+  }
 }
 
 export class OverflowUnderflowThrowableTests {
@@ -220,5 +224,9 @@ export class OverflowUnderflowThrowableTests {
 
   static shouldPowerWithOverflow14(): bool {
     return !(new u128(12) ** 36);
+  }
+
+  static shouldPowerWithOverflow15(): bool {
+    return !(new u128(0, 1) ** 2);
   }
 }
