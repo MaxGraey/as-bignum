@@ -152,89 +152,89 @@ export class OverflowUnderflowThrowableTests {
     return !(a - b);
   }
 
-  static shouldMultiplyTwoNumbersWithOverflow1(): bool {
+  static shouldThrowMultiplyTwoNumbersWithOverflow1(): bool {
     var a = new u128(0, 1);
     return !(a * a);
   }
 
-  static shouldMultiplyTwoNumbersWithOverflow2(): bool {
+  static shouldThrowMultiplyTwoNumbersWithOverflow2(): bool {
     var a = new u128(1, 1);
     return !(a * a);
   }
 
-  static shouldMultiplyTwoNumbersWithOverflow3(): bool {
+  static shouldThrowMultiplyTwoNumbersWithOverflow3(): bool {
     var a = u128.Max;
     var b = u128.from(2);
     return !(a * b);
   }
 
-  static shouldMultiplyTwoNumbersWithOverflow4(): bool {
+  static shouldThrowMultiplyTwoNumbersWithOverflow4(): bool {
     var a = u128.Max;
     var b = u128.Max;
     return !(a * b);
   }
 
-  static shouldPowerWithOverflow1(): bool {
+  static shouldThrowPowerWithOverflow1(): bool {
     return !(new u128(2) ** 128);
   }
 
-  static shouldPowerWithOverflow2(): bool {
+  static shouldThrowPowerWithOverflow2(): bool {
     return !(new u128(3) ** 81);
   }
 
-  static shouldPowerWithOverflow3(): bool {
+  static shouldThrowPowerWithOverflow3(): bool {
     return !(new u128(3) ** 120);
   }
 
-  static shouldPowerWithOverflow4(): bool {
+  static shouldThrowPowerWithOverflow4(): bool {
     return !(new u128(4) ** 64);
   }
 
-  static shouldPowerWithOverflow5(): bool {
+  static shouldThrowPowerWithOverflow5(): bool {
     return !(new u128(4) ** 120);
   }
 
-  static shouldPowerWithOverflow6(): bool {
+  static shouldThrowPowerWithOverflow6(): bool {
     return !(new u128(5) ** 56);
   }
 
-  static shouldPowerWithOverflow7(): bool {
+  static shouldThrowPowerWithOverflow7(): bool {
     return !(new u128(5) ** 60);
   }
 
-  static shouldPowerWithOverflow8(): bool {
+  static shouldThrowPowerWithOverflow8(): bool {
     return !(new u128(6) ** 50);
   }
 
-  static shouldPowerWithOverflow9(): bool {
+  static shouldThrowPowerWithOverflow9(): bool {
     return !(new u128(7) ** 49);
   }
 
-  static shouldPowerWithOverflow10(): bool {
+  static shouldThrowPowerWithOverflow10(): bool {
     return !(new u128(8) ** 43);
   }
 
-  static shouldPowerWithOverflow11(): bool {
+  static shouldThrowPowerWithOverflow11(): bool {
     return !(new u128(9) ** 41);
   }
 
-  static shouldPowerWithOverflow12(): bool {
+  static shouldThrowPowerWithOverflow12(): bool {
     return !(new u128(10) ** 39);
   }
 
-  static shouldPowerWithOverflow13(): bool {
+  static shouldThrowPowerWithOverflow13(): bool {
     return !(new u128(11) ** 38);
   }
 
-  static shouldPowerWithOverflow14(): bool {
+  static shouldThrowPowerWithOverflow14(): bool {
     return !(new u128(12) ** 36);
   }
 
-  static shouldPowerWithOverflow15(): bool {
+  static shouldThrowPowerWithOverflow15(): bool {
     return !(new u128(0, 1) ** 2);
   }
 
-  static shouldPowerWithOverflow16(): bool {
+  static shouldThrowPowerWithOverflow16(): bool {
     return !(new u128(u64.MAX_VALUE) ** 3);
   }
 }
