@@ -492,10 +492,13 @@ export class u128 {
   @operator('**')
   static pow(base: u128, exponent: i32): u128 {
     // any negative exponent produce zero
-    if (exponent < 0) return u128.Zero;
 
     var result = u128.One;
-    var tmp    = base.clone();
+
+    if (base == result) return result;
+    if (exponent < 0) return u128.Zero;
+
+    var tmp = base.clone();
 
     switch (exponent) {
       case 0: return result;

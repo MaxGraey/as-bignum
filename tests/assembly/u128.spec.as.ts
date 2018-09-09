@@ -468,6 +468,16 @@ export class BasicOperationsTests {
 }
 
 export class ExponentionOperationTests {
+  static shouldPowerOfZeroWithZeroReturnOneNumber(): bool {
+    var a = u128.Zero;
+    return a ** 0 == u128.One;
+  }
+
+  static shouldPowerOfOneWithNegativeReturnOneNumber(): bool {
+    var a = u128.One;
+    return a ** -2 == u128.One;
+  }
+
   static shouldPowerOfNegativeReturnZeroNumber(): bool {
     var a = new u128(-1, -1);
     return a ** -2 == u128.Zero;
