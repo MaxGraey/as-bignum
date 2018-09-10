@@ -36,8 +36,8 @@ export class u256 {
 
   @inline
   static fromI32(value: i32): u256 {
-    var mask = <i64>value >> 63;
-    return new u256(<i64>value, mask, mask, mask);
+    var mask: u64 = value >> 63;
+    return new u256(value, mask, mask, mask);
   }
 
   @inline
@@ -123,8 +123,8 @@ export class u256 {
 
   @inline
   setI32(value: i32): this {
-    var mask: u64 = <i64>value >> 63;
-    this.lo1 = <i64>value;
+    var mask: u64 = value >> 63;
+    this.lo1 = value;
     this.lo2 = mask;
     this.hi1 = mask;
     this.hi2 = mask;

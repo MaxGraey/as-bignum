@@ -451,13 +451,13 @@ arrify@^1.0.0, arrify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
 
-"assemblyscript@github:AssemblyScript/assemblyscript#c769f65bacd5392e5c9efab112b33244fc0a0c8f":
+"assemblyscript@github:AssemblyScript/assemblyscript#6949cf9f9e27afc3de5681b10ab971e5cd596458":
   version "0.5.0"
-  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/c769f65bacd5392e5c9efab112b33244fc0a0c8f"
+  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/6949cf9f9e27afc3de5681b10ab971e5cd596458"
   dependencies:
     "@protobufjs/utf8" "^1.1.0"
     binaryen "49.0.0-nightly.20180731"
-    glob "^7.1.2"
+    glob "^7.1.3"
     long "^4.0.0"
 
 assign-symbols@^1.0.0:
@@ -1218,6 +1218,17 @@ glob-parent@^3.1.0:
 glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.2:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^3.0.4"
+    once "^1.3.0"
+    path-is-absolute "^1.0.0"
+
+glob@^7.1.3:
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.3.tgz#3960832d3f1574108342dafd3a67b332c0969df1"
   dependencies:
     fs.realpath "^1.0.0"
     inflight "^1.0.4"

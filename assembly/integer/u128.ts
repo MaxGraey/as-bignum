@@ -106,8 +106,7 @@ export class u128 {
 
   @inline
   static fromI32(value: i32): u128 {
-    // Workaround. See issue #247 in AS repositary
-    return new u128(<i64>value, <i64>value >> 63);
+    return new u128(value, value >> 63);
   }
 
   @inline
@@ -243,7 +242,7 @@ export class u128 {
   @inline
   setI32(value: i32): this {
     this.lo = value;
-    this.hi = (<i64>value >> 63);
+    this.hi = value >> 63;
     return this;
   }
 
