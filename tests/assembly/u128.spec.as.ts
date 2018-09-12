@@ -430,6 +430,14 @@ export class BasicOperationsTests {
     return a * a == new u128(1, 2);
   }
 
+  static shouldNegativeNumber1(): bool {
+    return -new u128(2) == u128.from(-2);
+  }
+
+  static shouldNegativeNumber2(): bool {
+    return -u128.Max == u128.One;
+  }
+
   static shouldPrefixIncrementNumber1(): bool {
     var a = new u128(10248516654965971928, 5);
     ++a;

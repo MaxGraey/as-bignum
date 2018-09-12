@@ -84,8 +84,11 @@ export class i128 {
   }
 
   @inline
-  static from64Bits(lo: u64, hi: u64): u128 {
-    return new u128(<i64>lo, <i64>hi);
+  static fromBits(lo1: i32, lo2: i32, hi1: i32, hi2: i32): i128 {
+    return new i128(
+      <i64>lo1 | ((<i64>lo2) << 32),
+      <i64>hi1 | ((<i64>hi2) << 32),
+    );
   }
 
   @inline
@@ -215,7 +218,8 @@ export class i128 {
   @inline @operator('+')
   static add(a: i128, b: i128): i128 {
     var bl = b.lo;
-    var lo = a.lo + bl   - (<i64>(b  <  0));
+    // var lo = a.lo + bl   - (<i64>(b  <  0));
+    var lo = a.lo + bl   - (b.hi >>> 63);
     var hi = a.hi + b.hi + (<i64>(lo < bl));
 
     return new i128(lo, hi);
@@ -224,7 +228,8 @@ export class i128 {
   @inline @operator('-')
   static sub(a: i128, b: i128): i128 {
     var al = a.lo;
-    var lo = al   - b.lo + (<i64>(b  <  0));
+    // var lo = al   - b.lo + (<i64>(b  <  0));
+    var lo = al   - b.lo + (b.hi >>> 63);
     var hi = a.hi - b.hi - (<i64>(lo > al));
 
     return new i128(lo, hi);
