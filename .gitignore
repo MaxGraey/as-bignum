@@ -11,4 +11,7 @@ node_modules/
 playground/
 coverage/
 tests/build
-build/
+build/debug
+build/release/*.wasm
+build/release/*.wasm.map
+!build/release/*.wat

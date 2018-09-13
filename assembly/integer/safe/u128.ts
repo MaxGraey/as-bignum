@@ -1,4 +1,6 @@
+import { u256 } from './u256';
 import { u128 as U128 } from '../u128';
+import { u256 as U256 } from '../u256';
 import { isPowerOverflow128 } from '../../utils';
 
 // @external("safe_u128.spec.as", "logStr")
@@ -220,6 +222,36 @@ import { isPowerOverflow128 } from '../../utils';
         throw new Error("Overflow during power");
 
       return changetype<u128>(U128.pow(changetype<U128>(base), exponent));
+    }
+
+    @inline
+    toUnchecked(): U128 {
+      return <U128>this;
+    }
+
+    @inline
+    as<T>(): T {
+      var dummy: T;
+
+           if (dummy instanceof bool)   return <T>this.toBool();
+      else if (dummy instanceof i8)     return <T>this.toI64();
+      else if (dummy instanceof u8)     return <T>this.toU64();
+      else if (dummy instanceof i16)    return <T>this.toI64();
+      else if (dummy instanceof u16)    return <T>this.toU64();
+      else if (dummy instanceof i32)    return <T>this.toI64();
+      else if (dummy instanceof i64)    return <T>this.toI64();
+      else if (dummy instanceof u32)    return <T>this.toU64();
+      else if (dummy instanceof u64)    return <T>this.toU64();
+      else if (dummy instanceof f32)    return <T>this.toF64();
+      else if (dummy instanceof f64)    return <T>this.toF64();
+      else if (dummy instanceof i128)   return <T>(this.toI128());
+      else if (dummy instanceof u128)   return <T>(this.toU128());
+      else if (dummy instanceof U128)   return <T>(this.toUnchecked());
+      else if (dummy instanceof u256)   return <T>(this.toU256());
+      else if (dummy instanceof U256)   return <T>(this.toU256());
+      else if (dummy instanceof u8[])   return <T>(this.toBytes());
+      else if (dummy instanceof String) return <T>this.toString();
+      else throw new TypeError('Unsupported generic type');
     }
 
     //
