@@ -1275,7 +1275,7 @@
   ;;@ assembly/integer/u128.ts:322:4
   (set_local $2
    ;;@ assembly/integer/u128.ts:322:18
-   (i64.extend_s/i32
+   (i64.extend_u/i32
     (i32.and
      (get_local $1)
      ;;@ assembly/integer/u128.ts:319:13
@@ -1303,7 +1303,7 @@
   ;;@ assembly/integer/u128.ts:343:4
   (set_local $2
    ;;@ assembly/integer/u128.ts:343:18
-   (i64.extend_s/i32
+   (i64.extend_u/i32
     (i32.and
      (get_local $1)
      ;;@ assembly/integer/u128.ts:340:13
@@ -1369,7 +1369,7 @@
           ;;@ assembly/integer/u128.ts:369:19
           (i64.const 128)
           (tee_local $4
-           (i64.extend_s/i32
+           (i64.extend_u/i32
             (get_local $1)
            )
           )
@@ -1555,7 +1555,7 @@
           ;;@ assembly/integer/u128.ts:405:19
           (i64.const 128)
           (tee_local $4
-           (i64.extend_s/i32
+           (i64.extend_u/i32
             (get_local $1)
            )
           )
@@ -1952,7 +1952,7 @@
         (i64.shr_u
          (get_local $0)
          ;;@ assembly/globals.ts:241:32
-         (i64.extend_s/i32
+         (i64.extend_u/i32
           (get_local $5)
          )
         )
@@ -2825,7 +2825,7 @@
   (i64.store
    (get_local $0)
    ;;@ assembly/integer/u128.ts:244:14
-   (i64.extend_s/i32
+   (i64.extend_u/i32
     (get_local $1)
    )
   )
@@ -2833,7 +2833,7 @@
   (i64.store offset=8
    (get_local $0)
    ;;@ assembly/integer/u128.ts:245:14
-   (i64.extend_s/i32
+   (i64.extend_u/i32
     (i32.shr_s
      (get_local $1)
      ;;@ assembly/integer/u128.ts:245:23
@@ -3838,7 +3838,7 @@
   (i64.store
    (get_local $0)
    ;;@ assembly/integer/u256.ts:127:15
-   (i64.extend_s/i32
+   (i64.extend_u/i32
     (get_local $1)
    )
   )
@@ -3848,7 +3848,7 @@
    ;;@ assembly/integer/u256.ts:126:4
    (tee_local $2
     ;;@ assembly/integer/u256.ts:126:20
-    (i64.extend_s/i32
+    (i64.extend_u/i32
      (i32.shr_s
       (get_local $1)
       ;;@ assembly/integer/u256.ts:126:29
