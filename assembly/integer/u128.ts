@@ -52,31 +52,26 @@ export class u128 {
 
   @inline
   static fromString(value: string, radix: i32 = 0): u128 {
-    assert(value, "value shouldn't be null");
     return atou128(value, radix);
   }
 
   @inline
   static fromI256(value: i256): u128 {
-    assert(value, "value shouldn't be null");
     return new u128(value.lo1, value.lo2);
   }
 
   @inline
   static fromU256(value: u256): u128 {
-    assert(value, "value shouldn't be null");
     return new u128(value.lo1, value.lo2);
   }
 
   @inline
   static fromI128(value: i128): u128 {
-    assert(value, "value shouldn't be null");
     return new u128(value.lo, value.hi);
   }
 
   @inline
   static fromU128(value: u128): u128 {
-    assert(value, "value shouldn't be null");
     return new u128(value.lo, value.hi);
   }
 
@@ -133,7 +128,7 @@ export class u128 {
   }
 
   static fromBytesLE(array: u8[]): u128 {
-    assert(array !== null && array.length == 16);
+    assert(array.length == 16);
     return new u128(
       <u64>unchecked(array[0]) <<  0 |
       <u64>unchecked(array[1]) <<  8 |
@@ -156,7 +151,7 @@ export class u128 {
   }
 
   static fromBytesBE(array: u8[]): u128 {
-    assert(array !== null && array.length == 16);
+    assert(array.length == 16);
     return new u128(
       <u64>unchecked(array[8])  << 56 |
       <u64>unchecked(array[9])  << 48 |

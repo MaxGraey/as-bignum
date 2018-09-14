@@ -97,7 +97,7 @@ export class i128 {
   }
 
   static fromBytesLE(array: u8[]): i128 {
-    assert(array && array.length == 16);
+    assert(array.length == 16);
 
     var lo: i64 = 0, hi: i64 = 0;
     for (let i = 0; i <  8; ++i) lo |= unchecked(array[i]) << (i << 3);
@@ -107,7 +107,7 @@ export class i128 {
   }
 
   static fromBytesBE(array: u8[]): i128 {
-    assert(array && array.length == 16);
+    assert(array.length == 16);
 
     var lo: i64 = 0, hi: i64 = 0;
     for (let i = 0; i <  8; ++i) hi |= unchecked(array[i]) << ((7  - i) << 3);

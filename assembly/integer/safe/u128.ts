@@ -96,7 +96,7 @@ import { isPowerOverflow128 } from '../../utils';
     }
 
     static fromBytesLE(array: u8[]): u128 {
-      assert(array !== null && array.length == 16);
+      assert(array.length == 16);
       return new u128(
         <u64>unchecked(array[0]) <<  0 |
         <u64>unchecked(array[1]) <<  8 |
@@ -119,7 +119,7 @@ import { isPowerOverflow128 } from '../../utils';
     }
 
     static fromBytesBE(array: u8[]): u128 {
-      assert(array !== null && array.length == 16);
+      assert(array.length == 16);
       return new u128(
         <u64>unchecked(array[8])  << 56 |
         <u64>unchecked(array[9])  << 48 |

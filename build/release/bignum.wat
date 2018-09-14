@@ -591,13 +591,13 @@
  )
  (func $assembly/integer/u128/u128.fromI256 (; 4 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (drop
-   ;;@ assembly/integer/u128.ts:62:20
+   ;;@ assembly/integer/u128.ts:60:20
    (i64.load
     (get_local $0)
    )
   )
   (drop
-   ;;@ assembly/integer/u128.ts:62:31
+   ;;@ assembly/integer/u128.ts:60:31
    (i64.load offset=8
     (get_local $0)
    )
@@ -609,7 +609,7 @@
  )
  (func $assembly/integer/u128/u128.fromF64 (; 6 ;) (; has Stack IR ;) (type $Fi) (param $0 f64) (result i32)
   (drop
-   ;;@ assembly/integer/u128.ts:97:20
+   ;;@ assembly/integer/u128.ts:92:20
    (i64.trunc_u/f64
     (get_local $0)
    )
@@ -618,7 +618,7 @@
  )
  (func $assembly/integer/u128/u128.fromF32 (; 7 ;) (; has Stack IR ;) (type $fi) (param $0 f32) (result i32)
   (drop
-   ;;@ assembly/integer/u128.ts:104:20
+   ;;@ assembly/integer/u128.ts:99:20
    (i64.trunc_u/f32
     (get_local $0)
    )
@@ -633,7 +633,7 @@
  )
  (func $assembly/integer/u128/u128.fromBytesBE (; 10 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (drop
-   ;;@ assembly/integer/u128.ts:161:6
+   ;;@ assembly/integer/u128.ts:156:6
    (i64.or
     (i64.or
      (i64.or
@@ -652,10 +652,10 @@
              )
             )
            )
-           ;;@ assembly/integer/u128.ts:161:35
+           ;;@ assembly/integer/u128.ts:156:35
            (i64.const 56)
           )
-          ;;@ assembly/integer/u128.ts:162:6
+          ;;@ assembly/integer/u128.ts:157:6
           (i64.shl
            (i64.extend_u/i32
             (i32.load8_u offset=8
@@ -667,11 +667,11 @@
              )
             )
            )
-           ;;@ assembly/integer/u128.ts:162:35
+           ;;@ assembly/integer/u128.ts:157:35
            (i64.const 48)
           )
          )
-         ;;@ assembly/integer/u128.ts:163:6
+         ;;@ assembly/integer/u128.ts:158:6
          (i64.shl
           (i64.extend_u/i32
            (i32.load8_u offset=8
@@ -683,11 +683,11 @@
             )
            )
           )
-          ;;@ assembly/integer/u128.ts:163:35
+          ;;@ assembly/integer/u128.ts:158:35
           (i64.const 40)
          )
         )
-        ;;@ assembly/integer/u128.ts:164:6
+        ;;@ assembly/integer/u128.ts:159:6
         (i64.shl
          (i64.extend_u/i32
           (i32.load8_u offset=8
@@ -699,11 +699,11 @@
            )
           )
          )
-         ;;@ assembly/integer/u128.ts:164:35
+         ;;@ assembly/integer/u128.ts:159:35
          (i64.const 32)
         )
        )
-       ;;@ assembly/integer/u128.ts:165:6
+       ;;@ assembly/integer/u128.ts:160:6
        (i64.shl
         (i64.extend_u/i32
          (i32.load8_u offset=8
@@ -715,11 +715,11 @@
           )
          )
         )
-        ;;@ assembly/integer/u128.ts:165:35
+        ;;@ assembly/integer/u128.ts:160:35
         (i64.const 24)
        )
       )
-      ;;@ assembly/integer/u128.ts:166:6
+      ;;@ assembly/integer/u128.ts:161:6
       (i64.shl
        (i64.extend_u/i32
         (i32.load8_u offset=8
@@ -731,11 +731,11 @@
          )
         )
        )
-       ;;@ assembly/integer/u128.ts:166:35
+       ;;@ assembly/integer/u128.ts:161:35
        (i64.const 16)
       )
      )
-     ;;@ assembly/integer/u128.ts:167:6
+     ;;@ assembly/integer/u128.ts:162:6
      (i64.shl
       (i64.extend_u/i32
        (i32.load8_u offset=8
@@ -747,11 +747,11 @@
         )
        )
       )
-      ;;@ assembly/integer/u128.ts:167:36
+      ;;@ assembly/integer/u128.ts:162:36
       (i64.const 8)
      )
     )
-    ;;@ assembly/integer/u128.ts:168:6
+    ;;@ assembly/integer/u128.ts:163:6
     (i64.extend_u/i32
      (i32.load8_u offset=8
       (i32.add
@@ -765,7 +765,7 @@
    )
   )
   (drop
-   ;;@ assembly/integer/u128.ts:170:6
+   ;;@ assembly/integer/u128.ts:165:6
    (i64.or
     (i64.or
      (i64.or
@@ -781,10 +781,10 @@
              )
             )
            )
-           ;;@ assembly/integer/u128.ts:170:34
+           ;;@ assembly/integer/u128.ts:165:34
            (i64.const 56)
           )
-          ;;@ assembly/integer/u128.ts:171:6
+          ;;@ assembly/integer/u128.ts:166:6
           (i64.shl
            (i64.extend_u/i32
             (i32.load8_u offset=8
@@ -796,11 +796,11 @@
              )
             )
            )
-           ;;@ assembly/integer/u128.ts:171:34
+           ;;@ assembly/integer/u128.ts:166:34
            (i64.const 48)
           )
          )
-         ;;@ assembly/integer/u128.ts:172:6
+         ;;@ assembly/integer/u128.ts:167:6
          (i64.shl
           (i64.extend_u/i32
            (i32.load8_u offset=8
@@ -812,11 +812,11 @@
             )
            )
           )
-          ;;@ assembly/integer/u128.ts:172:34
+          ;;@ assembly/integer/u128.ts:167:34
           (i64.const 40)
          )
         )
-        ;;@ assembly/integer/u128.ts:173:6
+        ;;@ assembly/integer/u128.ts:168:6
         (i64.shl
          (i64.extend_u/i32
           (i32.load8_u offset=8
@@ -828,11 +828,11 @@
            )
           )
          )
-         ;;@ assembly/integer/u128.ts:173:34
+         ;;@ assembly/integer/u128.ts:168:34
          (i64.const 32)
         )
        )
-       ;;@ assembly/integer/u128.ts:174:6
+       ;;@ assembly/integer/u128.ts:169:6
        (i64.shl
         (i64.extend_u/i32
          (i32.load8_u offset=8
@@ -844,11 +844,11 @@
           )
          )
         )
-        ;;@ assembly/integer/u128.ts:174:34
+        ;;@ assembly/integer/u128.ts:169:34
         (i64.const 24)
        )
       )
-      ;;@ assembly/integer/u128.ts:175:6
+      ;;@ assembly/integer/u128.ts:170:6
       (i64.shl
        (i64.extend_u/i32
         (i32.load8_u offset=8
@@ -860,11 +860,11 @@
          )
         )
        )
-       ;;@ assembly/integer/u128.ts:175:34
+       ;;@ assembly/integer/u128.ts:170:34
        (i64.const 16)
       )
      )
-     ;;@ assembly/integer/u128.ts:176:6
+     ;;@ assembly/integer/u128.ts:171:6
      (i64.shl
       (i64.extend_u/i32
        (i32.load8_u offset=8
@@ -876,11 +876,11 @@
         )
        )
       )
-      ;;@ assembly/integer/u128.ts:176:35
+      ;;@ assembly/integer/u128.ts:171:35
       (i64.const 8)
      )
     )
-    ;;@ assembly/integer/u128.ts:177:6
+    ;;@ assembly/integer/u128.ts:172:6
     (i64.extend_u/i32
      (i32.load8_u offset=8
       (i32.add
@@ -897,7 +897,7 @@
  )
  (func $assembly/integer/u128/u128.fromBytesLE (; 11 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (drop
-   ;;@ assembly/integer/u128.ts:138:6
+   ;;@ assembly/integer/u128.ts:133:6
    (i64.or
     (i64.or
      (i64.or
@@ -912,7 +912,7 @@
             )
            )
           )
-          ;;@ assembly/integer/u128.ts:139:6
+          ;;@ assembly/integer/u128.ts:134:6
           (i64.shl
            (i64.extend_u/i32
             (i32.load8_u offset=8
@@ -924,11 +924,11 @@
              )
             )
            )
-           ;;@ assembly/integer/u128.ts:139:35
+           ;;@ assembly/integer/u128.ts:134:35
            (i64.const 8)
           )
          )
-         ;;@ assembly/integer/u128.ts:140:6
+         ;;@ assembly/integer/u128.ts:135:6
          (i64.shl
           (i64.extend_u/i32
            (i32.load8_u offset=8
@@ -940,11 +940,11 @@
             )
            )
           )
-          ;;@ assembly/integer/u128.ts:140:34
+          ;;@ assembly/integer/u128.ts:135:34
           (i64.const 16)
          )
         )
-        ;;@ assembly/integer/u128.ts:141:6
+        ;;@ assembly/integer/u128.ts:136:6
         (i64.shl
          (i64.extend_u/i32
           (i32.load8_u offset=8
@@ -956,11 +956,11 @@
            )
           )
          )
-         ;;@ assembly/integer/u128.ts:141:34
+         ;;@ assembly/integer/u128.ts:136:34
          (i64.const 24)
         )
        )
-       ;;@ assembly/integer/u128.ts:142:6
+       ;;@ assembly/integer/u128.ts:137:6
        (i64.shl
         (i64.extend_u/i32
          (i32.load8_u offset=8
@@ -972,11 +972,11 @@
           )
          )
         )
-        ;;@ assembly/integer/u128.ts:142:34
+        ;;@ assembly/integer/u128.ts:137:34
         (i64.const 32)
        )
       )
-      ;;@ assembly/integer/u128.ts:143:6
+      ;;@ assembly/integer/u128.ts:138:6
       (i64.shl
        (i64.extend_u/i32
         (i32.load8_u offset=8
@@ -988,11 +988,11 @@
          )
         )
        )
-       ;;@ assembly/integer/u128.ts:143:34
+       ;;@ assembly/integer/u128.ts:138:34
        (i64.const 40)
       )
      )
-     ;;@ assembly/integer/u128.ts:144:6
+     ;;@ assembly/integer/u128.ts:139:6
      (i64.shl
       (i64.extend_u/i32
        (i32.load8_u offset=8
@@ -1004,11 +1004,11 @@
         )
        )
       )
-      ;;@ assembly/integer/u128.ts:144:34
+      ;;@ assembly/integer/u128.ts:139:34
       (i64.const 48)
      )
     )
-    ;;@ assembly/integer/u128.ts:145:6
+    ;;@ assembly/integer/u128.ts:140:6
     (i64.shl
      (i64.extend_u/i32
       (i32.load8_u offset=8
@@ -1020,13 +1020,13 @@
        )
       )
      )
-     ;;@ assembly/integer/u128.ts:145:34
+     ;;@ assembly/integer/u128.ts:140:34
      (i64.const 56)
     )
    )
   )
   (drop
-   ;;@ assembly/integer/u128.ts:147:6
+   ;;@ assembly/integer/u128.ts:142:6
    (i64.or
     (i64.or
      (i64.or
@@ -1044,7 +1044,7 @@
             )
            )
           )
-          ;;@ assembly/integer/u128.ts:148:6
+          ;;@ assembly/integer/u128.ts:143:6
           (i64.shl
            (i64.extend_u/i32
             (i32.load8_u offset=8
@@ -1056,11 +1056,11 @@
              )
             )
            )
-           ;;@ assembly/integer/u128.ts:148:36
+           ;;@ assembly/integer/u128.ts:143:36
            (i64.const 8)
           )
          )
-         ;;@ assembly/integer/u128.ts:149:6
+         ;;@ assembly/integer/u128.ts:144:6
          (i64.shl
           (i64.extend_u/i32
            (i32.load8_u offset=8
@@ -1072,11 +1072,11 @@
             )
            )
           )
-          ;;@ assembly/integer/u128.ts:149:35
+          ;;@ assembly/integer/u128.ts:144:35
           (i64.const 16)
          )
         )
-        ;;@ assembly/integer/u128.ts:150:6
+        ;;@ assembly/integer/u128.ts:145:6
         (i64.shl
          (i64.extend_u/i32
           (i32.load8_u offset=8
@@ -1088,11 +1088,11 @@
            )
           )
          )
-         ;;@ assembly/integer/u128.ts:150:35
+         ;;@ assembly/integer/u128.ts:145:35
          (i64.const 24)
         )
        )
-       ;;@ assembly/integer/u128.ts:151:6
+       ;;@ assembly/integer/u128.ts:146:6
        (i64.shl
         (i64.extend_u/i32
          (i32.load8_u offset=8
@@ -1104,11 +1104,11 @@
           )
          )
         )
-        ;;@ assembly/integer/u128.ts:151:35
+        ;;@ assembly/integer/u128.ts:146:35
         (i64.const 32)
        )
       )
-      ;;@ assembly/integer/u128.ts:152:6
+      ;;@ assembly/integer/u128.ts:147:6
       (i64.shl
        (i64.extend_u/i32
         (i32.load8_u offset=8
@@ -1120,11 +1120,11 @@
          )
         )
        )
-       ;;@ assembly/integer/u128.ts:152:35
+       ;;@ assembly/integer/u128.ts:147:35
        (i64.const 40)
       )
      )
-     ;;@ assembly/integer/u128.ts:153:6
+     ;;@ assembly/integer/u128.ts:148:6
      (i64.shl
       (i64.extend_u/i32
        (i32.load8_u offset=8
@@ -1136,11 +1136,11 @@
         )
        )
       )
-      ;;@ assembly/integer/u128.ts:153:35
+      ;;@ assembly/integer/u128.ts:148:35
       (i64.const 48)
      )
     )
-    ;;@ assembly/integer/u128.ts:154:6
+    ;;@ assembly/integer/u128.ts:149:6
     (i64.shl
      (i64.extend_u/i32
       (i32.load8_u offset=8
@@ -1152,7 +1152,7 @@
        )
       )
      )
-     ;;@ assembly/integer/u128.ts:154:35
+     ;;@ assembly/integer/u128.ts:149:35
      (i64.const 56)
     )
    )
@@ -1161,7 +1161,7 @@
  )
  (func $assembly/integer/u128/u128.isEmpty (; 12 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i32)
-  ;;@ assembly/integer/u128.ts:299:50
+  ;;@ assembly/integer/u128.ts:294:50
   (if
    (i32.eqz
     (tee_local $1
@@ -1171,15 +1171,15 @@
     )
    )
    (set_local $1
-    ;;@ assembly/integer/u128.ts:299:29
+    ;;@ assembly/integer/u128.ts:294:29
     (i64.eqz
-     ;;@ assembly/integer/u128.ts:299:30
+     ;;@ assembly/integer/u128.ts:294:30
      (i64.or
-      ;;@ assembly/integer/u128.ts:299:31
+      ;;@ assembly/integer/u128.ts:294:31
       (i64.load
        (get_local $0)
       )
-      ;;@ assembly/integer/u128.ts:299:42
+      ;;@ assembly/integer/u128.ts:294:42
       (i64.load offset=8
        (get_local $0)
       )
@@ -1191,8 +1191,35 @@
  )
  (func $assembly/integer/u128/u128.or (; 13 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (drop
-   ;;@ assembly/integer/u128.ts:304:20
+   ;;@ assembly/integer/u128.ts:299:20
    (i64.or
+    (i64.load
+     (get_local $0)
+    )
+    ;;@ assembly/integer/u128.ts:299:27
+    (i64.load
+     (get_local $1)
+    )
+   )
+  )
+  (drop
+   ;;@ assembly/integer/u128.ts:299:33
+   (i64.or
+    (i64.load offset=8
+     (get_local $0)
+    )
+    ;;@ assembly/integer/u128.ts:299:40
+    (i64.load offset=8
+     (get_local $1)
+    )
+   )
+  )
+  (unreachable)
+ )
+ (func $assembly/integer/u128/u128.xor (; 14 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+  (drop
+   ;;@ assembly/integer/u128.ts:304:20
+   (i64.xor
     (i64.load
      (get_local $0)
     )
@@ -1204,7 +1231,7 @@
   )
   (drop
    ;;@ assembly/integer/u128.ts:304:33
-   (i64.or
+   (i64.xor
     (i64.load offset=8
      (get_local $0)
     )
@@ -1216,10 +1243,10 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.xor (; 14 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.and (; 15 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (drop
    ;;@ assembly/integer/u128.ts:309:20
-   (i64.xor
+   (i64.and
     (i64.load
      (get_local $0)
     )
@@ -1231,7 +1258,7 @@
   )
   (drop
    ;;@ assembly/integer/u128.ts:309:33
-   (i64.xor
+   (i64.and
     (i64.load offset=8
      (get_local $0)
     )
@@ -1243,55 +1270,28 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.and (; 15 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
-  (drop
-   ;;@ assembly/integer/u128.ts:314:20
-   (i64.and
-    (i64.load
-     (get_local $0)
-    )
-    ;;@ assembly/integer/u128.ts:314:27
-    (i64.load
-     (get_local $1)
-    )
-   )
-  )
-  (drop
-   ;;@ assembly/integer/u128.ts:314:33
-   (i64.and
-    (i64.load offset=8
-     (get_local $0)
-    )
-    ;;@ assembly/integer/u128.ts:314:40
-    (i64.load offset=8
-     (get_local $1)
-    )
-   )
-  )
-  (unreachable)
- )
  (func $assembly/integer/u128/u128.shl (; 16 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
-  ;;@ assembly/integer/u128.ts:322:4
+  ;;@ assembly/integer/u128.ts:317:4
   (set_local $2
-   ;;@ assembly/integer/u128.ts:322:18
+   ;;@ assembly/integer/u128.ts:317:18
    (i64.extend_s/i32
     (i32.and
      (get_local $1)
-     ;;@ assembly/integer/u128.ts:319:13
+     ;;@ assembly/integer/u128.ts:314:13
      (i32.const 127)
     )
    )
   )
-  ;;@ assembly/integer/u128.ts:330:4
+  ;;@ assembly/integer/u128.ts:325:4
   (drop
-   ;;@ assembly/integer/u128.ts:329:13
+   ;;@ assembly/integer/u128.ts:324:13
    (i64.load
     (get_local $0)
    )
   )
   (drop
-   ;;@ assembly/integer/u128.ts:333:12
+   ;;@ assembly/integer/u128.ts:328:12
    (i64.load offset=8
     (get_local $0)
    )
@@ -1300,26 +1300,26 @@
  )
  (func $assembly/integer/u128/u128.shr (; 17 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
-  ;;@ assembly/integer/u128.ts:343:4
+  ;;@ assembly/integer/u128.ts:338:4
   (set_local $2
-   ;;@ assembly/integer/u128.ts:343:18
+   ;;@ assembly/integer/u128.ts:338:18
    (i64.extend_s/i32
     (i32.and
      (get_local $1)
-     ;;@ assembly/integer/u128.ts:340:13
+     ;;@ assembly/integer/u128.ts:335:13
      (i32.const 127)
     )
    )
   )
-  ;;@ assembly/integer/u128.ts:351:4
+  ;;@ assembly/integer/u128.ts:346:4
   (drop
-   ;;@ assembly/integer/u128.ts:350:13
+   ;;@ assembly/integer/u128.ts:345:13
    (i64.load offset=8
     (get_local $0)
    )
   )
   (drop
-   ;;@ assembly/integer/u128.ts:354:12
+   ;;@ assembly/integer/u128.ts:349:12
    (i64.load
     (get_local $0)
    )
@@ -1334,39 +1334,39 @@
   (local $6 i64)
   (local $7 i64)
   (local $8 i64)
-  ;;@ assembly/integer/u128.ts:367:4
+  ;;@ assembly/integer/u128.ts:362:4
   (if
    (i32.eqz
-    ;;@ assembly/integer/u128.ts:366:4
+    ;;@ assembly/integer/u128.ts:361:4
     (tee_local $1
      (i32.and
       (get_local $1)
-      ;;@ assembly/integer/u128.ts:366:13
+      ;;@ assembly/integer/u128.ts:361:13
       (i32.const 127)
      )
     )
    )
-   ;;@ assembly/integer/u128.ts:367:27
+   ;;@ assembly/integer/u128.ts:362:27
    (return
     (get_local $0)
    )
   )
-  ;;@ assembly/integer/u128.ts:371:4
+  ;;@ assembly/integer/u128.ts:366:4
   (set_local $6
-   ;;@ assembly/integer/u128.ts:371:15
+   ;;@ assembly/integer/u128.ts:366:15
    (i64.sub
     (i64.shr_u
-     ;;@ assembly/integer/u128.ts:371:16
+     ;;@ assembly/integer/u128.ts:366:16
      (i64.and
-      ;;@ assembly/integer/u128.ts:371:17
+      ;;@ assembly/integer/u128.ts:366:17
       (i64.or
-       ;;@ assembly/integer/u128.ts:371:18
+       ;;@ assembly/integer/u128.ts:366:18
        (i64.add
-        ;;@ assembly/integer/u128.ts:369:4
+        ;;@ assembly/integer/u128.ts:364:4
         (tee_local $2
-         ;;@ assembly/integer/u128.ts:369:18
+         ;;@ assembly/integer/u128.ts:364:18
          (i64.sub
-          ;;@ assembly/integer/u128.ts:369:19
+          ;;@ assembly/integer/u128.ts:364:19
           (i64.const 128)
           (tee_local $4
            (i64.extend_s/i32
@@ -1375,91 +1375,91 @@
           )
          )
         )
-        ;;@ assembly/integer/u128.ts:371:29
+        ;;@ assembly/integer/u128.ts:366:29
         (i64.const 127)
        )
        (get_local $2)
       )
-      ;;@ assembly/integer/u128.ts:371:47
+      ;;@ assembly/integer/u128.ts:366:47
       (i64.const 64)
      )
-     ;;@ assembly/integer/u128.ts:371:54
+     ;;@ assembly/integer/u128.ts:366:54
      (i64.const 6)
     )
-    ;;@ assembly/integer/u128.ts:371:59
+    ;;@ assembly/integer/u128.ts:366:59
     (i64.const 1)
    )
   )
-  ;;@ assembly/integer/u128.ts:372:4
+  ;;@ assembly/integer/u128.ts:367:4
   (set_local $3
-   ;;@ assembly/integer/u128.ts:372:15
+   ;;@ assembly/integer/u128.ts:367:15
    (i64.sub
     (i64.shr_u
      (get_local $2)
-     ;;@ assembly/integer/u128.ts:372:27
+     ;;@ assembly/integer/u128.ts:367:27
      (i64.const 6)
     )
-    ;;@ assembly/integer/u128.ts:372:32
+    ;;@ assembly/integer/u128.ts:367:32
     (i64.const 1)
    )
   )
-  ;;@ assembly/integer/u128.ts:381:4
+  ;;@ assembly/integer/u128.ts:376:4
   (drop
    (i64.or
-    ;;@ assembly/integer/u128.ts:379:4
+    ;;@ assembly/integer/u128.ts:374:4
     (tee_local $5
-     ;;@ assembly/integer/u128.ts:379:14
+     ;;@ assembly/integer/u128.ts:374:14
      (i64.and
-      ;;@ assembly/integer/u128.ts:378:4
+      ;;@ assembly/integer/u128.ts:373:4
       (tee_local $8
-       ;;@ assembly/integer/u128.ts:378:14
+       ;;@ assembly/integer/u128.ts:373:14
        (i64.shr_u
-        ;;@ assembly/integer/u128.ts:377:4
+        ;;@ assembly/integer/u128.ts:372:4
         (tee_local $7
-         ;;@ assembly/integer/u128.ts:377:13
+         ;;@ assembly/integer/u128.ts:372:13
          (i64.load offset=8
           (get_local $0)
          )
         )
-        ;;@ assembly/integer/u128.ts:374:4
+        ;;@ assembly/integer/u128.ts:369:4
         (tee_local $2
          (i64.and
           (get_local $2)
-          ;;@ assembly/integer/u128.ts:374:15
+          ;;@ assembly/integer/u128.ts:369:15
           (i64.const 63)
          )
         )
        )
       )
-      ;;@ assembly/integer/u128.ts:379:20
+      ;;@ assembly/integer/u128.ts:374:20
       (i64.xor
        (get_local $3)
        (i64.const -1)
       )
      )
     )
-    ;;@ assembly/integer/u128.ts:381:11
+    ;;@ assembly/integer/u128.ts:376:11
     (i64.and
      (i64.or
-      ;;@ assembly/integer/u128.ts:381:12
+      ;;@ assembly/integer/u128.ts:376:12
       (i64.shr_u
-       ;;@ assembly/integer/u128.ts:376:4
+       ;;@ assembly/integer/u128.ts:371:4
        (tee_local $5
-        ;;@ assembly/integer/u128.ts:376:13
+        ;;@ assembly/integer/u128.ts:371:13
         (i64.load
          (get_local $0)
         )
        )
        (get_local $2)
       )
-      ;;@ assembly/integer/u128.ts:381:30
+      ;;@ assembly/integer/u128.ts:376:30
       (i64.and
-       ;;@ assembly/integer/u128.ts:381:31
+       ;;@ assembly/integer/u128.ts:376:31
        (i64.shl
         (get_local $7)
-        ;;@ assembly/integer/u128.ts:381:38
+        ;;@ assembly/integer/u128.ts:376:38
         (i64.sub
-         ;;@ assembly/integer/u128.ts:381:39
+         ;;@ assembly/integer/u128.ts:376:39
          (i64.const 64)
          (get_local $2)
         )
@@ -1471,38 +1471,38 @@
     )
    )
   )
-  ;;@ assembly/integer/u128.ts:384:4
+  ;;@ assembly/integer/u128.ts:379:4
   (set_local $2
    (get_local $4)
   )
-  ;;@ assembly/integer/u128.ts:392:4
+  ;;@ assembly/integer/u128.ts:387:4
   (drop
-   ;;@ assembly/integer/u128.ts:392:14
+   ;;@ assembly/integer/u128.ts:387:14
    (i64.and
-    ;;@ assembly/integer/u128.ts:391:4
+    ;;@ assembly/integer/u128.ts:386:4
     (tee_local $4
-     ;;@ assembly/integer/u128.ts:391:14
+     ;;@ assembly/integer/u128.ts:386:14
      (i64.shl
       (get_local $5)
       (i64.and
        (get_local $2)
-       ;;@ assembly/integer/u128.ts:389:15
+       ;;@ assembly/integer/u128.ts:384:15
        (i64.const 63)
       )
      )
     )
-    ;;@ assembly/integer/u128.ts:392:20
+    ;;@ assembly/integer/u128.ts:387:20
     (i64.xor
-     ;;@ assembly/integer/u128.ts:387:4
+     ;;@ assembly/integer/u128.ts:382:4
      (tee_local $3
-      ;;@ assembly/integer/u128.ts:387:11
+      ;;@ assembly/integer/u128.ts:382:11
       (i64.sub
        (i64.shr_u
         (get_local $2)
-        ;;@ assembly/integer/u128.ts:387:23
+        ;;@ assembly/integer/u128.ts:382:23
         (i64.const 6)
        )
-       ;;@ assembly/integer/u128.ts:387:28
+       ;;@ assembly/integer/u128.ts:382:28
        (i64.const 1)
       )
      )
@@ -1520,39 +1520,39 @@
   (local $6 i64)
   (local $7 i64)
   (local $8 i64)
-  ;;@ assembly/integer/u128.ts:403:4
+  ;;@ assembly/integer/u128.ts:398:4
   (if
    (i32.eqz
-    ;;@ assembly/integer/u128.ts:402:4
+    ;;@ assembly/integer/u128.ts:397:4
     (tee_local $1
      (i32.and
       (get_local $1)
-      ;;@ assembly/integer/u128.ts:402:13
+      ;;@ assembly/integer/u128.ts:397:13
       (i32.const 127)
      )
     )
    )
-   ;;@ assembly/integer/u128.ts:403:27
+   ;;@ assembly/integer/u128.ts:398:27
    (return
     (get_local $0)
    )
   )
-  ;;@ assembly/integer/u128.ts:407:4
+  ;;@ assembly/integer/u128.ts:402:4
   (set_local $5
-   ;;@ assembly/integer/u128.ts:407:15
+   ;;@ assembly/integer/u128.ts:402:15
    (i64.sub
     (i64.shr_u
-     ;;@ assembly/integer/u128.ts:407:16
+     ;;@ assembly/integer/u128.ts:402:16
      (i64.and
-      ;;@ assembly/integer/u128.ts:407:17
+      ;;@ assembly/integer/u128.ts:402:17
       (i64.or
-       ;;@ assembly/integer/u128.ts:407:18
+       ;;@ assembly/integer/u128.ts:402:18
        (i64.add
-        ;;@ assembly/integer/u128.ts:405:4
+        ;;@ assembly/integer/u128.ts:400:4
         (tee_local $2
-         ;;@ assembly/integer/u128.ts:405:18
+         ;;@ assembly/integer/u128.ts:400:18
          (i64.sub
-          ;;@ assembly/integer/u128.ts:405:19
+          ;;@ assembly/integer/u128.ts:400:19
           (i64.const 128)
           (tee_local $4
            (i64.extend_s/i32
@@ -1561,91 +1561,91 @@
           )
          )
         )
-        ;;@ assembly/integer/u128.ts:407:29
+        ;;@ assembly/integer/u128.ts:402:29
         (i64.const 127)
        )
        (get_local $2)
       )
-      ;;@ assembly/integer/u128.ts:407:47
+      ;;@ assembly/integer/u128.ts:402:47
       (i64.const 64)
      )
-     ;;@ assembly/integer/u128.ts:407:54
+     ;;@ assembly/integer/u128.ts:402:54
      (i64.const 6)
     )
-    ;;@ assembly/integer/u128.ts:407:59
+    ;;@ assembly/integer/u128.ts:402:59
     (i64.const 1)
    )
   )
-  ;;@ assembly/integer/u128.ts:408:4
+  ;;@ assembly/integer/u128.ts:403:4
   (set_local $3
-   ;;@ assembly/integer/u128.ts:408:15
+   ;;@ assembly/integer/u128.ts:403:15
    (i64.sub
     (i64.shr_u
      (get_local $2)
-     ;;@ assembly/integer/u128.ts:408:27
+     ;;@ assembly/integer/u128.ts:403:27
      (i64.const 6)
     )
-    ;;@ assembly/integer/u128.ts:408:32
+    ;;@ assembly/integer/u128.ts:403:32
     (i64.const 1)
    )
   )
-  ;;@ assembly/integer/u128.ts:417:4
+  ;;@ assembly/integer/u128.ts:412:4
   (drop
    (i64.or
-    ;;@ assembly/integer/u128.ts:415:4
+    ;;@ assembly/integer/u128.ts:410:4
     (tee_local $7
-     ;;@ assembly/integer/u128.ts:415:14
+     ;;@ assembly/integer/u128.ts:410:14
      (i64.and
-      ;;@ assembly/integer/u128.ts:414:4
+      ;;@ assembly/integer/u128.ts:409:4
       (tee_local $8
-       ;;@ assembly/integer/u128.ts:414:14
+       ;;@ assembly/integer/u128.ts:409:14
        (i64.shl
-        ;;@ assembly/integer/u128.ts:412:4
+        ;;@ assembly/integer/u128.ts:407:4
         (tee_local $6
-         ;;@ assembly/integer/u128.ts:412:13
+         ;;@ assembly/integer/u128.ts:407:13
          (i64.load
           (get_local $0)
          )
         )
-        ;;@ assembly/integer/u128.ts:410:4
+        ;;@ assembly/integer/u128.ts:405:4
         (tee_local $2
          (i64.and
           (get_local $2)
-          ;;@ assembly/integer/u128.ts:410:15
+          ;;@ assembly/integer/u128.ts:405:15
           (i64.const 63)
          )
         )
        )
       )
-      ;;@ assembly/integer/u128.ts:415:20
+      ;;@ assembly/integer/u128.ts:410:20
       (i64.xor
        (get_local $3)
        (i64.const -1)
       )
      )
     )
-    ;;@ assembly/integer/u128.ts:417:11
+    ;;@ assembly/integer/u128.ts:412:11
     (i64.and
      (i64.or
-      ;;@ assembly/integer/u128.ts:417:12
+      ;;@ assembly/integer/u128.ts:412:12
       (i64.shl
-       ;;@ assembly/integer/u128.ts:413:4
+       ;;@ assembly/integer/u128.ts:408:4
        (tee_local $7
-        ;;@ assembly/integer/u128.ts:413:13
+        ;;@ assembly/integer/u128.ts:408:13
         (i64.load offset=8
          (get_local $0)
         )
        )
        (get_local $2)
       )
-      ;;@ assembly/integer/u128.ts:417:30
+      ;;@ assembly/integer/u128.ts:412:30
       (i64.and
-       ;;@ assembly/integer/u128.ts:417:31
+       ;;@ assembly/integer/u128.ts:412:31
        (i64.shr_u
         (get_local $6)
-        ;;@ assembly/integer/u128.ts:417:38
+        ;;@ assembly/integer/u128.ts:412:38
         (i64.sub
-         ;;@ assembly/integer/u128.ts:417:39
+         ;;@ assembly/integer/u128.ts:412:39
          (i64.const 64)
          (get_local $2)
         )
@@ -1657,46 +1657,46 @@
     )
    )
   )
-  ;;@ assembly/integer/u128.ts:420:4
+  ;;@ assembly/integer/u128.ts:415:4
   (set_local $2
    (get_local $4)
   )
-  ;;@ assembly/integer/u128.ts:423:4
+  ;;@ assembly/integer/u128.ts:418:4
   (set_local $3
-   ;;@ assembly/integer/u128.ts:423:11
+   ;;@ assembly/integer/u128.ts:418:11
    (i64.sub
     (i64.shr_u
      (get_local $2)
-     ;;@ assembly/integer/u128.ts:423:23
+     ;;@ assembly/integer/u128.ts:418:23
      (i64.const 6)
     )
-    ;;@ assembly/integer/u128.ts:423:28
+    ;;@ assembly/integer/u128.ts:418:28
     (i64.const 1)
    )
   )
   (unreachable)
  )
  (func $assembly/integer/u128/u128.add (; 20 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
-  ;;@ assembly/integer/u128.ts:439:4
+  ;;@ assembly/integer/u128.ts:434:4
   (drop
-   ;;@ assembly/integer/u128.ts:439:13
+   ;;@ assembly/integer/u128.ts:434:13
    (i64.add
     (i64.load
      (get_local $0)
     )
-    ;;@ assembly/integer/u128.ts:438:13
+    ;;@ assembly/integer/u128.ts:433:13
     (i64.load
      (get_local $1)
     )
    )
   )
   (drop
-   ;;@ assembly/integer/u128.ts:440:13
+   ;;@ assembly/integer/u128.ts:435:13
    (i64.add
     (i64.load offset=8
      (get_local $0)
     )
-    ;;@ assembly/integer/u128.ts:440:20
+    ;;@ assembly/integer/u128.ts:435:20
     (i64.load offset=8
      (get_local $1)
     )
@@ -1705,27 +1705,27 @@
   (unreachable)
  )
  (func $assembly/integer/u128/u128.sub (; 21 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
-  ;;@ assembly/integer/u128.ts:448:4
+  ;;@ assembly/integer/u128.ts:443:4
   (drop
-   ;;@ assembly/integer/u128.ts:448:13
+   ;;@ assembly/integer/u128.ts:443:13
    (i64.sub
-    ;;@ assembly/integer/u128.ts:447:13
+    ;;@ assembly/integer/u128.ts:442:13
     (i64.load
      (get_local $0)
     )
-    ;;@ assembly/integer/u128.ts:448:20
+    ;;@ assembly/integer/u128.ts:443:20
     (i64.load
      (get_local $1)
     )
    )
   )
   (drop
-   ;;@ assembly/integer/u128.ts:449:13
+   ;;@ assembly/integer/u128.ts:444:13
    (i64.sub
     (i64.load offset=8
      (get_local $0)
     )
-    ;;@ assembly/integer/u128.ts:449:20
+    ;;@ assembly/integer/u128.ts:444:20
     (i64.load offset=8
      (get_local $1)
     )
@@ -1734,21 +1734,21 @@
   (unreachable)
  )
  (func $assembly/integer/u128/u128.mul (; 22 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
-  ;;@ assembly/integer/u128.ts:457:4
+  ;;@ assembly/integer/u128.ts:452:4
   (call $assembly/globals/__multi3
-   ;;@ assembly/integer/u128.ts:457:19
+   ;;@ assembly/integer/u128.ts:452:19
    (i64.load
     (get_local $0)
    )
-   ;;@ assembly/integer/u128.ts:457:25
+   ;;@ assembly/integer/u128.ts:452:25
    (i64.load offset=8
     (get_local $0)
    )
-   ;;@ assembly/integer/u128.ts:457:31
+   ;;@ assembly/integer/u128.ts:452:31
    (i64.load
     (get_local $1)
    )
-   ;;@ assembly/integer/u128.ts:457:37
+   ;;@ assembly/integer/u128.ts:452:37
    (i64.load offset=8
     (get_local $1)
    )
@@ -2104,21 +2104,21 @@
   )
  )
  (func $assembly/integer/u128/u128.div (; 24 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
-  ;;@ assembly/integer/u128.ts:463:4
+  ;;@ assembly/integer/u128.ts:458:4
   (call $assembly/globals/__udivmod128
-   ;;@ assembly/integer/u128.ts:463:17
+   ;;@ assembly/integer/u128.ts:458:17
    (i64.load
     (get_local $0)
    )
-   ;;@ assembly/integer/u128.ts:463:23
+   ;;@ assembly/integer/u128.ts:458:23
    (i64.load offset=8
     (get_local $0)
    )
-   ;;@ assembly/integer/u128.ts:463:29
+   ;;@ assembly/integer/u128.ts:458:29
    (i64.load
     (get_local $1)
    )
-   ;;@ assembly/integer/u128.ts:463:35
+   ;;@ assembly/integer/u128.ts:458:35
    (i64.load offset=8
     (get_local $1)
    )
@@ -2196,13 +2196,13 @@
   (unreachable)
  )
  (func $assembly/integer/u128/u128.div10 (; 26 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
-  ;;@ assembly/integer/u128.ts:475:4
+  ;;@ assembly/integer/u128.ts:470:4
   (call $assembly/globals/__udivmod128_10
-   ;;@ assembly/integer/u128.ts:475:32
+   ;;@ assembly/integer/u128.ts:470:32
    (i64.load
     (get_local $0)
    )
-   ;;@ assembly/integer/u128.ts:475:42
+   ;;@ assembly/integer/u128.ts:470:42
    (i64.load offset=8
     (get_local $0)
    )
@@ -2215,133 +2215,133 @@
   (local $3 i64)
   (local $4 i64)
   (local $5 i64)
-  ;;@ assembly/integer/u128.ts:673:4
+  ;;@ assembly/integer/u128.ts:668:4
   (set_local $5
-   ;;@ assembly/integer/u128.ts:673:13
+   ;;@ assembly/integer/u128.ts:668:13
    (i64.and
-    ;;@ assembly/integer/u128.ts:672:4
+    ;;@ assembly/integer/u128.ts:667:4
     (tee_local $3
-     ;;@ assembly/integer/u128.ts:672:13
+     ;;@ assembly/integer/u128.ts:667:13
      (i64.mul
-      ;;@ assembly/integer/u128.ts:671:4
+      ;;@ assembly/integer/u128.ts:666:4
       (tee_local $1
-       ;;@ assembly/integer/u128.ts:671:13
+       ;;@ assembly/integer/u128.ts:666:13
        (i64.and
         (tee_local $2
-         ;;@ assembly/integer/u128.ts:668:12
+         ;;@ assembly/integer/u128.ts:663:12
          (i64.load
           (get_local $0)
          )
         )
-        ;;@ assembly/integer/u128.ts:671:17
+        ;;@ assembly/integer/u128.ts:666:17
         (i64.const 4294967295)
        )
       )
       (get_local $1)
      )
     )
-    ;;@ assembly/integer/u128.ts:673:17
+    ;;@ assembly/integer/u128.ts:668:17
     (i64.const 4294967295)
    )
   )
-  ;;@ assembly/integer/u128.ts:679:4
+  ;;@ assembly/integer/u128.ts:674:4
   (set_local $4
-   ;;@ assembly/integer/u128.ts:679:13
+   ;;@ assembly/integer/u128.ts:674:13
    (i64.shr_u
-    ;;@ assembly/integer/u128.ts:678:4
+    ;;@ assembly/integer/u128.ts:673:4
     (tee_local $3
-     ;;@ assembly/integer/u128.ts:678:8
+     ;;@ assembly/integer/u128.ts:673:8
      (i64.add
-      ;;@ assembly/integer/u128.ts:677:4
+      ;;@ assembly/integer/u128.ts:672:4
       (tee_local $1
-       ;;@ assembly/integer/u128.ts:677:12
+       ;;@ assembly/integer/u128.ts:672:12
        (i64.mul
-        ;;@ assembly/integer/u128.ts:676:4
+        ;;@ assembly/integer/u128.ts:671:4
         (tee_local $2
          (i64.shr_u
           (get_local $2)
-          ;;@ assembly/integer/u128.ts:676:10
+          ;;@ assembly/integer/u128.ts:671:10
           (i64.const 32)
          )
         )
         (get_local $1)
        )
       )
-      ;;@ assembly/integer/u128.ts:674:13
+      ;;@ assembly/integer/u128.ts:669:13
       (i64.shr_u
        (get_local $3)
-       ;;@ assembly/integer/u128.ts:674:18
+       ;;@ assembly/integer/u128.ts:669:18
        (i64.const 32)
       )
      )
     )
-    ;;@ assembly/integer/u128.ts:679:18
+    ;;@ assembly/integer/u128.ts:674:18
     (i64.const 32)
    )
   )
-  ;;@ assembly/integer/u128.ts:685:8
+  ;;@ assembly/integer/u128.ts:680:8
   (set_local $1
    (i64.add
-    ;;@ assembly/integer/u128.ts:684:14
+    ;;@ assembly/integer/u128.ts:679:14
     (i64.mul
      (get_local $2)
      (get_local $2)
     )
-    ;;@ assembly/integer/u128.ts:685:14
+    ;;@ assembly/integer/u128.ts:680:14
     (i64.add
      (get_local $4)
-     ;;@ assembly/integer/u128.ts:685:19
+     ;;@ assembly/integer/u128.ts:680:19
      (i64.shr_u
-      ;;@ assembly/integer/u128.ts:681:4
+      ;;@ assembly/integer/u128.ts:676:4
       (tee_local $3
-       ;;@ assembly/integer/u128.ts:681:8
+       ;;@ assembly/integer/u128.ts:676:8
        (i64.add
         (get_local $1)
-        ;;@ assembly/integer/u128.ts:681:12
+        ;;@ assembly/integer/u128.ts:676:12
         (i64.and
          (get_local $3)
-         ;;@ assembly/integer/u128.ts:681:17
+         ;;@ assembly/integer/u128.ts:676:17
          (i64.const 4294967295)
         )
        )
       )
-      ;;@ assembly/integer/u128.ts:685:25
+      ;;@ assembly/integer/u128.ts:680:25
       (i64.const 32)
      )
     )
    )
   )
   (set_local $4
-   ;;@ assembly/integer/u128.ts:669:12
+   ;;@ assembly/integer/u128.ts:664:12
    (i64.load offset=8
     (get_local $0)
    )
   )
-  ;;@ assembly/integer/u128.ts:688:4
+  ;;@ assembly/integer/u128.ts:683:4
   (i64.store
    (get_local $0)
-   ;;@ assembly/integer/u128.ts:683:13
+   ;;@ assembly/integer/u128.ts:678:13
    (i64.add
     (i64.shl
      (get_local $3)
-     ;;@ assembly/integer/u128.ts:683:19
+     ;;@ assembly/integer/u128.ts:678:19
      (i64.const 32)
     )
     (get_local $5)
    )
   )
-  ;;@ assembly/integer/u128.ts:689:4
+  ;;@ assembly/integer/u128.ts:684:4
   (i64.store offset=8
    (get_local $0)
    (i64.add
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:686:14
+    ;;@ assembly/integer/u128.ts:681:14
     (i64.shl
      (i64.mul
       (get_local $2)
       (get_local $4)
      )
-     ;;@ assembly/integer/u128.ts:686:23
+     ;;@ assembly/integer/u128.ts:681:23
      (i64.const 1)
     )
    )
@@ -2353,27 +2353,27 @@
  )
  (func $assembly/integer/u128/u128.eq (; 29 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
-  ;;@ assembly/integer/u128.ts:580:37
+  ;;@ assembly/integer/u128.ts:575:37
   (if
    (tee_local $2
-    ;;@ assembly/integer/u128.ts:580:11
+    ;;@ assembly/integer/u128.ts:575:11
     (i64.eq
      (i64.load offset=8
       (get_local $0)
      )
-     ;;@ assembly/integer/u128.ts:580:19
+     ;;@ assembly/integer/u128.ts:575:19
      (i64.load offset=8
       (get_local $1)
      )
     )
    )
    (set_local $2
-    ;;@ assembly/integer/u128.ts:580:27
+    ;;@ assembly/integer/u128.ts:575:27
     (i64.eq
      (i64.load
       (get_local $0)
      )
-     ;;@ assembly/integer/u128.ts:580:35
+     ;;@ assembly/integer/u128.ts:575:35
      (i64.load
       (get_local $1)
      )
@@ -2384,34 +2384,34 @@
  )
  (func $assembly/integer/u128/u128.ne (; 30 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
-  ;;@ assembly/integer/u128.ts:580:37
+  ;;@ assembly/integer/u128.ts:575:37
   (if
    (tee_local $2
-    ;;@ assembly/integer/u128.ts:580:11
+    ;;@ assembly/integer/u128.ts:575:11
     (i64.eq
      (i64.load offset=8
       (get_local $0)
      )
-     ;;@ assembly/integer/u128.ts:580:19
+     ;;@ assembly/integer/u128.ts:575:19
      (i64.load offset=8
       (get_local $1)
      )
     )
    )
    (set_local $2
-    ;;@ assembly/integer/u128.ts:580:27
+    ;;@ assembly/integer/u128.ts:575:27
     (i64.eq
      (i64.load
       (get_local $0)
      )
-     ;;@ assembly/integer/u128.ts:580:35
+     ;;@ assembly/integer/u128.ts:575:35
      (i64.load
       (get_local $1)
      )
     )
    )
   )
-  ;;@ assembly/integer/u128.ts:585:24
+  ;;@ assembly/integer/u128.ts:580:24
   (i32.eqz
    (get_local $2)
   )
@@ -2420,34 +2420,34 @@
   (local $2 i64)
   (local $3 i64)
   (tee_local $0
-   ;;@ assembly/integer/u128.ts:591:41
+   ;;@ assembly/integer/u128.ts:586:41
    (if (result i32)
-    ;;@ assembly/integer/u128.ts:591:11
+    ;;@ assembly/integer/u128.ts:586:11
     (i64.eq
      (tee_local $2
-      ;;@ assembly/integer/u128.ts:590:13
+      ;;@ assembly/integer/u128.ts:585:13
       (i64.load offset=8
        (get_local $0)
       )
      )
      (tee_local $3
-      ;;@ assembly/integer/u128.ts:590:24
+      ;;@ assembly/integer/u128.ts:585:24
       (i64.load offset=8
        (get_local $1)
       )
      )
     )
-    ;;@ assembly/integer/u128.ts:591:22
+    ;;@ assembly/integer/u128.ts:586:22
     (i64.lt_u
      (i64.load
       (get_local $0)
      )
-     ;;@ assembly/integer/u128.ts:591:29
+     ;;@ assembly/integer/u128.ts:586:29
      (i64.load
       (get_local $1)
      )
     )
-    ;;@ assembly/integer/u128.ts:591:36
+    ;;@ assembly/integer/u128.ts:586:36
     (i64.lt_u
      (get_local $2)
      (get_local $3)
@@ -2459,34 +2459,34 @@
   (local $2 i64)
   (local $3 i64)
   (tee_local $0
-   ;;@ assembly/integer/u128.ts:597:41
+   ;;@ assembly/integer/u128.ts:592:41
    (if (result i32)
-    ;;@ assembly/integer/u128.ts:597:11
+    ;;@ assembly/integer/u128.ts:592:11
     (i64.eq
      (tee_local $2
-      ;;@ assembly/integer/u128.ts:596:13
+      ;;@ assembly/integer/u128.ts:591:13
       (i64.load offset=8
        (get_local $0)
       )
      )
      (tee_local $3
-      ;;@ assembly/integer/u128.ts:596:24
+      ;;@ assembly/integer/u128.ts:591:24
       (i64.load offset=8
        (get_local $1)
       )
      )
     )
-    ;;@ assembly/integer/u128.ts:597:22
+    ;;@ assembly/integer/u128.ts:592:22
     (i64.gt_u
      (i64.load
       (get_local $0)
      )
-     ;;@ assembly/integer/u128.ts:597:29
+     ;;@ assembly/integer/u128.ts:592:29
      (i64.load
       (get_local $1)
      )
     )
-    ;;@ assembly/integer/u128.ts:597:36
+    ;;@ assembly/integer/u128.ts:592:36
     (i64.gt_u
      (get_local $2)
      (get_local $3)
@@ -2497,38 +2497,38 @@
  (func $assembly/integer/u128/u128.le (; 33 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (local $3 i64)
-  ;;@ assembly/integer/u128.ts:602:24
+  ;;@ assembly/integer/u128.ts:597:24
   (i32.eqz
    (i32.and
     (tee_local $0
-     ;;@ assembly/integer/u128.ts:597:41
+     ;;@ assembly/integer/u128.ts:592:41
      (if (result i32)
-      ;;@ assembly/integer/u128.ts:597:11
+      ;;@ assembly/integer/u128.ts:592:11
       (i64.eq
        (tee_local $2
-        ;;@ assembly/integer/u128.ts:596:13
+        ;;@ assembly/integer/u128.ts:591:13
         (i64.load offset=8
          (get_local $0)
         )
        )
        (tee_local $3
-        ;;@ assembly/integer/u128.ts:596:24
+        ;;@ assembly/integer/u128.ts:591:24
         (i64.load offset=8
          (get_local $1)
         )
        )
       )
-      ;;@ assembly/integer/u128.ts:597:22
+      ;;@ assembly/integer/u128.ts:592:22
       (i64.gt_u
        (i64.load
         (get_local $0)
        )
-       ;;@ assembly/integer/u128.ts:597:29
+       ;;@ assembly/integer/u128.ts:592:29
        (i64.load
         (get_local $1)
        )
       )
-      ;;@ assembly/integer/u128.ts:597:36
+      ;;@ assembly/integer/u128.ts:592:36
       (i64.gt_u
        (get_local $2)
        (get_local $3)
@@ -2542,38 +2542,38 @@
  (func $assembly/integer/u128/u128.ge (; 34 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (local $3 i64)
-  ;;@ assembly/integer/u128.ts:607:24
+  ;;@ assembly/integer/u128.ts:602:24
   (i32.eqz
    (i32.and
     (tee_local $0
-     ;;@ assembly/integer/u128.ts:591:41
+     ;;@ assembly/integer/u128.ts:586:41
      (if (result i32)
-      ;;@ assembly/integer/u128.ts:591:11
+      ;;@ assembly/integer/u128.ts:586:11
       (i64.eq
        (tee_local $2
-        ;;@ assembly/integer/u128.ts:590:13
+        ;;@ assembly/integer/u128.ts:585:13
         (i64.load offset=8
          (get_local $0)
         )
        )
        (tee_local $3
-        ;;@ assembly/integer/u128.ts:590:24
+        ;;@ assembly/integer/u128.ts:585:24
         (i64.load offset=8
          (get_local $1)
         )
        )
       )
-      ;;@ assembly/integer/u128.ts:591:22
+      ;;@ assembly/integer/u128.ts:586:22
       (i64.lt_u
        (i64.load
         (get_local $0)
        )
-       ;;@ assembly/integer/u128.ts:591:29
+       ;;@ assembly/integer/u128.ts:586:29
        (i64.load
         (get_local $1)
        )
       )
-      ;;@ assembly/integer/u128.ts:591:36
+      ;;@ assembly/integer/u128.ts:586:36
       (i64.lt_u
        (get_local $2)
        (get_local $3)
@@ -2586,55 +2586,55 @@
  )
  (func $assembly/integer/u128/u128.cmp (; 35 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
-  ;;@ assembly/integer/u128.ts:615:46
+  ;;@ assembly/integer/u128.ts:610:46
   (i32.wrap/i64
    (select
-    ;;@ assembly/integer/u128.ts:613:4
+    ;;@ assembly/integer/u128.ts:608:4
     (tee_local $2
-     ;;@ assembly/integer/u128.ts:613:19
+     ;;@ assembly/integer/u128.ts:608:19
      (i64.sub
       (i64.load offset=8
        (get_local $0)
       )
-      ;;@ assembly/integer/u128.ts:613:26
+      ;;@ assembly/integer/u128.ts:608:26
       (i64.load offset=8
        (get_local $1)
       )
      )
     )
-    ;;@ assembly/integer/u128.ts:612:19
+    ;;@ assembly/integer/u128.ts:607:19
     (i64.sub
      (i64.load
       (get_local $0)
      )
-     ;;@ assembly/integer/u128.ts:612:26
+     ;;@ assembly/integer/u128.ts:607:26
      (i64.load
       (get_local $1)
      )
     )
-    ;;@ assembly/integer/u128.ts:615:38
+    ;;@ assembly/integer/u128.ts:610:38
     (i64.ne
      (get_local $2)
-     ;;@ assembly/integer/u128.ts:615:45
+     ;;@ assembly/integer/u128.ts:610:45
      (i64.const 0)
     )
    )
   )
  )
  (func $assembly/integer/u128/u128.popcnt (; 36 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
-  ;;@ assembly/integer/u128.ts:625:52
+  ;;@ assembly/integer/u128.ts:620:52
   (i32.wrap/i64
-   ;;@ assembly/integer/u128.ts:625:17
+   ;;@ assembly/integer/u128.ts:620:17
    (i64.add
     (i64.popcnt
-     ;;@ assembly/integer/u128.ts:625:24
+     ;;@ assembly/integer/u128.ts:620:24
      (i64.load
       (get_local $0)
      )
     )
-    ;;@ assembly/integer/u128.ts:625:36
+    ;;@ assembly/integer/u128.ts:620:36
     (i64.popcnt
-     ;;@ assembly/integer/u128.ts:625:43
+     ;;@ assembly/integer/u128.ts:620:43
      (i64.load offset=8
       (get_local $0)
      )
@@ -2655,7 +2655,7 @@
      ;;@ assembly/globals.ts:193:26
      (i64.eq
       (tee_local $2
-       ;;@ assembly/integer/u128.ts:635:30
+       ;;@ assembly/integer/u128.ts:630:30
        (i64.load offset=8
         (get_local $0)
        )
@@ -2683,7 +2683,7 @@
       )
       ;;@ assembly/globals.ts:194:33
       (i64.and
-       ;;@ assembly/integer/u128.ts:635:20
+       ;;@ assembly/integer/u128.ts:630:20
        (i64.load
         (get_local $0)
        )
@@ -2714,7 +2714,7 @@
      ;;@ assembly/globals.ts:201:18
      (i64.or
       (i64.and
-       ;;@ assembly/integer/u128.ts:645:30
+       ;;@ assembly/integer/u128.ts:640:30
        (i64.load offset=8
         (get_local $0)
        )
@@ -2728,7 +2728,7 @@
           ;;@ assembly/globals.ts:200:26
           (i64.eq
            (tee_local $2
-            ;;@ assembly/integer/u128.ts:645:20
+            ;;@ assembly/integer/u128.ts:640:20
             (i64.load
              (get_local $0)
             )
@@ -2764,18 +2764,18 @@
   )
  )
  (func $assembly/integer/u128/u128#set (; 39 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
-  ;;@ assembly/integer/u128.ts:223:4
+  ;;@ assembly/integer/u128.ts:218:4
   (i64.store
    (get_local $0)
-   ;;@ assembly/integer/u128.ts:223:14
+   ;;@ assembly/integer/u128.ts:218:14
    (i64.load
     (get_local $1)
    )
   )
-  ;;@ assembly/integer/u128.ts:224:4
+  ;;@ assembly/integer/u128.ts:219:4
   (i64.store offset=8
    (get_local $0)
-   ;;@ assembly/integer/u128.ts:224:14
+   ;;@ assembly/integer/u128.ts:219:14
    (i64.load offset=8
     (get_local $1)
    )
@@ -2783,54 +2783,54 @@
   (get_local $0)
  )
  (func $assembly/integer/u128/u128#setI64 (; 40 ;) (; has Stack IR ;) (type $iIi) (param $0 i32) (param $1 i64) (result i32)
-  ;;@ assembly/integer/u128.ts:230:4
+  ;;@ assembly/integer/u128.ts:225:4
   (i64.store
    (get_local $0)
    (get_local $1)
   )
-  ;;@ assembly/integer/u128.ts:231:4
+  ;;@ assembly/integer/u128.ts:226:4
   (i64.store offset=8
    (get_local $0)
-   ;;@ assembly/integer/u128.ts:231:14
+   ;;@ assembly/integer/u128.ts:226:14
    (i64.shr_s
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:231:23
+    ;;@ assembly/integer/u128.ts:226:23
     (i64.const 63)
    )
   )
   (get_local $0)
  )
  (func $assembly/integer/u128/u128#setU64 (; 41 ;) (; has Stack IR ;) (type $iIi) (param $0 i32) (param $1 i64) (result i32)
-  ;;@ assembly/integer/u128.ts:237:4
+  ;;@ assembly/integer/u128.ts:232:4
   (i64.store
    (get_local $0)
    (get_local $1)
   )
-  ;;@ assembly/integer/u128.ts:238:4
+  ;;@ assembly/integer/u128.ts:233:4
   (i64.store offset=8
    (get_local $0)
-   ;;@ assembly/integer/u128.ts:238:14
+   ;;@ assembly/integer/u128.ts:233:14
    (i64.const 0)
   )
   (get_local $0)
  )
  (func $assembly/integer/u128/u128#setI32 (; 42 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
-  ;;@ assembly/integer/u128.ts:244:4
+  ;;@ assembly/integer/u128.ts:239:4
   (i64.store
    (get_local $0)
-   ;;@ assembly/integer/u128.ts:244:14
+   ;;@ assembly/integer/u128.ts:239:14
    (i64.extend_s/i32
     (get_local $1)
    )
   )
-  ;;@ assembly/integer/u128.ts:245:4
+  ;;@ assembly/integer/u128.ts:240:4
   (i64.store offset=8
    (get_local $0)
-   ;;@ assembly/integer/u128.ts:245:14
+   ;;@ assembly/integer/u128.ts:240:14
    (i64.extend_s/i32
     (i32.shr_s
      (get_local $1)
-     ;;@ assembly/integer/u128.ts:245:23
+     ;;@ assembly/integer/u128.ts:240:23
      (i32.const 63)
     )
    )
@@ -2838,32 +2838,32 @@
   (get_local $0)
  )
  (func $assembly/integer/u128/u128#setU32 (; 43 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
-  ;;@ assembly/integer/u128.ts:251:4
+  ;;@ assembly/integer/u128.ts:246:4
   (i64.store
    (get_local $0)
-   ;;@ assembly/integer/u128.ts:251:14
+   ;;@ assembly/integer/u128.ts:246:14
    (i64.extend_u/i32
     (get_local $1)
    )
   )
-  ;;@ assembly/integer/u128.ts:252:4
+  ;;@ assembly/integer/u128.ts:247:4
   (i64.store offset=8
    (get_local $0)
-   ;;@ assembly/integer/u128.ts:252:14
+   ;;@ assembly/integer/u128.ts:247:14
    (i64.const 0)
   )
   (get_local $0)
  )
  (func $assembly/integer/u128/u128#isZero (; 44 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
-  ;;@ assembly/integer/u128.ts:258:30
+  ;;@ assembly/integer/u128.ts:253:30
   (i64.eqz
-   ;;@ assembly/integer/u128.ts:258:12
+   ;;@ assembly/integer/u128.ts:253:12
    (i64.or
-    ;;@ assembly/integer/u128.ts:258:13
+    ;;@ assembly/integer/u128.ts:253:13
     (i64.load
      (get_local $0)
     )
-    ;;@ assembly/integer/u128.ts:258:23
+    ;;@ assembly/integer/u128.ts:253:23
     (i64.load offset=8
      (get_local $0)
     )
@@ -2875,45 +2875,45 @@
  )
  (func $assembly/integer/u128/u128#preInc (; 46 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
-  ;;@ assembly/integer/u128.ts:281:4
+  ;;@ assembly/integer/u128.ts:276:4
   (i64.store offset=8
    (get_local $0)
    (i64.add
     (i64.load offset=8
      (get_local $0)
     )
-    ;;@ assembly/integer/u128.ts:281:15
+    ;;@ assembly/integer/u128.ts:276:15
     (i64.shr_u
      (i64.and
-      ;;@ assembly/integer/u128.ts:281:16
+      ;;@ assembly/integer/u128.ts:276:16
       (i64.xor
-       ;;@ assembly/integer/u128.ts:281:17
+       ;;@ assembly/integer/u128.ts:276:17
        (i64.load
         (get_local $0)
        )
-       ;;@ assembly/integer/u128.ts:280:4
+       ;;@ assembly/integer/u128.ts:275:4
        (tee_local $1
-        ;;@ assembly/integer/u128.ts:280:15
+        ;;@ assembly/integer/u128.ts:275:15
         (i64.add
          (i64.load
           (get_local $0)
          )
-         ;;@ assembly/integer/u128.ts:280:25
+         ;;@ assembly/integer/u128.ts:275:25
          (i64.const 1)
         )
        )
       )
-      ;;@ assembly/integer/u128.ts:281:34
+      ;;@ assembly/integer/u128.ts:276:34
       (i64.load
        (get_local $0)
       )
      )
-     ;;@ assembly/integer/u128.ts:281:46
+     ;;@ assembly/integer/u128.ts:276:46
      (i64.const 63)
     )
    )
   )
-  ;;@ assembly/integer/u128.ts:282:4
+  ;;@ assembly/integer/u128.ts:277:4
   (i64.store
    (get_local $0)
    (get_local $1)
@@ -2922,42 +2922,42 @@
  )
  (func $assembly/integer/u128/u128#preDec (; 47 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
-  ;;@ assembly/integer/u128.ts:289:4
+  ;;@ assembly/integer/u128.ts:284:4
   (i64.store offset=8
    (get_local $0)
    (i64.sub
     (i64.load offset=8
      (get_local $0)
     )
-    ;;@ assembly/integer/u128.ts:289:15
+    ;;@ assembly/integer/u128.ts:284:15
     (i64.shr_u
      (i64.and
-      ;;@ assembly/integer/u128.ts:289:16
+      ;;@ assembly/integer/u128.ts:284:16
       (i64.xor
-       ;;@ assembly/integer/u128.ts:289:17
+       ;;@ assembly/integer/u128.ts:284:17
        (i64.load
         (get_local $0)
        )
-       ;;@ assembly/integer/u128.ts:288:4
+       ;;@ assembly/integer/u128.ts:283:4
        (tee_local $1
-        ;;@ assembly/integer/u128.ts:288:15
+        ;;@ assembly/integer/u128.ts:283:15
         (i64.sub
          (i64.load
           (get_local $0)
          )
-         ;;@ assembly/integer/u128.ts:288:25
+         ;;@ assembly/integer/u128.ts:283:25
          (i64.const 1)
         )
        )
       )
       (get_local $1)
      )
-     ;;@ assembly/integer/u128.ts:289:42
+     ;;@ assembly/integer/u128.ts:284:42
      (i64.const 63)
     )
    )
   )
-  ;;@ assembly/integer/u128.ts:290:4
+  ;;@ assembly/integer/u128.ts:285:4
   (i64.store
    (get_local $0)
    (get_local $1)
@@ -2965,62 +2965,62 @@
   (get_local $0)
  )
  (func $assembly/integer/u128/u128#toI64 (; 48 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
-  ;;@ assembly/integer/u128.ts:739:4
+  ;;@ assembly/integer/u128.ts:734:4
   (i64.or
-   ;;@ assembly/integer/u128.ts:737:6
+   ;;@ assembly/integer/u128.ts:732:6
    (i64.and
-    ;;@ assembly/integer/u128.ts:737:7
+    ;;@ assembly/integer/u128.ts:732:7
     (i64.load
      (get_local $0)
     )
-    ;;@ assembly/integer/u128.ts:737:17
+    ;;@ assembly/integer/u128.ts:732:17
     (i64.const 9223372036854775807)
    )
-   ;;@ assembly/integer/u128.ts:738:6
+   ;;@ assembly/integer/u128.ts:733:6
    (i64.and
-    ;;@ assembly/integer/u128.ts:738:7
+    ;;@ assembly/integer/u128.ts:733:7
     (i64.load offset=8
      (get_local $0)
     )
-    ;;@ assembly/integer/u128.ts:738:17
+    ;;@ assembly/integer/u128.ts:733:17
     (i64.const -9223372036854775808)
    )
   )
  )
  (func $assembly/integer/u128/u128#toU64 (; 49 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
-  ;;@ assembly/integer/u128.ts:748:16
+  ;;@ assembly/integer/u128.ts:743:16
   (i64.load
    (get_local $0)
   )
  )
  (func $assembly/integer/u128/u128#toI32 (; 50 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
-  ;;@ assembly/integer/u128.ts:757:27
+  ;;@ assembly/integer/u128.ts:752:27
   (i32.wrap/i64
-   ;;@ assembly/integer/u128.ts:739:4
+   ;;@ assembly/integer/u128.ts:734:4
    (i64.or
-    ;;@ assembly/integer/u128.ts:737:6
+    ;;@ assembly/integer/u128.ts:732:6
     (i64.and
-     ;;@ assembly/integer/u128.ts:737:7
+     ;;@ assembly/integer/u128.ts:732:7
      (i64.load
       (get_local $0)
      )
-     ;;@ assembly/integer/u128.ts:737:17
+     ;;@ assembly/integer/u128.ts:732:17
      (i64.const 9223372036854775807)
     )
-    ;;@ assembly/integer/u128.ts:738:6
+    ;;@ assembly/integer/u128.ts:733:6
     (i64.and
-     ;;@ assembly/integer/u128.ts:738:7
+     ;;@ assembly/integer/u128.ts:733:7
      (i64.load offset=8
       (get_local $0)
      )
-     ;;@ assembly/integer/u128.ts:738:17
+     ;;@ assembly/integer/u128.ts:733:17
      (i64.const -9223372036854775808)
     )
    )
   )
  )
  (func $assembly/integer/u128/u128#toU32 (; 51 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
-  ;;@ assembly/integer/u128.ts:766:21
+  ;;@ assembly/integer/u128.ts:761:21
   (i32.wrap/i64
    (i64.load
     (get_local $0)
@@ -3028,20 +3028,20 @@
   )
  )
  (func $assembly/integer/u128/u128#toBool (; 52 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
-  ;;@ assembly/integer/u128.ts:775:34
+  ;;@ assembly/integer/u128.ts:770:34
   (i64.ne
-   ;;@ assembly/integer/u128.ts:775:11
+   ;;@ assembly/integer/u128.ts:770:11
    (i64.or
-    ;;@ assembly/integer/u128.ts:775:12
+    ;;@ assembly/integer/u128.ts:770:12
     (i64.load
      (get_local $0)
     )
-    ;;@ assembly/integer/u128.ts:775:22
+    ;;@ assembly/integer/u128.ts:770:22
     (i64.load offset=8
      (get_local $0)
     )
    )
-   ;;@ assembly/integer/u128.ts:775:34
+   ;;@ assembly/integer/u128.ts:770:34
    (i64.const 0)
   )
  )
@@ -3050,11 +3050,11 @@
    (i32.eqz
     (i64.eqz
      (i64.or
-      ;;@ assembly/integer/u128.ts:784:25
+      ;;@ assembly/integer/u128.ts:779:25
       (i64.load
        (get_local $0)
       )
-      ;;@ assembly/integer/u128.ts:784:34
+      ;;@ assembly/integer/u128.ts:779:34
       (i64.load offset=8
        (get_local $0)
       )
@@ -3069,91 +3069,91 @@
   (local $1 i64)
   (local $2 i64)
   (set_local $1
-   ;;@ assembly/integer/u128.ts:791:13
+   ;;@ assembly/integer/u128.ts:786:13
    (i64.load
     (get_local $0)
    )
   )
-  ;;@ assembly/integer/u128.ts:793:4
+  ;;@ assembly/integer/u128.ts:788:4
   (if
-   ;;@ assembly/integer/u128.ts:793:8
+   ;;@ assembly/integer/u128.ts:788:8
    (i64.ge_u
     (tee_local $2
-     ;;@ assembly/integer/u128.ts:791:27
+     ;;@ assembly/integer/u128.ts:786:27
      (i64.load offset=8
       (get_local $0)
      )
     )
-    ;;@ assembly/integer/u128.ts:793:14
+    ;;@ assembly/integer/u128.ts:788:14
     (i64.const 0)
    )
-   ;;@ assembly/integer/u128.ts:794:36
+   ;;@ assembly/integer/u128.ts:789:36
    (return
-    ;;@ assembly/integer/u128.ts:794:13
+    ;;@ assembly/integer/u128.ts:789:13
     (f64.add
      (f64.mul
       (f64.convert_u/i64
        (get_local $2)
       )
-      ;;@ assembly/integer/u128.ts:794:23
+      ;;@ assembly/integer/u128.ts:789:23
       (f64.const 18446744073709551615)
      )
-     ;;@ assembly/integer/u128.ts:794:31
+     ;;@ assembly/integer/u128.ts:789:31
      (f64.convert_u/i64
       (get_local $1)
      )
     )
    )
   )
-  ;;@ assembly/integer/u128.ts:803:38
+  ;;@ assembly/integer/u128.ts:798:38
   (f64.neg
-   ;;@ assembly/integer/u128.ts:803:12
+   ;;@ assembly/integer/u128.ts:798:12
    (f64.add
-    ;;@ assembly/integer/u128.ts:803:13
+    ;;@ assembly/integer/u128.ts:798:13
     (f64.mul
      (f64.convert_s/i64
       (i64.add
-       ;;@ assembly/integer/u128.ts:796:18
+       ;;@ assembly/integer/u128.ts:791:18
        (i64.xor
         (get_local $2)
         (i64.const -1)
        )
-       ;;@ assembly/integer/u128.ts:799:13
+       ;;@ assembly/integer/u128.ts:794:13
        (i64.shr_u
         (i64.add
-         ;;@ assembly/integer/u128.ts:799:14
+         ;;@ assembly/integer/u128.ts:794:14
          (i64.and
-          ;;@ assembly/integer/u128.ts:797:4
+          ;;@ assembly/integer/u128.ts:792:4
           (tee_local $1
-           ;;@ assembly/integer/u128.ts:797:18
+           ;;@ assembly/integer/u128.ts:792:18
            (i64.xor
             (get_local $1)
             (i64.const -1)
            )
           )
-          ;;@ assembly/integer/u128.ts:799:20
+          ;;@ assembly/integer/u128.ts:794:20
           (i64.const 1)
          )
-         ;;@ assembly/integer/u128.ts:799:25
+         ;;@ assembly/integer/u128.ts:794:25
          (i64.shr_u
           (get_local $1)
-          ;;@ assembly/integer/u128.ts:799:32
+          ;;@ assembly/integer/u128.ts:794:32
           (i64.const 1)
          )
         )
-        ;;@ assembly/integer/u128.ts:799:39
+        ;;@ assembly/integer/u128.ts:794:39
         (i64.const 63)
        )
       )
      )
-     ;;@ assembly/integer/u128.ts:803:23
+     ;;@ assembly/integer/u128.ts:798:23
      (f64.const 18446744073709551615)
     )
-    ;;@ assembly/integer/u128.ts:803:31
+    ;;@ assembly/integer/u128.ts:798:31
     (f64.convert_u/i64
      (i64.add
       (get_local $1)
-      ;;@ assembly/integer/u128.ts:800:10
+      ;;@ assembly/integer/u128.ts:795:10
       (i64.const 1)
      )
     )
@@ -3165,11 +3165,11 @@
    (i32.eqz
     (i64.eqz
      (i64.or
-      ;;@ assembly/integer/u128.ts:784:25
+      ;;@ assembly/integer/u128.ts:779:25
       (i64.load
        (get_local $0)
       )
-      ;;@ assembly/integer/u128.ts:784:34
+      ;;@ assembly/integer/u128.ts:779:34
       (i64.load offset=8
        (get_local $0)
       )
@@ -3206,13 +3206,13 @@
   (local $1 i64)
   (local $2 i64)
   (set_local $1
-   ;;@ assembly/integer/u128.ts:876:27
+   ;;@ assembly/integer/u128.ts:871:27
    (i64.load
     (get_local $0)
    )
   )
   (set_local $2
-   ;;@ assembly/integer/u128.ts:876:13
+   ;;@ assembly/integer/u128.ts:871:13
    (i64.load offset=8
     (get_local $0)
    )
@@ -3225,10 +3225,10 @@
      )
     )
    )
-   ;;@ assembly/integer/u128.ts:879:11
+   ;;@ assembly/integer/u128.ts:874:11
    (i64.shr_u
     (get_local $2)
-    ;;@ assembly/integer/u128.ts:879:17
+    ;;@ assembly/integer/u128.ts:874:17
     (i64.const 56)
    )
   )
@@ -3239,10 +3239,10 @@
     )
     (i32.const 1)
    )
-   ;;@ assembly/integer/u128.ts:879:27
+   ;;@ assembly/integer/u128.ts:874:27
    (i64.shr_u
     (get_local $2)
-    ;;@ assembly/integer/u128.ts:879:33
+    ;;@ assembly/integer/u128.ts:874:33
     (i64.const 48)
    )
   )
@@ -3253,10 +3253,10 @@
     )
     (i32.const 2)
    )
-   ;;@ assembly/integer/u128.ts:879:43
+   ;;@ assembly/integer/u128.ts:874:43
    (i64.shr_u
     (get_local $2)
-    ;;@ assembly/integer/u128.ts:879:49
+    ;;@ assembly/integer/u128.ts:874:49
     (i64.const 40)
    )
   )
@@ -3267,10 +3267,10 @@
     )
     (i32.const 3)
    )
-   ;;@ assembly/integer/u128.ts:879:59
+   ;;@ assembly/integer/u128.ts:874:59
    (i64.shr_u
     (get_local $2)
-    ;;@ assembly/integer/u128.ts:879:65
+    ;;@ assembly/integer/u128.ts:874:65
     (i64.const 32)
    )
   )
@@ -3281,10 +3281,10 @@
     )
     (i32.const 4)
    )
-   ;;@ assembly/integer/u128.ts:880:11
+   ;;@ assembly/integer/u128.ts:875:11
    (i64.shr_u
     (get_local $2)
-    ;;@ assembly/integer/u128.ts:880:17
+    ;;@ assembly/integer/u128.ts:875:17
     (i64.const 24)
    )
   )
@@ -3295,10 +3295,10 @@
     )
     (i32.const 5)
    )
-   ;;@ assembly/integer/u128.ts:880:27
+   ;;@ assembly/integer/u128.ts:875:27
    (i64.shr_u
     (get_local $2)
-    ;;@ assembly/integer/u128.ts:880:33
+    ;;@ assembly/integer/u128.ts:875:33
     (i64.const 16)
    )
   )
@@ -3309,10 +3309,10 @@
     )
     (i32.const 6)
    )
-   ;;@ assembly/integer/u128.ts:880:43
+   ;;@ assembly/integer/u128.ts:875:43
    (i64.shr_u
     (get_local $2)
-    ;;@ assembly/integer/u128.ts:880:50
+    ;;@ assembly/integer/u128.ts:875:50
     (i64.const 8)
    )
   )
@@ -3332,10 +3332,10 @@
     )
     (i32.const 8)
    )
-   ;;@ assembly/integer/u128.ts:882:11
+   ;;@ assembly/integer/u128.ts:877:11
    (i64.shr_u
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:882:17
+    ;;@ assembly/integer/u128.ts:877:17
     (i64.const 56)
    )
   )
@@ -3346,10 +3346,10 @@
     )
     (i32.const 9)
    )
-   ;;@ assembly/integer/u128.ts:882:27
+   ;;@ assembly/integer/u128.ts:877:27
    (i64.shr_u
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:882:33
+    ;;@ assembly/integer/u128.ts:877:33
     (i64.const 48)
    )
   )
@@ -3360,10 +3360,10 @@
     )
     (i32.const 10)
    )
-   ;;@ assembly/integer/u128.ts:882:43
+   ;;@ assembly/integer/u128.ts:877:43
    (i64.shr_u
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:882:49
+    ;;@ assembly/integer/u128.ts:877:49
     (i64.const 40)
    )
   )
@@ -3374,10 +3374,10 @@
     )
     (i32.const 11)
    )
-   ;;@ assembly/integer/u128.ts:882:59
+   ;;@ assembly/integer/u128.ts:877:59
    (i64.shr_u
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:882:65
+    ;;@ assembly/integer/u128.ts:877:65
     (i64.const 32)
    )
   )
@@ -3388,10 +3388,10 @@
     )
     (i32.const 12)
    )
-   ;;@ assembly/integer/u128.ts:883:11
+   ;;@ assembly/integer/u128.ts:878:11
    (i64.shr_u
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:883:17
+    ;;@ assembly/integer/u128.ts:878:17
     (i64.const 24)
    )
   )
@@ -3402,10 +3402,10 @@
     )
     (i32.const 13)
    )
-   ;;@ assembly/integer/u128.ts:883:27
+   ;;@ assembly/integer/u128.ts:878:27
    (i64.shr_u
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:883:33
+    ;;@ assembly/integer/u128.ts:878:33
     (i64.const 16)
    )
   )
@@ -3416,10 +3416,10 @@
     )
     (i32.const 14)
    )
-   ;;@ assembly/integer/u128.ts:883:43
+   ;;@ assembly/integer/u128.ts:878:43
    (i64.shr_u
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:883:50
+    ;;@ assembly/integer/u128.ts:878:50
     (i64.const 8)
    )
   )
@@ -3438,13 +3438,13 @@
   (local $1 i64)
   (local $2 i64)
   (set_local $1
-   ;;@ assembly/integer/u128.ts:858:13
+   ;;@ assembly/integer/u128.ts:853:13
    (i64.load offset=8
     (get_local $0)
    )
   )
   (set_local $2
-   ;;@ assembly/integer/u128.ts:858:27
+   ;;@ assembly/integer/u128.ts:853:27
    (i64.load
     (get_local $0)
    )
@@ -3466,10 +3466,10 @@
     )
     (i32.const 1)
    )
-   ;;@ assembly/integer/u128.ts:861:27
+   ;;@ assembly/integer/u128.ts:856:27
    (i64.shr_u
     (get_local $2)
-    ;;@ assembly/integer/u128.ts:861:34
+    ;;@ assembly/integer/u128.ts:856:34
     (i64.const 8)
    )
   )
@@ -3480,10 +3480,10 @@
     )
     (i32.const 2)
    )
-   ;;@ assembly/integer/u128.ts:861:43
+   ;;@ assembly/integer/u128.ts:856:43
    (i64.shr_u
     (get_local $2)
-    ;;@ assembly/integer/u128.ts:861:49
+    ;;@ assembly/integer/u128.ts:856:49
     (i64.const 16)
    )
   )
@@ -3494,10 +3494,10 @@
     )
     (i32.const 3)
    )
-   ;;@ assembly/integer/u128.ts:861:59
+   ;;@ assembly/integer/u128.ts:856:59
    (i64.shr_u
     (get_local $2)
-    ;;@ assembly/integer/u128.ts:861:65
+    ;;@ assembly/integer/u128.ts:856:65
     (i64.const 24)
    )
   )
@@ -3508,10 +3508,10 @@
     )
     (i32.const 4)
    )
-   ;;@ assembly/integer/u128.ts:862:11
+   ;;@ assembly/integer/u128.ts:857:11
    (i64.shr_u
     (get_local $2)
-    ;;@ assembly/integer/u128.ts:862:17
+    ;;@ assembly/integer/u128.ts:857:17
     (i64.const 32)
    )
   )
@@ -3522,10 +3522,10 @@
     )
     (i32.const 5)
    )
-   ;;@ assembly/integer/u128.ts:862:27
+   ;;@ assembly/integer/u128.ts:857:27
    (i64.shr_u
     (get_local $2)
-    ;;@ assembly/integer/u128.ts:862:33
+    ;;@ assembly/integer/u128.ts:857:33
     (i64.const 40)
    )
   )
@@ -3536,10 +3536,10 @@
     )
     (i32.const 6)
    )
-   ;;@ assembly/integer/u128.ts:862:43
+   ;;@ assembly/integer/u128.ts:857:43
    (i64.shr_u
     (get_local $2)
-    ;;@ assembly/integer/u128.ts:862:49
+    ;;@ assembly/integer/u128.ts:857:49
     (i64.const 48)
    )
   )
@@ -3550,10 +3550,10 @@
     )
     (i32.const 7)
    )
-   ;;@ assembly/integer/u128.ts:862:59
+   ;;@ assembly/integer/u128.ts:857:59
    (i64.shr_u
     (get_local $2)
-    ;;@ assembly/integer/u128.ts:862:65
+    ;;@ assembly/integer/u128.ts:857:65
     (i64.const 56)
    )
   )
@@ -3573,10 +3573,10 @@
     )
     (i32.const 9)
    )
-   ;;@ assembly/integer/u128.ts:864:27
+   ;;@ assembly/integer/u128.ts:859:27
    (i64.shr_u
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:864:34
+    ;;@ assembly/integer/u128.ts:859:34
     (i64.const 8)
    )
   )
@@ -3587,10 +3587,10 @@
     )
     (i32.const 10)
    )
-   ;;@ assembly/integer/u128.ts:864:43
+   ;;@ assembly/integer/u128.ts:859:43
    (i64.shr_u
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:864:49
+    ;;@ assembly/integer/u128.ts:859:49
     (i64.const 16)
    )
   )
@@ -3601,10 +3601,10 @@
     )
     (i32.const 11)
    )
-   ;;@ assembly/integer/u128.ts:864:59
+   ;;@ assembly/integer/u128.ts:859:59
    (i64.shr_u
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:864:65
+    ;;@ assembly/integer/u128.ts:859:65
     (i64.const 24)
    )
   )
@@ -3615,10 +3615,10 @@
     )
     (i32.const 12)
    )
-   ;;@ assembly/integer/u128.ts:865:11
+   ;;@ assembly/integer/u128.ts:860:11
    (i64.shr_u
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:865:17
+    ;;@ assembly/integer/u128.ts:860:17
     (i64.const 32)
    )
   )
@@ -3629,10 +3629,10 @@
     )
     (i32.const 13)
    )
-   ;;@ assembly/integer/u128.ts:865:27
+   ;;@ assembly/integer/u128.ts:860:27
    (i64.shr_u
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:865:33
+    ;;@ assembly/integer/u128.ts:860:33
     (i64.const 40)
    )
   )
@@ -3643,10 +3643,10 @@
     )
     (i32.const 14)
    )
-   ;;@ assembly/integer/u128.ts:865:43
+   ;;@ assembly/integer/u128.ts:860:43
    (i64.shr_u
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:865:49
+    ;;@ assembly/integer/u128.ts:860:49
     (i64.const 48)
    )
   )
@@ -3657,10 +3657,10 @@
     )
     (i32.const 15)
    )
-   ;;@ assembly/integer/u128.ts:865:59
+   ;;@ assembly/integer/u128.ts:860:59
    (i64.shr_u
     (get_local $1)
-    ;;@ assembly/integer/u128.ts:865:65
+    ;;@ assembly/integer/u128.ts:860:65
     (i64.const 56)
    )
   )
@@ -5460,7 +5460,7 @@
     (unreachable)
    )
    (set_local $1
-    ;;@ assembly/integer/u128.ts:131:50
+    ;;@ assembly/integer/u128.ts:126:50
     (i32.const 0)
    )
   )
@@ -5531,7 +5531,7 @@
     (unreachable)
    )
    (set_local $1
-    ;;@ assembly/integer/u128.ts:849:28
+    ;;@ assembly/integer/u128.ts:844:28
     (i32.const 0)
    )
   )
