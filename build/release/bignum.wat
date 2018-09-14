@@ -32,14 +32,19 @@
  (data (i32.const 48) "\a0\00\00\00\00\00\00\00\01\00\00\00\00\00\00\00\n\00\00\00\00\00\00\00d\00\00\00\00\00\00\00\e8\03\00\00\00\00\00\00\10\'\00\00\00\00\00\00\a0\86\01\00\00\00\00\00@B\0f\00\00\00\00\00\80\96\98\00\00\00\00\00\00\e1\f5\05\00\00\00\00\00\ca\9a;\00\00\00\00\00\e4\0bT\02\00\00\00\00\e8vH\17\00\00\00\00\10\a5\d4\e8\00\00\00\00\a0rN\18\t\00\00\00@z\10\f3Z\00\00\00\80\c6\a4~\8d\03\00\00\00\c1o\f2\86#\00\00\00\8a]xEc\01\00\00d\a7\b3\b6\e0\0d\00\00\e8\89\04#\c7\8a")
  (data (i32.const 304) "0\00\00\00\14")
  (data (i32.const 312) "\11\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00u\00t\00i\00l\00s\00.\00t\00s")
- (data (i32.const 352) ",\01")
- (data (i32.const 364) "\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\08\00\00\00\t\00\00\00$\00\00\00$\00\00\00$\00\00\00$\00\00\00$\00\00\00$\00\00\00$\00\00\00\n\00\00\00\0b\00\00\00\0c\00\00\00\0d\00\00\00\0e\00\00\00\0f\00\00\00\10\00\00\00\11\00\00\00\12\00\00\00\13\00\00\00\14\00\00\00\15\00\00\00\16\00\00\00\17\00\00\00\18\00\00\00\19\00\00\00\1a\00\00\00\1b\00\00\00\1c\00\00\00\1d\00\00\00\1e\00\00\00\1f\00\00\00 \00\00\00!\00\00\00\"\00\00\00#\00\00\00$\00\00\00$\00\00\00$\00\00\00$\00\00\00$\00\00\00$\00\00\00\n\00\00\00\0b\00\00\00\0c\00\00\00\0d\00\00\00\0e\00\00\00\0f\00\00\00\10\00\00\00\11\00\00\00\12\00\00\00\13\00\00\00\14\00\00\00\15\00\00\00\16\00\00\00\17\00\00\00\18\00\00\00\19\00\00\00\1a\00\00\00\1b\00\00\00\1c\00\00\00\1d\00\00\00\1e\00\00\00\1f\00\00\00 \00\00\00!\00\00\00\"\00\00\00#")
- (data (i32.const 864) "`\01\00\00K")
- (data (i32.const 872) "\0d\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s")
- (data (i32.const 904) "\01\00\00\000")
- (data (i32.const 920) "\04\00\00\00n\00u\00l\00l")
- (data (i32.const 936) "\1b\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s")
- (data (i32.const 1000) "\t\00\00\00u\00n\00d\00e\00f\00i\00n\00e\00d")
+ (data (i32.const 352) "\0e\00\00\00~\00l\00i\00b\00/\00s\00t\00r\00i\00n\00g\00.\00t\00s")
+ (data (i32.const 384) ",\01")
+ (data (i32.const 396) "\01\00\00\00\02\00\00\00\03\00\00\00\04\00\00\00\05\00\00\00\06\00\00\00\07\00\00\00\08\00\00\00\t\00\00\00$\00\00\00$\00\00\00$\00\00\00$\00\00\00$\00\00\00$\00\00\00$\00\00\00\n\00\00\00\0b\00\00\00\0c\00\00\00\0d\00\00\00\0e\00\00\00\0f\00\00\00\10\00\00\00\11\00\00\00\12\00\00\00\13\00\00\00\14\00\00\00\15\00\00\00\16\00\00\00\17\00\00\00\18\00\00\00\19\00\00\00\1a\00\00\00\1b\00\00\00\1c\00\00\00\1d\00\00\00\1e\00\00\00\1f\00\00\00 \00\00\00!\00\00\00\"\00\00\00#\00\00\00$\00\00\00$\00\00\00$\00\00\00$\00\00\00$\00\00\00$\00\00\00\n\00\00\00\0b\00\00\00\0c\00\00\00\0d\00\00\00\0e\00\00\00\0f\00\00\00\10\00\00\00\11\00\00\00\12\00\00\00\13\00\00\00\14\00\00\00\15\00\00\00\16\00\00\00\17\00\00\00\18\00\00\00\19\00\00\00\1a\00\00\00\1b\00\00\00\1c\00\00\00\1d\00\00\00\1e\00\00\00\1f\00\00\00 \00\00\00!\00\00\00\"\00\00\00#")
+ (data (i32.const 896) "\80\01\00\00K")
+ (data (i32.const 904) "\18\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00g\00e\00r\00/\00u\001\002\008\00.\00t\00s")
+ (data (i32.const 960) "\0d\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s")
+ (data (i32.const 992) "\1c\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s")
+ (data (i32.const 1056) "\'\00\00\00r\00a\00d\00i\00x\00 \00a\00r\00g\00u\00m\00e\00n\00t\00 \00m\00u\00s\00t\00 \00b\00e\00 \00b\00e\00t\00w\00e\00e\00n\00 \001\000\00 \00o\00r\00 \001\006")
+ (data (i32.const 1144) "\01\00\00\000")
+ (data (i32.const 1160) "\17\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00s\00t\00r\00i\00n\00g\00.\00t\00s")
+ (data (i32.const 1216) "\04\00\00\00n\00u\00l\00l")
+ (data (i32.const 1232) "\1b\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s")
+ (data (i32.const 1296) "\t\00\00\00u\00n\00d\00e\00f\00i\00n\00e\00d")
  (export "memory" (memory $0))
  (export "u128.get:Zero" (func $assembly/integer/u128/u128.get:Zero))
  (export "u128.get:One" (func $assembly/integer/u128/u128.get:Zero))
@@ -181,7 +186,53 @@
  (func $assembly/integer/u128/u128.get:Zero (; 1 ;) (; has Stack IR ;) (type $i) (result i32)
   (unreachable)
  )
- (func $assembly/globals/__multi3 (; 2 ;) (; has Stack IR ;) (type $FUNCSIG$vjjjj) (param $0 i64) (param $1 i64) (param $2 i64) (param $3 i64)
+ (func $~lib/string/String#charCodeAt (; 2 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+  ;;@ ~lib/string.ts:71:4
+  (if
+   (i32.eqz
+    (get_local $0)
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 352)
+     (i32.const 71)
+     (i32.const 4)
+    )
+    (unreachable)
+   )
+  )
+  ;;@ ~lib/string.ts:72:4
+  (if
+   ;;@ ~lib/string.ts:72:8
+   (i32.ge_u
+    (get_local $1)
+    ;;@ ~lib/string.ts:72:20
+    (i32.load
+     (get_local $0)
+    )
+   )
+   ;;@ ~lib/string.ts:72:46
+   (return
+    ;;@ ~lib/string.ts:72:45
+    (i32.const -1)
+   )
+  )
+  ;;@ ~lib/string.ts:77:4
+  (i32.load16_u offset=4
+   ;;@ ~lib/string.ts:75:6
+   (i32.add
+    (get_local $0)
+    ;;@ ~lib/string.ts:75:32
+    (i32.shl
+     (get_local $1)
+     ;;@ ~lib/string.ts:75:47
+     (i32.const 1)
+    )
+   )
+  )
+ )
+ (func $assembly/globals/__multi3 (; 3 ;) (; has Stack IR ;) (type $FUNCSIG$vjjjj) (param $0 i64) (param $1 i64) (param $2 i64) (param $3 i64)
   (local $4 i64)
   (local $5 i64)
   (local $6 i64)
@@ -320,9 +371,8 @@
    )
   )
  )
- (func $assembly/utils/atou128 (; 3 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/utils/atou128 (; 4 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
-  (local $3 i32)
   ;;@ assembly/utils.ts:157:2
   (if
    ;;@ assembly/utils.ts:157:6
@@ -383,26 +433,13 @@
    )
    (unreachable)
   )
+  ;;@ assembly/utils.ts:164:2
   (set_local $1
-   (block $__inlined_func$~lib/string/String#charCodeAt (result i32)
-    (drop
-     (br_if $__inlined_func$~lib/string/String#charCodeAt
-      (tee_local $1
-       (i32.const -1)
-      )
-      (i32.ge_u
-       (i32.const 0)
-       (i32.load
-        (tee_local $3
-         (get_local $0)
-        )
-       )
-      )
-     )
-    )
-    (i32.load16_u offset=4
-     (get_local $3)
-    )
+   ;;@ assembly/utils.ts:164:18
+   (call $~lib/string/String#charCodeAt
+    (get_local $0)
+    ;;@ assembly/utils.ts:164:29
+    (i32.const 0)
    )
   )
   ;;@ assembly/utils.ts:165:6
@@ -427,56 +464,39 @@
    (get_local $2)
    (unreachable)
   )
+  (set_local $2
+   (get_local $0)
+  )
+  ;;@ assembly/utils.ts:169:14
+  (if
+   (i32.eqz
+    ;;@ assembly/utils.ts:168:2
+    (tee_local $0
+     ;;@ assembly/utils.ts:168:14
+     (i32.eq
+      (get_local $1)
+      (i32.const 45)
+     )
+    )
+   )
+   (set_local $0
+    ;;@ assembly/utils.ts:169:29
+    (i32.eq
+     (get_local $1)
+     (i32.const 43)
+    )
+   )
+  )
   ;;@ assembly/utils.ts:171:2
   (if
    ;;@ assembly/utils.ts:171:6
    (i32.eq
-    (tee_local $2
-     (block $__inlined_func$~lib/string/String#charCodeAt0 (result i32)
-      (set_local $1
-       ;;@ assembly/utils.ts:169:14
-       (if (result i32)
-        ;;@ assembly/utils.ts:168:2
-        (tee_local $2
-         ;;@ assembly/utils.ts:168:14
-         (i32.eq
-          (get_local $1)
-          (i32.const 45)
-         )
-        )
-        (get_local $2)
-        ;;@ assembly/utils.ts:169:29
-        (i32.eq
-         (get_local $1)
-         (i32.const 43)
-        )
-       )
-      )
-      (drop
-       (br_if $__inlined_func$~lib/string/String#charCodeAt0
-        (tee_local $2
-         (i32.const -1)
-        )
-        (i32.ge_u
-         ;;@ assembly/utils.ts:169:2
-         (tee_local $3
-          (get_local $1)
-         )
-         (i32.load
-          (get_local $0)
-         )
-        )
-       )
-      )
-      (i32.load16_u offset=4
-       (i32.add
-        (get_local $0)
-        (i32.shl
-         (get_local $1)
-         (i32.const 1)
-        )
-       )
-      )
+    ;;@ assembly/utils.ts:171:10
+    (call $~lib/string/String#charCodeAt
+     (get_local $2)
+     ;;@ assembly/utils.ts:169:2
+     (tee_local $1
+      (get_local $0)
      )
     )
     (i32.const 48)
@@ -487,38 +507,16 @@
      (i32.eqz
       (tee_local $0
        (i32.eq
+        ;;@ assembly/utils.ts:172:4
         (tee_local $2
-         (tee_local $1
-          (block $__inlined_func$~lib/string/String#charCodeAt1 (result i32)
-           (drop
-            (br_if $__inlined_func$~lib/string/String#charCodeAt1
-             (tee_local $1
-              (i32.const -1)
-             )
-             (i32.ge_u
-              (tee_local $2
-               ;;@ assembly/utils.ts:172:32
-               (tee_local $3
-                (i32.add
-                 (get_local $3)
-                 (i32.const 1)
-                )
-               )
-              )
-              (i32.load
-               (get_local $0)
-              )
-             )
-            )
-           )
-           (i32.load16_u offset=4
-            (i32.add
-             (get_local $0)
-             (i32.shl
-              (get_local $2)
-              (i32.const 1)
-             )
-            )
+         ;;@ assembly/utils.ts:172:21
+         (call $~lib/string/String#charCodeAt
+          (get_local $2)
+          ;;@ assembly/utils.ts:172:32
+          (tee_local $1
+           (i32.add
+            (get_local $1)
+            (i32.const 1)
            )
           )
          )
@@ -589,7 +587,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.fromI256 (; 4 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128.fromI256 (; 5 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (drop
    ;;@ assembly/integer/u128.ts:60:20
    (i64.load
@@ -604,10 +602,10 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.fromI64 (; 5 ;) (; has Stack IR ;) (type $Ii) (param $0 i64) (result i32)
+ (func $assembly/integer/u128/u128.fromI64 (; 6 ;) (; has Stack IR ;) (type $Ii) (param $0 i64) (result i32)
   (unreachable)
  )
- (func $assembly/integer/u128/u128.fromF64 (; 6 ;) (; has Stack IR ;) (type $Fi) (param $0 f64) (result i32)
+ (func $assembly/integer/u128/u128.fromF64 (; 7 ;) (; has Stack IR ;) (type $Fi) (param $0 f64) (result i32)
   (drop
    ;;@ assembly/integer/u128.ts:92:20
    (i64.trunc_u/f64
@@ -616,7 +614,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.fromF32 (; 7 ;) (; has Stack IR ;) (type $fi) (param $0 f32) (result i32)
+ (func $assembly/integer/u128/u128.fromF32 (; 8 ;) (; has Stack IR ;) (type $fi) (param $0 f32) (result i32)
   (drop
    ;;@ assembly/integer/u128.ts:99:20
    (i64.trunc_u/f32
@@ -625,13 +623,34 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.fromI32 (; 8 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128.fromI32 (; 9 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (unreachable)
  )
- (func $assembly/integer/u128/u128.fromBits (; 9 ;) (; has Stack IR ;) (type $iiiii) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/integer/u128/u128.fromBits (; 10 ;) (; has Stack IR ;) (type $iiiii) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (unreachable)
  )
- (func $assembly/integer/u128/u128.fromBytesBE (; 10 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128.fromBytesBE (; 11 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+  ;;@ assembly/integer/u128.ts:154:4
+  (if
+   ;;@ assembly/integer/u128.ts:154:11
+   (i32.ne
+    ;;@ ~lib/array.ts:37:16
+    (i32.load offset=4
+     (get_local $0)
+    )
+    ;;@ assembly/integer/u128.ts:154:27
+    (i32.const 16)
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 904)
+     (i32.const 154)
+     (i32.const 4)
+    )
+    (unreachable)
+   )
+  )
   (drop
    ;;@ assembly/integer/u128.ts:156:6
    (i64.or
@@ -895,7 +914,28 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.fromBytesLE (; 11 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128.fromBytesLE (; 12 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+  ;;@ assembly/integer/u128.ts:131:4
+  (if
+   ;;@ assembly/integer/u128.ts:131:11
+   (i32.ne
+    ;;@ ~lib/array.ts:37:16
+    (i32.load offset=4
+     (get_local $0)
+    )
+    ;;@ assembly/integer/u128.ts:131:27
+    (i32.const 16)
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 904)
+     (i32.const 131)
+     (i32.const 4)
+    )
+    (unreachable)
+   )
+  )
   (drop
    ;;@ assembly/integer/u128.ts:133:6
    (i64.or
@@ -1159,7 +1199,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.isEmpty (; 12 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128.isEmpty (; 13 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i32)
   ;;@ assembly/integer/u128.ts:294:50
   (if
@@ -1189,7 +1229,7 @@
   )
   (get_local $1)
  )
- (func $assembly/integer/u128/u128.or (; 13 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.or (; 14 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (drop
    ;;@ assembly/integer/u128.ts:299:20
    (i64.or
@@ -1216,7 +1256,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.xor (; 14 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.xor (; 15 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (drop
    ;;@ assembly/integer/u128.ts:304:20
    (i64.xor
@@ -1243,7 +1283,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.and (; 15 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.and (; 16 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (drop
    ;;@ assembly/integer/u128.ts:309:20
    (i64.and
@@ -1270,7 +1310,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.shl (; 16 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.shl (; 17 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   ;;@ assembly/integer/u128.ts:317:4
   (set_local $2
@@ -1298,7 +1338,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.shr (; 17 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.shr (; 18 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   ;;@ assembly/integer/u128.ts:338:4
   (set_local $2
@@ -1326,7 +1366,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.rotl (; 18 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.rotl (; 19 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (local $3 i64)
   (local $4 i64)
@@ -1512,7 +1552,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.rotr (; 19 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.rotr (; 20 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (local $3 i64)
   (local $4 i64)
@@ -1676,7 +1716,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.add (; 20 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.add (; 21 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   ;;@ assembly/integer/u128.ts:434:4
   (drop
    ;;@ assembly/integer/u128.ts:434:13
@@ -1704,7 +1744,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.sub (; 21 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.sub (; 22 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   ;;@ assembly/integer/u128.ts:443:4
   (drop
    ;;@ assembly/integer/u128.ts:443:13
@@ -1733,7 +1773,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.mul (; 22 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.mul (; 23 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   ;;@ assembly/integer/u128.ts:452:4
   (call $assembly/globals/__multi3
    ;;@ assembly/integer/u128.ts:452:19
@@ -1755,7 +1795,7 @@
   )
   (unreachable)
  )
- (func $assembly/globals/__udivmod128 (; 23 ;) (; has Stack IR ;) (type $IIIIv) (param $0 i64) (param $1 i64) (param $2 i64) (param $3 i64)
+ (func $assembly/globals/__udivmod128 (; 24 ;) (; has Stack IR ;) (type $IIIIv) (param $0 i64) (param $1 i64) (param $2 i64) (param $3 i64)
   (local $4 i64)
   (local $5 i32)
   (local $6 i32)
@@ -2103,7 +2143,7 @@
    (get_global $assembly/globals/__divmod_quot_hi)
   )
  )
- (func $assembly/integer/u128/u128.div (; 24 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.div (; 25 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   ;;@ assembly/integer/u128.ts:458:4
   (call $assembly/globals/__udivmod128
    ;;@ assembly/integer/u128.ts:458:17
@@ -2125,7 +2165,7 @@
   )
   (unreachable)
  )
- (func $assembly/globals/__udivmod128_10 (; 25 ;) (; has Stack IR ;) (type $FUNCSIG$vjj) (param $0 i64) (param $1 i64)
+ (func $assembly/globals/__udivmod128_10 (; 26 ;) (; has Stack IR ;) (type $FUNCSIG$vjj) (param $0 i64) (param $1 i64)
   ;;@ assembly/globals.ts:324:2
   (if
    ;;@ assembly/globals.ts:324:6
@@ -2195,7 +2235,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128.div10 (; 26 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128.div10 (; 27 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   ;;@ assembly/integer/u128.ts:470:4
   (call $assembly/globals/__udivmod128_10
    ;;@ assembly/integer/u128.ts:470:32
@@ -2209,7 +2249,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u128/u128#sqr (; 27 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128#sqr (; 28 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
   (local $2 i64)
   (local $3 i64)
@@ -2348,10 +2388,10 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u128/u128.pow (; 28 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.pow (; 29 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (unreachable)
  )
- (func $assembly/integer/u128/u128.eq (; 29 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.eq (; 30 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ assembly/integer/u128.ts:575:37
   (if
@@ -2382,7 +2422,7 @@
   )
   (get_local $2)
  )
- (func $assembly/integer/u128/u128.ne (; 30 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.ne (; 31 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   ;;@ assembly/integer/u128.ts:575:37
   (if
@@ -2416,7 +2456,7 @@
    (get_local $2)
   )
  )
- (func $assembly/integer/u128/u128.lt (; 31 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.lt (; 32 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (local $3 i64)
   (tee_local $0
@@ -2455,7 +2495,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128.gt (; 32 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.gt (; 33 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (local $3 i64)
   (tee_local $0
@@ -2494,7 +2534,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128.le (; 33 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.le (; 34 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (local $3 i64)
   ;;@ assembly/integer/u128.ts:597:24
@@ -2539,7 +2579,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128.ge (; 34 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.ge (; 35 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (local $3 i64)
   ;;@ assembly/integer/u128.ts:602:24
@@ -2584,7 +2624,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128.cmp (; 35 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.cmp (; 36 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   ;;@ assembly/integer/u128.ts:610:46
   (i32.wrap/i64
@@ -2621,7 +2661,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128.popcnt (; 36 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128.popcnt (; 37 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   ;;@ assembly/integer/u128.ts:620:52
   (i32.wrap/i64
    ;;@ assembly/integer/u128.ts:620:17
@@ -2642,7 +2682,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128.clz (; 37 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128.clz (; 38 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
   (local $2 i64)
   ;;@ assembly/globals.ts:193:2
@@ -2703,7 +2743,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128.ctz (; 38 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128.ctz (; 39 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
   (local $2 i64)
   ;;@ assembly/globals.ts:201:63
@@ -2763,7 +2803,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128#set (; 39 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128#set (; 40 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   ;;@ assembly/integer/u128.ts:218:4
   (i64.store
    (get_local $0)
@@ -2782,7 +2822,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u128/u128#setI64 (; 40 ;) (; has Stack IR ;) (type $iIi) (param $0 i32) (param $1 i64) (result i32)
+ (func $assembly/integer/u128/u128#setI64 (; 41 ;) (; has Stack IR ;) (type $iIi) (param $0 i32) (param $1 i64) (result i32)
   ;;@ assembly/integer/u128.ts:225:4
   (i64.store
    (get_local $0)
@@ -2800,7 +2840,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u128/u128#setU64 (; 41 ;) (; has Stack IR ;) (type $iIi) (param $0 i32) (param $1 i64) (result i32)
+ (func $assembly/integer/u128/u128#setU64 (; 42 ;) (; has Stack IR ;) (type $iIi) (param $0 i32) (param $1 i64) (result i32)
   ;;@ assembly/integer/u128.ts:232:4
   (i64.store
    (get_local $0)
@@ -2814,7 +2854,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u128/u128#setI32 (; 42 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128#setI32 (; 43 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   ;;@ assembly/integer/u128.ts:239:4
   (i64.store
    (get_local $0)
@@ -2837,7 +2877,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u128/u128#setU32 (; 43 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128#setU32 (; 44 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   ;;@ assembly/integer/u128.ts:246:4
   (i64.store
    (get_local $0)
@@ -2854,7 +2894,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u128/u128#isZero (; 44 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128#isZero (; 45 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   ;;@ assembly/integer/u128.ts:253:30
   (i64.eqz
    ;;@ assembly/integer/u128.ts:253:12
@@ -2870,10 +2910,10 @@
    )
   )
  )
- (func $assembly/integer/u128/u128#pos (; 45 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128#pos (; 46 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (get_local $0)
  )
- (func $assembly/integer/u128/u128#preInc (; 46 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128#preInc (; 47 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
   ;;@ assembly/integer/u128.ts:276:4
   (i64.store offset=8
@@ -2920,7 +2960,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u128/u128#preDec (; 47 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128#preDec (; 48 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
   ;;@ assembly/integer/u128.ts:284:4
   (i64.store offset=8
@@ -2964,7 +3004,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u128/u128#toI64 (; 48 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
+ (func $assembly/integer/u128/u128#toI64 (; 49 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
   ;;@ assembly/integer/u128.ts:734:4
   (i64.or
    ;;@ assembly/integer/u128.ts:732:6
@@ -2987,13 +3027,13 @@
    )
   )
  )
- (func $assembly/integer/u128/u128#toU64 (; 49 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
+ (func $assembly/integer/u128/u128#toU64 (; 50 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
   ;;@ assembly/integer/u128.ts:743:16
   (i64.load
    (get_local $0)
   )
  )
- (func $assembly/integer/u128/u128#toI32 (; 50 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128#toI32 (; 51 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   ;;@ assembly/integer/u128.ts:752:27
   (i32.wrap/i64
    ;;@ assembly/integer/u128.ts:734:4
@@ -3019,7 +3059,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128#toU32 (; 51 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128#toU32 (; 52 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   ;;@ assembly/integer/u128.ts:761:21
   (i32.wrap/i64
    (i64.load
@@ -3027,7 +3067,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128#toBool (; 52 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128#toBool (; 53 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   ;;@ assembly/integer/u128.ts:770:34
   (i64.ne
    ;;@ assembly/integer/u128.ts:770:11
@@ -3045,7 +3085,7 @@
    (i64.const 0)
   )
  )
- (func $assembly/integer/u128/u128#toF64 (; 53 ;) (; has Stack IR ;) (type $iF) (param $0 i32) (result f64)
+ (func $assembly/integer/u128/u128#toF64 (; 54 ;) (; has Stack IR ;) (type $iF) (param $0 i32) (result f64)
   (if
    (i32.eqz
     (i64.eqz
@@ -3065,7 +3105,7 @@
   )
   (f64.const 0)
  )
- (func $assembly/integer/u128/u128#toF64Unsafe (; 54 ;) (; has Stack IR ;) (type $iF) (param $0 i32) (result f64)
+ (func $assembly/integer/u128/u128#toF64Unsafe (; 55 ;) (; has Stack IR ;) (type $iF) (param $0 i32) (result f64)
   (local $1 i64)
   (local $2 i64)
   (set_local $1
@@ -3160,7 +3200,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128#toF32 (; 55 ;) (; has Stack IR ;) (type $if) (param $0 i32) (result f32)
+ (func $assembly/integer/u128/u128#toF32 (; 56 ;) (; has Stack IR ;) (type $if) (param $0 i32) (result f32)
   (if
    (i32.eqz
     (i64.eqz
@@ -3180,7 +3220,28 @@
   )
   (f32.const 0)
  )
- (func $~lib/array/Array<u8>#constructor (; 56 ;) (; has Stack IR ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/internal/arraybuffer/allocateUnsafe (; 57 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+  ;;@ ~lib/internal/arraybuffer.ts:23:2
+  (if
+   ;;@ ~lib/internal/arraybuffer.ts:23:9
+   (i32.gt_u
+    (get_local $0)
+    (i32.const 1073741816)
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 992)
+     (i32.const 23)
+     (i32.const 2)
+    )
+    (unreachable)
+   )
+  )
+  ;;@ ~lib/memory.ts:43:30
+  (unreachable)
+ )
+ (func $~lib/array/Array<u8>#constructor (; 58 ;) (; has Stack IR ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   ;;@ ~lib/array.ts:23:4
   (if
    ;;@ ~lib/array.ts:23:8
@@ -3193,16 +3254,22 @@
    (block
     (call $~lib/env/abort
      (i32.const 0)
-     (i32.const 872)
+     (i32.const 960)
      (i32.const 23)
      (i32.const 39)
     )
     (unreachable)
    )
   )
+  (drop
+   ;;@ ~lib/array.ts:25:17
+   (call $~lib/internal/arraybuffer/allocateUnsafe
+    (get_local $0)
+   )
+  )
   (unreachable)
  )
- (func $assembly/integer/u128/u128#toBytesBE (; 57 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128#toBytesBE (; 59 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
   (local $2 i64)
   (set_local $1
@@ -3434,7 +3501,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u128/u128#toBytesLE (; 58 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128#toBytesLE (; 60 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
   (local $2 i64)
   (set_local $1
@@ -3666,7 +3733,92 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u256/u256.fromU256 (; 59 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128#toString (; 61 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  ;;@ assembly/integer/u128.ts:895:4
+  (if
+   ;;@ assembly/integer/u128.ts:895:8
+   (i32.eqz
+    (get_local $1)
+   )
+   ;;@ assembly/integer/u128.ts:895:16
+   (set_local $1
+    ;;@ assembly/integer/u128.ts:895:24
+    (i32.const 10)
+   )
+  )
+  ;;@ assembly/integer/u128.ts:896:11
+  (if
+   (i32.eqz
+    (tee_local $2
+     (i32.eq
+      (get_local $1)
+      ;;@ assembly/integer/u128.ts:896:20
+      (i32.const 10)
+     )
+    )
+   )
+   (set_local $2
+    ;;@ assembly/integer/u128.ts:896:26
+    (i32.eq
+     (get_local $1)
+     ;;@ assembly/integer/u128.ts:896:35
+     (i32.const 16)
+    )
+   )
+  )
+  ;;@ assembly/integer/u128.ts:896:4
+  (if
+   (i32.eqz
+    (get_local $2)
+   )
+   (block
+    (call $~lib/env/abort
+     ;;@ assembly/integer/u128.ts:896:39
+     (i32.const 1056)
+     (i32.const 904)
+     (i32.const 896)
+     (i32.const 4)
+    )
+    (unreachable)
+   )
+  )
+  ;;@ assembly/integer/u128.ts:898:4
+  (if
+   ;;@ assembly/integer/u128.ts:253:30
+   (i64.eqz
+    ;;@ assembly/integer/u128.ts:253:12
+    (i64.or
+     ;;@ assembly/integer/u128.ts:253:13
+     (i64.load
+      (get_local $0)
+     )
+     ;;@ assembly/integer/u128.ts:253:23
+     (i64.load offset=8
+      (get_local $0)
+     )
+    )
+   )
+   ;;@ assembly/integer/u128.ts:898:30
+   (return
+    (i32.const 1144)
+   )
+  )
+  (drop
+   ;;@ assembly/integer/u128.ts:890:20
+   (i64.load
+    (get_local $0)
+   )
+  )
+  (drop
+   ;;@ assembly/integer/u128.ts:890:29
+   (i64.load offset=8
+    (get_local $0)
+   )
+  )
+  (unreachable)
+ )
+ (func $assembly/integer/u256/u256.fromU256 (; 62 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (drop
    ;;@ assembly/integer/u256.ts:13:20
    (i64.load
@@ -3693,10 +3845,10 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u256/u256.fromBits (; 60 ;) (; has Stack IR ;) (type $iiiiiiiii) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (param $5 i32) (param $6 i32) (param $7 i32) (result i32)
+ (func $assembly/integer/u256/u256.fromBits (; 63 ;) (; has Stack IR ;) (type $iiiiiiiii) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (param $5 i32) (param $6 i32) (param $7 i32) (result i32)
   (unreachable)
  )
- (func $assembly/integer/u256/u256.isEmpty (; 61 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u256/u256.isEmpty (; 64 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i32)
   ;;@ assembly/integer/u256.ts:150:43
   (if
@@ -3741,7 +3893,7 @@
   )
   (get_local $1)
  )
- (func $assembly/integer/u256/u256.add (; 62 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u256/u256.add (; 65 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   ;;@ assembly/integer/u256.ts:180:4
   (drop
    ;;@ assembly/integer/u256.ts:180:15
@@ -3758,7 +3910,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u256/u256.or (; 63 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u256/u256.or (; 66 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (drop
    ;;@ assembly/integer/u256.ts:192:20
    (i64.or
@@ -3809,7 +3961,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u256/u256.xor (; 64 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u256/u256.xor (; 67 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (drop
    ;;@ assembly/integer/u256.ts:197:20
    (i64.xor
@@ -3860,7 +4012,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u256/u256.and (; 65 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u256/u256.and (; 68 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (drop
    ;;@ assembly/integer/u256.ts:202:20
    (i64.and
@@ -3911,7 +4063,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u256/u256.popcnt (; 66 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u256/u256.popcnt (; 69 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
   ;;@ assembly/integer/u256.ts:207:4
   (set_local $1
@@ -3997,7 +4149,7 @@
    (get_local $1)
   )
  )
- (func $assembly/integer/u256/u256.clz (; 67 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u256/u256.clz (; 70 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   ;;@ assembly/integer/u256.ts:216:9
   (if (result i32)
    (i64.ne
@@ -4085,7 +4237,7 @@
    )
   )
  )
- (func $assembly/integer/u256/u256.ctz (; 68 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u256/u256.ctz (; 71 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   ;;@ assembly/integer/u256.ts:224:9
   (if (result i32)
    (i64.ne
@@ -4173,7 +4325,7 @@
    )
   )
  )
- (func $assembly/integer/u256/u256#set (; 69 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u256/u256#set (; 72 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   ;;@ assembly/integer/u256.ts:89:4
   (i64.store
    (get_local $0)
@@ -4208,7 +4360,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u256/u256#setU128 (; 70 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u256/u256#setU128 (; 73 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   ;;@ assembly/integer/u256.ts:98:4
   (i64.store
    (get_local $0)
@@ -4239,7 +4391,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u256/u256#setI64 (; 71 ;) (; has Stack IR ;) (type $iIi) (param $0 i32) (param $1 i64) (result i32)
+ (func $assembly/integer/u256/u256#setI64 (; 74 ;) (; has Stack IR ;) (type $iIi) (param $0 i32) (param $1 i64) (result i32)
   (local $2 i64)
   ;;@ assembly/integer/u256.ts:108:4
   (i64.store
@@ -4271,7 +4423,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u256/u256#setU64 (; 72 ;) (; has Stack IR ;) (type $iIi) (param $0 i32) (param $1 i64) (result i32)
+ (func $assembly/integer/u256/u256#setU64 (; 75 ;) (; has Stack IR ;) (type $iIi) (param $0 i32) (param $1 i64) (result i32)
   ;;@ assembly/integer/u256.ts:117:4
   (i64.store
    (get_local $0)
@@ -4297,7 +4449,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u256/u256#setI32 (; 73 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u256/u256#setI32 (; 76 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   ;;@ assembly/integer/u256.ts:127:4
   (i64.store
@@ -4334,7 +4486,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u256/u256#setU32 (; 74 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u256/u256#setU32 (; 77 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   ;;@ assembly/integer/u256.ts:136:4
   (i64.store
    (get_local $0)
@@ -4363,7 +4515,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u256/u256#isZero (; 75 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u256/u256#isZero (; 78 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   ;;@ assembly/integer/u256.ts:145:54
   (i64.eqz
    ;;@ assembly/integer/u256.ts:145:12
@@ -4391,7 +4543,7 @@
    )
   )
  )
- (func $assembly/integer/u256/u256#toI128 (; 76 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u256/u256#toI128 (; 79 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (drop
    ;;@ assembly/integer/u256.ts:237:7
    (i64.load
@@ -4422,7 +4574,7 @@
   )
   (unreachable)
  )
- (func $assembly/integer/u256/u256#toI64 (; 77 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
+ (func $assembly/integer/u256/u256#toI64 (; 80 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
   ;;@ assembly/integer/u256.ts:261:4
   (i64.or
    ;;@ assembly/integer/u256.ts:259:6
@@ -4445,7 +4597,7 @@
    )
   )
  )
- (func $assembly/integer/u256/u256#toI32 (; 78 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u256/u256#toI32 (; 81 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   ;;@ assembly/integer/u256.ts:279:27
   (i32.wrap/i64
    ;;@ assembly/integer/u256.ts:261:4
@@ -4471,7 +4623,7 @@
    )
   )
  )
- (func $assembly/integer/u256/u256#toBool (; 79 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u256/u256#toBool (; 82 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   ;;@ assembly/integer/u256.ts:297:59
   (i32.wrap/i64
    ;;@ assembly/integer/u256.ts:297:18
@@ -4498,7 +4650,7 @@
    )
   )
  )
- (func $assembly/integer/u256/u256#toBytesLE (; 80 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u256/u256#toBytesLE (; 83 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
   (local $2 i64)
   (local $3 i64)
@@ -4958,7 +5110,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u256/u256#toBytesBE (; 81 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
+ (func $assembly/integer/u256/u256#toBytesBE (; 84 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
   (local $2 i64)
   (local $3 i64)
@@ -5418,7 +5570,7 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u128/u128.fromString|trampoline (; 82 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.fromString|trampoline (; 85 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange
@@ -5441,12 +5593,12 @@
    (get_local $1)
   )
  )
- (func $~setargc (; 83 ;) (; has Stack IR ;) (type $iv) (param $0 i32)
+ (func $~setargc (; 86 ;) (; has Stack IR ;) (type $iv) (param $0 i32)
   (set_global $~argc
    (get_local $0)
   )
  )
- (func $assembly/integer/u128/u128.fromBytes|trampoline (; 84 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.fromBytes|trampoline (; 87 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange
@@ -5479,7 +5631,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128#constructor|trampoline (; 85 ;) (; has Stack IR ;) (type $iIIi) (param $0 i32) (param $1 i64) (param $2 i64) (result i32)
+ (func $assembly/integer/u128/u128#constructor|trampoline (; 88 ;) (; has Stack IR ;) (type $iIIi) (param $0 i32) (param $1 i64) (param $2 i64) (result i32)
   (local $3 i32)
   (block $2of2
    (block $1of2
@@ -5503,24 +5655,24 @@
   )
   (get_local $3)
  )
- (func $u128#set:lo (; 86 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u128#set:lo (; 89 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
   (i64.store
    (get_local $0)
    (get_local $1)
   )
  )
- (func $u128#get:hi (; 87 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
+ (func $u128#get:hi (; 90 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
   (i64.load offset=8
    (get_local $0)
   )
  )
- (func $u128#set:hi (; 88 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u128#set:hi (; 91 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
   (i64.store offset=8
    (get_local $0)
    (get_local $1)
   )
  )
- (func $assembly/integer/u128/u128#toBytes|trampoline (; 89 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128#toBytes|trampoline (; 92 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange
@@ -5550,8 +5702,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128#toString|trampoline (; 90 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
+ (func $assembly/integer/u128/u128#toString|trampoline (; 93 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange
@@ -5561,39 +5712,17 @@
     )
     (unreachable)
    )
-  )
-  (if
-   (i32.eqz
-    (i64.eqz
-     (i64.or
-      (i64.load
-       (tee_local $2
-        (get_local $0)
-       )
-      )
-      (i64.load offset=8
-       (get_local $2)
-      )
-     )
-    )
-   )
-   (block
-    (drop
-     (i64.load
-      (get_local $2)
-     )
-    )
-    (drop
-     (i64.load offset=8
-      (get_local $2)
-     )
-    )
-    (unreachable)
+   (set_local $1
+    ;;@ assembly/integer/u128.ts:894:24
+    (i32.const 0)
    )
   )
-  (i32.const 904)
+  (call $assembly/integer/u128/u128#toString
+   (get_local $0)
+   (get_local $1)
+  )
  )
- (func $assembly/integer/u256/u256#constructor|trampoline (; 91 ;) (; has Stack IR ;) (type $iIIIIi) (param $0 i32) (param $1 i64) (param $2 i64) (param $3 i64) (param $4 i64) (result i32)
+ (func $assembly/integer/u256/u256#constructor|trampoline (; 94 ;) (; has Stack IR ;) (type $iIIIIi) (param $0 i32) (param $1 i64) (param $2 i64) (param $3 i64) (param $4 i64) (result i32)
   (local $5 i32)
   (block $4of4
    (block $3of4
@@ -5621,29 +5750,29 @@
   )
   (get_local $5)
  )
- (func $u256#get:hi1 (; 92 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
+ (func $u256#get:hi1 (; 95 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
   (i64.load offset=16
    (get_local $0)
   )
  )
- (func $u256#set:hi1 (; 93 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u256#set:hi1 (; 96 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
   (i64.store offset=16
    (get_local $0)
    (get_local $1)
   )
  )
- (func $u256#get:hi2 (; 94 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
+ (func $u256#get:hi2 (; 97 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
   (i64.load offset=24
    (get_local $0)
   )
  )
- (func $u256#set:hi2 (; 95 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u256#set:hi2 (; 98 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
   (i64.store offset=24
    (get_local $0)
    (get_local $1)
   )
  )
- (func $assembly/integer/u256/u256#toBytes|trampoline (; 96 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u256/u256#toBytes|trampoline (; 99 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange
