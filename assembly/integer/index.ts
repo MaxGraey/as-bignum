@@ -1,5 +1,3 @@
-// Playground url: https://webassembly.studio/?f=k0ld6nnqhni
-
 // import { i128 } from "./i128";
 import { u128 } from "./u128";
 

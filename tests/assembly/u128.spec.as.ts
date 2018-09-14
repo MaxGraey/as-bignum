@@ -729,10 +729,6 @@ export class DivisionAndModOperationTests {
 }
 
 export class ThrowableTests {
-  static shouldThrowFromStringWithNull(): bool {
-    return !(u128.fromString(changetype<String>(null)));
-  }
-
   static shouldThrowFromStringWithUnsupportedRadix1(): bool {
     return !(u128.fromString('0000', 1));
   }
