@@ -334,9 +334,9 @@
   version "10.5.5"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.5.5.tgz#8e84d24e896cd77b0d4f73df274027e3149ec2ba"
 
-"@types/node@^10.9.4":
-  version "10.9.4"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.9.4.tgz#0f4cb2dc7c1de6096055357f70179043c33e9897"
+"@types/node@^10.11.0":
+  version "10.11.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.11.0.tgz#ddd0d67a3b6c3810dd1a59e36675fa82de5e19ae"
 
 "@types/shelljs@^0.8.0":
   version "0.8.0"
@@ -451,9 +451,9 @@ arrify@^1.0.0, arrify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
 
-"assemblyscript@github:AssemblyScript/assemblyscript#d90cd085e509c6cdf3233c6d75fad6a864202f2f":
+"assemblyscript@github:AssemblyScript/assemblyscript#3f035395cdf02f05cbd03846e4c1bf2f43ac7be2":
   version "0.5.0"
-  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/d90cd085e509c6cdf3233c6d75fad6a864202f2f"
+  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/3f035395cdf02f05cbd03846e4c1bf2f43ac7be2"
   dependencies:
     "@protobufjs/utf8" "^1.1.0"
     binaryen "^51.0.0"
