@@ -570,6 +570,22 @@ export class u128 {
     return result;
   }
 
+  static sqrt(value: u128): u128 {
+    let res: u64 = 64;
+    let add: u64 = 0x8000000000000000;
+    let tmp = u128.Zero;
+    for (let i = 0; i < 64; ++i) {
+      tmp.setU64(res | add);
+      let g2 = tmp;
+          g2 *= tmp;
+      if (value >= g2) {
+        res = tmp.lo;
+      }
+      add >>= 1;
+    }
+    return new u128(res);
+  }
+
   @inline @operator('==')
   static eq(a: u128, b: u128): bool {
     return a.hi == b.hi && a.lo == b.lo;
