@@ -580,6 +580,56 @@ export class ExponentionOperationTests {
     var a = new u128(2);
     return (a ** 128) == u128.Zero;
   }
+
+  static shouldSqrtZeroNumber(): bool {
+    var a = u128.Zero;
+    return u128.sqrt(a) == u128.Zero;
+  }
+
+  static shouldSqrtOneNumber(): bool {
+    var a = u128.One;
+    return u128.sqrt(a) == u128.One;
+  }
+
+  static shouldSqrtThreeNumber(): bool {
+    var a = new u128(3);
+    return u128.sqrt(a) == new u128(1);
+  }
+
+  static shouldSqrtFourNumber(): bool {
+    var a = new u128(4);
+    return u128.sqrt(a) == new u128(2);
+  }
+
+  static shouldSqrtFiveNumber(): bool {
+    var a = new u128(5);
+    return u128.sqrt(a) == new u128(2);
+  }
+
+  static shouldSqrtSixNumber(): bool {
+    var a = new u128(5);
+    return u128.sqrt(a) == new u128(2);
+  }
+
+  static shouldSqrtNineNumber(): bool {
+    var a = new u128(9);
+    return u128.sqrt(a) == new u128(3);
+  }
+
+  static shouldSqrt64Number(): bool {
+    var a = new u128(64);
+    return u128.sqrt(a) == new u128(8);
+  }
+
+  static shouldSqrt1000Number(): bool {
+    var a = new u128(1000);
+    return u128.sqrt(a) == new u128(31);
+  }
+
+  static shouldSqrtMaxValueNumber(): bool {
+    var a = u128.Max;
+    return u128.sqrt(a) == new u128(u64.MAX_VALUE);
+  }
 }
 
 export class BinaryOperationCountTests {

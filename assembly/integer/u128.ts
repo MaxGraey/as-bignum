@@ -571,14 +571,16 @@ export class u128 {
   }
 
   static sqrt(value: u128): u128 {
-    let res: u64 = 64;
+    if (value <= u128.One)    return value;
+    if (value <= new u128(3)) return u128.One;
+
+    let res: u64 = 0;
     let add: u64 = 0x8000000000000000;
-    let tmp = u128.Zero;
+    let tmp = new u128();
     for (let i = 0; i < 64; ++i) {
       tmp.setU64(res | add);
-      let g2 = tmp;
-          g2 *= tmp;
-      if (value >= g2) {
+      let sqr = tmp * tmp;
+      if (value >= sqr) {
         res = tmp.lo;
       }
       add >>= 1;
