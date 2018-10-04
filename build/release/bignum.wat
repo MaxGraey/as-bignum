@@ -15,7 +15,6 @@
  (type $iF (func (param i32) (result f64)))
  (type $if (func (param i32) (result f32)))
  (type $iiiiiiiii (func (param i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
- (type $v (func))
  (type $iv (func (param i32)))
  (type $iIv (func (param i32 i64)))
  (type $FUNCSIG$vjjjj (func (param i64 i64 i64 i64)))
@@ -5572,10 +5571,7 @@
   )
   (get_local $0)
  )
- (func $null (; 85 ;) (; has Stack IR ;) (type $v)
-  (nop)
- )
- (func $assembly/integer/u128/u128.fromString|trampoline (; 86 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.fromString|trampoline (; 85 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange
@@ -5598,12 +5594,12 @@
    (get_local $1)
   )
  )
- (func $~setargc (; 87 ;) (; has Stack IR ;) (type $iv) (param $0 i32)
+ (func $~setargc (; 86 ;) (; has Stack IR ;) (type $iv) (param $0 i32)
   (set_global $~argc
    (get_local $0)
   )
  )
- (func $assembly/integer/u128/u128.fromBytes|trampoline (; 88 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.fromBytes|trampoline (; 87 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange
@@ -5636,7 +5632,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128#constructor|trampoline (; 89 ;) (; has Stack IR ;) (type $iIIi) (param $0 i32) (param $1 i64) (param $2 i64) (result i32)
+ (func $assembly/integer/u128/u128#constructor|trampoline (; 88 ;) (; has Stack IR ;) (type $iIIi) (param $0 i32) (param $1 i64) (param $2 i64) (result i32)
   (local $3 i32)
   (block $2of2
    (block $1of2
@@ -5660,24 +5656,24 @@
   )
   (get_local $3)
  )
- (func $u128#set:lo (; 90 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u128#set:lo (; 89 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
   (i64.store
    (get_local $0)
    (get_local $1)
   )
  )
- (func $u128#get:hi (; 91 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
+ (func $u128#get:hi (; 90 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
   (i64.load offset=8
    (get_local $0)
   )
  )
- (func $u128#set:hi (; 92 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u128#set:hi (; 91 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
   (i64.store offset=8
    (get_local $0)
    (get_local $1)
   )
  )
- (func $assembly/integer/u128/u128#toBytes|trampoline (; 93 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128#toBytes|trampoline (; 92 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange
@@ -5707,7 +5703,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128#toString|trampoline (; 94 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128#toString|trampoline (; 93 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange
@@ -5727,7 +5723,7 @@
    (get_local $1)
   )
  )
- (func $assembly/integer/u256/u256#constructor|trampoline (; 95 ;) (; has Stack IR ;) (type $iIIIIi) (param $0 i32) (param $1 i64) (param $2 i64) (param $3 i64) (param $4 i64) (result i32)
+ (func $assembly/integer/u256/u256#constructor|trampoline (; 94 ;) (; has Stack IR ;) (type $iIIIIi) (param $0 i32) (param $1 i64) (param $2 i64) (param $3 i64) (param $4 i64) (result i32)
   (local $5 i32)
   (block $4of4
    (block $3of4
@@ -5755,29 +5751,29 @@
   )
   (get_local $5)
  )
- (func $u256#get:hi1 (; 96 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
+ (func $u256#get:hi1 (; 95 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
   (i64.load offset=16
    (get_local $0)
   )
  )
- (func $u256#set:hi1 (; 97 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u256#set:hi1 (; 96 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
   (i64.store offset=16
    (get_local $0)
    (get_local $1)
   )
  )
- (func $u256#get:hi2 (; 98 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
+ (func $u256#get:hi2 (; 97 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
   (i64.load offset=24
    (get_local $0)
   )
  )
- (func $u256#set:hi2 (; 99 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u256#set:hi2 (; 98 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
   (i64.store offset=24
    (get_local $0)
    (get_local $1)
   )
  )
- (func $assembly/integer/u256/u256#toBytes|trampoline (; 100 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u256/u256#toBytes|trampoline (; 99 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange
