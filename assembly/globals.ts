@@ -285,40 +285,39 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
 
 @global
 export function __udivmod128core(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
-  let a = new u128(alo, ahi);
-  let b = new u128(blo, bhi);
-  let q = u128.Zero;
-  let n = a.clone();
+  var a = new u128(alo, ahi);
+  var b = new u128(blo, bhi);
+  var q = u128.Zero;
+  var n = a.clone();
   // get leading zeros for left alignment
-  let alz = __clz128(n.lo, n.hi);
-  let blz = __clz128(b.lo, b.hi);
-  let lshf = blz - alz;
-  let l_aligned_b = b << lshf;
+  var alz = __clz128(n.lo, n.hi);
+  var blz = __clz128(b.lo, b.hi);
+  var off = blz - alz;
+  var nb  = b << off;
 
   // create a mask with the length of b
-  let mask = u128.One;
-  mask <<= (128 - blz);
+  var mask = u128.One;
+  mask <<= 128 - blz;
   --mask;
-  mask <<= lshf;
+  mask <<= off;
 
-  let i = 0;
+  var i = 0;
   while (n >= b) {
     ++i;
     q <<= 1;
-    if ((n & mask) >= l_aligned_b) {
+    if ((n & mask) >= nb) {
       ++q;
-      n -= l_aligned_b;
+      n -= nb;
     }
 
-    mask |= (mask >> 1);
-    l_aligned_b >>= 1;
+    mask |= mask >> 1;
+    nb >>= 1;
   }
   q <<= (blz - alz - i + 1);
 
   __divmod_quot_lo = q.lo;
   __divmod_quot_hi = q.hi;
   __divmod_rem     = n.lo;
-
 }
 
 @global

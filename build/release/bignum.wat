@@ -2169,70 +2169,70 @@
   (unreachable)
  )
  (func $assembly/globals/__udivmod128_10 (; 26 ;) (; has Stack IR ;) (type $FUNCSIG$vjj) (param $0 i64) (param $1 i64)
-  ;;@ assembly/globals.ts:326:2
+  ;;@ assembly/globals.ts:325:2
   (if
-   ;;@ assembly/globals.ts:326:6
+   ;;@ assembly/globals.ts:325:6
    (i64.eqz
     (get_local $1)
    )
-   ;;@ assembly/globals.ts:326:11
+   ;;@ assembly/globals.ts:325:11
    (block
-    ;;@ assembly/globals.ts:327:4
+    ;;@ assembly/globals.ts:326:4
     (if
-     ;;@ assembly/globals.ts:327:8
+     ;;@ assembly/globals.ts:326:8
      (i64.lt_u
       (get_local $0)
-      ;;@ assembly/globals.ts:327:13
+      ;;@ assembly/globals.ts:326:13
       (i64.const 10)
      )
-     ;;@ assembly/globals.ts:327:17
+     ;;@ assembly/globals.ts:326:17
      (block
       (set_global $assembly/globals/__divmod_rem
-       ;;@ assembly/globals.ts:330:25
+       ;;@ assembly/globals.ts:329:25
        (i64.const 0)
       )
       (set_global $assembly/globals/__divmod_quot_hi
        (get_global $assembly/globals/__divmod_rem)
       )
-      ;;@ assembly/globals.ts:328:6
+      ;;@ assembly/globals.ts:327:6
       (set_global $assembly/globals/__divmod_quot_lo
        (get_global $assembly/globals/__divmod_quot_hi)
       )
-      ;;@ assembly/globals.ts:331:6
+      ;;@ assembly/globals.ts:330:6
       (return)
      )
     )
-    ;;@ assembly/globals.ts:334:4
+    ;;@ assembly/globals.ts:333:4
     (set_global $assembly/globals/__divmod_quot_lo
-     ;;@ assembly/globals.ts:333:4
+     ;;@ assembly/globals.ts:332:4
      (tee_local $1
-      ;;@ assembly/globals.ts:333:14
+      ;;@ assembly/globals.ts:332:14
       (i64.div_u
        (get_local $0)
-       ;;@ assembly/globals.ts:333:19
+       ;;@ assembly/globals.ts:332:19
        (i64.const 10)
       )
      )
     )
-    ;;@ assembly/globals.ts:335:4
+    ;;@ assembly/globals.ts:334:4
     (set_global $assembly/globals/__divmod_quot_hi
-     ;;@ assembly/globals.ts:335:23
+     ;;@ assembly/globals.ts:334:23
      (i64.const 0)
     )
-    ;;@ assembly/globals.ts:336:4
+    ;;@ assembly/globals.ts:335:4
     (set_global $assembly/globals/__divmod_rem
-     ;;@ assembly/globals.ts:336:23
+     ;;@ assembly/globals.ts:335:23
      (i64.sub
       (get_local $0)
-      ;;@ assembly/globals.ts:336:28
+      ;;@ assembly/globals.ts:335:28
       (i64.mul
        (get_local $1)
-       ;;@ assembly/globals.ts:336:34
+       ;;@ assembly/globals.ts:335:34
        (i64.const 10)
       )
      )
     )
-    ;;@ assembly/globals.ts:337:4
+    ;;@ assembly/globals.ts:336:4
     (return)
    )
   )
