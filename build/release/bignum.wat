@@ -1801,11 +1801,11 @@
   (local $5 i32)
   (local $6 i32)
   (block $folding-inner0
-   ;;@ assembly/globals.ts:208:2
+   ;;@ assembly/globals.ts:210:2
    (if
-    ;;@ assembly/globals.ts:208:6
+    ;;@ assembly/globals.ts:210:6
     (i32.eq
-     ;;@ assembly/globals.ts:207:2
+     ;;@ assembly/globals.ts:209:2
      (tee_local $6
       (i32.add
        (i32.wrap/i64
@@ -1815,14 +1815,15 @@
            (get_local $3)
            (i64.xor
             (tee_local $4
-             (i64.sub
-              (i64.const 0)
-              (i64.extend_u/i32
-               (i64.eq
+             (i64.shr_s
+              (i64.xor
+               (get_local $3)
+               (i64.sub
                 (get_local $3)
-                (i64.const 0)
+                (i64.const 1)
                )
               )
+              (i64.const 63)
              )
             )
             (i64.const -1)
@@ -1843,44 +1844,45 @@
        )
       )
      )
-     ;;@ assembly/globals.ts:208:13
+     ;;@ assembly/globals.ts:210:13
      (i32.const 128)
     )
-    ;;@ assembly/globals.ts:209:4
+    ;;@ assembly/globals.ts:211:4
     (unreachable)
    )
-   ;;@ assembly/globals.ts:212:2
+   ;;@ assembly/globals.ts:214:2
    (set_local $5
-    ;;@ assembly/globals.ts:201:63
+    ;;@ assembly/globals.ts:203:63
     (i32.add
-     ;;@ assembly/globals.ts:201:9
+     ;;@ assembly/globals.ts:203:9
      (i32.wrap/i64
       (i64.ctz
-       ;;@ assembly/globals.ts:201:18
+       ;;@ assembly/globals.ts:203:18
        (i64.or
         (i64.and
          (get_local $3)
-         ;;@ assembly/globals.ts:200:2
+         ;;@ assembly/globals.ts:202:2
          (tee_local $4
-          ;;@ assembly/globals.ts:200:18
-          (i64.sub
-           (i64.const 0)
-           ;;@ assembly/globals.ts:200:19
-           (i64.extend_u/i32
-            ;;@ assembly/globals.ts:200:26
-            (i64.eq
+          ;;@ assembly/globals.ts:202:18
+          (i64.shr_s
+           (i64.xor
+            (get_local $2)
+            ;;@ assembly/globals.ts:202:29
+            (i64.sub
              (get_local $2)
-             ;;@ assembly/globals.ts:200:32
-             (i64.const 0)
+             ;;@ assembly/globals.ts:202:35
+             (i64.const 1)
             )
            )
+           ;;@ assembly/globals.ts:202:42
+           (i64.const 63)
           )
          )
         )
-        ;;@ assembly/globals.ts:201:32
+        ;;@ assembly/globals.ts:203:32
         (i64.and
          (get_local $2)
-         ;;@ assembly/globals.ts:201:38
+         ;;@ assembly/globals.ts:203:38
          (i64.xor
           (get_local $4)
           (i64.const -1)
@@ -1889,138 +1891,138 @@
        )
       )
      )
-     ;;@ assembly/globals.ts:201:48
+     ;;@ assembly/globals.ts:203:48
      (i32.and
-      ;;@ assembly/globals.ts:201:49
+      ;;@ assembly/globals.ts:203:49
       (i32.wrap/i64
        (get_local $4)
       )
-      ;;@ assembly/globals.ts:201:61
+      ;;@ assembly/globals.ts:203:61
       (i32.const 64)
      )
     )
    )
    (br_if $folding-inner0
-    ;;@ assembly/globals.ts:214:6
+    ;;@ assembly/globals.ts:216:6
     (i64.eqz
-     ;;@ assembly/globals.ts:214:7
+     ;;@ assembly/globals.ts:216:7
      (i64.or
       (get_local $0)
       (get_local $1)
      )
     )
    )
-   ;;@ assembly/globals.ts:221:2
+   ;;@ assembly/globals.ts:223:2
    (if
-    ;;@ assembly/globals.ts:221:6
+    ;;@ assembly/globals.ts:223:6
     (i32.eq
      (get_local $6)
-     ;;@ assembly/globals.ts:221:13
+     ;;@ assembly/globals.ts:223:13
      (i32.const 127)
     )
-    ;;@ assembly/globals.ts:221:18
+    ;;@ assembly/globals.ts:223:18
     (block
-     ;;@ assembly/globals.ts:222:4
+     ;;@ assembly/globals.ts:224:4
      (set_global $assembly/globals/__divmod_quot_lo
       (get_local $0)
      )
-     ;;@ assembly/globals.ts:223:4
+     ;;@ assembly/globals.ts:225:4
      (set_global $assembly/globals/__divmod_quot_hi
       (get_local $1)
      )
-     ;;@ assembly/globals.ts:224:4
+     ;;@ assembly/globals.ts:226:4
      (set_global $assembly/globals/__divmod_rem
-      ;;@ assembly/globals.ts:224:23
+      ;;@ assembly/globals.ts:226:23
       (i64.const 0)
      )
-     ;;@ assembly/globals.ts:225:4
+     ;;@ assembly/globals.ts:227:4
      (return)
     )
    )
-   ;;@ assembly/globals.ts:228:2
+   ;;@ assembly/globals.ts:230:2
    (if
-    ;;@ assembly/globals.ts:228:6
+    ;;@ assembly/globals.ts:230:6
     (i32.eq
      (i32.add
       (get_local $5)
       (get_local $6)
      )
-     ;;@ assembly/globals.ts:228:19
+     ;;@ assembly/globals.ts:230:19
      (i32.const 127)
     )
-    ;;@ assembly/globals.ts:228:24
+    ;;@ assembly/globals.ts:230:24
     (return)
    )
-   ;;@ assembly/globals.ts:236:2
+   ;;@ assembly/globals.ts:238:2
    (if
-    ;;@ assembly/globals.ts:236:6
+    ;;@ assembly/globals.ts:238:6
     (i64.eqz
-     ;;@ assembly/globals.ts:236:7
+     ;;@ assembly/globals.ts:238:7
      (i64.or
       (get_local $1)
       (get_local $3)
      )
     )
-    ;;@ assembly/globals.ts:236:20
+    ;;@ assembly/globals.ts:238:20
     (block
-     ;;@ assembly/globals.ts:237:4
+     ;;@ assembly/globals.ts:239:4
      (set_global $assembly/globals/__divmod_quot_hi
-      ;;@ assembly/globals.ts:237:23
+      ;;@ assembly/globals.ts:239:23
       (i64.const 0)
      )
-     ;;@ assembly/globals.ts:240:4
+     ;;@ assembly/globals.ts:242:4
      (if
-      ;;@ assembly/globals.ts:240:8
+      ;;@ assembly/globals.ts:242:8
       (i64.eqz
-       ;;@ assembly/globals.ts:240:9
+       ;;@ assembly/globals.ts:242:9
        (i64.and
         (get_local $2)
-        ;;@ assembly/globals.ts:240:16
+        ;;@ assembly/globals.ts:242:16
         (i64.sub
          (get_local $2)
-         ;;@ assembly/globals.ts:240:23
+         ;;@ assembly/globals.ts:242:23
          (i64.const 1)
         )
        )
       )
-      ;;@ assembly/globals.ts:240:28
+      ;;@ assembly/globals.ts:242:28
       (block
-       ;;@ assembly/globals.ts:241:6
+       ;;@ assembly/globals.ts:243:6
        (set_global $assembly/globals/__divmod_quot_lo
-        ;;@ assembly/globals.ts:241:25
+        ;;@ assembly/globals.ts:243:25
         (i64.shr_u
          (get_local $0)
-         ;;@ assembly/globals.ts:241:32
+         ;;@ assembly/globals.ts:243:32
          (i64.extend_s/i32
           (get_local $5)
          )
         )
        )
-       ;;@ assembly/globals.ts:242:6
+       ;;@ assembly/globals.ts:244:6
        (set_global $assembly/globals/__divmod_rem
-        ;;@ assembly/globals.ts:242:22
+        ;;@ assembly/globals.ts:244:22
         (i64.const 0)
        )
       )
-      ;;@ assembly/globals.ts:243:11
+      ;;@ assembly/globals.ts:245:11
       (block
-       ;;@ assembly/globals.ts:245:6
+       ;;@ assembly/globals.ts:247:6
        (set_global $assembly/globals/__divmod_quot_lo
-        ;;@ assembly/globals.ts:244:6
+        ;;@ assembly/globals.ts:246:6
         (tee_local $4
-         ;;@ assembly/globals.ts:244:16
+         ;;@ assembly/globals.ts:246:16
          (i64.div_u
           (get_local $0)
           (get_local $2)
          )
         )
        )
-       ;;@ assembly/globals.ts:246:6
+       ;;@ assembly/globals.ts:248:6
        (set_global $assembly/globals/__divmod_rem
-        ;;@ assembly/globals.ts:246:25
+        ;;@ assembly/globals.ts:248:25
         (i64.sub
          (get_local $0)
-         ;;@ assembly/globals.ts:246:31
+         ;;@ assembly/globals.ts:248:31
          (i64.mul
           (get_local $4)
           (get_local $2)
@@ -2029,11 +2031,11 @@
        )
       )
      )
-     ;;@ assembly/globals.ts:248:4
+     ;;@ assembly/globals.ts:250:4
      (return)
     )
    )
-   ;;@ assembly/globals.ts:252:6
+   ;;@ assembly/globals.ts:254:6
    (if
     (tee_local $5
      (i64.eqz
@@ -2041,51 +2043,51 @@
      )
     )
     (set_local $5
-     ;;@ assembly/globals.ts:252:14
+     ;;@ assembly/globals.ts:254:14
      (i64.eqz
-      ;;@ assembly/globals.ts:252:15
+      ;;@ assembly/globals.ts:254:15
       (i64.and
        (get_local $3)
-       ;;@ assembly/globals.ts:252:22
+       ;;@ assembly/globals.ts:254:22
        (i64.sub
         (get_local $3)
-        ;;@ assembly/globals.ts:252:29
+        ;;@ assembly/globals.ts:254:29
         (i64.const 1)
        )
       )
      )
     )
    )
-   ;;@ assembly/globals.ts:252:2
+   ;;@ assembly/globals.ts:254:2
    (if
     (get_local $5)
-    ;;@ assembly/globals.ts:252:34
+    ;;@ assembly/globals.ts:254:34
     (block
-     ;;@ assembly/globals.ts:253:4
+     ;;@ assembly/globals.ts:255:4
      (set_global $assembly/globals/__divmod_rem
-      ;;@ assembly/globals.ts:253:19
+      ;;@ assembly/globals.ts:255:19
       (i64.const 0)
      )
-     ;;@ assembly/globals.ts:257:4
+     ;;@ assembly/globals.ts:259:4
      (return)
     )
    )
-   ;;@ assembly/globals.ts:261:18
+   ;;@ assembly/globals.ts:263:18
    (if
     (i64.eq
-     ;;@ assembly/globals.ts:260:2
+     ;;@ assembly/globals.ts:262:2
      (tee_local $4
-      ;;@ assembly/globals.ts:260:18
+      ;;@ assembly/globals.ts:262:18
       (i64.sub
        (get_local $1)
        (get_local $3)
       )
      )
-     ;;@ assembly/globals.ts:261:26
+     ;;@ assembly/globals.ts:263:26
      (i64.const 0)
     )
     (set_local $4
-     ;;@ assembly/globals.ts:261:37
+     ;;@ assembly/globals.ts:263:37
      (i64.sub
       (get_local $0)
       (get_local $2)
@@ -2093,53 +2095,53 @@
     )
    )
    (br_if $folding-inner0
-    ;;@ assembly/globals.ts:263:6
+    ;;@ assembly/globals.ts:265:6
     (i32.lt_s
-     ;;@ assembly/globals.ts:261:2
+     ;;@ assembly/globals.ts:263:2
      (tee_local $5
-      ;;@ assembly/globals.ts:261:12
+      ;;@ assembly/globals.ts:263:12
       (i32.wrap/i64
        (get_local $4)
       )
      )
-     ;;@ assembly/globals.ts:263:12
+     ;;@ assembly/globals.ts:265:12
      (i32.const 0)
     )
    )
-   ;;@ assembly/globals.ts:268:9
+   ;;@ assembly/globals.ts:270:9
    (if
     (i32.eqz
      (get_local $5)
     )
-    ;;@ assembly/globals.ts:268:23
+    ;;@ assembly/globals.ts:270:23
     (block
-     ;;@ assembly/globals.ts:269:4
+     ;;@ assembly/globals.ts:271:4
      (set_global $assembly/globals/__divmod_quot_lo
-      ;;@ assembly/globals.ts:269:23
+      ;;@ assembly/globals.ts:271:23
       (i64.const 1)
      )
      (set_global $assembly/globals/__divmod_rem
-      ;;@ assembly/globals.ts:271:23
+      ;;@ assembly/globals.ts:273:23
       (i64.const 0)
      )
-     ;;@ assembly/globals.ts:270:4
+     ;;@ assembly/globals.ts:272:4
      (set_global $assembly/globals/__divmod_quot_hi
       (get_global $assembly/globals/__divmod_rem)
      )
-     ;;@ assembly/globals.ts:272:4
+     ;;@ assembly/globals.ts:274:4
      (return)
     )
    )
    (unreachable)
   )
   (set_global $assembly/globals/__divmod_rem
-   ;;@ assembly/globals.ts:217:23
+   ;;@ assembly/globals.ts:219:23
    (i64.const 0)
   )
   (set_global $assembly/globals/__divmod_quot_hi
    (get_global $assembly/globals/__divmod_rem)
   )
-  ;;@ assembly/globals.ts:215:4
+  ;;@ assembly/globals.ts:217:4
   (set_global $assembly/globals/__divmod_quot_lo
    (get_global $assembly/globals/__divmod_quot_hi)
   )
@@ -2167,70 +2169,70 @@
   (unreachable)
  )
  (func $assembly/globals/__udivmod128_10 (; 26 ;) (; has Stack IR ;) (type $FUNCSIG$vjj) (param $0 i64) (param $1 i64)
-  ;;@ assembly/globals.ts:324:2
+  ;;@ assembly/globals.ts:326:2
   (if
-   ;;@ assembly/globals.ts:324:6
+   ;;@ assembly/globals.ts:326:6
    (i64.eqz
     (get_local $1)
    )
-   ;;@ assembly/globals.ts:324:11
+   ;;@ assembly/globals.ts:326:11
    (block
-    ;;@ assembly/globals.ts:325:4
+    ;;@ assembly/globals.ts:327:4
     (if
-     ;;@ assembly/globals.ts:325:8
+     ;;@ assembly/globals.ts:327:8
      (i64.lt_u
       (get_local $0)
-      ;;@ assembly/globals.ts:325:13
+      ;;@ assembly/globals.ts:327:13
       (i64.const 10)
      )
-     ;;@ assembly/globals.ts:325:17
+     ;;@ assembly/globals.ts:327:17
      (block
       (set_global $assembly/globals/__divmod_rem
-       ;;@ assembly/globals.ts:328:25
+       ;;@ assembly/globals.ts:330:25
        (i64.const 0)
       )
       (set_global $assembly/globals/__divmod_quot_hi
        (get_global $assembly/globals/__divmod_rem)
       )
-      ;;@ assembly/globals.ts:326:6
+      ;;@ assembly/globals.ts:328:6
       (set_global $assembly/globals/__divmod_quot_lo
        (get_global $assembly/globals/__divmod_quot_hi)
       )
-      ;;@ assembly/globals.ts:329:6
+      ;;@ assembly/globals.ts:331:6
       (return)
      )
     )
-    ;;@ assembly/globals.ts:332:4
+    ;;@ assembly/globals.ts:334:4
     (set_global $assembly/globals/__divmod_quot_lo
-     ;;@ assembly/globals.ts:331:4
+     ;;@ assembly/globals.ts:333:4
      (tee_local $1
-      ;;@ assembly/globals.ts:331:14
+      ;;@ assembly/globals.ts:333:14
       (i64.div_u
        (get_local $0)
-       ;;@ assembly/globals.ts:331:19
-       (i64.const 10)
-      )
-     )
-    )
-    ;;@ assembly/globals.ts:333:4
-    (set_global $assembly/globals/__divmod_quot_hi
-     ;;@ assembly/globals.ts:333:23
-     (i64.const 0)
-    )
-    ;;@ assembly/globals.ts:334:4
-    (set_global $assembly/globals/__divmod_rem
-     ;;@ assembly/globals.ts:334:23
-     (i64.sub
-      (get_local $0)
-      ;;@ assembly/globals.ts:334:28
-      (i64.mul
-       (get_local $1)
-       ;;@ assembly/globals.ts:334:34
+       ;;@ assembly/globals.ts:333:19
        (i64.const 10)
       )
      )
     )
     ;;@ assembly/globals.ts:335:4
+    (set_global $assembly/globals/__divmod_quot_hi
+     ;;@ assembly/globals.ts:335:23
+     (i64.const 0)
+    )
+    ;;@ assembly/globals.ts:336:4
+    (set_global $assembly/globals/__divmod_rem
+     ;;@ assembly/globals.ts:336:23
+     (i64.sub
+      (get_local $0)
+      ;;@ assembly/globals.ts:336:28
+      (i64.mul
+       (get_local $1)
+       ;;@ assembly/globals.ts:336:34
+       (i64.const 10)
+      )
+     )
+    )
+    ;;@ assembly/globals.ts:337:4
     (return)
    )
   )
@@ -2686,43 +2688,44 @@
  (func $assembly/integer/u128/u128.clz (; 38 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
   (local $2 i64)
-  ;;@ assembly/globals.ts:193:2
+  ;;@ assembly/globals.ts:194:2
   (set_local $1
-   ;;@ assembly/globals.ts:193:18
-   (i64.sub
-    (i64.const 0)
-    ;;@ assembly/globals.ts:193:19
-    (i64.extend_u/i32
-     ;;@ assembly/globals.ts:193:26
-     (i64.eq
-      (tee_local $2
-       ;;@ assembly/integer/u128.ts:648:30
-       (i64.load offset=8
-        (get_local $0)
-       )
+   ;;@ assembly/globals.ts:194:18
+   (i64.shr_s
+    (i64.xor
+     (tee_local $2
+      ;;@ assembly/integer/u128.ts:648:30
+      (i64.load offset=8
+       (get_local $0)
       )
-      ;;@ assembly/globals.ts:193:32
-      (i64.const 0)
+     )
+     ;;@ assembly/globals.ts:194:29
+     (i64.sub
+      (get_local $2)
+      ;;@ assembly/globals.ts:194:35
+      (i64.const 1)
      )
     )
+    ;;@ assembly/globals.ts:194:42
+    (i64.const 63)
    )
   )
-  ;;@ assembly/globals.ts:194:63
+  ;;@ assembly/globals.ts:195:63
   (i32.add
-   ;;@ assembly/globals.ts:194:9
+   ;;@ assembly/globals.ts:195:9
    (i32.wrap/i64
     (i64.clz
-     ;;@ assembly/globals.ts:194:18
+     ;;@ assembly/globals.ts:195:18
      (i64.or
       (i64.and
        (get_local $2)
-       ;;@ assembly/globals.ts:194:24
+       ;;@ assembly/globals.ts:195:24
        (i64.xor
         (get_local $1)
         (i64.const -1)
        )
       )
-      ;;@ assembly/globals.ts:194:33
+      ;;@ assembly/globals.ts:195:33
       (i64.and
        ;;@ assembly/integer/u128.ts:648:20
        (i64.load
@@ -2733,13 +2736,13 @@
      )
     )
    )
-   ;;@ assembly/globals.ts:194:48
+   ;;@ assembly/globals.ts:195:48
    (i32.and
-    ;;@ assembly/globals.ts:194:49
+    ;;@ assembly/globals.ts:195:49
     (i32.wrap/i64
      (get_local $1)
     )
-    ;;@ assembly/globals.ts:194:61
+    ;;@ assembly/globals.ts:195:61
     (i32.const 64)
    )
   )
@@ -2747,59 +2750,60 @@
  (func $assembly/integer/u128/u128.ctz (; 39 ;) (; has Stack IR ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
   (local $2 i64)
-  ;;@ assembly/globals.ts:201:63
+  ;;@ assembly/globals.ts:203:63
   (i32.add
-   ;;@ assembly/globals.ts:201:9
+   ;;@ assembly/globals.ts:203:9
    (i32.wrap/i64
     (i64.ctz
-     ;;@ assembly/globals.ts:201:18
+     ;;@ assembly/globals.ts:203:18
      (i64.or
       (i64.and
        ;;@ assembly/integer/u128.ts:658:30
        (i64.load offset=8
         (get_local $0)
        )
-       ;;@ assembly/globals.ts:200:2
-       (tee_local $1
-        ;;@ assembly/globals.ts:200:18
-        (i64.sub
-         (i64.const 0)
-         ;;@ assembly/globals.ts:200:19
-         (i64.extend_u/i32
-          ;;@ assembly/globals.ts:200:26
-          (i64.eq
-           (tee_local $2
-            ;;@ assembly/integer/u128.ts:658:20
-            (i64.load
-             (get_local $0)
-            )
+       ;;@ assembly/globals.ts:202:2
+       (tee_local $2
+        ;;@ assembly/globals.ts:202:18
+        (i64.shr_s
+         (i64.xor
+          (tee_local $1
+           ;;@ assembly/integer/u128.ts:658:20
+           (i64.load
+            (get_local $0)
            )
-           ;;@ assembly/globals.ts:200:32
-           (i64.const 0)
+          )
+          ;;@ assembly/globals.ts:202:29
+          (i64.sub
+           (get_local $1)
+           ;;@ assembly/globals.ts:202:35
+           (i64.const 1)
           )
          )
+         ;;@ assembly/globals.ts:202:42
+         (i64.const 63)
         )
        )
       )
-      ;;@ assembly/globals.ts:201:32
+      ;;@ assembly/globals.ts:203:32
       (i64.and
-       (get_local $2)
-       ;;@ assembly/globals.ts:201:38
+       (get_local $1)
+       ;;@ assembly/globals.ts:203:38
        (i64.xor
-        (get_local $1)
+        (get_local $2)
         (i64.const -1)
        )
       )
      )
     )
    )
-   ;;@ assembly/globals.ts:201:48
+   ;;@ assembly/globals.ts:203:48
    (i32.and
-    ;;@ assembly/globals.ts:201:49
+    ;;@ assembly/globals.ts:203:49
     (i32.wrap/i64
-     (get_local $1)
+     (get_local $2)
     )
-    ;;@ assembly/globals.ts:201:61
+    ;;@ assembly/globals.ts:203:61
     (i32.const 64)
    )
   )
