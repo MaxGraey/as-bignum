@@ -26,7 +26,7 @@ export class i128 {
 
   @inline
   static fromString(value: string, radix: i32 = 0): i128 {
-    return atou128(value, radix).toI128();
+    return this.fromU128(atou128(value, radix));
   }
 
   @inline
@@ -36,7 +36,7 @@ export class i128 {
 
   @inline
   static fromU256(value: u256): i128 {
-    return new i128(<i64>value.lo1, <i64>value.lo2);
+    return new i128(value.lo1, <i64>value.lo2);
   }
 
   @inline
@@ -46,17 +46,17 @@ export class i128 {
 
   @inline
   static fromU128(value: u128): i128 {
-    return new i128(<i64>value.lo, <i64>value.hi);
+    return new i128(value.lo, <i64>value.hi);
   }
 
   @inline
   static fromI64(value: i64): i128 {
-    return new i128(value, value >> 63);
+    return new i128(<u64>value, value >> 63);
   }
 
   @inline
   static fromU64(value: u64): i128 {
-    return new i128(<i64>value);
+    return new i128(value);
   }
 
   // TODO need improvement
@@ -70,12 +70,12 @@ export class i128 {
   // max safe int for f32 actually 23-bits
   @inline
   static fromF32(value: f32): i128 {
-    return new i128(<i64>value, -(<i64>(value < 0)));
+    return new i128(<u64>value, -(<i64>(value < 0)));
   }
 
   @inline
   static fromI32(value: i32): i128 {
-    return new i128(<i64>value, <i64>value >> 63);
+    return new i128(<u64>value, <i64>value >> 63);
   }
 
   @inline
@@ -86,7 +86,7 @@ export class i128 {
   @inline
   static fromBits(lo1: i32, lo2: i32, hi1: i32, hi2: i32): i128 {
     return new i128(
-      <i64>lo1 | ((<i64>lo2) << 32),
+      <u64>lo1 | ((<u64>lo2) << 32),
       <i64>hi1 | ((<i64>hi2) << 32),
     );
   }
@@ -99,7 +99,7 @@ export class i128 {
   static fromBytesLE(array: u8[]): i128 {
     assert(array.length == 16);
 
-    var lo: i64 = 0, hi: i64 = 0;
+    var lo: u64 = 0, hi: i64 = 0;
     for (let i = 0; i <  8; ++i) lo |= unchecked(array[i]) << (i << 3);
     for (let i = 8; i < 16; ++i) hi |= unchecked(array[i]) << (i << 3);
 
@@ -109,7 +109,7 @@ export class i128 {
   static fromBytesBE(array: u8[]): i128 {
     assert(array.length == 16);
 
-    var lo: i64 = 0, hi: i64 = 0;
+    var lo: u64 = 0, hi: i64 = 0;
     for (let i = 0; i <  8; ++i) hi |= unchecked(array[i]) << ((7  - i) << 3);
     for (let i = 8; i < 16; ++i) lo |= unchecked(array[i]) << ((15 - i) << 3);
 
@@ -143,7 +143,7 @@ export class i128 {
   }
 
   constructor(
-    public lo: i64 = 0,
+    public lo: u64 = 0,
     public hi: i64 = 0,
   ) {}
 
@@ -259,17 +259,17 @@ export class i128 {
 
   @inline @operator('<=')
   static le(a: i128, b: i128): bool {
-    return !u128.gt(a, b);
+    return !i128.gt(a, b);
   }
 
   @inline @operator('>=')
   static ge(a: i128, b: i128): bool {
-    return !u128.lt(a, b);
+    return !i128.lt(a, b);
   }
 
   @inline
   static cmp(a: i128, b: i128): i32 {
-    var dlo = a.lo - b.lo;
+    var dlo = (a.lo - b.lo) as i64;
     var dhi = a.hi - b.hi;
     // return <i32>(dhi != 0 ? dhi : dlo);
     return <i32>select<i64>(dhi, dlo, dhi != 0);
