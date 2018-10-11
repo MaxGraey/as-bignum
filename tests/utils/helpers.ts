@@ -75,7 +75,8 @@ function buildImports(name: string, memory: WebAssembly.Memory): { [key: string]
         } else {
           throw new Error(`Abort called at ${ getString(filePtr, buffer) } [${ line }:${ column }]`);
         }
-      }
+      },
+      // _setargc(...args: any[]): void {}
     },
     [name]: {
       logF64(value: number) {

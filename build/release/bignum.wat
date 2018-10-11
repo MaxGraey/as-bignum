@@ -15,18 +15,12 @@
  (type $iF (func (param i32) (result f64)))
  (type $if (func (param i32) (result f32)))
  (type $iiiiiiiii (func (param i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
+ (type $v (func))
  (type $iv (func (param i32)))
  (type $iIv (func (param i32 i64)))
  (type $FUNCSIG$vjjjj (func (param i64 i64 i64 i64)))
  (type $FUNCSIG$vjj (func (param i64 i64)))
  (type $FUNCSIG$ii (func (param i32) (result i32)))
- (import "env" "abort" (func $~lib/env/abort (param i32 i32 i32 i32)))
- (global $assembly/globals/__divmod_quot_lo (mut i64) (i64.const 0))
- (global $assembly/globals/__divmod_quot_hi (mut i64) (i64.const 0))
- (global $assembly/globals/__divmod_rem (mut i64) (i64.const 0))
- (global $assembly/globals/__res128_lo (mut i64) (i64.const 0))
- (global $assembly/globals/__res128_hi (mut i64) (i64.const 0))
- (global $~argc (mut i32) (i32.const 0))
  (memory $0 1)
  (data (i32.const 8) "\10\00\00\000\001\002\003\004\005\006\007\008\009\00a\00b\00c\00d\00e\00f")
  (data (i32.const 48) "\a0\00\00\00\00\00\00\00\01\00\00\00\00\00\00\00\n\00\00\00\00\00\00\00d\00\00\00\00\00\00\00\e8\03\00\00\00\00\00\00\10\'\00\00\00\00\00\00\a0\86\01\00\00\00\00\00@B\0f\00\00\00\00\00\80\96\98\00\00\00\00\00\00\e1\f5\05\00\00\00\00\00\ca\9a;\00\00\00\00\00\e4\0bT\02\00\00\00\00\e8vH\17\00\00\00\00\10\a5\d4\e8\00\00\00\00\a0rN\18\t\00\00\00@z\10\f3Z\00\00\00\80\c6\a4~\8d\03\00\00\00\c1o\f2\86#\00\00\00\8a]xEc\01\00\00d\a7\b3\b6\e0\0d\00\00\e8\89\04#\c7\8a")
@@ -45,7 +39,17 @@
  (data (i32.const 1216) "\04\00\00\00n\00u\00l\00l")
  (data (i32.const 1232) "\1b\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s")
  (data (i32.const 1296) "\t\00\00\00u\00n\00d\00e\00f\00i\00n\00e\00d")
+ (table 1 anyfunc)
+ (elem (i32.const 0) $null)
+ (import "env" "abort" (func $~lib/env/abort (param i32 i32 i32 i32)))
+ (global $assembly/globals/__divmod_quot_lo (mut i64) (i64.const 0))
+ (global $assembly/globals/__divmod_quot_hi (mut i64) (i64.const 0))
+ (global $assembly/globals/__divmod_rem (mut i64) (i64.const 0))
+ (global $assembly/globals/__res128_lo (mut i64) (i64.const 0))
+ (global $assembly/globals/__res128_hi (mut i64) (i64.const 0))
+ (global $~argc (mut i32) (i32.const 0))
  (export "memory" (memory $0))
+ (export "table" (table $0))
  (export "u128.get:Zero" (func $assembly/integer/u128/u128.get:Zero))
  (export "u128.get:One" (func $assembly/integer/u128/u128.get:Zero))
  (export "u128.get:Min" (func $assembly/integer/u128/u128.get:Zero))
@@ -635,7 +639,7 @@
   (if
    ;;@ assembly/integer/u128.ts:154:11
    (i32.ne
-    ;;@ ~lib/array.ts:37:16
+    ;;@ ~lib/array.ts:51:16
     (i32.load offset=4
      (get_local $0)
     )
@@ -920,7 +924,7 @@
   (if
    ;;@ assembly/integer/u128.ts:131:11
    (i32.ne
-    ;;@ ~lib/array.ts:37:16
+    ;;@ ~lib/array.ts:51:16
     (i32.load offset=4
      (get_local $0)
     )
@@ -3247,27 +3251,27 @@
   (unreachable)
  )
  (func $~lib/array/Array<u8>#constructor (; 58 ;) (; has Stack IR ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
-  ;;@ ~lib/array.ts:23:4
+  ;;@ ~lib/array.ts:37:4
   (if
-   ;;@ ~lib/array.ts:23:8
+   ;;@ ~lib/array.ts:37:8
    (i32.gt_u
     (get_local $0)
-    ;;@ ~lib/array.ts:23:22
+    ;;@ ~lib/array.ts:37:22
     (i32.const 1073741816)
    )
-   ;;@ ~lib/array.ts:23:39
+   ;;@ ~lib/array.ts:37:39
    (block
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 960)
-     (i32.const 23)
+     (i32.const 37)
      (i32.const 39)
     )
     (unreachable)
    )
   )
   (drop
-   ;;@ ~lib/array.ts:25:17
+   ;;@ ~lib/array.ts:39:17
    (call $~lib/internal/arraybuffer/allocateUnsafe
     (get_local $0)
    )
@@ -5575,7 +5579,10 @@
   )
   (get_local $0)
  )
- (func $assembly/integer/u128/u128.fromString|trampoline (; 85 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $null (; 85 ;) (; has Stack IR ;) (type $v)
+  (nop)
+ )
+ (func $assembly/integer/u128/u128.fromString|trampoline (; 86 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange
@@ -5598,12 +5605,12 @@
    (get_local $1)
   )
  )
- (func $~setargc (; 86 ;) (; has Stack IR ;) (type $iv) (param $0 i32)
+ (func $~setargc (; 87 ;) (; has Stack IR ;) (type $iv) (param $0 i32)
   (set_global $~argc
    (get_local $0)
   )
  )
- (func $assembly/integer/u128/u128.fromBytes|trampoline (; 87 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.fromBytes|trampoline (; 88 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange
@@ -5636,7 +5643,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128#constructor|trampoline (; 88 ;) (; has Stack IR ;) (type $iIIi) (param $0 i32) (param $1 i64) (param $2 i64) (result i32)
+ (func $assembly/integer/u128/u128#constructor|trampoline (; 89 ;) (; has Stack IR ;) (type $iIIi) (param $0 i32) (param $1 i64) (param $2 i64) (result i32)
   (local $3 i32)
   (block $2of2
    (block $1of2
@@ -5660,24 +5667,24 @@
   )
   (get_local $3)
  )
- (func $u128#set:lo (; 89 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u128#set:lo (; 90 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
   (i64.store
    (get_local $0)
    (get_local $1)
   )
  )
- (func $u128#get:hi (; 90 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
+ (func $u128#get:hi (; 91 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
   (i64.load offset=8
    (get_local $0)
   )
  )
- (func $u128#set:hi (; 91 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u128#set:hi (; 92 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
   (i64.store offset=8
    (get_local $0)
    (get_local $1)
   )
  )
- (func $assembly/integer/u128/u128#toBytes|trampoline (; 92 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128#toBytes|trampoline (; 93 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange
@@ -5707,7 +5714,7 @@
    )
   )
  )
- (func $assembly/integer/u128/u128#toString|trampoline (; 93 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128#toString|trampoline (; 94 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange
@@ -5727,7 +5734,7 @@
    (get_local $1)
   )
  )
- (func $assembly/integer/u256/u256#constructor|trampoline (; 94 ;) (; has Stack IR ;) (type $iIIIIi) (param $0 i32) (param $1 i64) (param $2 i64) (param $3 i64) (param $4 i64) (result i32)
+ (func $assembly/integer/u256/u256#constructor|trampoline (; 95 ;) (; has Stack IR ;) (type $iIIIIi) (param $0 i32) (param $1 i64) (param $2 i64) (param $3 i64) (param $4 i64) (result i32)
   (local $5 i32)
   (block $4of4
    (block $3of4
@@ -5755,29 +5762,29 @@
   )
   (get_local $5)
  )
- (func $u256#get:hi1 (; 95 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
+ (func $u256#get:hi1 (; 96 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
   (i64.load offset=16
    (get_local $0)
   )
  )
- (func $u256#set:hi1 (; 96 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u256#set:hi1 (; 97 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
   (i64.store offset=16
    (get_local $0)
    (get_local $1)
   )
  )
- (func $u256#get:hi2 (; 97 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
+ (func $u256#get:hi2 (; 98 ;) (; has Stack IR ;) (type $iI) (param $0 i32) (result i64)
   (i64.load offset=24
    (get_local $0)
   )
  )
- (func $u256#set:hi2 (; 98 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u256#set:hi2 (; 99 ;) (; has Stack IR ;) (type $iIv) (param $0 i32) (param $1 i64)
   (i64.store offset=24
    (get_local $0)
    (get_local $1)
   )
  )
- (func $assembly/integer/u256/u256#toBytes|trampoline (; 99 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u256/u256#toBytes|trampoline (; 100 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   (block $1of1
    (block $0of1
     (block $outOfRange

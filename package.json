@@ -17,12 +17,12 @@
     "test:ci": "yarn build:test && ava --fail-fast"
   },
   "devDependencies": {
-    "@types/node": "^10.11.4",
-    "assemblyscript": "github:AssemblyScript/assemblyscript#af968177c8eade50df46bbbfc587b16146976b15",
+    "@types/node": "^10.11.7",
+    "assemblyscript": "github:AssemblyScript/assemblyscript#87ec6c59ce6f2bd156dcbd287f1457e66e5e92bc",
     "ava": "^1.0.0-beta.8",
     "ts-node": "^7.0.1",
-    "typedoc": "^0.12.0",
-    "typescript": "^3.1.1"
+    "typedoc": "^0.13.0",
+    "typescript": "^3.1.2"
   },
   "ava": {
     "compileEnhancements": true,
