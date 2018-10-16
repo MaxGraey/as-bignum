@@ -7,7 +7,7 @@ declare namespace WebAssembly {
    * WebAssembly.Module
    **/
   class Module {
-    constructor(bufferSource: ArrayBuffer | Uint8Array);
+    constructor(bufferSource: ArrayBuffer | ArrayBufferView<number>);
 
     static customSections(module: Module, sectionName: string): ArrayBuffer[];
     static exports(module: Module): { name: string, kind: string }[];
@@ -81,16 +81,16 @@ declare namespace WebAssembly {
     toString(): string;
   }
 
-  function compile(bufferSource: ArrayBuffer | Uint8Array): Promise<Module>;
+  function compile(bufferSource: ArrayBuffer | ArrayBufferView<number>): Promise<Module>;
 
   interface ResultObject {
     module: Module;
     instance: Instance;
   }
 
-  function instantiateStreaming(bufferSource: ArrayBuffer | Uint8Array, importObject?: any): Promise<ResultObject>;
-  function instantiate(bufferSource: ArrayBuffer | Uint8Array, importObject?: any): Promise<ResultObject>;
+  function instantiateStreaming(bufferSource: ArrayBuffer | ArrayBufferView<number>, importObject?: any): Promise<ResultObject>;
+  function instantiate(bufferSource: ArrayBuffer | ArrayBufferView<number>, importObject?: any): Promise<ResultObject>;
   function instantiate(module: Module, importObject?: any): Promise<Instance>;
 
-  function validate(bufferSource: ArrayBuffer | Uint8Array): boolean;
+  function validate(bufferSource: ArrayBuffer | ArrayBufferView<number>): boolean;
 }
