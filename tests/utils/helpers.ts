@@ -1,8 +1,13 @@
+/// <reference path="../types/webassembly/index.d.ts" />
+
 import * as fs   from 'fs';
 import * as path from 'path';
 import * as util from 'util';
 
 import { demangle } from 'assemblyscript/lib/loader';
+
+const DIGITALS_REGEXP     = /([0-9]{1,})/g;
+const UPPER_ALPHAS_REGEXP = /([A-Z]{1,})/g;
 
 export type ExportedEntry   = { [key: string]: Function };
 export type ExportedEntries = { [key: string]: ExportedEntry };
@@ -12,15 +17,14 @@ const readFile = util.promisify(fs.readFile);
 const F64 = new Float64Array(1);
 const U64 = new Uint32Array(F64.buffer);
 
-
 export function isThrowable(name: string): boolean {
   return name.toLowerCase().includes('throwable');
 }
 
 export function decamelize(str: string): string {
   const t = str
-    .replace(/([0-9]{1,})/g, ' $1')
-    .replace(/([A-Z]{1,})/g, m => ' ' + (m.length === 1 ? m.toLowerCase() : m));
+    .replace(DIGITALS_REGEXP, ' $1')
+    .replace(UPPER_ALPHAS_REGEXP, m => ' ' + (m.length === 1 ? m.toLowerCase() : m));
   return t.charAt(0).toUpperCase() + t.slice(1);
 }
 
@@ -76,7 +80,6 @@ function buildImports(name: string, memory: WebAssembly.Memory): { [key: string]
           throw new Error(`Abort called at ${ getString(filePtr, buffer) } [${ line }:${ column }]`);
         }
       },
-      // _setargc(...args: any[]): void {}
     },
     [name]: {
       logF64(value: number) {
