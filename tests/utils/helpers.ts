@@ -9,6 +9,7 @@ import { demangle } from 'assemblyscript/lib/loader';
 const DIGITALS_REGEXP     = /([0-9]{1,})/g;
 const UPPER_ALPHAS_REGEXP = /([A-Z]{1,})/g;
 
+export type ImportEntries   = { [key: string]: object };
 export type ExportedEntry   = { [key: string]: Function };
 export type ExportedEntries = { [key: string]: ExportedEntry };
 
@@ -66,7 +67,7 @@ function getString(ptr: number, buffer: ArrayBuffer): string {
   return parts.join('') + String.fromCharCode.apply(String, U16.subarray(dataOffset, dataOffset + dataRemain));
 }
 
-function buildImports(name: string, memory: WebAssembly.Memory): { [key: string]: object } {
+function buildImports(name: string, memory: WebAssembly.Memory): ImportEntries {
   const buffer = memory.buffer;
   return {
     env: {
