@@ -61,3 +61,43 @@ export class u120 {
 }
 
 // u128
+
+export class u136 {
+  private _0: u120
+  private _1: u16
+}
+
+export class u144 {
+  private _0: u136
+  private _1: u8
+}
+
+export class u152 {
+  private _0: u144
+  private _1: u8
+}
+
+export class u160 {
+  private _0: u152
+  private _1: u8
+}
+
+export class u168 {
+  private _0: u160
+  private _1: u8
+}
+
+export class u176 {
+  private _0: u168
+  private _1: u8
+}
+
+export class u184 {
+  private _0: u176
+  private _1: u8
+}
+
+export class u192 {
+  private _0: u184
+  private _1: u8
+}

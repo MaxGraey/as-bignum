@@ -192,7 +192,7 @@
   (unreachable)
  )
  (func $~lib/string/String#charCodeAt (; 2 ;) (; has Stack IR ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
-  ;;@ ~lib/string.ts:71:4
+  ;;@ ~lib/string.ts:75:4
   (if
    (i32.eqz
     (get_local $0)
@@ -201,37 +201,37 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 352)
-     (i32.const 71)
+     (i32.const 75)
      (i32.const 4)
     )
     (unreachable)
    )
   )
-  ;;@ ~lib/string.ts:72:4
+  ;;@ ~lib/string.ts:76:4
   (if
-   ;;@ ~lib/string.ts:72:8
+   ;;@ ~lib/string.ts:76:8
    (i32.ge_u
     (get_local $1)
-    ;;@ ~lib/string.ts:72:20
+    ;;@ ~lib/string.ts:76:20
     (i32.load
      (get_local $0)
     )
    )
-   ;;@ ~lib/string.ts:72:46
+   ;;@ ~lib/string.ts:76:46
    (return
-    ;;@ ~lib/string.ts:72:45
+    ;;@ ~lib/string.ts:76:45
     (i32.const -1)
    )
   )
-  ;;@ ~lib/string.ts:77:4
+  ;;@ ~lib/string.ts:81:4
   (i32.load16_u offset=4
-   ;;@ ~lib/string.ts:75:6
+   ;;@ ~lib/string.ts:79:6
    (i32.add
     (get_local $0)
-    ;;@ ~lib/string.ts:75:32
+    ;;@ ~lib/string.ts:79:32
     (i32.shl
      (get_local $1)
-     ;;@ ~lib/string.ts:75:47
+     ;;@ ~lib/string.ts:79:47
      (i32.const 1)
     )
    )
