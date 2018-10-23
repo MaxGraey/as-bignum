@@ -17,10 +17,10 @@ import {
   u144,
   u152,
   u160,
-  u168,
-  u176,
-  u184,
-  u192,
+  //u168,
+  //u176,
+  //u184,
+  //u192,
 } from './types';
 
 export { fp128, fp256 };
@@ -35,8 +35,8 @@ export class fixed128x56 extends fp128<u56> {}
 export class fixed128x64 extends fp128<u64> {}
 export class fixed128x72 extends fp128<u72> {}
 export class fixed128x80 extends fp128<u80> {}
-export class fixed128x88 extends fp128<u88> {}
-export class fixed128x96 extends fp128<u96> {}
+// export class fixed128x88 extends fp128<u88> {}
+// export class fixed128x96 extends fp128<u96> {}
 
 export class fixed256x8   extends fp256<u8> {}
 export class fixed256x16  extends fp256<u16> {}
@@ -58,7 +58,7 @@ export class fixed256x136 extends fp256<u136> {}
 export class fixed256x144 extends fp256<u144> {}
 export class fixed256x152 extends fp256<u152> {}
 export class fixed256x160 extends fp256<u160> {}
-export class fixed256x168 extends fp256<u168> {}
-export class fixed256x176 extends fp256<u176> {}
-export class fixed256x184 extends fp256<u184> {}
-export class fixed256x192 extends fp256<u192> {}
+// export class fixed256x168 extends fp256<u168> {}
+// export class fixed256x176 extends fp256<u176> {}
+// export class fixed256x184 extends fp256<u184> {}
+// export class fixed256x192 extends fp256<u192> {}

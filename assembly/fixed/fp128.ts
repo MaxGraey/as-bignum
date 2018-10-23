@@ -25,7 +25,7 @@ export class fp128<Q> {
 
   protected value: i128 = i128.Zero;
 
-  constructor(lo: i64 = 0, hi: i64 = 0) {
+  constructor(lo: u64 = 0, hi: i64 = 0) {
     this.value.lo = lo;
     this.value.hi = hi;
   }
@@ -44,12 +44,10 @@ export class fp128<Q> {
     }
   }
 
-  /*
   @inline
   get int(): i128 {
-    return this.value >> this.fractBits;
+    return this.value >>> this.fractBits;
   }
-  */
 
   @inline
   get fract(): u128 {

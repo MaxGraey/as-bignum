@@ -201,8 +201,8 @@ export class i128 {
     // need for preventing redundant i32 -> u64 extends
     var shift64: i64 = shift;
 
-    var mod1: i64 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
-    var mod2: i64 = (shift64 >> 6) - 1;
+    var mod1: i64 = ((((shift64 + 127) | shift64) & 64) >>> 6) - 1;
+    var mod2: i64 = (shift64 >>> 6) - 1;
 
     shift64 &= 63;
 
@@ -213,6 +213,27 @@ export class i128 {
     hi |= ((value.hi << shift64) | ((vl >>> (64 - shift64)) & mod1)) & mod2;
 
     return new i128(lo & mod2, hi);
+  }
+
+  @inline @operator('>>>')
+  static shr_u(value: i128, shift: i32): i128 {
+    shift &= 127;
+
+    // need for preventing redundant i32 -> u64 extends
+    var shift64: i64 = shift;
+
+    var mod1: i64 = ((((shift64 + 127) | shift64) & 64) >>> 6) - 1;
+    var mod2: i64 = (shift64 >>> 6) - 1;
+
+    shift64 &= 63;
+
+    var vh = value.hi;
+    var hi = vh >>> shift64;
+    var lo = hi & ~mod2;
+
+    lo |= ((value.lo >>> shift64) | ((vh << (64 - shift64)) & mod1)) & mod2;
+
+    return new i128(lo, hi & mod2);
   }
 
   @inline @operator('+')
