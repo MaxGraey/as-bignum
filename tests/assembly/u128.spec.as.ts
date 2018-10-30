@@ -473,6 +473,18 @@ export class BasicOperationsTests {
     --a;
     return a == new u128(0xFFFFFFFFFFFFFFFF, 0);
   }
+
+  static shouldPostfixIncrementNumber(): bool {
+    var a = new u128(0xFFFFFFFFFFFFFFFF, 0);
+    var t = a++;
+    return t == new u128(0xFFFFFFFFFFFFFFFF, 0) && a == new u128(0, 1);
+  }
+
+  static shouldPostfixDecrementNumber(): bool {
+    var a = new u128(0, 1);
+    var t = a--;
+    return t == new u128(0, 1) && a == new u128(0xFFFFFFFFFFFFFFFF, 0);
+  }
 }
 
 export class ExponentionOperationTests {

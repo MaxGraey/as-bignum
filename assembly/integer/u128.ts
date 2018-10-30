@@ -286,8 +286,15 @@ export class u128 {
     return this;
   }
 
-  // TODO @inline @operator.postfix('++')
-  // TODO @inline @operator.postfix('--')
+  @inline @operator.postfix('++')
+  postInc(): u128 {
+    return this.clone().preInc();
+  }
+
+  @inline @operator.postfix('--')
+  postDec(): u128 {
+    return this.clone().preDec();
+  }
 
   @inline @operator.prefix('!')
   static isEmpty(value: u128): bool {
