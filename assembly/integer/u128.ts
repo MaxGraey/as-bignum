@@ -577,6 +577,7 @@ export class u128 {
     return result;
   }
 
+  // compute floor(sqrt(x))
   static sqrt(value: u128): u128 {
     if (value <= u128.One)    return value;
     if (value <= new u128(3)) return u128.One;

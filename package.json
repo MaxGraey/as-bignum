@@ -7,22 +7,22 @@
   "license": "Apache-2.0",
   "scripts": {
     "build:debug": "npx asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --sourceMap --validate",
-    "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate --optimize --noDebug",
+    "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate",
     "build:wasm": "yarn build:debug && yarn build:release",
-    "build:test:u128": "npx asc tests/assembly/u128.spec.as.ts -b tests/build/u128.wasm -t tests/build/u128.wat --validate --sourceMap --importMemory",
-    "build:test:safe_u128": "npx asc tests/assembly/safe_u128.spec.as.ts -b tests/build/safe_u128.wasm -t tests/build/safe_u128.wat --validate --sourceMap --importMemory",
+    "build:test:u128": "npx asc tests/assembly/u128.spec.as.ts -b tests/build/u128.wasm -t tests/build/u128.wat --validate --sourceMap --importMemory --debug",
+    "build:test:safe_u128": "npx asc tests/assembly/safe_u128.spec.as.ts -b tests/build/safe_u128.wasm -t tests/build/safe_u128.wat --validate --sourceMap --importMemory --debug",
     "build:test": "yarn build:test:u128 && yarn build:test:safe_u128",
     "build": "yarn build:wasm",
     "test": "yarn build:test && ava -v",
     "test:ci": "yarn build:test && ava --fail-fast"
   },
   "devDependencies": {
-    "@types/node": "^10.12.0",
-    "assemblyscript": "github:AssemblyScript/assemblyscript#2062caef2c3a600e88f7acee877ba3bb43ec2048",
+    "@types/node": "^10.12.3",
+    "assemblyscript": "github:AssemblyScript/assemblyscript#63b64ba69ea6dfff2a5b45867eb7dbc26bf609d8",
     "ava": "^1.0.0-rc.1",
     "ts-node": "^7.0.1",
     "typedoc": "^0.13.0",
-    "typescript": "^3.1.3"
+    "typescript": "^3.1.6"
   },
   "ava": {
     "compileEnhancements": true,
