@@ -28,9 +28,7 @@ or
 import "allocator/arena";
 import { u128 } from "../node_modules/bignum.wasm/assembly/index";
 
-declare namespace console {
-  function logf(value: f64): void;
-}
+declare function logf(value: f64): void;
 
 var a = u128.One;
 var b = u128.from(-32); // same as u128.from<i32>(-32)
@@ -40,7 +38,7 @@ var e = u128.from('0x0123456789ABCDEF01234567');
 var f = u128.fromString('11100010101100101', 2); // same as u128.from('0b11100010101100101')
 var r = d / c + (b << 5) + e;
 
-console.logf(r.as<f64>());
+logf(r.as<f64>());
 ```
 
 ### Usage via JavaScript/Typescript
