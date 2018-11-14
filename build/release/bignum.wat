@@ -469,10 +469,20 @@
   i64.rotr
  )
  (func $assembly/integer/u128/u128.fromBytesBE (; 12 ;) (type $ii) (param $0 i32) (result i32)
+  (local $1 i32)
   get_local $0
   i32.load offset=4
-  i32.const 16
-  i32.ne
+  tee_local $1
+  if
+   get_local $0
+   i32.load offset=4
+   i32.const 15
+   i32.and
+   i32.eqz
+   set_local $1
+  end
+  get_local $1
+  i32.eqz
   if
    i32.const 0
    i32.const 904
@@ -496,10 +506,20 @@
   unreachable
  )
  (func $assembly/integer/u128/u128.fromBytesLE (; 13 ;) (type $ii) (param $0 i32) (result i32)
+  (local $1 i32)
   get_local $0
   i32.load offset=4
-  i32.const 16
-  i32.ne
+  tee_local $1
+  if
+   get_local $0
+   i32.load offset=4
+   i32.const 15
+   i32.and
+   i32.eqz
+   set_local $1
+  end
+  get_local $1
+  i32.eqz
   if
    i32.const 0
    i32.const 904

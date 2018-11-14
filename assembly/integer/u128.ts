@@ -130,7 +130,7 @@ export class u128 {
   }
 
   static fromBytesLE(array: u8[]): u128 {
-    assert(array.length == 16);
+    assert(array.length && (array.length & 15) == 0);
     var buffer = <ArrayBuffer>array.buffer_;
     return new u128(
       loadUnsafe<u64,u64>(buffer, 0),
@@ -139,7 +139,7 @@ export class u128 {
   }
 
   static fromBytesBE(array: u8[]): u128 {
-    assert(array.length == 16);
+    assert(array.length && (array.length & 15) == 0);
     var buffer = <ArrayBuffer>array.buffer_;
     return new u128(
       bswap<u64>(loadUnsafe<u64,u64>(buffer, 1)),

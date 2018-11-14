@@ -96,48 +96,20 @@ import { isPowerOverflow128 } from '../../utils';
     }
 
     static fromBytesLE(array: u8[]): u128 {
-      assert(array.length == 16);
+      assert(array.length && (array.length & 15) == 0);
+      var buffer = <ArrayBuffer>array.buffer_;
       return new u128(
-        <u64>unchecked(array[0]) <<  0 |
-        <u64>unchecked(array[1]) <<  8 |
-        <u64>unchecked(array[2]) << 16 |
-        <u64>unchecked(array[3]) << 24 |
-        <u64>unchecked(array[4]) << 32 |
-        <u64>unchecked(array[5]) << 40 |
-        <u64>unchecked(array[6]) << 48 |
-        <u64>unchecked(array[7]) << 56,
-
-        <u64>unchecked(array[8])  <<  0 |
-        <u64>unchecked(array[9])  <<  8 |
-        <u64>unchecked(array[10]) << 16 |
-        <u64>unchecked(array[11]) << 24 |
-        <u64>unchecked(array[12]) << 32 |
-        <u64>unchecked(array[13]) << 40 |
-        <u64>unchecked(array[14]) << 48 |
-        <u64>unchecked(array[15]) << 56,
+        loadUnsafe<u64,u64>(buffer, 0),
+        loadUnsafe<u64,u64>(buffer, 1)
       );
     }
 
     static fromBytesBE(array: u8[]): u128 {
-      assert(array.length == 16);
+      assert(array.length && (array.length & 15) == 0);
+      var buffer = <ArrayBuffer>array.buffer_;
       return new u128(
-        <u64>unchecked(array[8])  << 56 |
-        <u64>unchecked(array[9])  << 48 |
-        <u64>unchecked(array[10]) << 40 |
-        <u64>unchecked(array[11]) << 32 |
-        <u64>unchecked(array[12]) << 24 |
-        <u64>unchecked(array[13]) << 16 |
-        <u64>unchecked(array[14]) <<  8 |
-        <u64>unchecked(array[15]) <<  0,
-
-        <u64>unchecked(array[0]) << 56 |
-        <u64>unchecked(array[1]) << 48 |
-        <u64>unchecked(array[2]) << 40 |
-        <u64>unchecked(array[3]) << 32 |
-        <u64>unchecked(array[4]) << 24 |
-        <u64>unchecked(array[5]) << 16 |
-        <u64>unchecked(array[6]) <<  8 |
-        <u64>unchecked(array[7]) <<  0,
+        bswap<u64>(loadUnsafe<u64,u64>(buffer, 1)),
+        bswap<u64>(loadUnsafe<u64,u64>(buffer, 0))
       );
     }
 
