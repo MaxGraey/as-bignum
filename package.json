@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@types/node": "^10.12.3",
-    "assemblyscript": "github:AssemblyScript/assemblyscript#63b64ba69ea6dfff2a5b45867eb7dbc26bf609d8",
+    "assemblyscript": "github:AssemblyScript/assemblyscript#b723ff3e88c1fd8c48a4fe62fbc8307f59f1b56d",
     "ava": "^1.0.0-rc.1",
     "ts-node": "^7.0.1",
     "typedoc": "^0.13.0",
