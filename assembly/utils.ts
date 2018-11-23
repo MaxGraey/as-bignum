@@ -75,8 +75,8 @@ function maxBaseForExponent128(): u64[] {
 
 // Use LUT wrapped by function for lazy compilation
 @inline
-function radixCharsTable(): u32[] {
-  const table: u32[] = [
+function radixCharsTable(): u8[] {
+  const table: u8[] = [
      0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 36, 36, 36, 36, 36, 36,
     36, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
     25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 36, 36, 36, 36,
@@ -188,7 +188,7 @@ export function atou128(str: string, radix: i32 = 0): u128 {
       if (n > <u32>(CharCode.z - CharCode._0)) break;
 
       let num = table[n];
-      if (num >= <u32>radix) break;
+      if (num >= <u8>radix) break;
 
       result *= radix128;
       result += u128.fromU64(num);
@@ -215,22 +215,10 @@ export function atou128(str: string, radix: i32 = 0): u128 {
       }
       case 16: {
         do {
-          /*
           let n: u32 = str.charCodeAt(index) - CharCode._0;
           if (n > <u32>(CharCode.z - CharCode._0)) break;
 
           let num = table[n];
-          if (num >= 16) break;
-          */
-
-          let num: u32 = str.charCodeAt(index);
-          if (num - CharCode._0 <= 9) {
-            num -= <u32>CharCode._0;
-          } else if (num - 0x61 <= 5) {
-            num -= 0x61 - 10;
-          } else if (num - 0x41 <= 5) {
-            num -= 0x41 - 10;
-          }
           if (num >= 16) break;
 
           result <<= 4;
@@ -245,7 +233,7 @@ export function atou128(str: string, radix: i32 = 0): u128 {
           if (n > <u32>(CharCode.z - CharCode._0)) break;
 
           let num = table[n];
-          if (num >= <u32>radix) break;
+          if (num >= <u8>radix) break;
 
           result *= radix128;
           result += u128.fromU64(num);
