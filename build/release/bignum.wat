@@ -213,10 +213,10 @@
    i32.const -1
    return
   end
-  get_local $0
   get_local $1
   i32.const 1
   i32.shl
+  get_local $0
   i32.add
   i32.load16_u offset=4
  )
@@ -226,11 +226,11 @@
   (local $6 i64)
   (local $7 i64)
   (local $8 i64)
-  get_local $0
+  get_local $2
   i64.const 4294967295
   i64.and
   tee_local $5
-  get_local $2
+  get_local $0
   i64.const 4294967295
   i64.and
   tee_local $6
@@ -243,7 +243,7 @@
   i64.const 32
   i64.shr_u
   tee_local $8
-  get_local $6
+  get_local $5
   i64.mul
   get_local $4
   i64.const 32
@@ -252,13 +252,12 @@
   tee_local $4
   i64.const 32
   i64.shr_u
-  set_local $6
-  get_local $7
-  get_local $5
+  set_local $5
+  get_local $6
   get_local $2
   i64.const 32
   i64.shr_u
-  tee_local $5
+  tee_local $6
   i64.mul
   get_local $4
   i64.const 4294967295
@@ -267,12 +266,13 @@
   tee_local $4
   i64.const 32
   i64.shl
+  get_local $7
   i64.add
   set_global $assembly/globals/__res128_lo
-  get_local $8
-  get_local $5
-  i64.mul
   get_local $6
+  get_local $8
+  i64.mul
+  get_local $5
   i64.add
   get_local $1
   get_local $2
@@ -639,7 +639,6 @@
   (local $5 i64)
   (local $6 i64)
   (local $7 i64)
-  (local $8 i64)
   get_local $1
   i32.const 127
   i32.and
@@ -652,12 +651,12 @@
   i64.const 128
   get_local $1
   i64.extend_s/i32
-  tee_local $4
+  tee_local $5
   i64.sub
   tee_local $2
+  get_local $2
   i64.const 127
   i64.add
-  get_local $2
   i64.or
   i64.const 64
   i64.and
@@ -674,51 +673,48 @@
   set_local $3
   get_local $0
   i64.load offset=8
-  tee_local $7
+  tee_local $4
   get_local $2
   i64.const 63
   i64.and
   tee_local $2
   i64.shr_u
-  tee_local $8
+  tee_local $7
   get_local $3
   i64.const -1
   i64.xor
   i64.and
-  tee_local $5
-  get_local $0
-  i64.load
-  tee_local $5
-  get_local $2
-  i64.shr_u
-  get_local $7
+  get_local $4
   i64.const 64
   get_local $2
   i64.sub
   i64.shl
   get_local $6
   i64.and
+  get_local $0
+  i64.load
+  tee_local $4
+  get_local $2
+  i64.shr_u
   i64.or
   get_local $3
   i64.and
   i64.or
   drop
-  get_local $4
-  set_local $2
   get_local $5
-  get_local $2
-  i64.const 63
-  i64.and
-  i64.shl
-  tee_local $4
+  set_local $2
   get_local $2
   i64.const 6
   i64.shr_u
   i64.const 1
   i64.sub
   tee_local $3
-  i64.const -1
-  i64.xor
+  get_local $4
+  get_local $2
+  i64.const 63
+  i64.and
+  i64.shl
+  tee_local $5
   i64.and
   drop
   unreachable
@@ -730,7 +726,6 @@
   (local $5 i64)
   (local $6 i64)
   (local $7 i64)
-  (local $8 i64)
   get_local $1
   i32.const 127
   i32.and
@@ -743,12 +738,12 @@
   i64.const 128
   get_local $1
   i64.extend_s/i32
-  tee_local $4
+  tee_local $5
   i64.sub
   tee_local $2
+  get_local $2
   i64.const 127
   i64.add
-  get_local $2
   i64.or
   i64.const 64
   i64.and
@@ -756,7 +751,7 @@
   i64.shr_u
   i64.const 1
   i64.sub
-  set_local $5
+  set_local $6
   get_local $2
   i64.const 6
   i64.shr_u
@@ -765,36 +760,35 @@
   set_local $3
   get_local $0
   i64.load
-  tee_local $6
+  tee_local $4
   get_local $2
   i64.const 63
   i64.and
   tee_local $2
   i64.shl
-  tee_local $8
+  tee_local $7
   get_local $3
   i64.const -1
   i64.xor
   i64.and
-  tee_local $7
-  get_local $0
-  i64.load offset=8
-  tee_local $7
-  get_local $2
-  i64.shl
-  get_local $6
+  get_local $4
   i64.const 64
   get_local $2
   i64.sub
   i64.shr_u
-  get_local $5
+  get_local $6
   i64.and
+  get_local $0
+  i64.load offset=8
+  tee_local $4
+  get_local $2
+  i64.shl
   i64.or
   get_local $3
   i64.and
   i64.or
   drop
-  get_local $4
+  get_local $5
   set_local $2
   get_local $2
   i64.const 6
@@ -805,9 +799,9 @@
   unreachable
  )
  (func $assembly/integer/u128/u128.add (; 22 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
-  get_local $0
-  i64.load
   get_local $1
+  i64.load
+  get_local $0
   i64.load
   i64.add
   drop
@@ -850,60 +844,60 @@
   (local $4 i64)
   (local $5 i32)
   (local $6 i32)
+  get_local $3
+  i64.const 1
+  i64.sub
+  get_local $3
+  i64.xor
+  i64.const 63
+  i64.shr_s
+  tee_local $4
+  i64.const -1
+  i64.xor
+  get_local $3
+  i64.and
+  get_local $2
+  get_local $4
+  i64.and
+  i64.or
+  i64.clz
+  i32.wrap/i64
+  get_local $4
+  i32.wrap/i64
+  i32.const 64
+  i32.and
+  i32.add
+  tee_local $6
+  i32.const 128
+  i32.eq
+  if
+   unreachable
+  end
+  get_local $2
+  i64.const 1
+  i64.sub
+  get_local $2
+  i64.xor
+  i64.const 63
+  i64.shr_s
+  tee_local $4
+  get_local $3
+  i64.and
+  get_local $4
+  i64.const -1
+  i64.xor
+  get_local $2
+  i64.and
+  i64.or
+  i64.ctz
+  i32.wrap/i64
+  get_local $4
+  i32.wrap/i64
+  i32.const 64
+  i32.and
+  i32.add
+  set_local $5
   block $folding-inner0
-   get_local $3
-   get_local $3
-   get_local $3
-   i64.const 1
-   i64.sub
-   i64.xor
-   i64.const 63
-   i64.shr_s
-   tee_local $4
-   i64.const -1
-   i64.xor
-   i64.and
-   get_local $2
-   get_local $4
-   i64.and
-   i64.or
-   i64.clz
-   i32.wrap/i64
-   get_local $4
-   i32.wrap/i64
-   i32.const 64
-   i32.and
-   i32.add
-   tee_local $6
-   i32.const 128
-   i32.eq
-   if
-    unreachable
-   end
-   get_local $3
-   get_local $2
-   get_local $2
-   i64.const 1
-   i64.sub
-   i64.xor
-   i64.const 63
-   i64.shr_s
-   tee_local $4
-   i64.and
-   get_local $2
-   get_local $4
-   i64.const -1
-   i64.xor
-   i64.and
-   i64.or
-   i64.ctz
-   i32.wrap/i64
-   get_local $4
-   i32.wrap/i64
-   i32.const 64
-   i32.and
-   i32.add
-   set_local $5
    get_local $0
    get_local $1
    i64.or
@@ -937,9 +931,9 @@
     i64.const 0
     set_global $assembly/globals/__divmod_quot_hi
     get_local $2
-    get_local $2
     i64.const 1
     i64.sub
+    get_local $2
     i64.and
     i64.eqz
     if
@@ -957,8 +951,8 @@
      tee_local $4
      set_global $assembly/globals/__divmod_quot_lo
      get_local $0
-     get_local $4
      get_local $2
+     get_local $4
      i64.mul
      i64.sub
      set_global $assembly/globals/__divmod_rem
@@ -970,9 +964,9 @@
    tee_local $5
    if
     get_local $3
-    get_local $3
     i64.const 1
     i64.sub
+    get_local $3
     i64.and
     i64.eqz
     set_local $5
@@ -1092,11 +1086,11 @@
   i64.const 4294967295
   i64.and
   set_local $5
+  get_local $1
   get_local $2
   i64.const 32
   i64.shr_u
   tee_local $2
-  get_local $1
   i64.mul
   tee_local $1
   get_local $3
@@ -1107,19 +1101,19 @@
   i64.const 32
   i64.shr_u
   set_local $4
-  get_local $2
-  get_local $2
-  i64.mul
-  get_local $4
-  get_local $1
   get_local $3
   i64.const 4294967295
   i64.and
+  get_local $1
   i64.add
   tee_local $3
   i64.const 32
   i64.shr_u
+  get_local $4
   i64.add
+  get_local $2
+  get_local $2
+  i64.mul
   i64.add
   set_local $1
   get_local $0
@@ -1133,12 +1127,12 @@
   i64.add
   i64.store
   get_local $0
-  get_local $1
   get_local $2
   get_local $4
   i64.mul
   i64.const 1
   i64.shl
+  get_local $1
   i64.add
   i64.store offset=8
   get_local $0
@@ -1251,8 +1245,6 @@
    i64.gt_u
   end
   tee_local $0
-  i32.const 1
-  i32.and
   i32.eqz
  )
  (func $assembly/integer/u128/u128.ge (; 36 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
@@ -1277,8 +1269,6 @@
    i64.lt_u
   end
   tee_local $0
-  i32.const 1
-  i32.and
   i32.eqz
  )
  (func $assembly/integer/u128/u128.cmp (; 37 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
@@ -1323,14 +1313,14 @@
   i64.const 63
   i64.shr_s
   set_local $1
-  get_local $2
   get_local $1
   i64.const -1
   i64.xor
+  get_local $2
   i64.and
+  get_local $1
   get_local $0
   i64.load
-  get_local $1
   i64.and
   i64.or
   i64.clz
@@ -1345,8 +1335,6 @@
   (local $1 i64)
   (local $2 i64)
   get_local $0
-  i64.load offset=8
-  get_local $0
   i64.load
   tee_local $1
   get_local $1
@@ -1356,11 +1344,13 @@
   i64.const 63
   i64.shr_s
   tee_local $2
+  get_local $0
+  i64.load offset=8
   i64.and
-  get_local $1
   get_local $2
   i64.const -1
   i64.xor
+  get_local $1
   i64.and
   i64.or
   i64.ctz
@@ -1448,9 +1438,9 @@
   i64.const 1
   i64.add
   tee_local $1
-  i64.xor
   get_local $0
   i64.load
+  i64.xor
   i64.and
   i64.const 63
   i64.shr_u
@@ -1468,13 +1458,13 @@
   i64.load offset=8
   get_local $0
   i64.load
-  get_local $0
-  i64.load
   i64.const 1
   i64.sub
   tee_local $1
-  i64.xor
+  get_local $0
+  i64.load
   get_local $1
+  i64.xor
   i64.and
   i64.const 63
   i64.shr_u
@@ -1753,15 +1743,15 @@
   i32.eqz
   if
    get_local $0
+   i64.load offset=24
+   get_local $0
+   i64.load offset=16
+   get_local $0
    i64.load
    get_local $0
    i64.load offset=8
    i64.or
-   get_local $0
-   i64.load offset=16
    i64.or
-   get_local $0
-   i64.load offset=24
    i64.or
    i64.eqz
    i32.eqz
@@ -1870,10 +1860,10 @@
   i64.const 0
   i64.ne
   if
-   get_local $1
    get_local $0
    i64.load offset=8
    i64.popcnt
+   get_local $1
    i64.add
    set_local $1
   end
@@ -1882,10 +1872,10 @@
   i64.const 0
   i64.ne
   if
-   get_local $1
    get_local $0
    i64.load offset=16
    i64.popcnt
+   get_local $1
    i64.add
    set_local $1
   end
@@ -1894,10 +1884,10 @@
   i64.const 0
   i64.ne
   if
-   get_local $1
    get_local $0
    i64.load offset=24
    i64.popcnt
+   get_local $1
    i64.add
    set_local $1
   end
@@ -2107,15 +2097,15 @@
  )
  (func $assembly/integer/u256/u256#isZero (; 79 ;) (type $ii) (param $0 i32) (result i32)
   get_local $0
+  i64.load offset=24
+  get_local $0
+  i64.load offset=16
+  get_local $0
   i64.load
   get_local $0
   i64.load offset=8
   i64.or
-  get_local $0
-  i64.load offset=16
   i64.or
-  get_local $0
-  i64.load offset=24
   i64.or
   i64.eqz
  )
@@ -2160,17 +2150,18 @@
  )
  (func $assembly/integer/u256/u256#toBool (; 83 ;) (type $ii) (param $0 i32) (result i32)
   get_local $0
+  i64.load offset=24
+  get_local $0
+  i64.load offset=16
+  get_local $0
   i64.load
   get_local $0
   i64.load offset=8
   i64.or
-  get_local $0
-  i64.load offset=16
   i64.or
-  get_local $0
-  i64.load offset=24
   i64.or
-  i32.wrap/i64
+  i64.const 0
+  i64.ne
  )
  (func $assembly/integer/u256/u256#toBytesLE (; 84 ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i64)
@@ -2746,8 +2737,6 @@
    set_local $1
   end
   get_local $1
-  i32.const 1
-  i32.and
   if (result i32)
    get_local $0
    call $assembly/integer/u128/u128.fromBytesBE
@@ -2801,8 +2790,6 @@
    set_local $1
   end
   get_local $1
-  i32.const 1
-  i32.and
   if (result i32)
    get_local $0
    call $assembly/integer/u128/u128#toBytesBE
@@ -2876,8 +2863,6 @@
    set_local $1
   end
   get_local $1
-  i32.const 1
-  i32.and
   if (result i32)
    get_local $0
    call $assembly/integer/u256/u256#toBytesLE
