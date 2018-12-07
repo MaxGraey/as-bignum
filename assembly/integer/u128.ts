@@ -1,4 +1,4 @@
-import { loadUnsafe, storeUnsafe } from 'internal/arraybuffer';
+import { LOAD, STORE } from 'internal/arraybuffer';
 
 import { i128 } from './i128';
 import { i256 } from './i256';
@@ -133,8 +133,8 @@ export class u128 {
     assert(array.length && (array.length & 15) == 0);
     var buffer = <ArrayBuffer>array.buffer_;
     return new u128(
-      loadUnsafe<u64,u64>(buffer, 0),
-      loadUnsafe<u64,u64>(buffer, 1)
+      LOAD<u64,u64>(buffer, 0),
+      LOAD<u64,u64>(buffer, 1)
     );
   }
 
@@ -142,8 +142,8 @@ export class u128 {
     assert(array.length && (array.length & 15) == 0);
     var buffer = <ArrayBuffer>array.buffer_;
     return new u128(
-      bswap<u64>(loadUnsafe<u64,u64>(buffer, 1)),
-      bswap<u64>(loadUnsafe<u64,u64>(buffer, 0))
+      bswap<u64>(LOAD<u64,u64>(buffer, 1)),
+      bswap<u64>(LOAD<u64,u64>(buffer, 0))
     );
   }
 
@@ -851,8 +851,8 @@ export class u128 {
     var result = new Array<u8>(16);
     var buffer = <ArrayBuffer>result.buffer_;
 
-    storeUnsafe<u64,u64>(buffer, 0, lo);
-    storeUnsafe<u64,u64>(buffer, 1, hi);
+    STORE<u64,u64>(buffer, 0, lo);
+    STORE<u64,u64>(buffer, 1, hi);
 
     return result;
   }
@@ -866,8 +866,8 @@ export class u128 {
     var result = new Array<u8>(16);
     var buffer = <ArrayBuffer>result.buffer_;
 
-    storeUnsafe<u64,u64>(buffer, 0, bswap(hi));
-    storeUnsafe<u64,u64>(buffer, 1, bswap(lo));
+    STORE<u64,u64>(buffer, 0, bswap(hi));
+    STORE<u64,u64>(buffer, 1, bswap(lo));
 
     return result;
   }
