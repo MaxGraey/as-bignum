@@ -2,6 +2,7 @@ import { u256 } from './u256';
 import { u128 as U128 } from '../u128';
 import { u256 as U256 } from '../u256';
 import { isPowerOverflow128 } from '../../utils';
+import { loadUnsafe } from 'internal/arraybuffer';
 
 // @external("safe_u128.spec.as", "logStr")
 // declare function logStr(str: string): void;
