@@ -174,9 +174,6 @@ export class u128 {
     else throw new TypeError("Unsupported generic type");
   }
 
-  // TODO
-  // static fromString(str: string): u128
-
   /**
    * Create 128-bit unsigned integer from 64-bit parts
    * @param lo low  64-bit part of 128-bit unsigned integer
@@ -884,7 +881,6 @@ export class u128 {
     return new u128(this.lo, this.hi);
   }
 
-  // TODO compleate and improve this
   toString(radix: i32 = 0): string {
     if (!radix) radix = 10;
     assert(radix == 10 || radix == 16, 'radix argument must be between 10 or 16');
