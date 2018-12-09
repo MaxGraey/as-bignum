@@ -1,8 +1,12 @@
 import { u256 } from './u256';
+import { i128 } from './i128';
+import { i256 } from './i256';
 import { u128 as U128 } from '../u128';
 import { u256 as U256 } from '../u256';
-import { isPowerOverflow128 } from '../../utils';
-import { loadUnsafe } from 'internal/arraybuffer';
+import { i128 as I128 } from '../i128';
+import { i256 as I256 } from '../i256';
+import { isPowerOverflow128, atou128 } from '../../utils';
+import { LOAD } from 'internal/arraybuffer';
 
 // @external("safe_u128.spec.as", "logStr")
 // declare function logStr(str: string): void;
@@ -20,7 +24,7 @@ import { loadUnsafe } from 'internal/arraybuffer';
 
     @inline
     static fromString(value: string, radix: i32 = 0): u128 {
-      return atou128(value, radix);
+      return changetype<u128>(atou128(value, radix));
     }
 
     @inline
@@ -80,7 +84,7 @@ import { loadUnsafe } from 'internal/arraybuffer';
 
     @inline
     static fromBool(value: bool): u128 {
-      return new u128(value);
+      return new u128(<u64>value);
     }
 
     @inline
@@ -100,8 +104,8 @@ import { loadUnsafe } from 'internal/arraybuffer';
       assert(array.length && (array.length & 15) == 0);
       var buffer = <ArrayBuffer>array.buffer_;
       return new u128(
-        loadUnsafe<u64,u64>(buffer, 0),
-        loadUnsafe<u64,u64>(buffer, 1)
+        LOAD<u64>(buffer, 0),
+        LOAD<u64>(buffer, 1)
       );
     }
 
@@ -109,8 +113,8 @@ import { loadUnsafe } from 'internal/arraybuffer';
       assert(array.length && (array.length & 15) == 0);
       var buffer = <ArrayBuffer>array.buffer_;
       return new u128(
-        bswap<u64>(loadUnsafe<u64,u64>(buffer, 1)),
-        bswap<u64>(loadUnsafe<u64,u64>(buffer, 0))
+        bswap<u64>(LOAD<u64>(buffer, 1)),
+        bswap<u64>(LOAD<u64>(buffer, 0))
       );
     }
 
