@@ -113,7 +113,7 @@ export class u128 {
 
   @inline
   static fromBool(value: bool): u128 {
-    return new u128(value);
+    return new u128(<u64>value);
   }
 
   @inline
