@@ -510,7 +510,7 @@ arrify@^1.0.0, arrify@^1.0.1:
 
 "assemblyscript@github:AssemblyScript/assemblyscript":
   version "0.5.0"
-  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/72dc26e255805e0c1ab0a539a093879394ee0696"
+  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/9a3763df32d46c88e93627e105e1c8dc547a0052"
   dependencies:
     "@protobufjs/utf8" "^1.1.0"
     binaryen "63.0.0-nightly.20190107"
