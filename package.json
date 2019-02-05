@@ -19,10 +19,10 @@
   "devDependencies": {
     "@types/node": "^10.12.18",
     "assemblyscript": "github:AssemblyScript/assemblyscript",
-    "ava": "1.1.0",
-    "ts-node": "^7.0.1",
-    "typedoc": "^0.14.1",
-    "typescript": "^3.2.2"
+    "ava": "1.2.1",
+    "ts-node": "^8.0.2",
+    "typedoc": "^0.14.2",
+    "typescript": "^3.3.1"
   },
   "ava": {
     "compileEnhancements": true,
