@@ -3,22 +3,22 @@
  (type $iIIi (func (param i32 i64 i64) (result i32)))
  (type $ii (func (param i32) (result i32)))
  (type $iii (func (param i32 i32) (result i32)))
- (type $iiiiv (func (param i32 i32 i32 i32)))
+ (type $iiii_ (func (param i32 i32 i32 i32)))
  (type $Ii (func (param i64) (result i32)))
  (type $Fi (func (param f64) (result i32)))
  (type $fi (func (param f32) (result i32)))
  (type $iiiii (func (param i32 i32 i32 i32) (result i32)))
  (type $II (func (param i64) (result i64)))
- (type $IIIIv (func (param i64 i64 i64 i64)))
+ (type $IIII_ (func (param i64 i64 i64 i64)))
  (type $iIIIIi (func (param i32 i64 i64 i64 i64) (result i32)))
  (type $iIi (func (param i32 i64) (result i32)))
  (type $iI (func (param i32) (result i64)))
  (type $iF (func (param i32) (result f64)))
  (type $if (func (param i32) (result f32)))
  (type $iiiiiiiii (func (param i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
- (type $v (func))
- (type $iv (func (param i32)))
- (type $iIv (func (param i32 i64)))
+ (type $_ (func))
+ (type $i_ (func (param i32)))
+ (type $iI_ (func (param i32 i64)))
  (type $FUNCSIG$vjjjj (func (param i64 i64 i64 i64)))
  (type $FUNCSIG$vjj (func (param i64 i64)))
  (type $FUNCSIG$ii (func (param i32) (result i32)))
@@ -317,7 +317,7 @@
   end
   local.get $0
   i32.load
-  local.tee $1
+  local.tee $2
   i32.eqz
   if
    unreachable
@@ -325,13 +325,13 @@
   local.get $0
   i32.const 0
   call $~lib/string/String#charCodeAt
-  local.set $3
-  local.get $1
+  local.set $1
+  local.get $2
   i32.const 1
   i32.eq
   local.tee $2
   if
-   local.get $3
+   local.get $1
    i32.const 48
    i32.eq
    local.set $2
@@ -341,26 +341,26 @@
    unreachable
   end
   local.get $0
-  local.tee $1
-  local.set $2
-  local.get $3
+  local.tee $2
+  local.set $3
+  local.get $1
   i32.const 45
   i32.eq
   local.tee $0
   i32.eqz
   if
-   local.get $3
+   local.get $1
    i32.const 43
    i32.eq
    local.set $0
   end
-  local.get $2
+  local.get $3
   local.get $0
   call $~lib/string/String#charCodeAt
   i32.const 48
   i32.eq
   if
-   local.get $1
+   local.get $2
    local.get $0
    i32.const 1
    i32.add
@@ -870,10 +870,11 @@
   call $assembly/globals/__multi3
   unreachable
  )
- (func $assembly/globals/__udivmod128 (; 25 ;) (type $IIIIv) (param $0 i64) (param $1 i64) (param $2 i64) (param $3 i64)
+ (func $assembly/globals/__udivmod128 (; 25 ;) (type $IIII_) (param $0 i64) (param $1 i64) (param $2 i64) (param $3 i64)
   (local $4 i64)
-  (local $5 i32)
+  (local $5 i64)
   (local $6 i32)
+  (local $7 i32)
   local.get $3
   i64.const 1
   i64.sub
@@ -881,59 +882,60 @@
   i64.xor
   i64.const 63
   i64.shr_s
-  local.tee $4
+  local.tee $5
   i64.const -1
   i64.xor
   local.get $3
   i64.and
   local.get $2
-  local.get $4
+  local.get $5
   i64.and
   i64.or
   i64.clz
   i32.wrap_i64
-  local.get $4
+  local.get $5
   i32.wrap_i64
   i32.const 64
   i32.and
   i32.add
-  local.tee $6
+  local.tee $7
   i32.const 128
   i32.eq
   if
    unreachable
   end
   local.get $2
+  local.tee $4
+  local.get $4
   i64.const 1
   i64.sub
-  local.get $2
   i64.xor
   i64.const 63
   i64.shr_s
-  local.tee $4
+  local.tee $5
   local.get $3
   i64.and
-  local.get $4
+  local.get $5
   i64.const -1
   i64.xor
-  local.get $2
+  local.get $4
   i64.and
   i64.or
   i64.ctz
   i32.wrap_i64
-  local.get $4
+  local.get $5
   i32.wrap_i64
   i32.const 64
   i32.and
   i32.add
-  local.set $5
+  local.set $6
   block $folding-inner0
    local.get $0
    local.get $1
    i64.or
    i64.eqz
    br_if $folding-inner0
-   local.get $6
+   local.get $7
    i32.const 127
    i32.eq
    if
@@ -945,8 +947,8 @@
     global.set $assembly/globals/__divmod_rem
     return
    end
-   local.get $5
    local.get $6
+   local.get $7
    i32.add
    i32.const 127
    i32.eq
@@ -960,15 +962,15 @@
    if
     i64.const 0
     global.set $assembly/globals/__divmod_quot_hi
-    local.get $2
+    local.get $4
     i64.const 1
     i64.sub
-    local.get $2
+    local.get $4
     i64.and
     i64.eqz
     if
      local.get $0
-     local.get $5
+     local.get $6
      i64.extend_i32_s
      i64.shr_u
      global.set $assembly/globals/__divmod_quot_lo
@@ -976,22 +978,22 @@
      global.set $assembly/globals/__divmod_rem
     else     
      local.get $0
-     local.get $2
+     local.get $4
      i64.div_u
-     local.tee $4
+     local.tee $5
      global.set $assembly/globals/__divmod_quot_lo
      local.get $0
-     local.get $2
      local.get $4
+     local.get $5
      i64.mul
      i64.sub
      global.set $assembly/globals/__divmod_rem
     end
     return
    end
-   local.get $2
+   local.get $4
    i64.eqz
-   local.tee $5
+   local.tee $6
    if (result i32)
     local.get $3
     i64.const 1
@@ -1000,7 +1002,7 @@
     i64.and
     i64.eqz
    else    
-    local.get $5
+    local.get $6
    end
    if
     i64.const 0
@@ -1010,22 +1012,22 @@
    local.get $1
    local.get $3
    i64.sub
-   local.tee $4
+   local.tee $2
    i64.const 0
    i64.eq
    if (result i64)
     local.get $0
-    local.get $2
+    local.get $4
     i64.sub
    else    
-    local.get $4
+    local.get $2
    end
    i32.wrap_i64
-   local.tee $5
+   local.tee $6
    i32.const 0
    i32.lt_s
    br_if $folding-inner0
-   local.get $5
+   local.get $6
    i32.eqz
    if
     i64.const 1
@@ -1196,15 +1198,15 @@
   i64.load offset=8
   i64.eq
   local.tee $2
-  if
+  if (result i32)
    local.get $0
    i64.load
    local.get $1
    i64.load
    i64.eq
-   local.set $2
+  else   
+   local.get $2
   end
-  local.get $2
   i32.eqz
  )
  (func $assembly/integer/u128/u128.lt (; 33 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
@@ -1723,8 +1725,9 @@
    unreachable
   end
   local.get $0
+  local.tee $2
   i64.load
-  local.get $0
+  local.get $2
   i64.load offset=8
   i64.or
   i64.eqz
@@ -1732,10 +1735,10 @@
    i32.const 760
    return
   end
-  local.get $0
+  local.get $2
   i64.load
   drop
-  local.get $0
+  local.get $2
   i64.load offset=8
   drop
   unreachable
@@ -1766,15 +1769,16 @@
   i32.eqz
   if
    local.get $0
-   i64.load offset=24
-   local.get $0
-   i64.load offset=16
-   local.get $0
+   local.tee $1
    i64.load
-   local.get $0
+   local.get $1
    i64.load offset=8
    i64.or
+   local.get $1
+   i64.load offset=16
    i64.or
+   local.get $1
+   i64.load offset=24
    i64.or
    i64.eqz
    i32.eqz
@@ -2720,7 +2724,7 @@
   i64.store8 offset=8
   local.get $0
  )
- (func $null (; 86 ;) (type $v)
+ (func $null (; 86 ;) (type $_)
   nop
  )
  (func $assembly/integer/u128/u128.fromString|trampoline (; 87 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
@@ -2741,7 +2745,7 @@
   local.get $1
   call $assembly/utils/atou128
  )
- (func $~setargc (; 88 ;) (type $iv) (param $0 i32)
+ (func $~setargc (; 88 ;) (type $i_) (param $0 i32)
   local.get $0
   global.set $~argc
  )
@@ -2797,7 +2801,7 @@
   i64.store offset=8
   local.get $0
  )
- (func $u128#set:lo (; 91 ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u128#set:lo (; 91 ;) (type $iI_) (param $0 i32) (param $1 i64)
   local.get $0
   local.get $1
   i64.store
@@ -2806,7 +2810,7 @@
   local.get $0
   i64.load offset=8
  )
- (func $u128#set:hi (; 93 ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u128#set:hi (; 93 ;) (type $iI_) (param $0 i32) (param $1 i64)
   local.get $0
   local.get $1
   i64.store offset=8
@@ -2895,7 +2899,7 @@
   local.get $0
   i64.load offset=16
  )
- (func $u256#set:hi1 (; 98 ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u256#set:hi1 (; 98 ;) (type $iI_) (param $0 i32) (param $1 i64)
   local.get $0
   local.get $1
   i64.store offset=16
@@ -2904,7 +2908,7 @@
   local.get $0
   i64.load offset=24
  )
- (func $u256#set:hi2 (; 100 ;) (type $iIv) (param $0 i32) (param $1 i64)
+ (func $u256#set:hi2 (; 100 ;) (type $iI_) (param $0 i32) (param $1 i64)
   local.get $0
   local.get $1
   i64.store offset=24
