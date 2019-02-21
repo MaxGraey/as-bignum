@@ -13,6 +13,7 @@ function logU128(value: u128, msg: string = null): void {
   );
 }
 
+/*
 export class BasicOperationsTests {
   static shouldAddTwoNumbers1(): bool {
     var a = new u128(100, 255);
@@ -114,6 +115,7 @@ export class BasicOperationsTests {
     return new u128(u64.MAX_VALUE) ** 2 == new u128(1, 0x0FFFFFFFFFFFFFFFE);
   }
 }
+
 
 export class OverflowUnderflowThrowableTests {
   static shouldThrowWhenAddTwoNumbers1(): bool {
@@ -238,3 +240,4 @@ export class OverflowUnderflowThrowableTests {
     return !(new u128(u64.MAX_VALUE) ** 3);
   }
 }
+*/

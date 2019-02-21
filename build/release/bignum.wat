@@ -17,8 +17,8 @@
  (type $if (func (param i32) (result f32)))
  (type $iiiiiiiii (func (param i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
  (type $_ (func))
- (type $i_ (func (param i32)))
  (type $iI_ (func (param i32 i64)))
+ (type $i_ (func (param i32)))
  (type $FUNCSIG$vjjjj (func (param i64 i64 i64 i64)))
  (type $FUNCSIG$vjj (func (param i64 i64)))
  (type $FUNCSIG$ii (func (param i32) (result i32)))
@@ -48,14 +48,50 @@
  (global $assembly/globals/__divmod_rem (mut i64) (i64.const 0))
  (global $assembly/globals/__res128_lo (mut i64) (i64.const 0))
  (global $assembly/globals/__res128_hi (mut i64) (i64.const 0))
- (global $~argc (mut i32) (i32.const 0))
+ (global $~lib/argc (mut i32) (i32.const 0))
  (export "memory" (memory $0))
  (export "table" (table $0))
- (export "u128.get:Zero" (func $assembly/integer/u128/u128.get:Zero))
- (export "u128.get:One" (func $assembly/integer/u128/u128.get:Zero))
- (export "u128.get:Min" (func $assembly/integer/u128/u128.get:Zero))
- (export "u128.get:Max" (func $assembly/integer/u128/u128.get:Zero))
- (export "_setargc" (func $~setargc))
+ (export "u128#get:lo" (func $assembly/integer/u128/u128#toU64))
+ (export "u128#set:lo" (func $u128#set:lo))
+ (export "u128#get:hi" (func $u128#get:hi))
+ (export "u128#set:hi" (func $u128#set:hi))
+ (export "_setargc" (func $~lib/setargc))
+ (export "u128#constructor" (func $assembly/integer/u128/u128#constructor|trampoline))
+ (export "u128#set" (func $assembly/integer/u128/u128#set))
+ (export "u128#setI64" (func $assembly/integer/u128/u128#setI64))
+ (export "u128#setU64" (func $assembly/integer/u128/u128#setU64))
+ (export "u128#setI32" (func $assembly/integer/u128/u128#setI32))
+ (export "u128#setU32" (func $assembly/integer/u128/u128#setU32))
+ (export "u128#isZero" (func $assembly/integer/u128/u128#isZero))
+ (export "u128#not" (func $assembly/integer/u128/u128.fromI256))
+ (export "u128#pos" (func $assembly/integer/u128/u128#pos))
+ (export "u128#neg" (func $assembly/integer/u128/u128.fromI256))
+ (export "u128#preInc" (func $assembly/integer/u128/u128#preInc))
+ (export "u128#preDec" (func $assembly/integer/u128/u128#preDec))
+ (export "u128#postInc" (func $assembly/integer/u128/u128.fromI256))
+ (export "u128#postDec" (func $assembly/integer/u128/u128.fromI256))
+ (export "u128#sqr" (func $assembly/integer/u128/u128#sqr))
+ (export "u128#toI256" (func $assembly/integer/u128/u128.fromI256))
+ (export "u128#toU256" (func $assembly/integer/u128/u128.fromI256))
+ (export "u128#toI128" (func $assembly/integer/u128/u128.fromI256))
+ (export "u128#toU128" (func $assembly/integer/u128/u128#pos))
+ (export "u128#toI64" (func $assembly/integer/u128/u128#toI64))
+ (export "u128#toU64" (func $assembly/integer/u128/u128#toU64))
+ (export "u128#toI32" (func $assembly/integer/u128/u128#toI32))
+ (export "u128#toU32" (func $assembly/integer/u128/u128#toU32))
+ (export "u128#toBool" (func $assembly/integer/u128/u128#toBool))
+ (export "u128#toF64" (func $assembly/integer/u128/u128#toF64))
+ (export "u128#toF64Unsafe" (func $assembly/integer/u128/u128#toF64Unsafe))
+ (export "u128#toF32" (func $assembly/integer/u128/u128#toF32))
+ (export "u128#toBytes" (func $assembly/integer/u128/u128#toBytes|trampoline))
+ (export "u128#toBytesLE" (func $assembly/integer/u128/u128#toBytesLE))
+ (export "u128#toBytesBE" (func $assembly/integer/u128/u128#toBytesBE))
+ (export "u128#clone" (func $assembly/integer/u128/u128.fromI256))
+ (export "u128#toString" (func $assembly/integer/u128/u128#toString|trampoline))
+ (export "u128.get:Zero" (func $assembly/integer/u128/u128.Zero.get:Zero))
+ (export "u128.get:One" (func $assembly/integer/u128/u128.Zero.get:Zero))
+ (export "u128.get:Min" (func $assembly/integer/u128/u128.Zero.get:Zero))
+ (export "u128.get:Max" (func $assembly/integer/u128/u128.Zero.get:Zero))
  (export "u128.fromString" (func $assembly/integer/u128/u128.fromString|trampoline))
  (export "u128.fromI256" (func $assembly/integer/u128/u128.fromI256))
  (export "u128.fromU256" (func $assembly/integer/u128/u128.fromI256))
@@ -103,65 +139,6 @@
  (export "u128.ctz" (func $assembly/integer/u128/u128.ctz))
  (export "u128.sqr" (func $assembly/integer/u128/u128.fromI256))
  (export "u128.mulq" (func $assembly/integer/u128/u128.pow))
- (export "u128#constructor" (func $assembly/integer/u128/u128#constructor|trampoline))
- (export "u128#get:lo" (func $assembly/integer/u128/u128#toU64))
- (export "u128#set:lo" (func $u128#set:lo))
- (export "u128#get:hi" (func $u128#get:hi))
- (export "u128#set:hi" (func $u128#set:hi))
- (export "u128#set" (func $assembly/integer/u128/u128#set))
- (export "u128#setI64" (func $assembly/integer/u128/u128#setI64))
- (export "u128#setU64" (func $assembly/integer/u128/u128#setU64))
- (export "u128#setI32" (func $assembly/integer/u128/u128#setI32))
- (export "u128#setU32" (func $assembly/integer/u128/u128#setU32))
- (export "u128#isZero" (func $assembly/integer/u128/u128#isZero))
- (export "u128#not" (func $assembly/integer/u128/u128.fromI256))
- (export "u128#pos" (func $assembly/integer/u128/u128#pos))
- (export "u128#neg" (func $assembly/integer/u128/u128.fromI256))
- (export "u128#preInc" (func $assembly/integer/u128/u128#preInc))
- (export "u128#preDec" (func $assembly/integer/u128/u128#preDec))
- (export "u128#postInc" (func $assembly/integer/u128/u128.fromI256))
- (export "u128#postDec" (func $assembly/integer/u128/u128.fromI256))
- (export "u128#sqr" (func $assembly/integer/u128/u128#sqr))
- (export "u128#toI256" (func $assembly/integer/u128/u128.fromI256))
- (export "u128#toU256" (func $assembly/integer/u128/u128.fromI256))
- (export "u128#toI128" (func $assembly/integer/u128/u128.fromI256))
- (export "u128#toU128" (func $assembly/integer/u128/u128#pos))
- (export "u128#toI64" (func $assembly/integer/u128/u128#toI64))
- (export "u128#toU64" (func $assembly/integer/u128/u128#toU64))
- (export "u128#toI32" (func $assembly/integer/u128/u128#toI32))
- (export "u128#toU32" (func $assembly/integer/u128/u128#toU32))
- (export "u128#toBool" (func $assembly/integer/u128/u128#toBool))
- (export "u128#toF64" (func $assembly/integer/u128/u128#toF64))
- (export "u128#toF64Unsafe" (func $assembly/integer/u128/u128#toF64Unsafe))
- (export "u128#toF32" (func $assembly/integer/u128/u128#toF32))
- (export "u128#toBytes" (func $assembly/integer/u128/u128#toBytes|trampoline))
- (export "u128#toBytesLE" (func $assembly/integer/u128/u128#toBytesLE))
- (export "u128#toBytesBE" (func $assembly/integer/u128/u128#toBytesBE))
- (export "u128#clone" (func $assembly/integer/u128/u128.fromI256))
- (export "u128#toString" (func $assembly/integer/u128/u128#toString|trampoline))
- (export "u256.get:Zero" (func $assembly/integer/u128/u128.get:Zero))
- (export "u256.get:One" (func $assembly/integer/u128/u128.get:Zero))
- (export "u256.get:Min" (func $assembly/integer/u128/u128.get:Zero))
- (export "u256.get:Max" (func $assembly/integer/u128/u128.get:Zero))
- (export "u256.fromU256" (func $assembly/integer/u256/u256.fromU256))
- (export "u256.fromU128" (func $assembly/integer/u128/u128.fromI256))
- (export "u256.fromU64" (func $assembly/integer/u128/u128.fromI64))
- (export "u256.fromI64" (func $assembly/integer/u128/u128.fromI64))
- (export "u256.fromU32" (func $assembly/integer/u128/u128.fromI32))
- (export "u256.fromI32" (func $assembly/integer/u128/u128.fromI32))
- (export "u256.fromBits" (func $assembly/integer/u256/u256.fromBits))
- (export "u256.fromBytes" (func $assembly/integer/u128/u128.fromI32))
- (export "u256.fromF64" (func $assembly/integer/u128/u128.fromF64))
- (export "u256.fromF32" (func $assembly/integer/u128/u128.fromF32))
- (export "u256.isEmpty" (func $assembly/integer/u256/u256.isEmpty))
- (export "u256.add" (func $assembly/integer/u256/u256.add))
- (export "u256.or" (func $assembly/integer/u256/u256.or))
- (export "u256.xor" (func $assembly/integer/u256/u256.xor))
- (export "u256.and" (func $assembly/integer/u256/u256.and))
- (export "u256.popcnt" (func $assembly/integer/u256/u256.popcnt))
- (export "u256.clz" (func $assembly/integer/u256/u256.clz))
- (export "u256.ctz" (func $assembly/integer/u256/u256.ctz))
- (export "u256#constructor" (func $assembly/integer/u256/u256#constructor|trampoline))
  (export "u256#get:lo1" (func $assembly/integer/u128/u128#toU64))
  (export "u256#set:lo1" (func $u128#set:lo))
  (export "u256#get:lo2" (func $u128#get:hi))
@@ -170,6 +147,7 @@
  (export "u256#set:hi1" (func $u256#set:hi1))
  (export "u256#get:hi2" (func $u256#get:hi2))
  (export "u256#set:hi2" (func $u256#set:hi2))
+ (export "u256#constructor" (func $assembly/integer/u256/u256#constructor|trampoline))
  (export "u256#set" (func $assembly/integer/u256/u256#set))
  (export "u256#setU128" (func $assembly/integer/u256/u256#setU128))
  (export "u256#setI64" (func $assembly/integer/u256/u256#setI64))
@@ -191,7 +169,29 @@
  (export "u256#toBytesLE" (func $assembly/integer/u256/u256#toBytesLE))
  (export "u256#toBytesBE" (func $assembly/integer/u256/u256#toBytesBE))
  (export "u256#clone" (func $assembly/integer/u256/u256.fromU256))
- (func $assembly/integer/u128/u128.get:Zero (; 1 ;) (type $i) (result i32)
+ (export "u256.get:Zero" (func $assembly/integer/u128/u128.Zero.get:Zero))
+ (export "u256.get:One" (func $assembly/integer/u128/u128.Zero.get:Zero))
+ (export "u256.get:Min" (func $assembly/integer/u128/u128.Zero.get:Zero))
+ (export "u256.get:Max" (func $assembly/integer/u128/u128.Zero.get:Zero))
+ (export "u256.fromU256" (func $assembly/integer/u256/u256.fromU256))
+ (export "u256.fromU128" (func $assembly/integer/u128/u128.fromI256))
+ (export "u256.fromU64" (func $assembly/integer/u128/u128.fromI64))
+ (export "u256.fromI64" (func $assembly/integer/u128/u128.fromI64))
+ (export "u256.fromU32" (func $assembly/integer/u128/u128.fromI32))
+ (export "u256.fromI32" (func $assembly/integer/u128/u128.fromI32))
+ (export "u256.fromBits" (func $assembly/integer/u256/u256.fromBits))
+ (export "u256.fromBytes" (func $assembly/integer/u128/u128.fromI32))
+ (export "u256.fromF64" (func $assembly/integer/u128/u128.fromF64))
+ (export "u256.fromF32" (func $assembly/integer/u128/u128.fromF32))
+ (export "u256.isEmpty" (func $assembly/integer/u256/u256.isEmpty))
+ (export "u256.add" (func $assembly/integer/u256/u256.add))
+ (export "u256.or" (func $assembly/integer/u256/u256.or))
+ (export "u256.xor" (func $assembly/integer/u256/u256.xor))
+ (export "u256.and" (func $assembly/integer/u256/u256.and))
+ (export "u256.popcnt" (func $assembly/integer/u256/u256.popcnt))
+ (export "u256.clz" (func $assembly/integer/u256/u256.clz))
+ (export "u256.ctz" (func $assembly/integer/u256/u256.ctz))
+ (func $assembly/integer/u128/u128.Zero.get:Zero (; 1 ;) (type $i) (result i32)
   unreachable
  )
  (func $~lib/string/String#charCodeAt (; 2 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
@@ -2727,57 +2727,26 @@
  (func $null (; 86 ;) (type $_)
   nop
  )
- (func $assembly/integer/u128/u128.fromString|trampoline (; 87 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
-  block $1of1
-   block $0of1
-    block $outOfRange
-     global.get $~argc
-     i32.const 1
-     i32.sub
-     br_table $0of1 $1of1 $outOfRange
-    end
-    unreachable
-   end
-   i32.const 0
-   local.set $1
-  end
+ (func $u128#set:lo (; 87 ;) (type $iI_) (param $0 i32) (param $1 i64)
   local.get $0
   local.get $1
-  call $assembly/utils/atou128
+  i64.store
  )
- (func $~setargc (; 88 ;) (type $i_) (param $0 i32)
+ (func $u128#get:hi (; 88 ;) (type $iI) (param $0 i32) (result i64)
   local.get $0
-  global.set $~argc
+  i64.load offset=8
  )
- (func $assembly/integer/u128/u128.fromBytes|trampoline (; 89 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
-  block $1of1
-   block $0of1
-    block $outOfRange
-     global.get $~argc
-     i32.const 1
-     i32.sub
-     br_table $0of1 $1of1 $outOfRange
-    end
-    unreachable
-   end
-   i32.const 0
-   local.set $1
-  end
+ (func $u128#set:hi (; 89 ;) (type $iI_) (param $0 i32) (param $1 i64)
+  local.get $0
   local.get $1
-  if (result i32)
-   local.get $0
-   call $assembly/integer/u128/u128.fromBytesBE
-  else   
-   local.get $0
-   call $assembly/integer/u128/u128.fromBytesLE
-  end
+  i64.store offset=8
  )
  (func $assembly/integer/u128/u128#constructor|trampoline (; 90 ;) (type $iIIi) (param $0 i32) (param $1 i64) (param $2 i64) (result i32)
   block $2of2
    block $1of2
     block $0of2
      block $outOfRange
-      global.get $~argc
+      global.get $~lib/argc
       br_table $0of2 $1of2 $2of2 $outOfRange
      end
      unreachable
@@ -2801,25 +2770,15 @@
   i64.store offset=8
   local.get $0
  )
- (func $u128#set:lo (; 91 ;) (type $iI_) (param $0 i32) (param $1 i64)
+ (func $~lib/setargc (; 91 ;) (type $i_) (param $0 i32)
   local.get $0
-  local.get $1
-  i64.store
+  global.set $~lib/argc
  )
- (func $u128#get:hi (; 92 ;) (type $iI) (param $0 i32) (result i64)
-  local.get $0
-  i64.load offset=8
- )
- (func $u128#set:hi (; 93 ;) (type $iI_) (param $0 i32) (param $1 i64)
-  local.get $0
-  local.get $1
-  i64.store offset=8
- )
- (func $assembly/integer/u128/u128#toBytes|trampoline (; 94 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128#toBytes|trampoline (; 92 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   block $1of1
    block $0of1
     block $outOfRange
-     global.get $~argc
+     global.get $~lib/argc
      br_table $0of1 $1of1 $outOfRange
     end
     unreachable
@@ -2836,11 +2795,11 @@
    call $assembly/integer/u128/u128#toBytesLE
   end
  )
- (func $assembly/integer/u128/u128#toString|trampoline (; 95 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128#toString|trampoline (; 93 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   block $1of1
    block $0of1
     block $outOfRange
-     global.get $~argc
+     global.get $~lib/argc
      br_table $0of1 $1of1 $outOfRange
     end
     unreachable
@@ -2852,14 +2811,73 @@
   local.get $1
   call $assembly/integer/u128/u128#toString
  )
- (func $assembly/integer/u256/u256#constructor|trampoline (; 96 ;) (type $iIIIIi) (param $0 i32) (param $1 i64) (param $2 i64) (param $3 i64) (param $4 i64) (result i32)
+ (func $assembly/integer/u128/u128.fromString|trampoline (; 94 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+  block $1of1
+   block $0of1
+    block $outOfRange
+     global.get $~lib/argc
+     i32.const 1
+     i32.sub
+     br_table $0of1 $1of1 $outOfRange
+    end
+    unreachable
+   end
+   i32.const 0
+   local.set $1
+  end
+  local.get $0
+  local.get $1
+  call $assembly/utils/atou128
+ )
+ (func $assembly/integer/u128/u128.fromBytes|trampoline (; 95 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
+  block $1of1
+   block $0of1
+    block $outOfRange
+     global.get $~lib/argc
+     i32.const 1
+     i32.sub
+     br_table $0of1 $1of1 $outOfRange
+    end
+    unreachable
+   end
+   i32.const 0
+   local.set $1
+  end
+  local.get $1
+  if (result i32)
+   local.get $0
+   call $assembly/integer/u128/u128.fromBytesBE
+  else   
+   local.get $0
+   call $assembly/integer/u128/u128.fromBytesLE
+  end
+ )
+ (func $u256#get:hi1 (; 96 ;) (type $iI) (param $0 i32) (result i64)
+  local.get $0
+  i64.load offset=16
+ )
+ (func $u256#set:hi1 (; 97 ;) (type $iI_) (param $0 i32) (param $1 i64)
+  local.get $0
+  local.get $1
+  i64.store offset=16
+ )
+ (func $u256#get:hi2 (; 98 ;) (type $iI) (param $0 i32) (result i64)
+  local.get $0
+  i64.load offset=24
+ )
+ (func $u256#set:hi2 (; 99 ;) (type $iI_) (param $0 i32) (param $1 i64)
+  local.get $0
+  local.get $1
+  i64.store offset=24
+ )
+ (func $assembly/integer/u256/u256#constructor|trampoline (; 100 ;) (type $iIIIIi) (param $0 i32) (param $1 i64) (param $2 i64) (param $3 i64) (param $4 i64) (result i32)
   block $4of4
    block $3of4
     block $2of4
      block $1of4
       block $0of4
        block $outOfRange
-        global.get $~argc
+        global.get $~lib/argc
         br_table $0of4 $1of4 $2of4 $3of4 $4of4 $outOfRange
        end
        unreachable
@@ -2895,29 +2913,11 @@
   i64.store offset=24
   local.get $0
  )
- (func $u256#get:hi1 (; 97 ;) (type $iI) (param $0 i32) (result i64)
-  local.get $0
-  i64.load offset=16
- )
- (func $u256#set:hi1 (; 98 ;) (type $iI_) (param $0 i32) (param $1 i64)
-  local.get $0
-  local.get $1
-  i64.store offset=16
- )
- (func $u256#get:hi2 (; 99 ;) (type $iI) (param $0 i32) (result i64)
-  local.get $0
-  i64.load offset=24
- )
- (func $u256#set:hi2 (; 100 ;) (type $iI_) (param $0 i32) (param $1 i64)
-  local.get $0
-  local.get $1
-  i64.store offset=24
- )
  (func $assembly/integer/u256/u256#toBytes|trampoline (; 101 ;) (type $iii) (param $0 i32) (param $1 i32) (result i32)
   block $1of1
    block $0of1
     block $outOfRange
-     global.get $~argc
+     global.get $~lib/argc
      br_table $0of1 $1of1 $outOfRange
     end
     unreachable
