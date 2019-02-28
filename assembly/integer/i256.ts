@@ -2,10 +2,10 @@ import { u256 } from './u256';
 
 export class i256 {
 
-  static readonly Zero: i256 = new i256()
-  static readonly One:  i256 = new i256(1)
-  static readonly Min:  i256 = new i256(0, 0, 0, 0x8000000000000000)
-  static readonly Max:  i256 = new i256(u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE, 0x7FFFFFFFFFFFFFFF)
+  @inline static get Zero(): i256 { return new i256(); }
+  @inline static get One():  i256 { return new i256(1); }
+  @inline static get Min():  i256 { return new i256(0, 0, 0, 0x8000000000000000); }
+  @inline static get Max():  i256 { return new i256(u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE, 0x7FFFFFFFFFFFFFFF); }
 
   constructor(
     public lo1: i64 = 0,
