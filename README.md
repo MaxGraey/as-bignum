@@ -26,7 +26,7 @@ or
 
 ```ts
 import "allocator/arena";
-import { u128 } from "../node_modules/bignum.wasm/assembly/index";
+import { u128 } from "../node_modules/bignum/assembly/index";
 
 declare function logf(value: f64): void;
 
