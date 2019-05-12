@@ -37,7 +37,8 @@ export async function setup(testFileName: string): Promise<ExportedEntries> {
   }
   const imports = buildImports(`${ testFileName }.spec.as`, new WebAssembly.Memory({ initial: 2 }));
   const result  = await WebAssembly.instantiate(file, imports);
-  return demangle<ExportedEntries>(result.instance.exports);
+  const { memory, table, ...exports } = result.instance.exports;
+  return demangle<ExportedEntries>(exports);
 }
 
 function unpackToString64(value: number): string {
