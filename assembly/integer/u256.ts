@@ -64,14 +64,16 @@ export class u256 {
   // max safe uint for f64 actually 52-bits
   @inline
   static fromF64(value: f64): u256 {
-    return new u256(<u64>value);
+    var mask: u64 = -(value < 0);
+    return new u256(<u64>value, mask, mask, mask);
   }
 
   // TODO need improvement
   // max safe int for f32 actually 23-bits
   @inline
   static fromF32(value: f32): u256 {
-    return new u256(<u64>value);
+    var mask: u64 = -(value < 0);
+    return new u256(<u64>value, mask, mask, mask);
   }
 
   // TODO

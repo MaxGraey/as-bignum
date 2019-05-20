@@ -824,10 +824,10 @@ export class u128 {
     else if (dummy instanceof u64)    return <T>this.toU64();
     else if (dummy instanceof f32)    return <T>this.toF64();
     else if (dummy instanceof f64)    return <T>this.toF64();
-    else if (dummy instanceof i128)   return <T>(this.toI128());
-    else if (dummy instanceof u128)   return <T>(this.toU128());
-    else if (dummy instanceof u256)   return <T>(this.toU256());
-    else if (dummy instanceof u8[])   return <T>(this.toBytes());
+    else if (dummy instanceof i128)   return <T>this.toI128();
+    else if (dummy instanceof u128)   return <T>this.toU128();
+    else if (dummy instanceof u256)   return <T>this.toU256();
+    else if (dummy instanceof u8[])   return <T>this.toBytes();
     else if (dummy instanceof String) return <T>this.toString();
     else throw new TypeError('Unsupported generic type');
   }
@@ -901,6 +901,6 @@ export class u128 {
       return utoa10(this);
     }
 
-    return "undefined";
+    return 'undefined';
   }
 }
