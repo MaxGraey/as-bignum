@@ -847,12 +847,11 @@ export class u128 {
   * @returns Array of bytes
   */
   toBytesLE(): u8[] {
-    var hi = this.hi, lo = this.lo;
     var result = new Array<u8>(16);
     var buffer = <ArrayBuffer>result.buffer_;
 
-    STORE<u64>(buffer, 0, lo);
-    STORE<u64>(buffer, 1, hi);
+    STORE<u64>(buffer, 0, this.lo);
+    STORE<u64>(buffer, 1, this.hi);
 
     return result;
   }
@@ -862,12 +861,11 @@ export class u128 {
   * @return Array of bytes
   */
   toBytesBE(): u8[] {
-    var hi = this.hi, lo = this.lo;
     var result = new Array<u8>(16);
     var buffer = <ArrayBuffer>result.buffer_;
 
-    STORE<u64>(buffer, 0, bswap(hi));
-    STORE<u64>(buffer, 1, bswap(lo));
+    STORE<u64>(buffer, 0, bswap(this.hi));
+    STORE<u64>(buffer, 1, bswap(this.lo));
 
     return result;
   }

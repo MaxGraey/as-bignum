@@ -1628,54 +1628,44 @@
   unreachable
  )
  (func $assembly/integer/u128/u128#toBytesBE (; 60 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
-  (local $1 i64)
-  (local $2 i64)
-  (local $3 i32)
-  local.get $0
-  i64.load offset=8
-  local.set $1
-  local.get $0
-  i64.load
-  local.set $2
+  (local $1 i32)
+  (local $2 i32)
   i32.const 16
   call $~lib/array/Array<u8>#constructor
-  local.tee $0
+  local.tee $1
   i32.load
-  local.tee $3
-  local.get $1
+  local.tee $2
+  local.get $0
+  i64.load offset=8
   call $~lib/polyfills/bswap<u64>
   i64.store offset=8
-  local.get $3
+  local.get $2
   i32.const 8
   i32.add
-  local.get $2
+  local.get $0
+  i64.load
   call $~lib/polyfills/bswap<u64>
   i64.store offset=8
-  local.get $0
+  local.get $1
  )
  (func $assembly/integer/u128/u128#toBytesLE (; 61 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
-  (local $1 i64)
-  (local $2 i64)
-  (local $3 i32)
-  local.get $0
-  i64.load offset=8
-  local.set $1
-  local.get $0
-  i64.load
-  local.set $2
+  (local $1 i32)
+  (local $2 i32)
   i32.const 16
   call $~lib/array/Array<u8>#constructor
-  local.tee $0
+  local.tee $1
   i32.load
-  local.tee $3
-  local.get $2
+  local.tee $2
+  local.get $0
+  i64.load
   i64.store offset=8
-  local.get $3
+  local.get $2
   i32.const 8
   i32.add
-  local.get $1
-  i64.store offset=8
   local.get $0
+  i64.load offset=8
+  i64.store offset=8
+  local.get $1
  )
  (func $assembly/integer/u128/u128#toString (; 62 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
@@ -1698,7 +1688,7 @@
   if
    i32.const 672
    i32.const 520
-   i32.const 886
+   i32.const 884
    i32.const 4
    call $~lib/env/abort
    unreachable
@@ -2648,538 +2638,70 @@
   i64.ne
  )
  (func $assembly/integer/u256/u256#toBytesBE (; 93 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
-  (local $1 i64)
-  (local $2 i64)
-  (local $3 i64)
-  (local $4 i64)
-  local.get $0
-  i64.load offset=16
-  local.set $1
-  local.get $0
-  i64.load
-  local.set $2
-  local.get $0
-  i64.load offset=24
-  local.set $3
-  local.get $0
-  i64.load offset=8
-  local.set $4
+  (local $1 i32)
+  (local $2 i32)
   i32.const 32
   call $~lib/array/Array<u8>#constructor
-  local.tee $0
+  local.tee $2
   i32.load
-  local.get $3
-  i64.const 56
-  i64.shr_u
-  i64.store8 offset=8
+  local.tee $1
   local.get $0
-  i32.load
-  i32.const 1
-  i32.add
-  local.get $3
-  i64.const 48
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 2
-  i32.add
-  local.get $3
-  i64.const 40
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 3
-  i32.add
-  local.get $3
-  i64.const 32
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 4
-  i32.add
-  local.get $3
-  i64.const 24
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 5
-  i32.add
-  local.get $3
-  i64.const 16
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 6
-  i32.add
-  local.get $3
-  i64.const 8
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 7
-  i32.add
-  local.get $3
-  i64.store8 offset=8
-  local.get $0
-  i32.load
+  i64.load offset=24
+  call $~lib/polyfills/bswap<u64>
+  i64.store offset=8
+  local.get $1
   i32.const 8
   i32.add
-  local.get $1
-  i64.const 56
-  i64.shr_u
-  i64.store8 offset=8
   local.get $0
-  i32.load
-  i32.const 9
-  i32.add
+  i64.load offset=16
+  call $~lib/polyfills/bswap<u64>
+  i64.store offset=8
   local.get $1
-  i64.const 48
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 10
-  i32.add
-  local.get $1
-  i64.const 40
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 11
-  i32.add
-  local.get $1
-  i64.const 32
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 12
-  i32.add
-  local.get $1
-  i64.const 24
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 13
-  i32.add
-  local.get $1
-  i64.const 16
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 14
-  i32.add
-  local.get $1
-  i64.const 8
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 15
-  i32.add
-  local.get $1
-  i64.store8 offset=8
-  local.get $0
-  i32.load
   i32.const 16
   i32.add
-  local.get $4
-  i64.const 56
-  i64.shr_u
-  i64.store8 offset=8
   local.get $0
-  i32.load
-  i32.const 17
-  i32.add
-  local.get $4
-  i64.const 48
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 18
-  i32.add
-  local.get $4
-  i64.const 40
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 19
-  i32.add
-  local.get $4
-  i64.const 32
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 20
-  i32.add
-  local.get $4
-  i64.const 24
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 21
-  i32.add
-  local.get $4
-  i64.const 16
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 22
-  i32.add
-  local.get $4
-  i64.const 8
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 23
-  i32.add
-  local.get $4
-  i64.store8 offset=8
-  local.get $0
-  i32.load
+  i64.load offset=8
+  call $~lib/polyfills/bswap<u64>
+  i64.store offset=8
+  local.get $1
   i32.const 24
   i32.add
-  local.get $2
-  i64.const 56
-  i64.shr_u
-  i64.store8 offset=8
   local.get $0
-  i32.load
-  i32.const 25
-  i32.add
+  i64.load
+  call $~lib/polyfills/bswap<u64>
+  i64.store offset=8
   local.get $2
-  i64.const 48
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 26
-  i32.add
-  local.get $2
-  i64.const 40
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 27
-  i32.add
-  local.get $2
-  i64.const 32
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 28
-  i32.add
-  local.get $2
-  i64.const 24
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 29
-  i32.add
-  local.get $2
-  i64.const 16
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 30
-  i32.add
-  local.get $2
-  i64.const 8
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 31
-  i32.add
-  local.get $2
-  i64.store8 offset=8
-  local.get $0
  )
  (func $assembly/integer/u256/u256#toBytesLE (; 94 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
-  (local $1 i64)
-  (local $2 i64)
-  (local $3 i64)
-  (local $4 i64)
-  local.get $0
-  i64.load offset=16
-  local.set $1
-  local.get $0
-  i64.load
-  local.set $2
-  local.get $0
-  i64.load offset=24
-  local.set $3
-  local.get $0
-  i64.load offset=8
-  local.set $4
+  (local $1 i32)
+  (local $2 i32)
   i32.const 32
   call $~lib/array/Array<u8>#constructor
-  local.tee $0
+  local.tee $2
   i32.load
-  local.get $2
-  i64.store8 offset=8
+  local.tee $1
   local.get $0
-  i32.load
-  i32.const 1
-  i32.add
-  local.get $2
-  i64.const 8
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 2
-  i32.add
-  local.get $2
-  i64.const 16
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 3
-  i32.add
-  local.get $2
-  i64.const 24
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 4
-  i32.add
-  local.get $2
-  i64.const 32
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 5
-  i32.add
-  local.get $2
-  i64.const 40
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 6
-  i32.add
-  local.get $2
-  i64.const 48
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 7
-  i32.add
-  local.get $2
-  i64.const 56
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
+  i64.load
+  i64.store offset=8
+  local.get $1
   i32.const 8
   i32.add
-  local.get $4
-  i64.store8 offset=8
   local.get $0
-  i32.load
-  i32.const 9
-  i32.add
-  local.get $4
-  i64.const 8
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 10
-  i32.add
-  local.get $4
-  i64.const 16
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 11
-  i32.add
-  local.get $4
-  i64.const 24
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 12
-  i32.add
-  local.get $4
-  i64.const 32
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 13
-  i32.add
-  local.get $4
-  i64.const 40
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 14
-  i32.add
-  local.get $4
-  i64.const 48
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 15
-  i32.add
-  local.get $4
-  i64.const 56
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
+  i64.load offset=8
+  i64.store offset=8
+  local.get $1
   i32.const 16
   i32.add
-  local.get $1
-  i64.store8 offset=8
   local.get $0
-  i32.load
-  i32.const 17
-  i32.add
+  i64.load offset=16
+  i64.store offset=8
   local.get $1
-  i64.const 8
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 18
-  i32.add
-  local.get $1
-  i64.const 16
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 19
-  i32.add
-  local.get $1
-  i64.const 24
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 20
-  i32.add
-  local.get $1
-  i64.const 32
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 21
-  i32.add
-  local.get $1
-  i64.const 40
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 22
-  i32.add
-  local.get $1
-  i64.const 48
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 23
-  i32.add
-  local.get $1
-  i64.const 56
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
   i32.const 24
   i32.add
-  local.get $3
-  i64.store8 offset=8
   local.get $0
-  i32.load
-  i32.const 25
-  i32.add
-  local.get $3
-  i64.const 8
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 26
-  i32.add
-  local.get $3
-  i64.const 16
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 27
-  i32.add
-  local.get $3
-  i64.const 24
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 28
-  i32.add
-  local.get $3
-  i64.const 32
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 29
-  i32.add
-  local.get $3
-  i64.const 40
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 30
-  i32.add
-  local.get $3
-  i64.const 48
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
-  i32.load
-  i32.const 31
-  i32.add
-  local.get $3
-  i64.const 56
-  i64.shr_u
-  i64.store8 offset=8
-  local.get $0
+  i64.load offset=24
+  i64.store offset=8
+  local.get $2
  )
  (func $assembly/integer/u256/u256#toString (; 95 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
@@ -3202,7 +2724,7 @@
   if
    i32.const 672
    i32.const 936
-   i32.const 466
+   i32.const 448
    i32.const 4
    call $~lib/env/abort
    unreachable

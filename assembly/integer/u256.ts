@@ -1,4 +1,4 @@
-import { LOAD } from 'internal/arraybuffer';
+import { LOAD, STORE } from 'internal/arraybuffer';
 
 import { i128 } from './i128';
 import { u128 } from './u128';
@@ -415,43 +415,25 @@ export class u256 {
   }
 
   toBytesLE(): u8[] {
-    var hi1 = this.hi1, lo1 = this.lo1;
-    var hi2 = this.hi2, lo2 = this.lo2;
+    var result = new Array<u8>(32);
+    var buffer = <ArrayBuffer>result.buffer_;
 
-    var result: u8[] = [
-      <u8>(lo1 >>  0), <u8>(lo1 >>  8), <u8>(lo1 >> 16), <u8>(lo1 >> 24),
-      <u8>(lo1 >> 32), <u8>(lo1 >> 40), <u8>(lo1 >> 48), <u8>(lo1 >> 56),
-
-      <u8>(lo2 >>  0), <u8>(lo2 >>  8), <u8>(lo2 >> 16), <u8>(lo2 >> 24),
-      <u8>(lo2 >> 32), <u8>(lo2 >> 40), <u8>(lo2 >> 48), <u8>(lo2 >> 56),
-
-      <u8>(hi1 >>  0), <u8>(hi1 >>  8), <u8>(hi1 >> 16), <u8>(hi1 >> 24),
-      <u8>(hi1 >> 32), <u8>(hi1 >> 40), <u8>(hi1 >> 48), <u8>(hi1 >> 56),
-
-      <u8>(hi2 >>  0), <u8>(hi2 >>  8), <u8>(hi2 >> 16), <u8>(hi2 >> 24),
-      <u8>(hi2 >> 32), <u8>(hi2 >> 40), <u8>(hi2 >> 48), <u8>(hi2 >> 56),
-    ];
+    STORE<u64>(buffer, 0, this.lo1);
+    STORE<u64>(buffer, 1, this.lo2);
+    STORE<u64>(buffer, 2, this.hi1);
+    STORE<u64>(buffer, 3, this.hi2);
 
     return result;
   }
 
   toBytesBE(): u8[] {
-    var hi1 = this.hi1, lo1 = this.lo1;
-    var hi2 = this.hi2, lo2 = this.lo2;
+    var result = new Array<u8>(32);
+    var buffer = <ArrayBuffer>result.buffer_;
 
-    var result: u8[] = [
-      <u8>(hi2 >> 56), <u8>(hi2 >> 48), <u8>(hi2 >> 40), <u8>(hi2 >> 32),
-      <u8>(hi2 >> 24), <u8>(hi2 >> 16), <u8>(hi2 >>  8), <u8>(hi2 >>  0),
-
-      <u8>(hi1 >> 56), <u8>(hi1 >> 48), <u8>(hi1 >> 40), <u8>(hi1 >> 32),
-      <u8>(hi1 >> 24), <u8>(hi1 >> 16), <u8>(hi1 >>  8), <u8>(hi1 >>  0),
-
-      <u8>(lo2 >> 56), <u8>(lo2 >> 48), <u8>(lo2 >> 40), <u8>(lo2 >> 32),
-      <u8>(lo2 >> 24), <u8>(lo2 >> 16), <u8>(lo2 >>  8), <u8>(lo2 >>  0),
-
-      <u8>(lo1 >> 56), <u8>(lo1 >> 48), <u8>(lo1 >> 40), <u8>(lo1 >> 32),
-      <u8>(lo1 >> 24), <u8>(lo1 >> 16), <u8>(lo1 >>  8), <u8>(lo1 >>  0),
-    ];
+    STORE<u64>(buffer, 0, bswap(this.hi2));
+    STORE<u64>(buffer, 1, bswap(this.hi1));
+    STORE<u64>(buffer, 2, bswap(this.lo2));
+    STORE<u64>(buffer, 3, bswap(this.lo1));
 
     return result;
   }
