@@ -116,15 +116,15 @@ export function digits10(value: u64): i32 {
 
 // helper function for utoa
 function processU64(digits: Int8Array, value: u64): void {
-  var length = digits.length;
+  var length = digits.length - 1;
   for (let i = 63; i != -1; i--) {
     let left_bit = value & (1 << i) ? 1 : 0;
-    for (let digit_index = 0; digit_index < length; digit_index++) {
-      digits[digit_index] += digits[digit_index] >= 5 ? 3 : 0;
+    for (let j = 0; j <= length; j++) {
+      digits[j] += digits[j] >= 5 ? 3 : 0;
     }
-    for (let j = length - 1; j != -1; j--) {
+    for (let j = length; j != -1; j--) {
       digits[j] <<= 1;
-      if (j < length - 1) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
+      if (j < length) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
       digits[j] &= 15;
     }
     digits[0] += <u8>left_bit;
@@ -140,9 +140,9 @@ export function u128toa10(value: u128): string {
 
   var result = "";
   var start = false;
-  for (let digit_index = length-1; digit_index != -1; digit_index--) {
-    if (!start && digits[digit_index] > 0) start = true;
-    if (start) result = result.concat(HEX_CHARS.charAt(digits[digit_index]));
+  for (let i = length - 1; i != -1; i--) {
+    if (!start && digits[i] > 0) start = true;
+    if (start) result = result.concat(HEX_CHARS.charAt(digits[i]));
   }
   return result;
 }
@@ -158,9 +158,9 @@ export function u256toa10(value: u256): string {
 
   var result = "";
   var start = false;
-  for (let digit_index = length-1; digit_index != -1; digit_index--) {
-    if (!start && digits[digit_index] > 0) start = true;
-    if (start) result = result.concat(HEX_CHARS.charAt(digits[digit_index]));
+  for (let i = length - 1; i != -1; i--) {
+    if (!start && digits[i] > 0) start = true;
+    if (start) result = result.concat(HEX_CHARS.charAt(digits[i]));
   }
   return result;
 }

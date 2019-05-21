@@ -1949,13 +1949,16 @@
  )
  (func $assembly/integer/u256/u256.shr (; 72 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
+  (local $3 i32)
   local.get $1
   i32.const 255
   i32.and
+  local.tee $3
   i64.extend_i32_s
-  local.tee $2
-  i64.const 64
-  i64.le_u
+  local.set $2
+  local.get $3
+  i32.const 64
+  i32.le_s
   if
    local.get $0
    i64.load
@@ -1987,14 +1990,14 @@
    i64.or
    drop
   else   
-   local.get $2
-   i64.const 64
-   i64.gt_u
+   local.get $3
+   i32.const 64
+   i32.gt_s
    local.tee $1
    if (result i32)
-    local.get $2
-    i64.const 128
-    i64.le_u
+    local.get $3
+    i32.const 128
+    i32.le_s
    else    
     local.get $1
    end
@@ -2006,14 +2009,14 @@
     i64.load offset=16
     drop
    else    
-    local.get $2
-    i64.const 128
-    i64.gt_u
+    local.get $3
+    i32.const 128
+    i32.gt_s
     local.tee $1
     if (result i32)
-     local.get $2
-     i64.const 192
-     i64.le_u
+     local.get $3
+     i32.const 192
+     i32.le_s
     else     
      local.get $1
     end
@@ -3199,7 +3202,7 @@
   if
    i32.const 672
    i32.const 936
-   i32.const 468
+   i32.const 466
    i32.const 4
    call $~lib/env/abort
    unreachable

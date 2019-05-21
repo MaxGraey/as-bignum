@@ -206,9 +206,9 @@ export class u256 {
   @inline @operator.prefix('-')
   neg(): u256 {
     var lo1 = ~this.lo1,
-      lo2 = ~this.lo2,
-      hi1 = ~this.hi1,
-      hi2 = ~this.hi2;
+        lo2 = ~this.lo2,
+        hi1 = ~this.hi1,
+        hi2 = ~this.hi2;
 
     var cy = ((lo1 & 1) + (lo1 >> 1)) >> 63;
     var cy1 = ((lo2 & 1) + (lo2 >> 1)) >> 63;
@@ -221,11 +221,11 @@ export class u256 {
   static add(a: u256, b: u256): u256 {
     var alo = a.lo1;
     var blo = b.lo1;
-    var lo = new u128(alo) + new u128(blo);
+    var lo   = new u128(alo) + new u128(blo);
     var amid = new u128(alo, a.hi1);
     var bmid = new u128(blo, b.hi1);
-    var mid = amid + bmid + new u128(lo.hi);
-    var hi = a.hi2 + b.hi2 + mid.hi;
+    var mid  = amid + bmid + new u128(lo.hi);
+    var hi   = a.hi2 + b.hi2 + mid.hi;
 
     return new u256(lo.lo, mid.lo, mid.hi, hi);
   }
@@ -251,7 +251,7 @@ export class u256 {
 
     // need for preventing redundant i32 -> u64 extends
     var shift64 = shift as u64;
-    let lo1: u64, lo2: u64, hi1: u64, hi2: u64;
+    var lo1: u64, lo2: u64, hi1: u64, hi2: u64;
 
     if (shift <= 64) {
       hi2 = value.hi2 >> shift64;
@@ -261,12 +261,12 @@ export class u256 {
       return new u256(lo1, lo2, hi1, hi2);
     } else if (shift > 64 && shift <= 128) {
       hi1 = value.hi2 >> (128 - shift64);
-      return new u256(value.lo2, value.hi1, hi1, 0);
+      return new u256(value.lo2, value.hi1, hi1);
     } else if (shift > 128 && shift <= 192) {
       lo2 = value.hi2 >> (192 - shift);
-      return new u256(value.hi1, lo2, 0, 0);
+      return new u256(value.hi1, lo2);
     } else {
-      return new u256(value.hi2 >> (256 - shift64), 0, 0, 0);
+      return new u256(value.hi2 >> (256 - shift64));
     }
   }
 
@@ -290,11 +290,7 @@ export class u256 {
     var ah2 = a.hi2, ah1 = a.hi1, bh2 = b.hi2, bh1 = b.hi1, al2 = a.lo2, bl2 = b.lo2;
     if (ah2 == bh2) {
       if (ah1 == bh1) {
-        if (al2 == bl2) {
-          return a.lo1 < b.lo1;
-        } else {
-          return al2 < bl2;
-        }
+        return al2 == bl2 ? a.lo1 < b.lo1 : al2 < bl2
       } else {
         return ah1 < bh1;
       }
@@ -329,18 +325,18 @@ export class u256 {
 
   @inline
   static clz(value: u256): i32 {
-    if (value.hi2) return <i32>(clz(value.hi2) + 0);
+         if (value.hi2) return <i32>(clz(value.hi2) + 0);
     else if (value.hi1) return <i32>(clz(value.hi1) + 64);
     else if (value.lo2) return <i32>(clz(value.lo2) + 128);
-    else return <i32>(clz(value.lo1) + 192);
+    else                return <i32>(clz(value.lo1) + 192);
   }
 
   @inline
   static ctz(value: u256): i32 {
-    if (value.lo1) return <i32>(ctz(value.lo1) + 0);
+         if (value.lo1) return <i32>(ctz(value.lo1) + 0);
     else if (value.lo2) return <i32>(ctz(value.lo2) + 64);
     else if (value.hi1) return <i32>(ctz(value.hi1) + 128);
-    else return <i32>(ctz(value.hi2) + 192);
+    else                return <i32>(ctz(value.hi2) + 192);
   }
 
   /**
@@ -423,16 +419,16 @@ export class u256 {
     var hi2 = this.hi2, lo2 = this.lo2;
 
     var result: u8[] = [
-      <u8>(lo1 >> 0), <u8>(lo1 >> 8), <u8>(lo1 >> 16), <u8>(lo1 >> 24),
+      <u8>(lo1 >>  0), <u8>(lo1 >>  8), <u8>(lo1 >> 16), <u8>(lo1 >> 24),
       <u8>(lo1 >> 32), <u8>(lo1 >> 40), <u8>(lo1 >> 48), <u8>(lo1 >> 56),
 
-      <u8>(lo2 >> 0), <u8>(lo2 >> 8), <u8>(lo2 >> 16), <u8>(lo2 >> 24),
+      <u8>(lo2 >>  0), <u8>(lo2 >>  8), <u8>(lo2 >> 16), <u8>(lo2 >> 24),
       <u8>(lo2 >> 32), <u8>(lo2 >> 40), <u8>(lo2 >> 48), <u8>(lo2 >> 56),
 
-      <u8>(hi1 >> 0), <u8>(hi1 >> 8), <u8>(hi1 >> 16), <u8>(hi1 >> 24),
+      <u8>(hi1 >>  0), <u8>(hi1 >>  8), <u8>(hi1 >> 16), <u8>(hi1 >> 24),
       <u8>(hi1 >> 32), <u8>(hi1 >> 40), <u8>(hi1 >> 48), <u8>(hi1 >> 56),
 
-      <u8>(hi2 >> 0), <u8>(hi2 >> 8), <u8>(hi2 >> 16), <u8>(hi2 >> 24),
+      <u8>(hi2 >>  0), <u8>(hi2 >>  8), <u8>(hi2 >> 16), <u8>(hi2 >> 24),
       <u8>(hi2 >> 32), <u8>(hi2 >> 40), <u8>(hi2 >> 48), <u8>(hi2 >> 56),
     ];
 
@@ -445,16 +441,16 @@ export class u256 {
 
     var result: u8[] = [
       <u8>(hi2 >> 56), <u8>(hi2 >> 48), <u8>(hi2 >> 40), <u8>(hi2 >> 32),
-      <u8>(hi2 >> 24), <u8>(hi2 >> 16), <u8>(hi2 >> 8), <u8>(hi2 >> 0),
+      <u8>(hi2 >> 24), <u8>(hi2 >> 16), <u8>(hi2 >>  8), <u8>(hi2 >>  0),
 
       <u8>(hi1 >> 56), <u8>(hi1 >> 48), <u8>(hi1 >> 40), <u8>(hi1 >> 32),
-      <u8>(hi1 >> 24), <u8>(hi1 >> 16), <u8>(hi1 >> 8), <u8>(hi1 >> 0),
+      <u8>(hi1 >> 24), <u8>(hi1 >> 16), <u8>(hi1 >>  8), <u8>(hi1 >>  0),
 
       <u8>(lo2 >> 56), <u8>(lo2 >> 48), <u8>(lo2 >> 40), <u8>(lo2 >> 32),
-      <u8>(lo2 >> 24), <u8>(lo2 >> 16), <u8>(lo2 >> 8), <u8>(lo2 >> 0),
+      <u8>(lo2 >> 24), <u8>(lo2 >> 16), <u8>(lo2 >>  8), <u8>(lo2 >>  0),
 
       <u8>(lo1 >> 56), <u8>(lo1 >> 48), <u8>(lo1 >> 40), <u8>(lo1 >> 32),
-      <u8>(lo1 >> 24), <u8>(lo1 >> 16), <u8>(lo1 >> 8), <u8>(lo1 >> 0),
+      <u8>(lo1 >> 24), <u8>(lo1 >> 16), <u8>(lo1 >>  8), <u8>(lo1 >>  0),
     ];
 
     return result;
@@ -484,7 +480,6 @@ export class u256 {
     } else if (radix == 10) {
       return u256toa10(this);
     }
-
     return "undefined";
   }
 }
