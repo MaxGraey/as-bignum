@@ -138,32 +138,6 @@ export function utoa10(value: u128): string {
   processU64(digits, value.hi);
   processU64(digits, value.lo);
 
-  // for (let i = 63; i != -1; i--) {
-  //   let left_bit = value.hi & (1 << i) ? 1 : 0;
-  //   for (let digit_index = 0; digit_index < length; digit_index++) {
-  //     digits[digit_index] += digits[digit_index] >= 5 ? 3 : 0;
-  //   }
-  //   for (let j = length - 1; j != -1; j--) {
-  //     digits[j] <<= 1;
-  //     if (j < length - 1) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
-  //     digits[j] &= 15;
-  //   }
-  //   digits[0] += <u8>left_bit;
-  // }
-  //
-  // for (let i = 63; i != -1; i--) {
-  //   let left_bit = value.lo & (1 << i) ? 1 : 0;
-  //   for (let digit_index = 0; digit_index < length; digit_index++) {
-  //     digits[digit_index] += digits[digit_index] >= 5 ? 3 : 0;
-  //   }
-  //   for (let j = length - 1; j != -1; j--) {
-  //     digits[j] <<= 1;
-  //     if (j < length - 1) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
-  //     digits[j] &= 15;
-  //   }
-  //   digits[0] += <u8>left_bit;
-  // }
-
   var result = "";
   var start = false;
   for (let digit_index = length-1; digit_index != -1; digit_index--) {
