@@ -131,7 +131,7 @@ function processU64(digits: Int8Array, value: u64): void {
   }
 }
 
-export function utoa10(value: u128): string {
+export function u128toa10(value: u128): string {
   var length = 40;
   var digits = new Int8Array(length);
 

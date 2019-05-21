@@ -22,7 +22,7 @@ import {
   __divmod_rem,
 
 } from '../globals';
-import { utoa10, atou128 } from '../utils';
+import {atou128, u128toa10} from '../utils';
 
 // @external("u128.spec.as", "logStr")
 // declare function logStr(str: string): void;
@@ -898,7 +898,7 @@ export class u128 {
       }
       return result;
     } else if (radix == 10) {
-      return utoa10(this);
+      return u128toa10(this);
     }
 
     return "undefined";
