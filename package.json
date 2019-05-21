@@ -10,8 +10,9 @@
     "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate",
     "build:wasm": "yarn build:debug && yarn build:release",
     "build:test:u128": "npx asc tests/assembly/u128.spec.as.ts -b tests/build/u128.wasm -t tests/build/u128.wat --validate --sourceMap --importMemory --debug",
+    "build:test:u256": "npx asc tests/assembly/u256.spec.as.ts -b tests/build/u256.wasm -t tests/build/u256.wat --validate --sourceMap --importMemory --debug",
     "build:test:safe_u128": "npx asc tests/assembly/safe_u128.spec.as.ts -b tests/build/safe_u128.wasm -t tests/build/safe_u128.wat --validate --sourceMap --importMemory --debug",
-    "build:test": "yarn build:test:u128 && yarn build:test:safe_u128",
+    "build:test": "yarn build:test:u128 && yarn build:test:u256 && yarn build:test:safe_u128",
     "build": "yarn build:wasm",
     "test": "yarn build:test && ava -v",
     "test:ci": "yarn build:test && ava --fail-fast"
