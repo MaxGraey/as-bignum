@@ -251,17 +251,17 @@ export class u256 {
     var shift64 = shift as u64;
     let lo1: u64, lo2: u64, hi1: u64, hi2: u64;
 
-    if (shift64 <= 64) {
+    if (shift <= 64) {
       hi2 = value.hi2 >> shift64;
       hi1 = (value.hi1 >> shift64) | (hi2 << (64 - shift64));
       lo2 = (value.lo2 >> shift64) | (hi1 << (64 - shift64));
       lo1 = (value.lo1 >> shift64) | (lo2 << (64 - shift64));
       return new u256(lo1, lo2, hi1, hi2);
-    } else if (shift64 > 64 && shift64 <= 128) {
+    } else if (shift > 64 && shift <= 128) {
       hi1 = value.hi2 >> (128 - shift64);
       return new u256(value.lo2, value.hi1, hi1, 0);
-    } else if (shift64 > 128 && shift64 <= 192) {
-      lo2 = value.hi2 >> (192 - shift64);
+    } else if (shift > 128 && shift <= 192) {
+      lo2 = value.hi2 >> (192 - shift);
       return new u256(value.hi1, lo2, 0, 0);
     } else {
       return new u256(value.hi2 >> (256 - shift64), 0, 0, 0);

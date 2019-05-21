@@ -22,7 +22,7 @@ import {
   __divmod_rem,
 
 } from '../globals';
-import {atou128, u128toa10} from '../utils';
+import { atou128, u128toa10 } from '../utils';
 
 // @external("u128.spec.as", "logStr")
 // declare function logStr(str: string): void;
