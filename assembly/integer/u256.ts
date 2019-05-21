@@ -1,5 +1,10 @@
+import { LOAD, STORE } from 'internal/arraybuffer';
+
 import { i128 } from './i128';
 import { u128 } from './u128';
+import {u256toa10, utoa10} from "../utils";
+
+const HEX_CHARS = '0123456789abcdef';
 
 export class u256 {
 
@@ -54,10 +59,30 @@ export class u256 {
   }
 
   @inline
-  static fromBytes(array: u8[]): u256 {
-    // TODO
-    unreachable();
-    return u256.Zero;
+  static fromBytes(array: u8[], bigEndian: bool = false): u256 {
+    return bigEndian ? u256.fromBytesBE(array) : u256.fromBytesLE(array);
+  }
+
+  static fromBytesLE(array: u8[]): u256 {
+    assert(array.length && (array.length & 31) == 0);
+    var buffer = <ArrayBuffer>array.buffer_;
+    return new u256(
+        LOAD<u64>(buffer, 0),
+        LOAD<u64>(buffer, 1),
+        LOAD<u64>(buffer, 2),
+        LOAD<u64>(buffer, 3),
+    );
+  }
+
+  static fromBytesBE(array: u8[]): u256 {
+    assert(array.length && (array.length & 31) == 0);
+    var buffer = <ArrayBuffer>array.buffer_;
+    return new u256(
+        bswap<u64>(LOAD<u64>(buffer, 3)),
+        bswap<u64>(LOAD<u64>(buffer, 2)),
+        bswap<u64>(LOAD<u64>(buffer, 1)),
+        bswap<u64>(LOAD<u64>(buffer, 0))
+    );
   }
 
   // TODO need improvement
@@ -202,6 +227,79 @@ export class u256 {
     return new u256(a.lo1 & b.lo1, a.lo2 & b.lo2, a.hi1 & b.hi1, a.hi2 & b.hi2);
   }
 
+  @inline @operator('>>')
+  static shr(value: u256, shift: i32): u256 {
+      shift &= 255;
+
+      // need for preventing redundant i32 -> u64 extends
+      var shift64 = shift as u64;
+      let lo1: u64, lo2: u64, hi1: u64, hi2: u64;
+
+      if (shift64 <= 64) {
+          hi2 = value.hi2 >> shift64;
+          hi1 = (value.hi1 >> shift64) | (hi2 << (64 - shift64));
+          lo2 = (value.lo2 >> shift64) | (hi1 << (64 - shift64));
+          lo1 = (value.lo1 >> shift64) | (lo2 << (64 - shift64));
+          return new u256(lo1, lo2, hi1, hi2);
+      } else if (shift64 > 64 && shift64 <= 128) {
+          hi1 = value.hi2 >> (128 - shift64);
+          return new u256(value.lo2, value.hi1, hi1, 0);
+      } else if (shift64 > 128 && shift64 <= 192) {
+          lo2 = value.hi2 >> (192 - shift64);
+          return new u256(value.hi1, lo2, 0, 0);
+      } else {
+          return new u256(value.hi2 >> (256 - shift64), 0, 0, 0);
+      }
+  }
+
+  @inline @operator('>>>')
+  static shr_u(value: u256, shift: i32): u256 {
+      return u256.shr(value, shift);
+  }
+
+  @inline @operator('==')
+  static eq(a: u256, b: u256): bool {
+      return a.hi2 == b.hi2 && a.hi1 == b.hi1 && a.lo2 == b.lo2 && a.lo1 == b.lo1;
+  }
+
+  @inline @operator('!=')
+  static ne(a: u256, b: u256): bool {
+      return !u256.eq(a, b);
+  }
+
+  @inline @operator('<')
+  static lt(a: u256, b: u256): bool {
+      var ah2 = a.hi2, ah1 = a.hi1, bh2 = b.hi2, bh1 = b.hi1, al2 = a.lo2, bl2 = b.lo2;
+      if (ah2 == bh2) {
+          if (ah1 == bh1) {
+              if (al2 == bl2) {
+                  return a.lo1 < b.lo1;
+              } else {
+                  return al2 < bl2;
+              }
+          } else {
+              return ah1 < bh1;
+          }
+      } else {
+          return ah2 < bh2;
+      }
+  }
+
+  @inline @operator('>')
+  static gt(a: u256, b: u256): bool {
+      return b < a;
+  }
+
+  @inline @operator('<=')
+  static le(a: u256, b: u256): bool {
+      return !u256.gt(a, b);
+  }
+
+  @inline @operator('>=')
+  static ge(a: u256, b: u256): bool {
+      return !u256.lt(a, b);
+  }
+
   @inline
   static popcnt(value: u256): i32 {
     var count             = popcnt(value.lo1);
@@ -298,8 +396,8 @@ export class u256 {
   }
 
   @inline
-  toBytes(le: bool = true): u8[] {
-    return le ? this.toBytesLE() : this.toBytesBE();
+  toBytes(bigEndian: bool = false): u8[] {
+    return bigEndian ? this.toBytesBE() : this.toBytesLE();
   }
 
   toBytesLE(): u8[] {
@@ -349,6 +447,26 @@ export class u256 {
     return new u256(this.lo1, this.lo2, this.hi1, this.hi2);
   }
 
-  // TODO
-  // toString(radix: i32): string
+  toString(radix: i32 = 0): string {
+    if (!radix) radix = 10;
+    assert(radix == 10 || radix == 16, 'radix argument must be between 10 or 16');
+
+    if (this.isZero()) return '0';
+
+    var result = '';
+    var it = this.clone();
+    if (radix == 16) {
+      let shift: i32 = 252 - (u256.clz(it) & ~3);
+      while (shift >= 0) {
+        it     >>= shift;
+        result = result.concat(HEX_CHARS.charAt(<i32>(it.lo1 & 15)));
+        shift  -= 4;
+      }
+      return result;
+    } else if (radix == 10) {
+      return u256toa10(this);
+    }
+
+    return "undefined";
+  }
 }

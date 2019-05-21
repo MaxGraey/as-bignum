@@ -1,4 +1,4 @@
-import { u128 } from "./integer";
+import {u128, u256} from "./integer";
 import { CharCode } from "internal/string";
 
 const HEX_CHARS = '0123456789abcdef';
@@ -114,35 +114,73 @@ export function digits10(value: u64): i32 {
   return t + 1;
 }
 
+// helper function for utoa
+function processU64(digits: Int8Array, value: u64): void {
+  var length = digits.length;
+  for (let i = 63; i != -1; i--) {
+    let left_bit = value & (1 << i) ? 1 : 0;
+    for (let digit_index = 0; digit_index < length; digit_index++) {
+      digits[digit_index] += digits[digit_index] >= 5 ? 3 : 0;
+    }
+    for (let j = length - 1; j != -1; j--) {
+      digits[j] <<= 1;
+      if (j < length - 1) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
+      digits[j] &= 15;
+    }
+    digits[0] += <u8>left_bit;
+  }
+}
+
 export function utoa10(value: u128): string {
   var length = 40;
   var digits = new Int8Array(length);
 
-  for (let i = 63; i != -1; i--) {
-    let left_bit = value.hi & (1 << i) ? 1 : 0;
-    for (let digit_index = 0; digit_index < length; digit_index++) {
-      digits[digit_index] += digits[digit_index] >= 5 ? 3 : 0;
-    }
-    for (let j = length - 1; j != -1; j--) {
-      digits[j] <<= 1;
-      if (j < length - 1) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
-      digits[j] &= 15;
-    }
-    digits[0] += <u8>left_bit;
-  }
+  processU64(digits, value.hi);
+  processU64(digits, value.lo);
 
-  for (let i = 63; i != -1; i--) {
-    let left_bit = value.lo & (1 << i) ? 1 : 0;
-    for (let digit_index = 0; digit_index < length; digit_index++) {
-      digits[digit_index] += digits[digit_index] >= 5 ? 3 : 0;
-    }
-    for (let j = length - 1; j != -1; j--) {
-      digits[j] <<= 1;
-      if (j < length - 1) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
-      digits[j] &= 15;
-    }
-    digits[0] += <u8>left_bit;
+  // for (let i = 63; i != -1; i--) {
+  //   let left_bit = value.hi & (1 << i) ? 1 : 0;
+  //   for (let digit_index = 0; digit_index < length; digit_index++) {
+  //     digits[digit_index] += digits[digit_index] >= 5 ? 3 : 0;
+  //   }
+  //   for (let j = length - 1; j != -1; j--) {
+  //     digits[j] <<= 1;
+  //     if (j < length - 1) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
+  //     digits[j] &= 15;
+  //   }
+  //   digits[0] += <u8>left_bit;
+  // }
+  //
+  // for (let i = 63; i != -1; i--) {
+  //   let left_bit = value.lo & (1 << i) ? 1 : 0;
+  //   for (let digit_index = 0; digit_index < length; digit_index++) {
+  //     digits[digit_index] += digits[digit_index] >= 5 ? 3 : 0;
+  //   }
+  //   for (let j = length - 1; j != -1; j--) {
+  //     digits[j] <<= 1;
+  //     if (j < length - 1) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
+  //     digits[j] &= 15;
+  //   }
+  //   digits[0] += <u8>left_bit;
+  // }
+
+  var result = "";
+  var start = false;
+  for (let digit_index = length-1; digit_index != -1; digit_index--) {
+    if (!start && digits[digit_index] > 0) start = true;
+    if (start) result = result.concat(HEX_CHARS.charAt(digits[digit_index]));
   }
+  return result;
+}
+
+export function u256toa10(value: u256): string {
+  var length = 78;
+  var digits = new Int8Array(length);
+
+  processU64(digits, value.hi2);
+  processU64(digits, value.hi1);
+  processU64(digits, value.lo2);
+  processU64(digits, value.lo1);
 
   var result = "";
   var start = false;

@@ -50,6 +50,10 @@ function unpackToString128(lo: number, hi: number): string {
   return `0x${ (unpackToString64(hi) + unpackToString64(lo)).padStart(32, '0') }`;
 }
 
+function unpackToString256(lo1: number, lo2: number, hi1: number, hi2: number): string {
+  return `0x${ (unpackToString64(hi2) + unpackToString64(hi1) + unpackToString64(lo2) + unpackToString64(lo1)).padStart(32, '0') }`;
+}
+
 function getString(ptr: number, buffer: ArrayBuffer): string {
   var U16 = new Uint16Array(buffer);
   var U32 = new Uint32Array(buffer);
@@ -95,6 +99,13 @@ function buildImports(name: string, memory: WebAssembly.Memory): ImportEntries {
           console.log(`[u128] ${ getString(msgPtr, buffer) }: ${ unpackToString128(lo, hi) }`);
         } else {
           console.log(`[u128]: ${ unpackToString128(lo, hi) }`);
+        }
+      },
+      logU256Packed(msgPtr: number, lo1: number, lo2: number, hi1: number, hi2: number) {
+        if (msgPtr) {
+          console.log(`[u256] ${ getString(msgPtr, buffer) }: ${ unpackToString256(lo1, lo2, hi1, hi2) }`);
+        } else {
+          console.log(`[u256]: ${ unpackToString256(lo1, lo2, hi1, hi2)}`)
         }
       }
     }
