@@ -61,7 +61,6 @@ export class BufferConversionTests {
   }
 
   static shouldConvertToBytesLitteEndian(): bool {
-    // var a: u8[] = (new u128(0x8877665544332211, 0x12ffeeddccbbaa99)).toBytes();
     var u = new u256(0x8877665544332211, 0x12ffeeddccbbaa99, 0x8877665544332211, 0x12ffeeddccbbaa99);
     var a = u.toBytes();
     return (
