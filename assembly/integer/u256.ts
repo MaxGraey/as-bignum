@@ -189,7 +189,7 @@ export class u256 {
 
   @inline @operator.prefix('!')
   static isEmpty(value: u256): bool {
-    return value === null || !value.isZero();
+    return value === null || value.isZero();
   }
 
   @inline @operator.prefix('~')
@@ -229,6 +229,19 @@ export class u256 {
     return new u256(lo.lo, mid.lo, mid.hi, hi);
   }
 
+  @inline @operator('-')
+  static sub(a: u256, b: u256): u256 {
+    var alo = a.lo1;
+    var blo = b.lo1;
+    var lo   = new u128(alo) - new u128(blo);
+    var amid = new u128(alo, a.hi1);
+    var bmid = new u128(blo, b.hi1);
+    var mid  = amid - bmid - new u128(lo.hi);
+    var hi   = a.hi2 - b.hi2 - mid.hi;
+
+    return new u256(lo.lo, mid.lo, mid.hi, hi);
+  }
+
   @inline @operator('|')
   static or(a: u256, b: u256): u256 {
     return new u256(a.lo1 | b.lo1, a.lo2 | b.lo2, a.hi1 | b.hi1, a.hi2 | b.hi2);
@@ -253,7 +266,8 @@ export class u256 {
     var lo1: u64, lo2: u64, hi1: u64, hi2: u64;
 
     if (shift <= 64) {
-      hi2 = value.hi2 >> shift64;
+      if (shift == 0) return value;
+      hi2 =  value.hi2 >> shift64;
       hi1 = (value.hi1 >> shift64) | (hi2 << (64 - shift64));
       lo2 = (value.lo2 >> shift64) | (hi1 << (64 - shift64));
       lo1 = (value.lo1 >> shift64) | (lo2 << (64 - shift64));

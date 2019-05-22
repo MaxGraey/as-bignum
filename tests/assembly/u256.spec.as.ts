@@ -90,3 +90,35 @@ export class BufferConversionTests {
     );
   }
 }
+
+export class BasicOperationsTests {
+  static shouldNumberIsZero1(): bool {
+    var a = u256.Zero;
+    return a.isZero();
+  }
+
+  static shouldNumberIsZero2(): bool {
+    var a = u256.One;
+    return !a.isZero();
+  }
+
+  static shouldNumberBinaryNot(): bool {
+    var a = new u256(1, 2, 3, 4);
+    return ~a == new u256(~1, ~2, ~3, ~4);
+  }
+
+  static shouldNumberUnaryPositive(): bool {
+    var a = new u256(1, 2, 3, 4);
+    return a == +a;
+  }
+
+  static shouldNumberNonEmpty(): bool {
+    var a = u256.One;
+    return !!a;
+  }
+
+  static shouldNumberIsEmpty1(): bool {
+    var a = u256.Zero;
+    return !a;
+  }
+}
