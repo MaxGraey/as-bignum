@@ -124,8 +124,7 @@ export class u256 {
     public lo2: u64 = 0,
     public hi1: u64 = 0,
     public hi2: u64 = 0,
-  ) {
-  }
+  ) {}
 
   @inline
   set(value: u256): this {

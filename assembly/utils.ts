@@ -1,5 +1,6 @@
-import {u128, u256} from "./integer";
 import { CharCode } from "internal/string";
+import { u128 } from "./integer/u128";
+import { u256 } from "./integer/u256";
 
 const HEX_CHARS = '0123456789abcdef';
 
