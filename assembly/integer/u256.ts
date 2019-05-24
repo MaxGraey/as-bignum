@@ -4,7 +4,7 @@ import { i128 } from './i128';
 import { u128 } from './u128';
 import { u256toa10 } from "../utils";
 
-const HEX_CHARS = '0123456789abcdef';
+@lazy const HEX_CHARS = '0123456789abcdef';
 
 export class u256 {
 

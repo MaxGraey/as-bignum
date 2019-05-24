@@ -23,23 +23,21 @@
  (import "env" "abort" (func $~lib/env/abort (param i32 i32 i32 i32)))
  (memory $0 1)
  (data (i32.const 8) "\10\00\00\000\001\002\003\004\005\006\007\008\009\00a\00b\00c\00d\00e\00f")
- (data (i32.const 48) "\a0\00\00\00\00\00\00\00\01\00\00\00\00\00\00\00\n\00\00\00\00\00\00\00d\00\00\00\00\00\00\00\e8\03\00\00\00\00\00\00\10\'\00\00\00\00\00\00\a0\86\01\00\00\00\00\00@B\0f\00\00\00\00\00\80\96\98\00\00\00\00\00\00\e1\f5\05\00\00\00\00\00\ca\9a;\00\00\00\00\00\e4\0bT\02\00\00\00\00\e8vH\17\00\00\00\00\10\a5\d4\e8\00\00\00\00\a0rN\18\t\00\00\00@z\10\f3Z\00\00\00\80\c6\a4~\8d\03\00\00\00\c1o\f2\86#\00\00\00\8a]xEc\01\00\00d\a7\b3\b6\e0\0d\00\00\e8\89\04#\c7\8a")
- (data (i32.const 304) "0\00\00\00\14")
- (data (i32.const 312) "\11\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00u\00t\00i\00l\00s\00.\00t\00s")
- (data (i32.const 352) "\0e\00\00\00~\00l\00i\00b\00/\00s\00t\00r\00i\00n\00g\00.\00t\00s")
- (data (i32.const 384) "K")
- (data (i32.const 393) "\01\02\03\04\05\06\07\08\t$$$$$$$\n\0b\0c\0d\0e\0f\10\11\12\13\14\15\16\17\18\19\1a\1b\1c\1d\1e\1f !\"#$$$$$$\n\0b\0c\0d\0e\0f\10\11\12\13\14\15\16\17\18\19\1a\1b\1c\1d\1e\1f !\"#")
- (data (i32.const 512) "\80\01\00\00K")
- (data (i32.const 520) "\18\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00g\00e\00r\00/\00u\001\002\008\00.\00t\00s")
- (data (i32.const 576) "\0d\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s")
- (data (i32.const 608) "\1c\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s")
- (data (i32.const 672) "\'\00\00\00r\00a\00d\00i\00x\00 \00a\00r\00g\00u\00m\00e\00n\00t\00 \00m\00u\00s\00t\00 \00b\00e\00 \00b\00e\00t\00w\00e\00e\00n\00 \001\000\00 \00o\00r\00 \001\006")
- (data (i32.const 760) "\01\00\00\000")
- (data (i32.const 776) "\17\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00s\00t\00r\00i\00n\00g\00.\00t\00s")
- (data (i32.const 832) "\04\00\00\00n\00u\00l\00l")
- (data (i32.const 848) "\1b\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s")
- (data (i32.const 912) "\t\00\00\00u\00n\00d\00e\00f\00i\00n\00e\00d")
- (data (i32.const 936) "\18\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00g\00e\00r\00/\00u\002\005\006\00.\00t\00s")
+ (data (i32.const 48) "\11\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00u\00t\00i\00l\00s\00.\00t\00s")
+ (data (i32.const 88) "\0e\00\00\00~\00l\00i\00b\00/\00s\00t\00r\00i\00n\00g\00.\00t\00s")
+ (data (i32.const 120) "K")
+ (data (i32.const 129) "\01\02\03\04\05\06\07\08\t$$$$$$$\n\0b\0c\0d\0e\0f\10\11\12\13\14\15\16\17\18\19\1a\1b\1c\1d\1e\1f !\"#$$$$$$\n\0b\0c\0d\0e\0f\10\11\12\13\14\15\16\17\18\19\1a\1b\1c\1d\1e\1f !\"#")
+ (data (i32.const 248) "x\00\00\00K")
+ (data (i32.const 256) "\18\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00g\00e\00r\00/\00u\001\002\008\00.\00t\00s")
+ (data (i32.const 312) "\0d\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s")
+ (data (i32.const 344) "\1c\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s")
+ (data (i32.const 408) "\'\00\00\00r\00a\00d\00i\00x\00 \00a\00r\00g\00u\00m\00e\00n\00t\00 \00m\00u\00s\00t\00 \00b\00e\00 \00b\00e\00t\00w\00e\00e\00n\00 \001\000\00 \00o\00r\00 \001\006")
+ (data (i32.const 496) "\01\00\00\000")
+ (data (i32.const 512) "\04\00\00\00n\00u\00l\00l")
+ (data (i32.const 528) "\17\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00s\00t\00r\00i\00n\00g\00.\00t\00s")
+ (data (i32.const 584) "\1b\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s")
+ (data (i32.const 648) "\t\00\00\00u\00n\00d\00e\00f\00i\00n\00e\00d")
+ (data (i32.const 672) "\18\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00g\00e\00r\00/\00u\002\005\006\00.\00t\00s")
  (table $0 1 funcref)
  (elem (i32.const 0) $null)
  (global $assembly/globals/__divmod_quot_lo (mut i64) (i64.const 0))
@@ -210,7 +208,7 @@
   i32.eqz
   if
    i32.const 0
-   i32.const 352
+   i32.const 88
    i32.const 75
    i32.const 4
    call $~lib/env/abort
@@ -314,8 +312,8 @@
   end
   if
    i32.const 0
-   i32.const 312
-   i32.const 172
+   i32.const 48
+   i32.const 163
    i32.const 4
    call $~lib/env/abort
    unreachable
@@ -487,7 +485,7 @@
   i32.eqz
   if
    i32.const 0
-   i32.const 520
+   i32.const 256
    i32.const 142
    i32.const 4
    call $~lib/env/abort
@@ -524,7 +522,7 @@
   i32.eqz
   if
    i32.const 0
-   i32.const 520
+   i32.const 256
    i32.const 133
    i32.const 4
    call $~lib/env/abort
@@ -1603,7 +1601,7 @@
   i32.gt_u
   if
    i32.const 0
-   i32.const 608
+   i32.const 344
    i32.const 26
    i32.const 2
    call $~lib/env/abort
@@ -1617,7 +1615,7 @@
   i32.gt_u
   if
    i32.const 0
-   i32.const 576
+   i32.const 312
    i32.const 45
    i32.const 39
    call $~lib/env/abort
@@ -1687,8 +1685,8 @@
   end
   i32.eqz
   if
-   i32.const 672
-   i32.const 520
+   i32.const 408
+   i32.const 256
    i32.const 884
    i32.const 4
    call $~lib/env/abort
@@ -1701,7 +1699,7 @@
   i64.or
   i64.eqz
   if
-   i32.const 760
+   i32.const 496
    return
   end
   local.get $0
@@ -1747,7 +1745,7 @@
   i32.eqz
   if
    i32.const 0
-   i32.const 936
+   i32.const 672
    i32.const 93
    i32.const 4
    call $~lib/env/abort
@@ -1796,7 +1794,7 @@
   i32.eqz
   if
    i32.const 0
-   i32.const 936
+   i32.const 672
    i32.const 82
    i32.const 4
    call $~lib/env/abort
@@ -2822,8 +2820,8 @@
   end
   i32.eqz
   if
+   i32.const 408
    i32.const 672
-   i32.const 936
    i32.const 461
    i32.const 4
    call $~lib/env/abort
@@ -2842,7 +2840,7 @@
   i64.or
   i64.eqz
   if
-   i32.const 760
+   i32.const 496
    return
   end
   local.get $0
