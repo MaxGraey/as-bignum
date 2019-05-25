@@ -74,8 +74,14 @@ export class u256 {
   }
 
   @inline
-  static fromBytes(array: u8[], bigEndian: bool = false): u256 {
-    return bigEndian ? u256.fromBytesBE(array) : u256.fromBytesLE(array);
+  static fromBytes<T>(array: T, bigEndian: bool = false): u256 {
+    if (array instanceof u8[]) {
+      return bigEndian ? u256.fromBytesBE(array) : u256.fromBytesLE(array);
+    } else if (array instanceof Uint8Array) {
+      return bigEndian ? u256.fromUint8ArrayBE(array) : u256.fromUint8ArrayLE(array);
+    } else {
+      throw new TypeError("Unsupported generic type");
+    }
   }
 
   static fromBytesLE(array: u8[]): u256 {
@@ -97,6 +103,28 @@ export class u256 {
       bswap<u64>(LOAD<u64>(buffer, 2)),
       bswap<u64>(LOAD<u64>(buffer, 1)),
       bswap<u64>(LOAD<u64>(buffer, 0))
+    );
+  }
+
+  static fromUint8ArrayLE(array: Uint8Array): u256 {
+    assert(array.length && (array.length & 31) == 0);
+    var buffer = <ArrayBuffer>array.buffer;
+    return new u256(
+        LOAD<u64>(buffer, 0, array.byteOffset),
+        LOAD<u64>(buffer, 1, array.byteOffset),
+        LOAD<u64>(buffer, 2, array.byteOffset),
+        LOAD<u64>(buffer, 3, array.byteOffset)
+    );
+  }
+
+  static fromUint8ArrayBE(array: Uint8Array): u256 {
+    assert(array.length && (array.length & 31) == 0);
+    var buffer = <ArrayBuffer>array.buffer;
+    return new u256(
+        bswap<u64>(LOAD<u64>(buffer, 3, array.byteOffset)),
+        bswap<u64>(LOAD<u64>(buffer, 2, array.byteOffset)),
+        bswap<u64>(LOAD<u64>(buffer, 1, array.byteOffset)),
+        bswap<u64>(LOAD<u64>(buffer, 0, array.byteOffset))
     );
   }
 
@@ -422,32 +450,51 @@ export class u256 {
     return <bool>(this.lo1 | this.lo2 | this.hi1 | this.hi2);
   }
 
-  @inline
-  toBytes(bigEndian: bool = false): u8[] {
-    return bigEndian ? this.toBytesBE() : this.toBytesLE();
-  }
-
-  toBytesLE(): u8[] {
-    var result = new Array<u8>(32);
-    var buffer = <ArrayBuffer>result.buffer_;
-
+  private toArrayBufferLE(buffer: ArrayBuffer): void {
     STORE<u64>(buffer, 0, this.lo1);
     STORE<u64>(buffer, 1, this.lo2);
     STORE<u64>(buffer, 2, this.hi1);
     STORE<u64>(buffer, 3, this.hi2);
-
-    return result;
   }
 
-  toBytesBE(): u8[] {
-    var result = new Array<u8>(32);
-    var buffer = <ArrayBuffer>result.buffer_;
-
+  private toArrayBufferBE(buffer: ArrayBuffer): void {
     STORE<u64>(buffer, 0, bswap(this.hi2));
     STORE<u64>(buffer, 1, bswap(this.hi1));
     STORE<u64>(buffer, 2, bswap(this.lo2));
     STORE<u64>(buffer, 3, bswap(this.lo1));
+  }
 
+  private toArrayBuffer(buffer: ArrayBuffer, bigEndian: bool = false): void {
+    if (bigEndian) {
+      this.toArrayBufferBE(buffer);
+    } else {
+      this.toArrayBufferLE(buffer);
+    }
+  }
+
+  /**
+   * Convert to byte array
+   * @param le Little or Big Endian? Default: true
+   * @returns  Array of bytes
+   */
+  @inline
+  toBytes(bigEndian: bool = false): u8[] {
+    var result = new Array<u8>(32);
+    var buffer = <ArrayBuffer>result.buffer_;
+    this.toArrayBuffer(buffer, bigEndian);
+    return result;
+  }
+
+  /**
+   * Convert to Uint8Array
+   * @param le Little or Big Endian? Default: true
+   * @returns  Uint8Array
+   */
+  @inline
+  toUint8Array(bigEndian: bool = false): Uint8Array {
+    var result = new Uint8Array(32);
+    var buffer = <ArrayBuffer>result.buffer;
+    this.toArrayBuffer(buffer, bigEndian);
     return result;
   }
 

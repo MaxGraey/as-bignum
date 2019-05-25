@@ -125,8 +125,14 @@ export class u128 {
   }
 
   @inline
-  static fromBytes(array: u8[], bigEndian: bool = false): u128 {
-    return bigEndian ? u128.fromBytesBE(array) : u128.fromBytesLE(array);
+  static fromBytes<T>(array: T, bigEndian: bool = false): u128 {
+    if (array instanceof u8[]) {
+      return bigEndian ? u128.fromBytesBE(array) : u128.fromBytesLE(array);
+    } else if (array instanceof Uint8Array) {
+      return bigEndian ? u128.fromUint8ArrayBE(array) : u128.fromUint8ArrayLE(array);
+    } else {
+      throw new TypeError("Unsupported generic type");
+    }
   }
 
   static fromBytesLE(array: u8[]): u128 {
@@ -144,6 +150,24 @@ export class u128 {
     return new u128(
       bswap<u64>(LOAD<u64>(buffer, 1)),
       bswap<u64>(LOAD<u64>(buffer, 0))
+    );
+  }
+
+  static fromUint8ArrayLE(array: Uint8Array): u128 {
+    assert(array.length && (array.length & 15) == 0);
+    var buffer = <ArrayBuffer>array.buffer;
+    return new u128(
+        LOAD<u64>(buffer, 0, array.byteOffset),
+        LOAD<u64>(buffer, 1, array.byteOffset)
+    );
+  }
+
+  static fromUint8ArrayBE(array: Uint8Array): u128 {
+    assert(array.length && (array.length & 15) == 0);
+    var buffer = <ArrayBuffer>array.buffer;
+    return new u128(
+        bswap<u64>(LOAD<u64>(buffer, 1, array.byteOffset)),
+        bswap<u64>(LOAD<u64>(buffer, 0, array.byteOffset))
     );
   }
 
@@ -169,7 +193,8 @@ export class u128 {
     else if (value instanceof u128)   return u128.fromU128(<u128>value);
     else if (value instanceof i256)   return u128.fromI256(<i256>value);
     else if (value instanceof u256)   return u128.fromU256(<u256>value);
-    else if (value instanceof u8[])   return u128.fromBytes(<u8[]>value);
+    else if (value instanceof u8[])   return u128.fromBytes<u8[]>(<u8[]>value);
+    else if (value instanceof Uint8Array) return u128.fromBytes<Uint8Array>(<Uint8Array>value);
     else if (value instanceof String) return u128.fromString(<string>value);
     else throw new TypeError("Unsupported generic type");
   }
@@ -832,6 +857,24 @@ export class u128 {
     else throw new TypeError('Unsupported generic type');
   }
 
+  private toArrayBufferLE(buffer: ArrayBuffer): void {
+    STORE<u64>(buffer, 0, this.lo);
+    STORE<u64>(buffer, 1, this.hi);
+  }
+
+  private toArrayBufferBE(buffer: ArrayBuffer): void {
+    STORE<u64>(buffer, 0, bswap(this.hi));
+    STORE<u64>(buffer, 1, bswap(this.lo));
+  }
+
+  private toArrayBuffer(buffer: ArrayBuffer, bigEndian: bool = false): void {
+    if (bigEndian) {
+      this.toArrayBufferBE(buffer);
+    } else {
+      this.toArrayBufferLE(buffer);
+    }
+  }
+
   /**
    * Convert to byte array
    * @param le Little or Big Endian? Default: true
@@ -839,34 +882,23 @@ export class u128 {
    */
   @inline
   toBytes(bigEndian: bool = false): u8[] {
-    return bigEndian ? this.toBytesBE() : this.toBytesLE();
-  }
-
-  /**
-  * Convert to Little Endian byte array
-  * @returns Array of bytes
-  */
-  toBytesLE(): u8[] {
     var result = new Array<u8>(16);
     var buffer = <ArrayBuffer>result.buffer_;
-
-    STORE<u64>(buffer, 0, this.lo);
-    STORE<u64>(buffer, 1, this.hi);
-
+    this.toArrayBuffer(buffer, bigEndian);
     return result;
+    // return bigEndian ? this.toBytesBE() : this.toBytesLE();
   }
 
   /**
-  * Convert to Big Endian byte array
-  * @return Array of bytes
-  */
-  toBytesBE(): u8[] {
-    var result = new Array<u8>(16);
-    var buffer = <ArrayBuffer>result.buffer_;
-
-    STORE<u64>(buffer, 0, bswap(this.hi));
-    STORE<u64>(buffer, 1, bswap(this.lo));
-
+   * Convert to Uint8Array
+   * @param le Little or Big Endian? Default: true
+   * @returns  Uint8Array
+   */
+  @inline
+  toUint8Array(bigEndian: bool = false): Uint8Array {
+    var result = new Uint8Array(16);
+    var buffer = <ArrayBuffer>result.buffer;
+    this.toArrayBuffer(buffer, bigEndian);
     return result;
   }
 
