@@ -43,7 +43,7 @@ function logU128(value: u128, msg: string | null = null): void {
 }
 */
 
-const HEX_CHARS = '0123456789abcdef';
+@lazy const HEX_CHARS = '0123456789abcdef';
 
 export class u128 {
 
