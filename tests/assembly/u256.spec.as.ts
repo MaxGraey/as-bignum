@@ -1,5 +1,6 @@
 import 'allocator/arena';
 import { u256 } from '../../assembly/integer/u256';
+import { arrayToUint8Array } from "./utils";
 
 declare function logStr(str: string | null): void;
 declare function logU256Packed(msg: string | null, lo1: f64, lo2: f64, hi1: f64, hi2: f64): void;
@@ -38,7 +39,7 @@ export class StringConversionTests {
 }
 
 export class BufferConversionTests {
-  static shouldConvertFromBytesLittleEndian(): bool {
+  static shouldConvertFromBytesLittleEndian1(): bool {
     var arr: u8[] = [
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12,
@@ -49,7 +50,19 @@ export class BufferConversionTests {
     return u256.fromBytes(arr) == new u256(0x8877665544332211, 0x12ffeeddccbbaa99, 0x8877665544332211, 0x12ffeeddccbbaa99);
   }
 
-  static shouldConvertFromBytesBigEndian(): bool {
+  static shouldConvertFromBytesLittleEndian2(): bool {
+    var arr: u8[] = [
+      0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
+      0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12,
+      0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
+      0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
+    ];
+    var uint8array = arrayToUint8Array(arr);
+
+    return u256.fromBytes(arr) == new u256(0x8877665544332211, 0x12ffeeddccbbaa99, 0x8877665544332211, 0x12ffeeddccbbaa99);
+  }
+
+  static shouldConvertFromBytesBigEndian1(): bool {
     var arr: u8[] = [
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12,
@@ -60,9 +73,51 @@ export class BufferConversionTests {
     return u256.fromBytes(arr, true) == new u256(0x99aabbccddeeff12, 0x1122334455667788, 0x99aabbccddeeff12, 0x1122334455667788);
   }
 
-  static shouldConvertToBytesLitteEndian(): bool {
+  static shouldConvertFromBytesBigEndian2(): bool {
+    var arr: u8[] = [
+      0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
+      0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12,
+      0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
+      0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
+    ];
+    var uint8array = arrayToUint8Array(arr);
+
+    return u256.fromBytes(arr, true) == new u256(0x99aabbccddeeff12, 0x1122334455667788, 0x99aabbccddeeff12, 0x1122334455667788);
+  }
+
+  static shouldConvertToBytesLitteEndian1(): bool {
     var u = new u256(0x8877665544332211, 0x12ffeeddccbbaa99, 0x8877665544332211, 0x12ffeeddccbbaa99);
     var a = u.toBytes();
+    return (
+        a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
+        a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
+        a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
+        a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12 &&
+        a[16] == 0x11 && a[17] == 0x22 && a[18] == 0x33 && a[19] == 0x44 &&
+        a[20] == 0x55 && a[21] == 0x66 && a[22] == 0x77 && a[23] == 0x88 &&
+        a[24] == 0x99 && a[25] == 0xAA && a[26] == 0xBB && a[27] == 0xCC &&
+        a[28] == 0xDD && a[29] == 0xEE && a[30] == 0xFF && a[31] == 0x12
+    );
+  }
+
+  static shouldConvertToBytesLitteEndian2(): bool {
+    var u = new u256(0x8877665544332211, 0x12ffeeddccbbaa99, 0x8877665544332211, 0x12ffeeddccbbaa99);
+    var a = u.toUint8Array();
+    return (
+        a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
+        a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
+        a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
+        a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12 &&
+        a[16] == 0x11 && a[17] == 0x22 && a[18] == 0x33 && a[19] == 0x44 &&
+        a[20] == 0x55 && a[21] == 0x66 && a[22] == 0x77 && a[23] == 0x88 &&
+        a[24] == 0x99 && a[25] == 0xAA && a[26] == 0xBB && a[27] == 0xCC &&
+        a[28] == 0xDD && a[29] == 0xEE && a[30] == 0xFF && a[31] == 0x12
+    );
+  }
+
+  static shouldConvertToBytesBigEndian1(): bool {
+    var u = new u256(0x99aabbccddeeff12, 0x1122334455667788, 0x99aabbccddeeff12, 0x1122334455667788);
+    var a = u.toBytes(true);
     return (
       a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
       a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
@@ -75,18 +130,18 @@ export class BufferConversionTests {
     );
   }
 
-  static shouldConvertToBytesBigEndian(): bool {
+  static shouldConvertToBytesBigEndian2(): bool {
     var u = new u256(0x99aabbccddeeff12, 0x1122334455667788, 0x99aabbccddeeff12, 0x1122334455667788);
-    var a = u.toBytes(true);
+    var a = u.toUint8Array(true);
     return (
-      a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
-      a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
-      a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
-      a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12 &&
-      a[16] == 0x11 && a[17] == 0x22 && a[18] == 0x33 && a[19] == 0x44 &&
-      a[20] == 0x55 && a[21] == 0x66 && a[22] == 0x77 && a[23] == 0x88 &&
-      a[24] == 0x99 && a[25] == 0xAA && a[26] == 0xBB && a[27] == 0xCC &&
-      a[28] == 0xDD && a[29] == 0xEE && a[30] == 0xFF && a[31] == 0x12
+        a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
+        a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
+        a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
+        a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12 &&
+        a[16] == 0x11 && a[17] == 0x22 && a[18] == 0x33 && a[19] == 0x44 &&
+        a[20] == 0x55 && a[21] == 0x66 && a[22] == 0x77 && a[23] == 0x88 &&
+        a[24] == 0x99 && a[25] == 0xAA && a[26] == 0xBB && a[27] == 0xCC &&
+        a[28] == 0xDD && a[29] == 0xEE && a[30] == 0xFF && a[31] == 0x12
     );
   }
 }

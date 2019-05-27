@@ -1,5 +1,6 @@
 import 'allocator/arena';
 import { u128 } from '../../assembly/integer/u128';
+import { arrayToUint8Array } from "./utils";
 
 declare function logStr(str: string | null): void;
 declare function logU128Packed(msg: string | null, lo: f64, hi: f64): void;
@@ -107,7 +108,8 @@ export class StringConversionTests {
 }
 
 export class BufferConversionTests {
-  static shouldConvertFromBytesLittleEndian(): bool {
+
+  static shouldConvertFromBytesLittleEndian1(): bool {
     var arr: u8[] = [
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
@@ -116,7 +118,17 @@ export class BufferConversionTests {
     return u128.fromBytes(arr) == new u128(0x8877665544332211, 0x12ffeeddccbbaa99);
   }
 
-  static shouldConvertFromBytesBigEndian(): bool {
+  static shouldConvertFromBytesLittleEndian2(): bool {
+    var arr: u8[] = [
+      0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
+      0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
+    ];
+    var uint8Array = arrayToUint8Array(arr);
+
+    return u128.fromBytes<Uint8Array>(uint8Array) == new u128(0x8877665544332211, 0x12ffeeddccbbaa99);
+  }
+
+  static shouldConvertFromBytesBigEndian1(): bool {
     var arr: u8[] = [
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
@@ -125,7 +137,17 @@ export class BufferConversionTests {
     return u128.fromBytes(arr, true) == new u128(0x99aabbccddeeff12, 0x1122334455667788);
   }
 
-  static shouldConvertToBytesLitteEndian(): bool {
+  static shouldConvertFromBytesBigEndian2(): bool {
+    var arr: u8[] = [
+      0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
+      0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
+    ];
+    var uint8Array = arrayToUint8Array(arr);
+
+    return u128.fromBytes<Uint8Array>(uint8Array, true) == new u128(0x99aabbccddeeff12, 0x1122334455667788);
+  }
+
+  static shouldConvertToBytesLitteEndian1(): bool {
     // var a: u8[] = (new u128(0x8877665544332211, 0x12ffeeddccbbaa99)).toBytes();
     var u = new u128(0x8877665544332211, 0x12ffeeddccbbaa99);
     var a = u.toBytes();
@@ -137,7 +159,19 @@ export class BufferConversionTests {
     );
   }
 
-  static shouldConvertToBytesBigEndian(): bool {
+  static shouldConvertToBytesLitteEndian2(): bool {
+    // var a: u8[] = (new u128(0x8877665544332211, 0x12ffeeddccbbaa99)).toBytes();
+    var u = new u128(0x8877665544332211, 0x12ffeeddccbbaa99);
+    var a = u.toUint8Array();
+    return (
+        a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
+        a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
+        a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
+        a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12
+    );
+  }
+
+  static shouldConvertToBytesBigEndian1(): bool {
     var u = new u128(0x99aabbccddeeff12, 0x1122334455667788);
     var a = u.toBytes(true);
     return (
@@ -145,6 +179,17 @@ export class BufferConversionTests {
       a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
       a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
       a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12
+    );
+  }
+
+  static shouldConvertToBytesBigEndian2(): bool {
+    var u = new u128(0x99aabbccddeeff12, 0x1122334455667788);
+    var a = u.toUint8Array(true);
+    return (
+        a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
+        a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
+        a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
+        a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12
     );
   }
 }
@@ -808,19 +853,43 @@ export class ThrowableTests {
   }
 
   static shouldThrowFromBytesWithWrongByteArrayLength1(): bool {
-    return !(u128.fromBytes([]));
+    return !(u128.fromBytes<u8[]>([]));
   }
 
   static shouldThrowFromBytesWithWrongByteArrayLength2(): bool {
-    return !(u128.fromBytes([], true));
+    return !(u128.fromBytes<u8[]>([], true));
   }
 
   static shouldThrowFromBytesWithWrongByteArrayLength3(): bool {
-    return !(u128.fromBytes([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]));
+    return !(u128.fromBytes<u8[]>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]));
   }
 
   static shouldThrowFromBytesWithWrongByteArrayLength4(): bool {
-    return !(u128.fromBytes([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], true));
+    return !(u128.fromBytes<u8[]>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], true));
+  }
+
+  static shouldThrowFromBytesWithWrongByteArrayLength5(): bool {
+    return !(u128.fromBytes<Uint8Array>(new Uint8Array(0)));
+  }
+
+  static shouldThrowFromBytesWithWrongByteArrayLength6(): bool {
+    return !(u128.fromBytes<Uint8Array>(new Uint8Array(0), true));
+  }
+
+  static shouldThrowFromBytesWithWrongByteArrayLength7(): bool {
+    let arr = new Uint8Array(18);
+    for (let i = 0; i < 18; i++) {
+      arr[i] = <u8>i;
+    }
+    return !(u128.fromBytes<Uint8Array>(arr));
+  }
+
+  static shouldThrowFromBytesWithWrongByteArrayLength8(): bool {
+    let arr = new Uint8Array(18);
+    for (let i = 0; i < 18; i++) {
+      arr[i] = <u8>i;
+    }
+    return !(u128.fromBytes<Uint8Array>(arr, true));
   }
 
   static shouldThrowWhenDivideNumberByZero(): bool {
