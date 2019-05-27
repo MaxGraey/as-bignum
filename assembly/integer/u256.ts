@@ -108,7 +108,7 @@ export class u256 {
 
   static fromUint8ArrayLE(array: Uint8Array): u256 {
     assert(array.length && (array.length & 31) == 0);
-    var buffer = <ArrayBuffer>array.buffer;
+    var buffer = array.buffer;
     return new u256(
         LOAD<u64>(buffer, 0, array.byteOffset),
         LOAD<u64>(buffer, 1, array.byteOffset),
@@ -119,7 +119,7 @@ export class u256 {
 
   static fromUint8ArrayBE(array: Uint8Array): u256 {
     assert(array.length && (array.length & 31) == 0);
-    var buffer = <ArrayBuffer>array.buffer;
+    var buffer = array.buffer;
     return new u256(
         bswap<u64>(LOAD<u64>(buffer, 3, array.byteOffset)),
         bswap<u64>(LOAD<u64>(buffer, 2, array.byteOffset)),
