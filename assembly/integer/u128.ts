@@ -672,9 +672,19 @@ export class u128 {
   }
 
   // wide mul: u128 * u128 = u256
-  static mulq(a: u128, b: u128): u256 {
-    // TODO
-    return u256.Zero;
+  static mulq(x: u128, y: u128): u256 {
+    var a = new u128(x.hi);
+    var b = new u128(x.lo);
+    var c = new u128(y.hi);
+    var d = new u128(y.lo);
+    var ac = a * c;
+    var ad = a * d;
+    var bc = b * c;
+    var bd = b * d;
+    var cy = new u128(ad.lo) + new u128(bc.lo) + new u128(bd.hi);
+    var hi = ac + new u128(ad.hi) + new u128(bc.hi) + new u128(cy.hi);
+    var lo = new u128(0, ad.lo) + new u128(0, bc.lo) + bd;
+    return new u256(lo.lo, lo.hi, hi.lo, hi.hi);
   }
 
   /**

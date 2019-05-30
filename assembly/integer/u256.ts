@@ -244,7 +244,7 @@ export class u256 {
     return new u256(lo1 + 1, lo2 + cy, hi1 + cy1, hi2 + cy2);
   }
 
-  @inline @operator('+')
+  @operator('+')
   static add(a: u256, b: u256): u256 {
     var alo = a.lo1;
     var blo = b.lo1;
@@ -257,7 +257,7 @@ export class u256 {
     return new u256(lo.lo, mid.lo, mid.hi, hi);
   }
 
-  @inline @operator('-')
+  @operator('-')
   static sub(a: u256, b: u256): u256 {
     var alo = a.lo1;
     var blo = b.lo1;
@@ -269,6 +269,11 @@ export class u256 {
 
     return new u256(lo.lo, mid.lo, mid.hi, hi);
   }
+
+  // @operator('*')
+  // static mul(a: u256, b: u256): u256 {
+  //   // TODO
+  // }
 
   @inline @operator('|')
   static or(a: u256, b: u256): u256 {
