@@ -249,11 +249,3 @@ export function atou128(str: string, radix: i32 = 0): u128 {
 
   return isNeg ? -result : result;
 }
-
-export function LOAD<T>(arr: ArrayBuffer, offset: usize = 0): T {
-  return load<T>(changetype<usize>(arr), offset);
-}
-@inline
-export function STORE<T>(arr: ArrayBuffer, offset: usize, value: T): void{
-  store<T>(changetype<usize>(arr), value, offset);
-}

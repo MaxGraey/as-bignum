@@ -1,4 +1,3 @@
-import { LOAD, STORE } from '../utils';
 
 import { i128 } from './i128';
 import { i256 } from './i256';
@@ -137,7 +136,7 @@ export class u128 {
 
   static fromBytesLE(array: u8[]): u128 {
     assert(array.length && (array.length & 15) == 0);
-    var buffer = <usize>array.buffer;
+    var buffer = array.dataStart;
     return new u128(
       load<u64>(buffer, 0),
       load<u64>(buffer, 1)
@@ -146,7 +145,7 @@ export class u128 {
 
   static fromBytesBE(array: u8[]): u128 {
     assert(array.length && (array.length & 15) == 0);
-    var buffer = <usize>array.buffer;
+    var buffer = array.dataStart;
     return new u128(
       bswap<u64>(load<u64>(buffer, 1)),
       bswap<u64>(load<u64>(buffer, 0))
@@ -155,7 +154,7 @@ export class u128 {
 
   static fromUint8ArrayLE(array: Uint8Array): u128 {
     assert(array.length && (array.length & 15) == 0);
-    var buffer = changetype<usize>(array.buffer) + array.byteOffset;
+    var buffer = array.dataStart
     return new u128(
         load<u64>(buffer, 0),
         load<u64>(buffer, 1)
@@ -164,7 +163,7 @@ export class u128 {
 
   static fromUint8ArrayBE(array: Uint8Array): u128 {
     assert(array.length && (array.length & 15) == 0);
-    var buffer = changetype<usize>(array.buffer) + array.byteOffset;
+    var buffer = array.dataStart
     return new u128(
         bswap<u64>(load<u64>(buffer, 1)),
         bswap<u64>(load<u64>(buffer, 0))
@@ -883,7 +882,7 @@ export class u128 {
   @inline
   toBytes(bigEndian: bool = false): u8[] {
     var result = new Array<u8>(16);
-    var buffer = changetype<usize>(result.buffer);
+    var buffer = result.dataStart
     this.toArrayBuffer(buffer, bigEndian);
     return result;
     // return bigEndian ? this.toBytesBE() : this.toBytesLE();
@@ -897,7 +896,7 @@ export class u128 {
   @inline
   toUint8Array(bigEndian: bool = false): Uint8Array {
     var result = new Uint8Array(16);
-    var buffer = changetype<usize>(result.buffer) + result.byteOffset;
+    var buffer = result.dataStart
     this.toArrayBuffer(buffer, bigEndian);
     return result;
   }

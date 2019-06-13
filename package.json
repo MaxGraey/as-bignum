@@ -7,7 +7,7 @@
   "author": "MaxGraey <maxgraey@gmail.com>",
   "license": "Apache-2.0",
   "scripts": {
-    "build:debug": "npx asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --sourceMap --validate --debug",
+    "build:debug": "npx asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --sourceMap --debug --runtime stub",
     "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate",
     "build:wasm": "yarn build:debug && yarn build:release",
     "build:test:u128": "npx asc tests/assembly/u128.spec.as.ts -b tests/build/u128.wasm -t tests/build/u128.wat --validate --sourceMap --importMemory --debug --runtime stub",
