@@ -1,4 +1,3 @@
-import 'allocator/arena';
 import { u256 } from '../../assembly/integer/u256';
 import { arrayToUint8Array } from "./utils";
 

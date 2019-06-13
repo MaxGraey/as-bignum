@@ -1,4 +1,4 @@
-import { CharCode } from "internal/string";
+import { CharCode } from "util/string";
 import { u128 } from "./integer/u128";
 import { u256 } from "./integer/u256";
 
@@ -248,4 +248,12 @@ export function atou128(str: string, radix: i32 = 0): u128 {
   }
 
   return isNeg ? -result : result;
+}
+
+export function LOAD<T>(arr: ArrayBuffer, offset: usize = 0): T {
+  return load<T>(changetype<usize>(arr), offset);
+}
+@inline
+export function STORE<T>(arr: ArrayBuffer, offset: usize, value: T): void{
+  store<T>(changetype<usize>(arr), value, offset);
 }

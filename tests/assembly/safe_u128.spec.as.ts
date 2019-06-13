@@ -1,4 +1,3 @@
-import 'allocator/arena';
 import { u128 } from '../../assembly/integer/safe/u128';
 
 declare function logStr(str: string): void;
