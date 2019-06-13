@@ -8,7 +8,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build:debug": "npx asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --sourceMap --debug --runtime stub",
-    "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate",
+    "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate --runtime stub",
     "build:wasm": "yarn build:debug && yarn build:release",
     "build:test:u128": "npx asc tests/assembly/u128.spec.as.ts -b tests/build/u128.wasm -t tests/build/u128.wat --validate --sourceMap --importMemory --debug --runtime stub",
     "build:test:u256": "npx asc tests/assembly/u256.spec.as.ts -b tests/build/u256.wasm -t tests/build/u256.wat --validate --sourceMap --importMemory --debug --runtime stub",
