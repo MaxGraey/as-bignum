@@ -192,8 +192,8 @@ export class u128 {
     else if (value instanceof u128)   return u128.fromU128(<u128>value);
     else if (value instanceof i256)   return u128.fromI256(<i256>value);
     else if (value instanceof u256)   return u128.fromU256(<u256>value);
-    else if (value instanceof u8[])   return u128.fromBytes<u8[]>(<u8[]>value);
-    else if (value instanceof Uint8Array) return u128.fromBytes<Uint8Array>(<Uint8Array>value);
+    else if (value instanceof u8[])   return u128.fromBytes(<u8[]>value);
+    else if (value instanceof Uint8Array) return u128.fromBytes(<Uint8Array>value);
     else if (value instanceof String) return u128.fromString(<string>value);
     else throw new TypeError("Unsupported generic type");
   }
@@ -885,7 +885,6 @@ export class u128 {
     var buffer = result.dataStart
     this.toArrayBuffer(buffer, bigEndian);
     return result;
-    // return bigEndian ? this.toBytesBE() : this.toBytesLE();
   }
 
   /**
