@@ -1099,7 +1099,7 @@
   if
    i32.const 0
    i32.const 408
-   i32.const 138
+   i32.const 120
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -1110,7 +1110,7 @@
   local.tee $0
   i64.load
   local.get $0
-  i64.load offset=1
+  i64.load offset=8
   call $assembly/integer/u128/u128#constructor
  )
  (func $~lib/polyfills/bswap<u64> (; 27 ;) (type $FUNCSIG$jj) (param $0 i64) (result i64)
@@ -1155,7 +1155,7 @@
   if
    i32.const 0
    i32.const 408
-   i32.const 147
+   i32.const 129
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -1164,7 +1164,7 @@
   local.get $0
   i32.load offset=4
   local.tee $0
-  i64.load offset=1
+  i64.load offset=8
   call $~lib/polyfills/bswap<u64>
   local.get $0
   i64.load
@@ -1187,7 +1187,7 @@
   if
    i32.const 0
    i32.const 408
-   i32.const 156
+   i32.const 138
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -1198,7 +1198,7 @@
   local.tee $0
   i64.load
   local.get $0
-  i64.load offset=1
+  i64.load offset=8
   call $assembly/integer/u128/u128#constructor
  )
  (func $assembly/integer/u128/u128.fromUint8ArrayBE (; 30 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -1217,7 +1217,7 @@
   if
    i32.const 0
    i32.const 408
-   i32.const 165
+   i32.const 147
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -1226,7 +1226,7 @@
   local.get $0
   i32.load offset=4
   local.tee $0
-  i64.load offset=1
+  i64.load offset=8
   call $~lib/polyfills/bswap<u64>
   local.get $0
   i64.load
@@ -3716,7 +3716,7 @@
    local.get $0
    i64.load
    call $~lib/polyfills/bswap<u64>
-   i64.store offset=1
+   i64.store offset=8
   else   
    local.get $1
    local.get $0
@@ -3725,7 +3725,7 @@
    local.get $1
    local.get $0
    i64.load offset=8
-   i64.store offset=1
+   i64.store offset=8
   end
  )
  (func $~lib/arraybuffer/ArrayBufferView#constructor (; 87 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
@@ -5175,7 +5175,7 @@
   if
    i32.const 640
    i32.const 408
-   i32.const 914
+   i32.const 896
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -5393,11 +5393,11 @@
   local.tee $0
   i64.load
   local.get $0
-  i64.load offset=1
+  i64.load offset=8
   local.get $0
-  i64.load offset=2
+  i64.load offset=16
   local.get $0
-  i64.load offset=3
+  i64.load offset=24
   call $assembly/integer/u256/u256#constructor
  )
  (func $assembly/integer/u256/u256.fromBytesBE (; 110 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -5425,13 +5425,13 @@
   local.get $0
   i32.load offset=4
   local.tee $0
-  i64.load offset=3
+  i64.load offset=24
   call $~lib/polyfills/bswap<u64>
   local.get $0
-  i64.load offset=2
+  i64.load offset=16
   call $~lib/polyfills/bswap<u64>
   local.get $0
-  i64.load offset=1
+  i64.load offset=8
   call $~lib/polyfills/bswap<u64>
   local.get $0
   i64.load
@@ -5465,11 +5465,11 @@
   local.tee $0
   i64.load
   local.get $0
-  i64.load offset=1
+  i64.load offset=8
   local.get $0
-  i64.load offset=2
+  i64.load offset=16
   local.get $0
-  i64.load offset=3
+  i64.load offset=24
   call $assembly/integer/u256/u256#constructor
  )
  (func $assembly/integer/u256/u256.fromUint8ArrayBE (; 112 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -5497,13 +5497,13 @@
   local.get $0
   i32.load offset=4
   local.tee $0
-  i64.load offset=3
+  i64.load offset=24
   call $~lib/polyfills/bswap<u64>
   local.get $0
-  i64.load offset=2
+  i64.load offset=16
   call $~lib/polyfills/bswap<u64>
   local.get $0
-  i64.load offset=1
+  i64.load offset=8
   call $~lib/polyfills/bswap<u64>
   local.get $0
   i64.load
@@ -6585,17 +6585,17 @@
   local.get $0
   i64.load offset=16
   call $~lib/polyfills/bswap<u64>
-  i64.store offset=1
+  i64.store offset=8
   local.get $1
   local.get $0
   i64.load offset=8
   call $~lib/polyfills/bswap<u64>
-  i64.store offset=2
+  i64.store offset=16
   local.get $1
   local.get $0
   i64.load
   call $~lib/polyfills/bswap<u64>
-  i64.store offset=3
+  i64.store offset=24
  )
  (func $assembly/integer/u256/u256#toArrayBuffer (; 146 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $2
@@ -6611,15 +6611,15 @@
    local.get $1
    local.get $0
    i64.load offset=8
-   i64.store offset=1
+   i64.store offset=8
    local.get $1
    local.get $0
    i64.load offset=16
-   i64.store offset=2
+   i64.store offset=16
    local.get $1
    local.get $0
    i64.load offset=24
-   i64.store offset=3
+   i64.store offset=24
   end
  )
  (func $assembly/utils/u256toa10 (; 147 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
