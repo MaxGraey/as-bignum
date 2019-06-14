@@ -87,9 +87,9 @@ export class u256 {
     var buffer = array.dataStart
     return new u256(
       load<u64>(buffer, 0),
-      load<u64>(buffer, 1),
-      load<u64>(buffer, 2),
-      load<u64>(buffer, 3),
+      load<u64>(buffer, 1 * sizeof<u64>()),
+      load<u64>(buffer, 2 * sizeof<u64>()),
+      load<u64>(buffer, 3 * sizeof<u64>()),
     );
   }
 
@@ -97,9 +97,9 @@ export class u256 {
     assert(array.length && (array.length & 31) == 0);
     var buffer = array.dataStart;
     return new u256(
-      bswap<u64>(load<u64>(buffer, 3)),
-      bswap<u64>(load<u64>(buffer, 2)),
-      bswap<u64>(load<u64>(buffer, 1)),
+      bswap<u64>(load<u64>(buffer, 3 * sizeof<u64>())),
+      bswap<u64>(load<u64>(buffer, 2 * sizeof<u64>())),
+      bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
       bswap<u64>(load<u64>(buffer, 0))
     );
   }
@@ -109,9 +109,9 @@ export class u256 {
     var buffer = array.dataStart;
     return new u256(
         load<u64>(buffer, 0),
-        load<u64>(buffer, 1),
-        load<u64>(buffer, 2),
-        load<u64>(buffer, 3)
+        load<u64>(buffer, 1 * sizeof<u64>()),
+        load<u64>(buffer, 2 * sizeof<u64>()),
+        load<u64>(buffer, 3 * sizeof<u64>())
     );
   }
 
@@ -119,9 +119,9 @@ export class u256 {
     assert(array.length && (array.length & 31) == 0);
     var buffer = array.dataStart;
     return new u256(
-        bswap<u64>(load<u64>(buffer, 3)),
-        bswap<u64>(load<u64>(buffer, 2)),
-        bswap<u64>(load<u64>(buffer, 1)),
+        bswap<u64>(load<u64>(buffer, 3 * sizeof<u64>())),
+        bswap<u64>(load<u64>(buffer, 2 * sizeof<u64>())),
+        bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
         bswap<u64>(load<u64>(buffer, 0))
     );
   }
@@ -449,17 +449,17 @@ export class u256 {
   }
 
   private toArrayBufferLE(buffer: usize): void {
-    store<u64>(buffer, this.lo1, 0);
-    store<u64>(buffer, this.lo2, 1);
-    store<u64>(buffer, this.hi1, 2);
-    store<u64>(buffer, this.hi2, 3);
+    store<u64>(buffer, this.lo1, 0 * sizeof<u64>());
+    store<u64>(buffer, this.lo2, 1 * sizeof<u64>());
+    store<u64>(buffer, this.hi1, 2 * sizeof<u64>());
+    store<u64>(buffer, this.hi2, 3 * sizeof<u64>());
   }
 
   private toArrayBufferBE(buffer: usize): void {
-    store<u64>(buffer, bswap(this.hi2), 0);
-    store<u64>(buffer, bswap(this.hi1), 1);
-    store<u64>(buffer, bswap(this.lo2), 2);
-    store<u64>(buffer, bswap(this.lo1), 3);
+    store<u64>(buffer, bswap(this.hi2), 0 * sizeof<u64>());
+    store<u64>(buffer, bswap(this.hi1), 1 * sizeof<u64>());
+    store<u64>(buffer, bswap(this.lo2), 2 * sizeof<u64>());
+    store<u64>(buffer, bswap(this.lo1), 3 * sizeof<u64>());
   }
 
   private toArrayBuffer(buffer: usize, bigEndian: bool = false): void {

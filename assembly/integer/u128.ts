@@ -23,24 +23,6 @@ import {
 } from '../globals';
 import { atou128, u128toa10 } from '../utils';
 
-// @external("u128.spec.as", "logStr")
-// declare function logStr(str: string): void;
-
-// @external("u128.spec.as", "logF64")
-// declare function logF64(v: f64): void;
-
-/*
-@external("u128.spec.as", "logU128Packed")
-declare function logU128Packed(msg: string | null, lo: f64, hi: f64): void;
-
-function logU128(value: u128, msg: string | null = null): void {
-  assert(value);
-  logU128Packed(msg,
-    reinterpret<f64>(value.lo),
-    reinterpret<f64>(value.hi)
-  );
-}
-*/
 
 @lazy const HEX_CHARS = '0123456789abcdef';
 
@@ -139,7 +121,7 @@ export class u128 {
     var buffer = array.dataStart;
     return new u128(
       load<u64>(buffer, 0),
-      load<u64>(buffer, 1)
+      load<u64>(buffer, 1 * sizeof<u64>())
     );
   }
 
@@ -147,8 +129,8 @@ export class u128 {
     assert(array.length && (array.length & 15) == 0);
     var buffer = array.dataStart;
     return new u128(
-      bswap<u64>(load<u64>(buffer, 1)),
-      bswap<u64>(load<u64>(buffer, 0))
+      bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
+      bswap<u64>(load<u64>(buffer, 0 * sizeof<u64>()))
     );
   }
 
@@ -157,7 +139,7 @@ export class u128 {
     var buffer = array.dataStart
     return new u128(
         load<u64>(buffer, 0),
-        load<u64>(buffer, 1)
+        load<u64>(buffer, 1 * sizeof<u64>())
     );
   }
 
@@ -165,8 +147,8 @@ export class u128 {
     assert(array.length && (array.length & 15) == 0);
     var buffer = array.dataStart
     return new u128(
-        bswap<u64>(load<u64>(buffer, 1)),
-        bswap<u64>(load<u64>(buffer, 0))
+        bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
+        bswap<u64>(load<u64>(buffer, 0 * sizeof<u64>()))
     );
   }
 
@@ -858,12 +840,12 @@ export class u128 {
 
   private toArrayBufferLE(buffer: usize): void {
     store<u64>(buffer, this.lo, 0);
-    store<u64>(buffer, this.hi, 1);
+    store<u64>(buffer, this.hi, 1 * sizeof<u64>());
   }
 
   private toArrayBufferBE(buffer: usize): void {
     store<u64>(buffer, bswap(this.hi), 0);
-    store<u64>(buffer, bswap(this.lo), 1);
+    store<u64>(buffer, bswap(this.lo), 1 * sizeof<u64>());
   }
 
   private toArrayBuffer(buffer: usize, bigEndian: bool = false): void {
