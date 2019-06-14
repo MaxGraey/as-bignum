@@ -68,17 +68,17 @@ arg@^4.1.0:
   resolved "https://registry.yarnpkg.com/arg/-/arg-4.1.0.tgz#583c518199419e0037abb74062c37f8519e575f0"
 
 as-pect@jtenner/as-pect:
-  version "1.1.0"
-  resolved "https://codeload.github.com/jtenner/as-pect/tar.gz/7a915596287c3ea939f1fa31b7708867dea21428"
+  version "1.2.0"
+  resolved "https://codeload.github.com/jtenner/as-pect/tar.gz/943f31d4ca927c00f535253ce73b9503b0bb138e"
   dependencies:
     assemblyscript "github:assemblyscript/assemblyscript"
     chalk "^2.4.2"
     csv-stringify "^5.3.0"
     glob "^7.1.4"
     long "^4.0.0"
-    mathjs "^6.0.1"
+    mathjs "^6.0.2"
     ts-node "^8.2.0"
-    yargs-parser "^13.1.0"
+    yargs-parser "^13.1.1"
 
 "assemblyscript@github:AssemblyScript/assemblyscript":
   version "0.7.0"
@@ -276,7 +276,7 @@ marked@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.4.0.tgz#9ad2c2a7a1791f10a852e0112f77b571dce10c66"
 
-mathjs@^6.0.1:
+mathjs@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/mathjs/-/mathjs-6.0.2.tgz#b6996898f3f0401bd4da4593164cc82e8ac3b014"
   dependencies:
@@ -444,7 +444,7 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-yargs-parser@^13.1.0:
+yargs-parser@^13.1.1:
   version "13.1.1"
   resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-13.1.1.tgz#d26058532aa06d365fe091f6a1fc06b2f7e5eca0"
   dependencies:
