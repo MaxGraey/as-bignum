@@ -82,6 +82,7 @@ as-pect@jtenner/as-pect:
 
 "assemblyscript@github:AssemblyScript/assemblyscript":
   version "0.7.0"
+  uid addb99eff250af2af0241442d45ff3d23434e6f1
   resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/addb99eff250af2af0241442d45ff3d23434e6f1"
   dependencies:
     "@protobufjs/utf8" "^1.1.0"
