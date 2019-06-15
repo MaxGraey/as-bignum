@@ -1,4 +1,4 @@
-import { CharCode } from "internal/string";
+import { CharCode } from "util/string";
 import { u128 } from "./integer/u128";
 import { u256 } from "./integer/u256";
 

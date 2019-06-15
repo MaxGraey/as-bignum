@@ -6,7 +6,6 @@ import { u256 as U256 } from '../u256';
 import { i128 as I128 } from '../i128';
 import { i256 as I256 } from '../i256';
 import { isPowerOverflow128, atou128 } from '../../utils';
-import { LOAD } from 'internal/arraybuffer';
 
 // @external("safe_u128.spec.as", "logStr")
 // declare function logStr(str: string): void;
@@ -102,19 +101,19 @@ import { LOAD } from 'internal/arraybuffer';
 
     static fromBytesLE(array: u8[]): u128 {
       assert(array.length && (array.length & 15) == 0);
-      var buffer = <ArrayBuffer>array.buffer_;
+      var buffer = array.dataStart;
       return new u128(
-        LOAD<u64>(buffer, 0),
-        LOAD<u64>(buffer, 1)
+        load<u64>(buffer, 0),
+        load<u64>(buffer, 1 * sizeof<u64>())
       );
     }
 
     static fromBytesBE(array: u8[]): u128 {
       assert(array.length && (array.length & 15) == 0);
-      var buffer = <ArrayBuffer>array.buffer_;
+      var buffer = array.dataStart;
       return new u128(
-        bswap<u64>(LOAD<u64>(buffer, 1)),
-        bswap<u64>(LOAD<u64>(buffer, 0))
+        bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
+        bswap<u64>(load<u64>(buffer, 0))
       );
     }
 
