@@ -1,6 +1,6 @@
 {
   "name": "bignum",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "128 and 256 bits integer and fixed point arithmetics. Also support checking overflow/underflow",
   "main": "js/index.js",
   "types": "assembly/index.ts",
