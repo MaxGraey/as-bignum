@@ -277,3 +277,26 @@ describe("Overflow Underflow Throwable", () => {
     }).toThrow();
   });
 })
+
+describe("Buffer Conversion", () => {
+
+  it("should Convert From Bytes Little Endian", (): void => {
+    var arr: u8[] = [
+      0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
+      0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
+    ];
+
+    expect<u128>(u128.fromBytes(arr)).toStrictEqual(new u128(0x8877665544332211, 0x12ffeeddccbbaa99));
+  });
+
+
+  it("should Convert From Bytes Big Endian", (): void => {
+    var arr: u8[] = [
+      0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
+      0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
+    ];
+
+    expect<u128>(u128.fromBytes(arr, true)).toStrictEqual(new u128(0x99aabbccddeeff12, 0x1122334455667788));
+  });
+
+});

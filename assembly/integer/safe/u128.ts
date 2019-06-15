@@ -101,18 +101,18 @@ import { isPowerOverflow128, atou128 } from '../../utils';
 
     static fromBytesLE(array: u8[]): u128 {
       assert(array.length && (array.length & 15) == 0);
-      var buffer = changetype<usize>(array.buffer);
+      var buffer = array.dataStart;
       return new u128(
         load<u64>(buffer, 0),
-        load<u64>(buffer, 1)
+        load<u64>(buffer, 1 * sizeof<u64>())
       );
     }
 
     static fromBytesBE(array: u8[]): u128 {
       assert(array.length && (array.length & 15) == 0);
-      var buffer = changetype<usize>(array.buffer);
+      var buffer = array.dataStart;
       return new u128(
-        bswap<u64>(load<u64>(buffer, 1)),
+        bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
         bswap<u64>(load<u64>(buffer, 0))
       );
     }
