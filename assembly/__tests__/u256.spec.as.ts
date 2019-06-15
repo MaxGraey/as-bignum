@@ -2,29 +2,29 @@ import { u256 } from '../../assembly/integer/u256';
 
 
 describe("String Conversion", () => {
-  it("should Convert To Decimal String 1", (): void => {
+  it("should Convert To Decimal String 1", () => {
     var a = new u256(10248516654965971928, 5, 0, 0);
     expect<string>('102482237023513730008').toStrictEqual(a.toString());
   });
 
-  it("should Convert To Decimal String 2", (): void => {
+  it("should Convert To Decimal String 2", () => {
     var a = new u256(1, 1, 1, 1);
     expect<string>('6277101735386680764176071790128604879584176795969512275969').toStrictEqual(a.toString());
   });
 
-  it("should Convert To Decimal String 3", (): void => {
+  it("should Convert To Decimal String 3", () => {
     var a = u256.Max;
     expect<string>('115792089237316195423570985008687907853269984665640564039457584007913129639935').toStrictEqual(a.toString());
   });
 
-  it("should Convert To Decimal String 4", (): void => {
+  it("should Convert To Decimal String 4", () => {
     var a = u256.Zero;
     expect<string>('0').toStrictEqual(a.toString());
   });
 });
 
 describe("Buffer Conversion", () => {
-  it("should Convert From Bytes Little Endian 1", (): void => {
+  it("should Convert From Bytes Little Endian 1", () => {
     var arr: u8[] = [
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12,
@@ -34,7 +34,7 @@ describe("Buffer Conversion", () => {
     expect<u256>(u256.fromBytes(arr)).toStrictEqual(new u256(0x8877665544332211, 0x12ffeeddccbbaa99, 0x8877665544332211, 0x12ffeeddccbbaa99));
   });
 
-  it("should Convert From Bytes Little Endian 2", (): void => {
+  it("should Convert From Bytes Little Endian 2", () => {
     var arr: u8[] = [
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12,
@@ -45,7 +45,7 @@ describe("Buffer Conversion", () => {
     expect<u256>(u256.fromBytes(arr)).toStrictEqual(new u256(0x8877665544332211, 0x12ffeeddccbbaa99, 0x8877665544332211, 0x12ffeeddccbbaa99));
   });
 
-  it("should Convert From Bytes Big Endian 1", (): void => {
+  it("should Convert From Bytes Big Endian 1", () => {
     var arr: u8[] = [
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12,
@@ -56,7 +56,7 @@ describe("Buffer Conversion", () => {
     expect<u256>(u256.fromBytes(arr, true)).toStrictEqual(new u256(0x99aabbccddeeff12, 0x1122334455667788, 0x99aabbccddeeff12, 0x1122334455667788));
   });
 
-  it("should Convert From Bytes Big Endian 2", (): void => {
+  it("should Convert From Bytes Big Endian 2", () => {
     var arr: u8[] = [
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12,
@@ -67,7 +67,7 @@ describe("Buffer Conversion", () => {
     expect<u256>(u256.fromBytes(arr, true)).toStrictEqual(new u256(0x99aabbccddeeff12, 0x1122334455667788, 0x99aabbccddeeff12, 0x1122334455667788));
   });
 
-  it("should Convert To Bytes Litte Endian 1", (): void => {
+  it("should Convert To Bytes Litte Endian 1", () => {
     var u = new u256(0x8877665544332211, 0x12ffeeddccbbaa99, 0x8877665544332211, 0x12ffeeddccbbaa99);
     var a = u.toBytes();
     expect<bool>(
@@ -82,7 +82,7 @@ describe("Buffer Conversion", () => {
     ).toBe(true);
   });
 
-  it("should Convert To Bytes Litte Endian 2", (): void => {
+  it("should Convert To Bytes Litte Endian 2", () => {
     var u = new u256(0x8877665544332211, 0x12ffeeddccbbaa99, 0x8877665544332211, 0x12ffeeddccbbaa99);
     var a = u.toUint8Array();
     expect<bool>(
@@ -97,7 +97,7 @@ describe("Buffer Conversion", () => {
     ).toBe(true);
   });
 
-  it("should Convert To Bytes Big Endian 1", (): void => {
+  it("should Convert To Bytes Big Endian 1", () => {
     var u = new u256(0x99aabbccddeeff12, 0x1122334455667788, 0x99aabbccddeeff12, 0x1122334455667788);
     var a = u.toBytes(true);
     expect<bool>(
@@ -112,7 +112,7 @@ describe("Buffer Conversion", () => {
     ).toBe(true);
   });
 
-  it("should Convert To Bytes Big Endian 2", (): void => {
+  it("should Convert To Bytes Big Endian 2", () => {
     var u = new u256(0x99aabbccddeeff12, 0x1122334455667788, 0x99aabbccddeeff12, 0x1122334455667788);
     var a = u.toUint8Array(true);
     expect<bool>(
@@ -129,32 +129,32 @@ describe("Buffer Conversion", () => {
 });
 
 describe("Basic Operations", () => {
-  it("should Number Is Zero 1", (): void => {
+  it("should Number Is Zero 1", () => {
     var a = u256.Zero;
     expect<bool>(a.isZero()).toBe(true);
   });
 
-  it("should Number Is Zero 2", (): void => {
+  it("should Number Is Zero 2", () => {
     var a = u256.One;
     expect<bool>(!a.isZero()).toBe(true);
   });
 
-  it("should Number Binary Not", (): void => {
+  it("should Number Binary Not", () => {
     var a = new u256(1, 2, 3, 4);
     expect<u256>(~a).toStrictEqual(new u256(~1, ~2, ~3, ~4));
   });
 
-  it("should Number Unary Positive", (): void => {
+  it("should Number Unary Positive", () => {
     var a = new u256(1, 2, 3, 4);
     expect<u256>(a).toStrictEqual(+a);
   });
 
-  it("should Number Non Empty", (): void => {
+  it("should Number Non Empty", () => {
     var a = u256.One;
     expect<bool>(!!a).toBe(true);
   });
 
-  it("should Number Is Empty 1", (): void => {
+  it("should Number Is Empty 1", () => {
     var a = u256.Zero;
     expect<bool>(!a).toBe(true);
   });
