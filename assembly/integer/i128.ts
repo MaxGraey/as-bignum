@@ -1,4 +1,3 @@
-
 import { u128 } from './u128';
 import { i256 } from './i256';
 import { u256 } from './u256';
@@ -12,7 +11,6 @@ import {
   __divmod_quot_lo,
   __divmod_quot_hi,
   __divmod_rem,
-
 } from '../globals';
 
 import { atou128 } from '../utils';

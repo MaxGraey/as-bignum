@@ -1,4 +1,3 @@
-
 import { i128 } from './i128';
 import { i256 } from './i256';
 import { u256 } from './u256';
@@ -19,10 +18,9 @@ import {
   __divmod_quot_lo,
   __divmod_quot_hi,
   __divmod_rem,
-
 } from '../globals';
-import { atou128, u128toa10 } from '../utils';
 
+import { atou128, u128toa10 } from '../utils';
 
 @lazy const HEX_CHARS = '0123456789abcdef';
 
