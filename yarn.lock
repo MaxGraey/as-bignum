@@ -82,8 +82,7 @@ as-pect@jtenner/as-pect:
 
 "assemblyscript@github:AssemblyScript/assemblyscript":
   version "0.7.0"
-  uid addb99eff250af2af0241442d45ff3d23434e6f1
-  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/addb99eff250af2af0241442d45ff3d23434e6f1"
+  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/726e45c50141c674b5f335cfb1207533e83e90ba"
   dependencies:
     "@protobufjs/utf8" "^1.1.0"
     binaryen "84.0.0-nightly.20190522"
@@ -380,6 +379,17 @@ tiny-emitter@2.1.0:
 ts-node@^8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-8.2.0.tgz#4a89754b00560bb24cd54526e1685fa38c45f240"
+  dependencies:
+    arg "^4.1.0"
+    diff "^4.0.1"
+    make-error "^1.1.1"
+    source-map-support "^0.5.6"
+    yn "^3.0.0"
+
+ts-node@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-8.3.0.tgz#e4059618411371924a1fb5f3b125915f324efb57"
+  integrity sha512-dyNS/RqyVTDcmNM4NIBAeDMpsAdaQ+ojdf0GOLqE6nwJOgzEkdRNzJywhDfwnuvB10oa6NLVG1rUJQCpRN7qoQ==
   dependencies:
     arg "^4.1.0"
     diff "^4.0.1"
