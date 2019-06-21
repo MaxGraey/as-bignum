@@ -33,7 +33,7 @@ as-pect@jtenner/as-pect:
     ts-node "^8.2.0"
     yargs-parser "^13.1.1"
 
-"assemblyscript@github:AssemblyScript/assemblyscript":
+assemblyscript@AssemblyScript/assemblyscript:
   version "0.7.0"
   resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/726e45c50141c674b5f335cfb1207533e83e90ba"
   dependencies:

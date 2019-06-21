@@ -7,8 +7,8 @@
   "author": "MaxGraey <maxgraey@gmail.com>",
   "license": "Apache-2.0",
   "scripts": {
-    "build:debug": "asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --sourceMap --debug --runtime stub",
-    "build:release": "asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate --runtime stub",
+    "build:debug": "npx asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --sourceMap --debug --runtime stub",
+    "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate --runtime stub",
     "build:wasm": "yarn build:debug && yarn build:release",
     "build": "yarn build:wasm",
     "test": "asp",
@@ -17,7 +17,7 @@
   "devDependencies": {
     "@types/node": "^12.0.2",
     "as-pect": "jtenner/as-pect",
-    "assemblyscript": "github:AssemblyScript/assemblyscript",
+    "assemblyscript": "AssemblyScript/assemblyscript",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.1"
   }
