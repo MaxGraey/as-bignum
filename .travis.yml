@@ -8,8 +8,8 @@ jobs:
   include:
     - stage: build
       node_js: node
-      script: yarn build
+      script: yarn run build
       env: Build debug & release
     - stage: test
-      script: yarn test:ci
+      script: yarn run test:ci
       env: Tests
