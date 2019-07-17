@@ -11,12 +11,12 @@
     "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate --runtime stub",
     "build:wasm": "yarn build:debug && yarn build:release",
     "build": "yarn build:wasm",
-    "test": "asp",
-    "test:ci": "asp --reporter=SummaryTestReporter 2> /dev/null"
+    "test": "asp --nortrace --verbose",
+    "test:ci": "asp --nortrace 2> /dev/null"
   },
   "devDependencies": {
     "@types/node": "^12.0.2",
-    "as-pect": "jtenner/as-pect",
+    "@as-pect/cli": "^2.2.0",
     "assemblyscript": "AssemblyScript/assemblyscript",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.1"
