@@ -4,30 +4,7 @@ import { u256 } from "./integer/u256";
 
 const HEX_CHARS = '0123456789abcdef';
 
-@lazy const Pows10_64: u64[] = [
-  1,
-  10,
-  100,
-  1000,
-  10000,
-  100000,
-  1000000,
-  10000000,
-  100000000,
-  1000000000,
-
-  10000000000,
-  100000000000,
-  1000000000000,
-  10000000000000,
-  100000000000000,
-  1000000000000000,
-  10000000000000000,
-  100000000000000000,
-  1000000000000000000,
-  10000000000000000000,
-];
-
+// @ts-ignore: decorator
 @lazy const MaxBaseForExponent128: u64[] = [
   u64.MAX_VALUE,       // 0
   u64.MAX_VALUE,       // 1
@@ -71,6 +48,7 @@ const HEX_CHARS = '0123456789abcdef';
 ];
 
 // Use LUT wrapped by function for lazy compilation
+// @ts-ignore: decorator
 @lazy const RadixCharsTable: u8[] = [
    0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 36, 36, 36, 36, 36, 36,
   36, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
@@ -99,27 +77,19 @@ export function isPowerOverflow128(base: u128, exponent: i32): bool {
   return low > MaxBaseForExponent128[exponent];
 }
 
-export function digits10(value: u64): i32 {
-  var l = 64 - <i32>clz(value); // log2
-  var t = l * 1233 >>> 12;      // l / log2(10)
-      t = t - <i32>(value < unchecked(Pows10_64[t]));
-  return t + 1;
-}
-
 // helper function for utoa
 function processU64(digits: Int8Array, value: u64): void {
   var length = digits.length - 1;
   for (let i = 63; i != -1; i--) {
-    let left_bit = value & (1 << i) ? 1 : 0;
     for (let j = 0; j <= length; j++) {
-      digits[j] += digits[j] >= 5 ? 3 : 0;
+      digits[j] += i8(digits[j] >= 5) * 3;
     }
     for (let j = length; j != -1; j--) {
       digits[j] <<= 1;
-      if (j < length) digits[j + 1] |= digits[j] > 15 ? 1 : 0;
+      if (j < length) digits[j + 1] |= i8(digits[j] > 15);
       digits[j] &= 15;
     }
-    digits[0] += <u8>left_bit;
+    digits[0] += i8((value & (1 << i)) != 0);
   }
 }
 

@@ -22,6 +22,7 @@ export var __res128_hi: u64 = 0;
  * @param  hi higher 64-bit part of unsigned 128-bit integer
  * @return    64-bit float result
  */
+// @ts-ignore: decorator
 @global
 export function __floatuntidf(lo: u64, hi: u64): f64 {
   // __floatuntidf ported from LLVM sources
@@ -62,6 +63,7 @@ export function __floatuntidf(lo: u64, hi: u64): f64 {
   return reinterpret<f64>(u | (v.lo & 0xFFFFFFFF));
 }
 
+// @ts-ignore: decorator
 @global
 export function __umulh64(u: u64, v: u64): u64 {
   var u0 = u & 0xFFFFFFFF;
@@ -80,6 +82,7 @@ export function __umulh64(u: u64, v: u64): u64 {
   return u1 * v1 + t + w;
 }
 
+// @ts-ignore: decorator
 @global
 export function __umulq64(_res: usize, u: u64, v: u64): void {
   var u1: u64 , v1: u64, w0: u64, w1: u64, t: u64;
@@ -100,6 +103,7 @@ export function __umulq64(_res: usize, u: u64, v: u64): void {
   __res128_hi = u * v + w1 + (t >> 32);
 }
 
+// @ts-ignore: decorator
 @global
 export function __multi3(_res: usize, al: u64, ah: u64, bl: u64, bh: u64): void {
   var u = al, v = bl;
@@ -130,6 +134,7 @@ export function __multi3(_res: usize, al: u64, ah: u64, bl: u64, bh: u64): void 
 export var __float_u128_lo: u64 = 0;
 export var __float_u128_hi: u64 = 0;
 
+// @ts-ignore: decorator
 @global
 export function __floatuntfdi(value: f64): void {
   var u = reinterpret<u64>(value);
@@ -186,7 +191,7 @@ export function __floatuntfdi(value: f64): void {
   }
 }
 
-
+// @ts-ignore: decorator
 @global @inline
 export function __clz128(lo: u64, hi: u64): i32 {
   // return <i32>(hi ? clz(hi) : clz(lo) + 64);
@@ -195,6 +200,7 @@ export function __clz128(lo: u64, hi: u64): i32 {
   return <i32>clz((hi & ~mask) | (lo & mask)) + (<i32>mask & 64);
 }
 
+// @ts-ignore: decorator
 @global @inline
 export function __ctz128(lo: u64, hi: u64): i32 {
   // return <i32>(lo ? ctz(lo) : ctz(hi) + 64);
@@ -203,7 +209,7 @@ export function __ctz128(lo: u64, hi: u64): i32 {
   return <i32>ctz((hi & mask) | (lo & ~mask)) + (<i32>mask & 64);
 }
 
-
+// @ts-ignore: decorator
 @global
 export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
   var bzn = __clz128(blo, bhi); // N
@@ -283,6 +289,7 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
   }
 }
 
+// @ts-ignore: decorator
 @global
 export function __udivmod128core(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
   var a = new u128(alo, ahi);
@@ -320,6 +327,7 @@ export function __udivmod128core(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
   __divmod_rem     = n.lo;
 }
 
+// @ts-ignore: decorator
 @global
 export function __udivmod128_10(_q: usize, _r: usize, lo: u64, hi: u64): void {
   if (!hi) {

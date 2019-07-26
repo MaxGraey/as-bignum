@@ -1,7 +1,6 @@
 import { u128 } from '../../assembly/integer/u128';
 import { arrayToUint8Array } from "./utils";
 
-
 describe("String Conversion", () => {
   it("Should convert to decimal string 1", () => {
     var a = new u128(10248516654965971928, 5);

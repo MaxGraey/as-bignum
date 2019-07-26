@@ -442,7 +442,7 @@
   if
    i32.const 72
    i32.const 120
-   i32.const 163
+   i32.const 133
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -6103,8 +6103,6 @@
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
   local.get $0
   i32.load offset=8
   i32.const 1
@@ -6117,18 +6115,6 @@
    i32.const -1
    i32.ne
    if
-    i32.const 1
-    i32.const 0
-    i64.const 1
-    local.get $3
-    i64.extend_i32_s
-    i64.shl
-    local.get $1
-    i64.and
-    i64.const 0
-    i64.ne
-    select
-    local.set $5
     i32.const 0
     local.set $2
     loop $loop|1
@@ -6146,11 +6132,8 @@
       call $~lib/typedarray/Int8Array#__get
       i32.const 5
       i32.ge_s
-      if (result i32)
-       i32.const 3
-      else       
-       i32.const 0
-      end
+      i32.const 3
+      i32.mul
       i32.add
       call $~lib/typedarray/Int8Array#__set
       local.get $2
@@ -6183,22 +6166,15 @@
        local.get $2
        i32.const 1
        i32.add
-       local.tee $6
-       call $~lib/typedarray/Int8Array#__get
-       local.set $7
+       local.tee $5
        local.get $0
-       local.get $6
+       local.get $5
+       call $~lib/typedarray/Int8Array#__get
        local.get $0
        local.get $2
        call $~lib/typedarray/Int8Array#__get
        i32.const 15
        i32.gt_s
-       if (result i32)
-        i32.const 1
-       else        
-        i32.const 0
-       end
-       local.get $7
        i32.or
        call $~lib/typedarray/Int8Array#__set
       end
@@ -6222,7 +6198,14 @@
     local.get $0
     i32.const 0
     call $~lib/typedarray/Int8Array#__get
-    local.get $5
+    i64.const 1
+    local.get $3
+    i64.extend_i32_s
+    i64.shl
+    local.get $1
+    i64.and
+    i64.const 0
+    i64.ne
     i32.add
     call $~lib/typedarray/Int8Array#__set
     local.get $3
