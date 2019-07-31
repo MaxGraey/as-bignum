@@ -171,6 +171,7 @@
  (export "u256#neg" (func $assembly/integer/u256/u256#neg))
  (export "u256#toI128" (func $assembly/integer/u256/u256#toI128))
  (export "u256#toU128" (func $assembly/integer/u128/u128.fromI256))
+ (export "u256#toU256" (func $~lib/rt/stub/__retain))
  (export "u256#toI64" (func $assembly/integer/u256/u256#toI64))
  (export "u256#toU64" (func $assembly/integer/u128/u128#toU64))
  (export "u256#toI32" (func $assembly/integer/u256/u256#toI32))
@@ -8137,7 +8138,7 @@
   if
    i32.const 576
    i32.const 832
-   i32.const 506
+   i32.const 543
    i32.const 4
    call $~lib/builtins/abort
    unreachable

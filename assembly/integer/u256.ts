@@ -401,6 +401,15 @@ export class u256 {
   }
 
   /**
+  * Convert to 256-bit unsigned integer
+  * @returns 256-bit unsigned integer
+  */
+  @inline
+  toU256(): this {
+    return this;
+  }
+
+  /**
    * Convert to 64-bit signed integer
    * @return 64-bit signed integer
    */
@@ -468,6 +477,34 @@ export class u256 {
     } else {
       this.toArrayBufferLE(buffer);
     }
+  }
+
+  /**
+   * Convert to generic type T. Useful inside other generics methods
+   * @param  T  is <bool | i8 | u8 | i16 | u16 | i32 | u32 | i64 | u64 | f32 | f64 | u128 | u256 | u8[] | Uint8Array | String>
+   * @returns   type of T
+   */
+  @inline
+  as<T>(): T {
+    var dummy: T;
+         if (dummy instanceof bool)       return <T>this.toBool();
+    else if (dummy instanceof i8)         return <T>this.toI64();
+    else if (dummy instanceof u8)         return <T>this.toU64();
+    else if (dummy instanceof i16)        return <T>this.toI64();
+    else if (dummy instanceof u16)        return <T>this.toU64();
+    else if (dummy instanceof i32)        return <T>this.toI64();
+    else if (dummy instanceof i64)        return <T>this.toI64();
+    else if (dummy instanceof u32)        return <T>this.toU64();
+    else if (dummy instanceof u64)        return <T>this.toU64();
+    // else if (dummy instanceof f32)        return <T>this.toF64();
+    // else if (dummy instanceof f64)        return <T>this.toF64();
+    else if (dummy instanceof i128)       return <T>this.toI128();
+    else if (dummy instanceof u128)       return <T>this.toU128();
+    else if (dummy instanceof u256)       return <T>this.toU256();
+    else if (dummy instanceof u8[])       return <T>this.toBytes();
+    else if (dummy instanceof Uint8Array) return <T>this.toUint8Array();
+    else if (dummy instanceof String)     return <T>this.toString();
+    else throw new TypeError('Unsupported generic type');
   }
 
   /**
