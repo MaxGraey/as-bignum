@@ -16,8 +16,8 @@
   },
   "devDependencies": {
     "@as-pect/cli": "^2.3.1",
-    "@types/node": "^12.6.8",
-    "assemblyscript": "github:AssemblyScript/assemblyscript",
+    "@types/node": "^12.7.2",
+    "assemblyscript": "AssemblyScript/assemblyscript",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
   }
