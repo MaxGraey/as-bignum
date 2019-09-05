@@ -25,10 +25,10 @@ or
 ### Usage via AssemblyScript
 
 ```ts
-import "allocator/arena";
 import { u128 } from "bignum/integer/u128";
 
-declare function logf(value: f64): void;
+declare function logF64(value: f64): void;
+declare function logU64(hi: u64, lo: u64): void;
 
 var a = u128.One;
 var b = u128.from(-32); // same as u128.from<i32>(-32)
@@ -38,7 +38,8 @@ var e = u128.from('0x0123456789ABCDEF01234567');
 var f = u128.fromString('11100010101100101', 2); // same as u128.from('0b11100010101100101')
 var r = d / c + (b << 5) + e;
 
-logf(r.as<f64>());
+logF64(r.as<f64>());
+logU64(r.hi, r.lo);
 ```
 
 ### Usage via JavaScript/Typescript
