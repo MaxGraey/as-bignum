@@ -28,7 +28,7 @@ or
 import { u128 } from "bignum";
 
 declare function logF64(value: f64): void;
-declare function logU64(hi: u64, lo: u64): void;
+declare function logU128(hi: u64, lo: u64): void;
 
 var a = u128.One;
 var b = u128.from(-32); // same as u128.from<i32>(-32)
@@ -39,7 +39,7 @@ var f = u128.fromString('11100010101100101', 2); // same as u128.from('0b1110001
 var r = d / c + (b << 5) + e;
 
 logF64(r.as<f64>());
-logU64(r.hi, r.lo);
+logU128(r.hi, r.lo);
 ```
 
 ### Usage via JavaScript/Typescript
