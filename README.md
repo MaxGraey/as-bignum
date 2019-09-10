@@ -25,7 +25,7 @@ or
 ### Usage via AssemblyScript
 
 ```ts
-import { u128 } from "bignum/integer/u128";
+import { u128 } from "bignum";
 
 declare function logF64(value: f64): void;
 declare function logU64(hi: u64, lo: u64): void;
