@@ -82,14 +82,14 @@ function processU64(digits: Int8Array, value: u64): void {
   var length = digits.length - 1;
   for (let i = 63; i != -1; i--) {
     for (let j = 0; j <= length; j++) {
-      digits[j] += i8(digits[j] >= 5) * 3;
+      digits[j] = digits[j] + i8(digits[j] >= 5) * 3;
     }
     for (let j = length; j != -1; j--) {
-      digits[j] <<= 1;
-      if (j < length) digits[j + 1] |= i8(digits[j] > 15);
-      digits[j] &= 15;
+      digits[j] = digits[j] << 1;
+      if (j < length) digits[j + 1] = digits[j + 1] | i8(digits[j] > 15);
+      digits[j] = digits[j] & 15;
     }
-    digits[0] += i8((value & (1 << i)) != 0);
+    digits[0] = digits[0] + i8((value & (1 << i)) != 0);
   }
 }
 

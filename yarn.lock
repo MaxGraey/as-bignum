@@ -2,27 +2,27 @@
 # yarn lockfile v1
 
 
-"@as-pect/assembly@^2.4.1":
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/@as-pect/assembly/-/assembly-2.4.1.tgz#1a8fce3d0fcf48be2a693fc6fd924092fdd476d8"
-  integrity sha512-aGvOGJwJ8nQDnSLHaviOxSm+QriWY38P+4aYUxjbD02TdmnIJw+o+ce5CNpVCkKJluzoODj2zQdor0YSg7416g==
+"@as-pect/assembly@^2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@as-pect/assembly/-/assembly-2.5.0.tgz#10fd721eafd69386f7c2cd15cb1ac09c3ee136b8"
+  integrity sha512-yL5YNxRzIdGsQz7WKzJUKaJn0vsG+aMj+DDSF2WRoS7kRnVdgYV0Fo6iXuSIG+OXBQRHvbouua8YLC28g8eMgg==
 
-"@as-pect/cli@^2.4.1":
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/@as-pect/cli/-/cli-2.4.1.tgz#94429e385a84bb44dbf19bdf65af2ad5cfce90ab"
-  integrity sha512-fhJERXu7EUjFnZRS35mlWjAHFZAreHF8U5naCg2vTazPWMD0H3SdHFC2F5w4Kv+EHKBi40f0z5ToXV03KRpnUA==
+"@as-pect/cli@^2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@as-pect/cli/-/cli-2.5.0.tgz#4dffc9766bf77d8805f4c881bb6b41db6ecdfb4f"
+  integrity sha512-6PAs68/3uU38DmJBfTiFTnoFnGpHK2vvxgulxXy9irQddjTJYOoqFFX39BAXCpSWZs5A6kjlN3aw3QSsd/dLSA==
   dependencies:
-    "@as-pect/assembly" "^2.4.1"
-    "@as-pect/core" "^2.4.1"
+    "@as-pect/assembly" "^2.5.0"
+    "@as-pect/core" "^2.5.0"
     chalk "^2.4.2"
     glob "^7.1.4"
 
-"@as-pect/core@^2.4.1":
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/@as-pect/core/-/core-2.4.1.tgz#b9ded82a0b3c6ed016f71151dda971b2186d8704"
-  integrity sha512-pErzXI/WopzbQo2h1u3ar7Ur/lGal6ajf+ogr5s2xbvfpEWQXtmSKCk6XEzHCtZpE/y4xBWIqDsPwNKND3mm6g==
+"@as-pect/core@^2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@as-pect/core/-/core-2.5.0.tgz#7185f94afff0eb0f2098bd858a833cc353e20f10"
+  integrity sha512-4DIq5Wax1FhCL+V84GvDzBixv0x7SPrGSZmtq5F9DzCtsGA+iRsefn7nnFIp1oGGe4xSGxgVIjBqx/8vexs7+g==
   dependencies:
-    "@as-pect/assembly" "^2.4.1"
+    "@as-pect/assembly" "^2.5.0"
     chalk "^2.4.2"
     long "^4.0.0"
   optionalDependencies:
@@ -52,24 +52,24 @@ arg@^4.1.0:
 
 "assemblyscript@github:AssemblyScript/assemblyscript":
   version "0.7.0"
-  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/9ba81629b5ffeb0278340fe55f97abca8c5775ef"
+  resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/5b510571f6ebfc5530d85412005059e4cf961a97"
   dependencies:
     "@protobufjs/utf8" "^1.1.0"
-    binaryen "87.0.0-nightly.20190716"
+    binaryen "89.0.0-nightly.20190914"
     glob "^7.1.4"
     long "^4.0.0"
     opencollective-postinstall "^2.0.0"
-    source-map-support "^0.5.12"
+    source-map-support "^0.5.13"
 
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
-binaryen@87.0.0-nightly.20190716:
-  version "87.0.0-nightly.20190716"
-  resolved "https://registry.yarnpkg.com/binaryen/-/binaryen-87.0.0-nightly.20190716.tgz#5aaad26885c53cfac3163d21592cea46e3ed5c64"
-  integrity sha512-qRGfV8cLV4HVVo1oUCtTaDmOhbwctaW7vyW0G6HKftywWOJI9t9IsCrUEFKya50RqyEnanuS2w3nfOg4bxTGqg==
+binaryen@89.0.0-nightly.20190914:
+  version "89.0.0-nightly.20190914"
+  resolved "https://registry.yarnpkg.com/binaryen/-/binaryen-89.0.0-nightly.20190914.tgz#5878787f140123fc564fb94011f4d2d2db2fe95e"
+  integrity sha512-pfGX5IwPguli8IPuPjjcCYriZ2CzoEuk0XE70g6bmibZfieDUoK7miEq0FlPLNixL+n8vvyjRSPK5NtMuCcqNg==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -194,7 +194,15 @@ path-is-absolute@^1.0.0:
   resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
   integrity sha1-F0uSaHNVNP+8es5r9TpanhtcX18=
 
-source-map-support@^0.5.12, source-map-support@^0.5.6:
+source-map-support@^0.5.13:
+  version "0.5.13"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.13.tgz#31b24a9c2e73c2de85066c0feb7d44767ed52932"
+  integrity sha512-SHSKFHadjVA5oR4PPqhtAVdcBWwRYVd6g6cAXnIbRiIwc2EhPrTuKUBdSLvlEKyIP3GCf89fltvcZiP9MMFA1w==
+  dependencies:
+    buffer-from "^1.0.0"
+    source-map "^0.6.0"
+
+source-map-support@^0.5.6:
   version "0.5.12"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.12.tgz#b4f3b10d51857a5af0138d3ce8003b201613d599"
   integrity sha512-4h2Pbvyy15EE02G+JOZpUCmqWJuqrs+sEkzewTm++BPi7Hvn/HwcqLAcNxYAyI0x13CpPPn+kMjl+hplXMHITQ==
