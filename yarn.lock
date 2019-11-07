@@ -55,11 +55,10 @@ assemblyscript@AssemblyScript/assemblyscript:
   resolved "https://codeload.github.com/AssemblyScript/assemblyscript/tar.gz/ce0457e9edd87c04179ce16ee99753205521aa21"
   dependencies:
     "@protobufjs/utf8" "^1.1.0"
-    binaryen "89.0.0-nightly.20190914"
-    glob "^7.1.4"
+    binaryen "89.0.0-nightly.20191012"
+    glob "^7.1.5"
     long "^4.0.0"
-    opencollective-postinstall "^2.0.0"
-    source-map-support "^0.5.13"
+    source-map-support "^0.5.16"
 
 balanced-match@^1.0.0:
   version "1.0.0"
@@ -189,18 +188,10 @@ path-is-absolute@^1.0.0:
   resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
   integrity sha1-F0uSaHNVNP+8es5r9TpanhtcX18=
 
-source-map-support@^0.5.16:
+source-map-support@^0.5.16, source-map-support@^0.5.6:
   version "0.5.16"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.16.tgz#0ae069e7fe3ba7538c64c98515e35339eac5a042"
   integrity sha512-efyLRJDr68D9hBBNIPWFjhpFzURh+KJykQwvMyW5UiZzYwoF6l4YMMDIJJEyFWxWCqfyxLzz6tSfUFR+kXXsVQ==
-  dependencies:
-    buffer-from "^1.0.0"
-    source-map "^0.6.0"
-
-source-map-support@^0.5.6:
-  version "0.5.13"
-  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.13.tgz#31b24a9c2e73c2de85066c0feb7d44767ed52932"
-  integrity sha512-SHSKFHadjVA5oR4PPqhtAVdcBWwRYVd6g6cAXnIbRiIwc2EhPrTuKUBdSLvlEKyIP3GCf89fltvcZiP9MMFA1w==
   dependencies:
     buffer-from "^1.0.0"
     source-map "^0.6.0"
