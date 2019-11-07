@@ -9,8 +9,7 @@
   "scripts": {
     "build:debug": "npx asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --debug --sourceMap --validate --runtime stub",
     "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate --runtime stub",
-    "build:wasm": "yarn build:debug && yarn build:release",
-    "build": "yarn build:wasm",
+    "build": "yarn build:debug && yarn build:release",
     "test": "asp --nortrace --verbose",
     "test:ci": "asp --nortrace 2> /dev/null"
   },
