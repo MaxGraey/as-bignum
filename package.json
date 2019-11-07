@@ -15,10 +15,10 @@
     "test:ci": "asp --nortrace 2> /dev/null"
   },
   "devDependencies": {
-    "@as-pect/cli": "^2.4.1",
-    "@types/node": "^12.7.2",
+    "@as-pect/cli": "^2.6.0",
+    "@types/node": "^12.12.6",
     "assemblyscript": "AssemblyScript/assemblyscript",
     "ts-node": "^8.3.0",
-    "typescript": "^3.6.2"
+    "typescript": "^3.7.2"
   }
 }

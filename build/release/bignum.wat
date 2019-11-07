@@ -350,13 +350,13 @@
  (func $~lib/array/Array<u8>#__get (; 10 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $1
   local.get $0
-  i32.load offset=8
+  i32.load offset=12
   i32.ge_u
   if
    i32.const 304
    i32.const 360
-   i32.const 109
-   i32.const 61
+   i32.const 93
+   i32.const 41
    call $~lib/builtins/abort
    unreachable
   end
@@ -1273,7 +1273,8 @@
    local.get $0
    i64.load offset=8
    i64.or
-   i64.eqz
+   i64.const 0
+   i64.eq
   else
    i32.const 1
   end
@@ -2336,7 +2337,8 @@
    local.get $0
    local.get $1
    i64.or
-   i64.eqz
+   i64.const 0
+   i64.eq
    br_if $folding-inner0
    local.get $6
    i32.const 127
@@ -2361,7 +2363,8 @@
    local.get $1
    local.get $3
    i64.or
-   i64.eqz
+   i64.const 0
+   i64.eq
    if
     i64.const 0
     global.set $assembly/globals/__divmod_quot_hi
@@ -2370,7 +2373,8 @@
     i64.sub
     local.get $2
     i64.and
-    i64.eqz
+    i64.const 0
+    i64.eq
     if
      local.get $0
      local.get $5
@@ -2399,10 +2403,12 @@
    i64.sub
    local.get $3
    i64.and
-   i64.eqz
+   i64.const 0
+   i64.eq
    i32.const 0
    local.get $2
-   i64.eqz
+   i64.const 0
+   i64.eq
    select
    if
     i64.const 0
@@ -2487,7 +2493,8 @@
   (local $3 i32)
   (local $4 i32)
   local.get $1
-  i64.eqz
+  i64.const 0
+  i64.eq
   if
    local.get $0
    i64.const 10
@@ -3039,7 +3046,8 @@
      local.get $3
      i64.load
      local.tee $6
-     i64.eqz
+     i64.const 0
+     i64.eq
      if
       i32.const 0
       i64.const 0
@@ -3048,13 +3056,15 @@
       local.set $4
       br $folding-inner2
      end
-     i64.eqz
+     i64.const 0
+     i64.eq
      if
       local.get $6
       i64.const 1
       i64.sub
       local.tee $5
-      i64.eqz
+      i64.const 0
+      i64.eq
       if
        i32.const 0
        i64.const 1
@@ -3066,7 +3076,8 @@
       local.get $5
       local.get $6
       i64.and
-      i64.eqz
+      i64.const 0
+      i64.eq
       if
        i64.const 64
        local.get $5
@@ -3906,7 +3917,8 @@
   local.get $0
   i64.load offset=8
   i64.or
-  i64.eqz
+  i64.const 0
+  i64.eq
  )
  (func $assembly/integer/u128/u128#not (; 67 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   i32.const 0
@@ -4170,7 +4182,8 @@
   local.get $0
   local.get $1
   i64.or
-  i64.eqz
+  i64.const 0
+  i64.eq
   if
    f64.const 0
    return
@@ -4871,7 +4884,7 @@
   if
    i32.const 472
    i32.const 520
-   i32.const 14
+   i32.const 23
    i32.const 56
    call $~lib/builtins/abort
    unreachable
@@ -4935,7 +4948,32 @@
   local.get $0
   call $~lib/arraybuffer/ArrayBufferView#constructor
  )
- (func $~lib/util/memory/memcpy (; 92 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/string/String#charAt (; 92 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+  (local $1 i32)
+  local.get $0
+  i32.const 20
+  i32.load
+  i32.const 1
+  i32.shr_u
+  i32.ge_u
+  if
+   i32.const 696
+   return
+  end
+  i32.const 2
+  i32.const 1
+  call $~lib/rt/stub/__alloc
+  local.tee $1
+  local.get $0
+  i32.const 1
+  i32.shl
+  i32.const 24
+  i32.add
+  i32.load16_u
+  i32.store16
+  local.get $1
+ )
+ (func $~lib/util/memory/memcpy (; 93 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -5786,7 +5824,7 @@
    i32.store8
   end
  )
- (func $~lib/memory/memory.copy (; 93 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/memory/memory.copy (; 94 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   block $~lib/util/memory/memmove|inlined.0
@@ -5980,7 +6018,7 @@
    end
   end
  )
- (func $~lib/string/String#concat (; 94 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/string/String#concat (; 95 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -6028,14 +6066,14 @@
   call $~lib/memory/memory.copy
   local.get $2
  )
- (func $~lib/typedarray/Int8Array#constructor (; 95 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Int8Array#constructor (; 96 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   i32.const 12
   i32.const 9
   call $~lib/rt/stub/__alloc
   local.get $0
   call $~lib/arraybuffer/ArrayBufferView#constructor
  )
- (func $~lib/typedarray/Int8Array#__get (; 96 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Int8Array#__get (; 97 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -6043,7 +6081,7 @@
   if
    i32.const 304
    i32.const 736
-   i32.const 28
+   i32.const 24
    i32.const 44
    call $~lib/builtins/abort
    unreachable
@@ -6054,7 +6092,7 @@
   i32.add
   i32.load8_s
  )
- (func $~lib/typedarray/Int8Array#__set (; 97 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/typedarray/Int8Array#__set (; 98 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -6062,7 +6100,7 @@
   if
    i32.const 304
    i32.const 736
-   i32.const 39
+   i32.const 35
    i32.const 44
    call $~lib/builtins/abort
    unreachable
@@ -6074,7 +6112,7 @@
   local.get $2
   i32.store8
  )
- (func $assembly/utils/processU64 (; 98 ;) (type $FUNCSIG$vij) (param $0 i32) (param $1 i64)
+ (func $assembly/utils/processU64 (; 99 ;) (type $FUNCSIG$vij) (param $0 i32) (param $1 i64)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -6206,31 +6244,6 @@
    end
   end
  )
- (func $~lib/string/String#charAt (; 99 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
-  (local $1 i32)
-  local.get $0
-  i32.const 20
-  i32.load
-  i32.const 1
-  i32.shr_u
-  i32.ge_u
-  if
-   i32.const 696
-   return
-  end
-  i32.const 2
-  i32.const 1
-  call $~lib/rt/stub/__alloc
-  local.tee $1
-  local.get $0
-  i32.const 1
-  i32.shl
-  i32.const 24
-  i32.add
-  i32.load16_u
-  i32.store16
-  local.get $1
- )
  (func $assembly/utils/u128toa10 (; 100 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
@@ -6288,23 +6301,24 @@
   local.get $1
  )
  (func $assembly/integer/u128/u128#toString (; 101 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i64)
+  (local $2 i32)
   (local $3 i64)
-  (local $4 i32)
-  (local $5 i64)
+  (local $4 i64)
+  (local $5 i32)
   (local $6 i64)
   (local $7 i64)
+  (local $8 i64)
   local.get $1
   i32.const 10
   local.get $1
   select
-  local.tee $4
+  local.tee $2
   i32.const 10
   i32.eq
   if (result i32)
    i32.const 1
   else
-   local.get $4
+   local.get $2
    i32.const 16
    i32.eq
   end
@@ -6322,11 +6336,14 @@
   local.get $0
   i64.load offset=8
   i64.or
-  i64.eqz
+  i64.const 0
+  i64.eq
   if
    i32.const 672
    return
   end
+  i32.const 696
+  local.set $5
   i32.const 0
   local.get $0
   i64.load
@@ -6334,34 +6351,34 @@
   i64.load offset=8
   call $assembly/integer/u128/u128#constructor
   local.set $1
-  local.get $4
+  local.get $2
   i32.const 16
   i32.eq
   if
    local.get $1
    i64.load offset=8
-   local.tee $3
-   local.get $3
+   local.tee $4
+   local.get $4
    i64.const 1
    i64.sub
    i64.xor
    i64.const 63
    i64.shr_s
-   local.set $2
+   local.set $3
    i32.const 124
-   local.get $2
+   local.get $3
    i64.const -1
    i64.xor
-   local.get $3
+   local.get $4
    i64.and
    local.get $1
    i64.load
-   local.get $2
+   local.get $3
    i64.and
    i64.or
    i64.clz
    i32.wrap_i64
-   local.get $2
+   local.get $3
    i32.wrap_i64
    i32.const 64
    i32.and
@@ -6369,69 +6386,86 @@
    i32.const -4
    i32.and
    i32.sub
-   local.tee $0
-   i32.const 0
-   i32.ge_s
-   if
+   local.set $2
+   loop $continue|0
+    local.get $2
     i32.const 0
-    local.get $1
-    i64.load offset=8
-    local.tee $6
-    local.get $0
-    i32.const 127
-    i32.and
-    i64.extend_i32_s
-    local.tee $2
-    i64.const 63
-    i64.and
-    local.tee $3
-    i64.shr_u
-    local.tee $7
-    local.get $2
-    i64.const 6
-    i64.shr_u
-    i64.const 1
-    i64.sub
-    local.tee $5
-    i64.const -1
-    i64.xor
-    i64.and
-    local.get $2
-    i64.const 127
-    i64.add
-    local.get $2
-    i64.or
-    i64.const 64
-    i64.and
-    i64.const 6
-    i64.shr_u
-    i64.const 1
-    i64.sub
-    local.get $6
-    i64.const 64
-    local.get $3
-    i64.sub
-    i64.shl
-    i64.and
-    local.get $1
-    i64.load
-    local.get $3
-    i64.shr_u
-    i64.or
-    local.get $5
-    i64.and
-    i64.or
-    local.get $5
-    local.get $7
-    i64.and
-    call $assembly/integer/u128/u128#constructor
-    drop
-    unreachable
+    i32.ge_s
+    if
+     i32.const 0
+     local.get $1
+     local.tee $0
+     i64.load offset=8
+     local.tee $7
+     local.get $2
+     i32.const 127
+     i32.and
+     i64.extend_i32_s
+     local.tee $3
+     i64.const 63
+     i64.and
+     local.tee $4
+     i64.shr_u
+     local.tee $8
+     local.get $3
+     i64.const 6
+     i64.shr_u
+     i64.const 1
+     i64.sub
+     local.tee $6
+     i64.const -1
+     i64.xor
+     i64.and
+     local.get $3
+     i64.const 127
+     i64.add
+     local.get $3
+     i64.or
+     i64.const 64
+     i64.and
+     i64.const 6
+     i64.shr_u
+     i64.const 1
+     i64.sub
+     local.get $7
+     i64.const 64
+     local.get $4
+     i64.sub
+     i64.shl
+     i64.and
+     local.get $0
+     i64.load
+     local.get $4
+     i64.shr_u
+     i64.or
+     local.get $6
+     i64.and
+     i64.or
+     local.get $6
+     local.get $8
+     i64.and
+     call $assembly/integer/u128/u128#constructor
+     local.set $1
+     local.get $5
+     local.get $1
+     i64.load
+     i64.const 15
+     i64.and
+     i32.wrap_i64
+     call $~lib/string/String#charAt
+     call $~lib/string/String#concat
+     local.set $5
+     local.get $2
+     i32.const 4
+     i32.sub
+     local.set $2
+     br $continue|0
+    end
    end
-   i32.const 696
+   local.get $5
    return
   else
-   local.get $4
+   local.get $2
    i32.const 10
    i32.eq
    if
@@ -6746,7 +6780,8 @@
    i64.or
    i64.or
    i64.or
-   i64.eqz
+   i64.const 0
+   i64.eq
   else
    i32.const 1
   end
@@ -7851,7 +7886,8 @@
   i64.or
   i64.or
   i64.or
-  i64.eqz
+  i64.const 0
+  i64.eq
  )
  (func $assembly/integer/u256/u256#not (; 141 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   i32.const 0
@@ -8104,22 +8140,24 @@
   local.get $2
  )
  (func $assembly/integer/u256/u256#toString (; 150 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i64)
-  (local $3 i32)
-  (local $4 i64)
-  (local $5 i64)
+  (local $2 i32)
+  (local $3 i64)
+  (local $4 i32)
+  (local $5 i32)
   (local $6 i64)
+  (local $7 i64)
+  (local $8 i64)
   local.get $1
   i32.const 10
   local.get $1
   select
-  local.tee $3
+  local.tee $2
   i32.const 10
   i32.eq
   if (result i32)
    i32.const 1
   else
-   local.get $3
+   local.get $2
    i32.const 16
    i32.eq
   end
@@ -8143,11 +8181,14 @@
   i64.or
   i64.or
   i64.or
-  i64.eqz
+  i64.const 0
+  i64.eq
   if
    i32.const 672
    return
   end
+  i32.const 696
+  local.set $5
   i32.const 0
   local.get $0
   i64.load
@@ -8159,7 +8200,7 @@
   i64.load offset=24
   call $assembly/integer/u256/u256#constructor
   local.set $1
-  local.get $3
+  local.get $2
   i32.const 16
   i32.eq
   if
@@ -8212,130 +8253,148 @@
    i32.const -4
    i32.and
    i32.sub
-   local.tee $3
-   i32.const 0
-   i32.ge_s
-   if
-    local.get $1
-    local.set $0
-    local.get $3
-    i32.const 255
-    i32.and
-    local.tee $1
-    i64.extend_i32_s
-    local.set $2
-    local.get $1
-    i32.const 64
-    i32.le_s
+   local.set $4
+   loop $continue|0
+    local.get $4
+    i32.const 0
+    i32.ge_s
     if
      local.get $1
-     if
-      i32.const 0
-      local.get $0
-      i64.load
-      local.get $2
-      i64.shr_u
-      local.get $0
-      i64.load offset=24
-      local.get $2
-      i64.shr_u
-      local.tee $5
-      i64.const 64
-      local.get $2
-      i64.sub
-      local.tee $4
-      i64.shl
-      local.get $0
-      i64.load offset=16
-      local.get $2
-      i64.shr_u
-      i64.or
-      local.tee $6
-      local.get $4
-      i64.shl
-      local.get $0
-      i64.load offset=8
-      local.get $2
-      i64.shr_u
-      i64.or
-      local.tee $2
-      local.get $4
-      i64.shl
-      i64.or
-      local.get $2
-      local.get $6
-      local.get $5
-      call $assembly/integer/u256/u256#constructor
-      drop
-     end
-    else
-     local.get $1
-     i32.const 128
-     i32.le_s
-     i32.const 0
-     local.get $1
+     local.set $0
+     local.get $4
+     i32.const 255
+     i32.and
+     local.tee $2
+     i64.extend_i32_s
+     local.set $3
+     local.get $2
      i32.const 64
-     i32.gt_s
-     select
-     if (result i32)
-      i32.const 0
-      local.get $0
-      i64.load offset=8
-      local.get $0
-      i64.load offset=16
-      local.get $0
-      i64.load offset=24
-      i64.const 128
+     i32.le_s
+     if
       local.get $2
-      i64.sub
-      i64.shr_u
-      i64.const 0
-      call $assembly/integer/u256/u256#constructor
+      if
+       i32.const 0
+       local.get $0
+       i64.load
+       local.get $3
+       i64.shr_u
+       local.get $0
+       i64.load offset=24
+       local.get $3
+       i64.shr_u
+       local.tee $7
+       i64.const 64
+       local.get $3
+       i64.sub
+       local.tee $6
+       i64.shl
+       local.get $0
+       i64.load offset=16
+       local.get $3
+       i64.shr_u
+       i64.or
+       local.tee $8
+       local.get $6
+       i64.shl
+       local.get $0
+       i64.load offset=8
+       local.get $3
+       i64.shr_u
+       i64.or
+       local.tee $3
+       local.get $6
+       i64.shl
+       i64.or
+       local.get $3
+       local.get $8
+       local.get $7
+       call $assembly/integer/u256/u256#constructor
+       local.set $0
+      end
      else
-      local.get $1
-      i32.const 192
+      local.get $2
+      i32.const 128
       i32.le_s
       i32.const 0
-      local.get $1
-      i32.const 128
+      local.get $2
+      i32.const 64
       i32.gt_s
       select
       if (result i32)
        i32.const 0
        local.get $0
+       i64.load offset=8
+       local.get $0
        i64.load offset=16
        local.get $0
        i64.load offset=24
-       i64.const 192
-       local.get $1
-       i64.extend_i32_s
+       i64.const 128
+       local.get $3
        i64.sub
        i64.shr_u
-       i64.const 0
        i64.const 0
        call $assembly/integer/u256/u256#constructor
       else
-       i32.const 0
-       local.get $0
-       i64.load offset=24
-       i64.const 256
        local.get $2
-       i64.sub
-       i64.shr_u
-       i64.const 0
-       i64.const 0
-       i64.const 0
-       call $assembly/integer/u256/u256#constructor
+       i32.const 192
+       i32.le_s
+       i32.const 0
+       local.get $2
+       i32.const 128
+       i32.gt_s
+       select
+       if (result i32)
+        i32.const 0
+        local.get $0
+        i64.load offset=16
+        local.get $0
+        i64.load offset=24
+        i64.const 192
+        local.get $2
+        i64.extend_i32_s
+        i64.sub
+        i64.shr_u
+        i64.const 0
+        i64.const 0
+        call $assembly/integer/u256/u256#constructor
+       else
+        i32.const 0
+        local.get $0
+        i64.load offset=24
+        i64.const 256
+        local.get $3
+        i64.sub
+        i64.shr_u
+        i64.const 0
+        i64.const 0
+        i64.const 0
+        call $assembly/integer/u256/u256#constructor
+       end
       end
+      local.set $0
      end
-     drop
+     local.get $0
+     local.set $1
+     local.get $5
+     local.get $0
+     i64.load
+     i64.const 15
+     i64.and
+     i32.wrap_i64
+     call $~lib/string/String#charAt
+     call $~lib/string/String#concat
+     local.set $5
+     local.get $4
+     i32.const 4
+     i32.sub
+     local.set $4
+     br $continue|0
     end
-    unreachable
    end
-   i32.const 696
+   local.get $5
    return
   else
-   local.get $3
+   local.get $2
    i32.const 10
    i32.eq
    if
