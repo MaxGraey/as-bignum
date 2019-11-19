@@ -1273,8 +1273,7 @@
    local.get $0
    i64.load offset=8
    i64.or
-   i64.const 0
-   i64.eq
+   i64.eqz
   else
    i32.const 1
   end
@@ -2337,8 +2336,7 @@
    local.get $0
    local.get $1
    i64.or
-   i64.const 0
-   i64.eq
+   i64.eqz
    br_if $folding-inner0
    local.get $6
    i32.const 127
@@ -2363,8 +2361,7 @@
    local.get $1
    local.get $3
    i64.or
-   i64.const 0
-   i64.eq
+   i64.eqz
    if
     i64.const 0
     global.set $assembly/globals/__divmod_quot_hi
@@ -2373,8 +2370,7 @@
     i64.sub
     local.get $2
     i64.and
-    i64.const 0
-    i64.eq
+    i64.eqz
     if
      local.get $0
      local.get $5
@@ -2403,12 +2399,10 @@
    i64.sub
    local.get $3
    i64.and
-   i64.const 0
-   i64.eq
+   i64.eqz
    i32.const 0
    local.get $2
-   i64.const 0
-   i64.eq
+   i64.eqz
    select
    if
     i64.const 0
@@ -2419,8 +2413,7 @@
    local.get $3
    i64.sub
    local.tee $4
-   i64.const 0
-   i64.eq
+   i64.eqz
    if (result i64)
     local.get $0
     local.get $2
@@ -2493,8 +2486,7 @@
   (local $3 i32)
   (local $4 i32)
   local.get $1
-  i64.const 0
-  i64.eq
+  i64.eqz
   if
    local.get $0
    i64.const 10
@@ -3046,8 +3038,7 @@
      local.get $3
      i64.load
      local.tee $6
-     i64.const 0
-     i64.eq
+     i64.eqz
      if
       i32.const 0
       i64.const 0
@@ -3056,15 +3047,13 @@
       local.set $4
       br $folding-inner2
      end
-     i64.const 0
-     i64.eq
+     i64.eqz
      if
       local.get $6
       i64.const 1
       i64.sub
       local.tee $5
-      i64.const 0
-      i64.eq
+      i64.eqz
       if
        i32.const 0
        i64.const 1
@@ -3076,8 +3065,7 @@
       local.get $5
       local.get $6
       i64.and
-      i64.const 0
-      i64.eq
+      i64.eqz
       if
        i64.const 64
        local.get $5
@@ -3917,8 +3905,7 @@
   local.get $0
   i64.load offset=8
   i64.or
-  i64.const 0
-  i64.eq
+  i64.eqz
  )
  (func $assembly/integer/u128/u128#not (; 67 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   i32.const 0
@@ -4182,8 +4169,7 @@
   local.get $0
   local.get $1
   i64.or
-  i64.const 0
-  i64.eq
+  i64.eqz
   if
    f64.const 0
    return
@@ -6336,8 +6322,7 @@
   local.get $0
   i64.load offset=8
   i64.or
-  i64.const 0
-  i64.eq
+  i64.eqz
   if
    i32.const 672
    return
@@ -6780,8 +6765,7 @@
    i64.or
    i64.or
    i64.or
-   i64.const 0
-   i64.eq
+   i64.eqz
   else
    i32.const 1
   end
@@ -7886,8 +7870,7 @@
   i64.or
   i64.or
   i64.or
-  i64.const 0
-  i64.eq
+  i64.eqz
  )
  (func $assembly/integer/u256/u256#not (; 141 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   i32.const 0
@@ -8181,8 +8164,7 @@
   i64.or
   i64.or
   i64.or
-  i64.const 0
-  i64.eq
+  i64.eqz
   if
    i32.const 672
    return
