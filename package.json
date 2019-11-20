@@ -16,7 +16,7 @@
   "devDependencies": {
     "@as-pect/cli": "^2.6.0",
     "@types/node": "^12.12.6",
-    "assemblyscript": "AssemblyScript/assemblyscript",
+    "assemblyscript": "^0.8.1",
     "ts-node": "^8.3.0",
     "typescript": "^3.7.2"
   }
