@@ -2279,6 +2279,7 @@
   (local $4 i64)
   (local $5 i32)
   (local $6 i32)
+  (local $7 i32)
   local.get $3
   i64.const 1
   i64.sub
@@ -2308,6 +2309,30 @@
   if
    unreachable
   end
+  local.get $1
+  i64.const 1
+  i64.sub
+  local.get $1
+  i64.xor
+  i64.const 63
+  i64.shr_s
+  local.tee $4
+  i64.const -1
+  i64.xor
+  local.get $1
+  i64.and
+  local.get $0
+  local.get $4
+  i64.and
+  i64.or
+  i64.clz
+  i32.wrap_i64
+  local.get $4
+  i32.wrap_i64
+  i32.const 64
+  i32.and
+  i32.add
+  local.set $7
   local.get $2
   i64.const 1
   i64.sub
@@ -2337,7 +2362,13 @@
    local.get $1
    i64.or
    i64.eqz
-   br_if $folding-inner0
+   if
+    i64.const 0
+    global.set $assembly/globals/__divmod_quot_lo
+    i64.const 0
+    global.set $assembly/globals/__divmod_quot_hi
+    br $folding-inner0
+   end
    local.get $6
    i32.const 127
    i32.eq
@@ -2346,9 +2377,7 @@
     global.set $assembly/globals/__divmod_quot_lo
     local.get $1
     global.set $assembly/globals/__divmod_quot_hi
-    i64.const 0
-    global.set $assembly/globals/__divmod_rem
-    return
+    br $folding-inner0
    end
    local.get $5
    local.get $6
@@ -2394,48 +2423,45 @@
     end
     return
    end
-   local.get $3
-   i64.const 1
-   i64.sub
-   local.get $3
-   i64.and
-   i64.eqz
-   i32.const 0
    local.get $2
    i64.eqz
-   select
+   if (result i32)
+    local.get $3
+    i64.const 1
+    i64.sub
+    local.get $3
+    i64.and
+    i64.eqz
+   else
+    i32.const 0
+   end
    if
-    i64.const 0
-    global.set $assembly/globals/__divmod_rem
-    return
+    br $folding-inner0
    end
    local.get $1
    local.get $3
    i64.sub
    local.tee $4
    i64.eqz
-   if (result i64)
+   if
     local.get $0
     local.get $2
     i64.sub
-   else
-    local.get $4
+    local.set $4
    end
+   local.get $4
    i32.wrap_i64
    local.tee $5
    i32.const 0
-   i32.lt_s
-   br_if $folding-inner0
-   local.get $5
-   i32.eqz
+   i32.le_s
    if
-    i64.const 1
+    local.get $5
+    i32.eqz
+    i64.extend_i32_u
     global.set $assembly/globals/__divmod_quot_lo
     i64.const 0
-    global.set $assembly/globals/__divmod_rem
-    i64.const 0
     global.set $assembly/globals/__divmod_quot_hi
-    return
+    br $folding-inner0
    end
    local.get $0
    local.get $1
@@ -2446,10 +2472,6 @@
   end
   i64.const 0
   global.set $assembly/globals/__divmod_rem
-  i64.const 0
-  global.set $assembly/globals/__divmod_quot_hi
-  i64.const 0
-  global.set $assembly/globals/__divmod_quot_lo
  )
  (func $assembly/integer/u128/u128.div (; 40 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
@@ -2488,31 +2510,29 @@
   local.get $1
   i64.eqz
   if
+   i64.const 0
+   global.set $assembly/globals/__divmod_quot_hi
    local.get $0
    i64.const 10
    i64.lt_u
    if
     i64.const 0
-    global.set $assembly/globals/__divmod_rem
-    i64.const 0
-    global.set $assembly/globals/__divmod_quot_hi
-    i64.const 0
     global.set $assembly/globals/__divmod_quot_lo
-    return
+    i64.const 0
+    global.set $assembly/globals/__divmod_rem
+   else
+    local.get $0
+    i64.const 10
+    i64.div_u
+    local.tee $1
+    global.set $assembly/globals/__divmod_quot_lo
+    local.get $0
+    local.get $1
+    i64.const 10
+    i64.mul
+    i64.sub
+    global.set $assembly/globals/__divmod_rem
    end
-   local.get $0
-   i64.const 10
-   i64.div_u
-   local.tee $1
-   global.set $assembly/globals/__divmod_quot_lo
-   i64.const 0
-   global.set $assembly/globals/__divmod_quot_hi
-   local.get $0
-   local.get $1
-   i64.const 10
-   i64.mul
-   i64.sub
-   global.set $assembly/globals/__divmod_rem
    return
   end
   i32.const 0
@@ -2573,7 +2593,8 @@
   i64.add
   i64.add
   call $assembly/integer/u128/u128#constructor
-  local.tee $2
+  local.set $2
+  local.get $2
   i64.load offset=8
   local.tee $0
   i64.const 4
@@ -2609,7 +2630,8 @@
   i64.add
   i64.add
   call $assembly/integer/u128/u128#constructor
-  local.tee $2
+  local.set $2
+  local.get $2
   i64.load offset=8
   local.tee $0
   i64.const 8
@@ -2645,7 +2667,8 @@
   i64.add
   i64.add
   call $assembly/integer/u128/u128#constructor
-  local.tee $2
+  local.set $2
+  local.get $2
   i64.load offset=8
   local.tee $0
   i64.const 16
@@ -2681,14 +2704,13 @@
   i64.add
   i64.add
   call $assembly/integer/u128/u128#constructor
-  local.tee $2
+  local.set $2
+  local.get $2
   i64.load offset=8
   local.tee $0
   i64.const 32
   i64.shr_u
   local.set $1
-  i32.const 0
-  i32.const 0
   i32.const 0
   i32.const 0
   local.get $0
@@ -2719,7 +2741,10 @@
   i64.add
   i64.add
   call $assembly/integer/u128/u128#constructor
-  local.tee $2
+  local.set $2
+  i32.const 0
+  i32.const 0
+  local.get $2
   i64.load offset=8
   i64.const 0
   call $assembly/integer/u128/u128#constructor
@@ -2741,13 +2766,13 @@
   i64.add
   i64.add
   call $assembly/integer/u128/u128#constructor
-  local.tee $2
+  local.set $2
+  local.get $2
   i64.load offset=8
   local.tee $0
   i64.const 3
   i64.shr_u
   local.set $1
-  i32.const 0
   i32.const 0
   local.get $0
   i64.const 61
@@ -2759,7 +2784,9 @@
   i64.or
   local.get $1
   call $assembly/integer/u128/u128#constructor
-  local.tee $2
+  local.set $2
+  i32.const 0
+  local.get $2
   i64.load
   local.tee $0
   i64.const 2
@@ -2857,7 +2884,8 @@
   i64.add
   i64.add
   call $assembly/integer/u128/u128#constructor
-  local.tee $4
+  local.set $4
+  local.get $4
   i64.load
   global.set $assembly/globals/__divmod_quot_lo
   local.get $4

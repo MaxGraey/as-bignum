@@ -220,8 +220,8 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
   var btz = __ctz128(blo, bhi); // N
 
   if (!(alo | ahi)) {
-    __divmod_quot_lo =
-    __divmod_quot_hi =
+    __divmod_quot_lo = 0;
+    __divmod_quot_hi = 0;
     __divmod_rem     = 0;
     return;
   }
@@ -268,14 +268,9 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
   var diff: i64 = ahi - bhi;
   var cmp = <i32>(diff != 0 ? diff : alo - blo); // TODO optimize this
 
-  if (cmp < 0) {
-    __divmod_quot_lo =
-    __divmod_quot_hi =
-    __divmod_rem     = 0;
-    return;
-  } else if (cmp == 0) {
-    __divmod_quot_lo = 1;
-    __divmod_quot_hi =
+  if (cmp <= 0) {
+    __divmod_quot_lo = u64(cmp == 0);
+    __divmod_quot_hi = 0;
     __divmod_rem     = 0;
     return;
   }
@@ -331,16 +326,15 @@ export function __udivmod128core(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
 @global
 export function __udivmod128_10(_q: usize, _r: usize, lo: u64, hi: u64): void {
   if (!hi) {
-    if (lo < 10) {
-      __divmod_quot_lo =
-      __divmod_quot_hi =
-      __divmod_rem     = 0;
-      return;
-    }
-    let qlo = lo / 10;
-    __divmod_quot_lo = qlo;
     __divmod_quot_hi = 0;
-    __divmod_rem     = lo - qlo * 10;
+    if (lo < 10) {
+      __divmod_quot_lo = 0;
+      __divmod_rem     = 0;
+    } else {
+      let qlo = lo / 10;
+      __divmod_quot_lo = qlo;
+      __divmod_rem     = lo - qlo * 10;
+    }
     return;
   }
 
