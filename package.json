@@ -1,11 +1,29 @@
 {
   "name": "bignum",
-  "version": "0.1.1",
-  "description": "128 and 256 bits integer and fixed point arithmetics. Also support checking overflow/underflow",
+  "version": "0.1.2",
+  "description": "128 and 256 bits integer and fixed point arithmetics for AssemblyScript. Also support checking overflow/underflow",
   "main": "js/index.js",
   "types": "assembly/index.ts",
   "author": "MaxGraey <maxgraey@gmail.com>",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MaxGraey/bignum.wasm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MaxGraey/bignum.wasmt/issues"
+  },
+  "keywords": [
+    "u128",
+    "u256",
+    "bignum",
+    "bigint",
+    "biginteger",
+    "fixed",
+    "wasm",
+    "webassembly",
+    "assemblyscript"
+  ],
   "scripts": {
     "build:debug": "npx asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --debug --sourceMap --validate --runtime stub",
     "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --validate --runtime stub",
@@ -19,5 +37,14 @@
     "assemblyscript": "^0.8.1",
     "ts-node": "^8.3.0",
     "typescript": "^3.7.2"
-  }
+  },
+  "releaseFiles": [
+    "assembly/",
+    "build/",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "package.json",
+    "yarn.lock"
+  ]
 }
