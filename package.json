@@ -1,5 +1,5 @@
 {
-  "name": "bignum",
+  "name": "bignum.wasm",
   "version": "0.1.2",
   "description": "128 and 256 bits integer and fixed point arithmetics for AssemblyScript. Also support checking overflow/underflow",
   "main": "js/index.js",
