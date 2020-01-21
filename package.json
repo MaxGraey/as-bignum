@@ -8,10 +8,10 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MaxGraey/bignum.wasm.git"
+    "url": "https://github.com/MaxGraey/as-bignum.git"
   },
   "bugs": {
-    "url": "https://github.com/MaxGraey/bignum.wasmt/issues"
+    "url": "https://github.com/MaxGraey/as-bignum/issues"
   },
   "keywords": [
     "u128",
