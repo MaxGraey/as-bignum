@@ -1,6 +1,5 @@
-<!-- [![Build Status](https://img.shields.io/travis/com/MaxGraey/bignum.wasm.svg?style=flat-square&label=linux%20%26%20osx)](https://travis-ci.org/MaxGraey/bignum.wasm) -->
-[![Build Status](https://travis-ci.com/MaxGraey/bignum.wasm.svg?branch=master)](https://travis-ci.com/MaxGraey/bignum.wasm)
-[![License](https://img.shields.io/badge/license-Apache%202.0-ba68c8.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0)
+[![NPM registry](https://img.shields.io/npm/v/as-bignum.svg?style=for-the-badge)](https://www.npmjs.com/package/as-bignum)[![Build Status](https://img.shields.io/travis/com/MaxGraey/bignum.wasm/master?style=for-the-badge)](https://travis-ci.com/MaxGraey/bignum.wasm)[![NPM license](https://img.shields.io/badge/license-Apache%202.0-ba68c8.svg?style=for-the-badge)](LICENSE.md)
+
 
 ## Work in progress
 
