@@ -1,4 +1,4 @@
-[![NPM registry](https://img.shields.io/npm/v/as-bignum.svg?style=for-the-badge)](https://www.npmjs.com/package/as-bignum)[![Build Status](https://img.shields.io/travis/com/MaxGraey/bignum.wasm/master?style=for-the-badge)](https://travis-ci.com/MaxGraey/bignum.wasm)[![NPM license](https://img.shields.io/badge/license-Apache%202.0-ba68c8.svg?style=for-the-badge)](LICENSE.md)
+[![NPM registry](https://img.shields.io/npm/v/as-bignum.svg?style=for-the-badge)](https://www.npmjs.com/package/as-bignum)[![Build Status](https://img.shields.io/travis/com/MaxGraey/as-bignum/master?style=for-the-badge)](https://travis-ci.com/MaxGraey/as-bignum)[![NPM license](https://img.shields.io/badge/license-Apache%202.0-ba68c8.svg?style=for-the-badge)](LICENSE.md)
 
 ## Work in progress
 
