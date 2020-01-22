@@ -14,11 +14,11 @@ All kind of types pretty useful for economical and cryptographic usages and prov
 
 ### Install
 
-> yarn add MaxGraey/bignum.wasm
+> yarn add as-bignum
 
 or
 
-> npm install MaxGraey/bignum.wasm
+> npm i as-bignum
 
 ### Usage via AssemblyScript
 
