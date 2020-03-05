@@ -1,6 +1,6 @@
 {
   "name": "as-bignum",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "128 and 256 bits integer and fixed point arithmetics for AssemblyScript. Also support checking overflow/underflow",
   "main": "js/index.js",
   "types": "assembly/index.ts",
@@ -32,11 +32,11 @@
     "test:ci": "asp --nortrace 2> /dev/null"
   },
   "devDependencies": {
-    "@as-pect/cli": "^2.6.0",
-    "@types/node": "^12.12.6",
-    "assemblyscript": "^0.8.1",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.7.2"
+    "@as-pect/cli": "^3.1.0-alpha.0",
+    "@types/node": "^13.7.7",
+    "assemblyscript": "^0.9.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
   },
   "releaseFiles": [
     "assembly/",

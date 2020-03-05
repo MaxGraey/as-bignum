@@ -431,7 +431,7 @@ export class u128 {
   // mul: u128 x u128 = u128
   @inline @operator('*')
   static mul(a: u128, b: u128): u128 {
-    __multi3(null, a.lo, a.hi, b.lo, b.hi);
+    __multi3(changetype<usize>(0), a.lo, a.hi, b.lo, b.hi);
     return new u128(__res128_lo, __res128_hi);
   }
 
@@ -449,13 +449,13 @@ export class u128 {
 
   @inline
   static div10(value: u128): u128 {
-    __udivmod128_10(null, null, value.lo, value.hi);
+    __udivmod128_10(changetype<usize>(0), changetype<usize>(0), value.lo, value.hi);
     return new u128(__divmod_quot_lo, __divmod_quot_hi);
   }
 
   @inline
   static rem10(value: u128): u128 {
-    __udivmod128_10(null, null, value.lo, value.hi);
+    __udivmod128_10(changetype<usize>(0), changetype<usize>(0), value.lo, value.hi);
     return u128.from(__divmod_rem);
   }
 
