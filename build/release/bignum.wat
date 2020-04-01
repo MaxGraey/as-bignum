@@ -6753,6 +6753,8 @@
    i64.or
    i64.or
    i64.eqz
+   i32.const 0
+   i32.ne
   else
    i32.const 1
   end
@@ -7486,6 +7488,8 @@
    local.get $7
    i64.lt_u
   end
+  i32.const 0
+  i32.ne
  )
  (func $assembly/integer/u256/u256.le (; 133 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
