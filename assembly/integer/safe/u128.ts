@@ -148,7 +148,7 @@ export class u128 extends U128 {
 
   @inline @operator.prefix('++')
   preInc(): this {
-    if (this.lo == <u64>-1 && this.hi == <u64>-1) {
+    if ((this.lo & this.hi) == <u64>-1) { // if this == max
       throw new Error('Overflow during prefix incrementing');
     }
     super.preInc();
@@ -157,7 +157,7 @@ export class u128 extends U128 {
 
   @inline @operator.prefix('--')
   preDec(): this {
-    if (this.hi == 0 && this.lo == 0) {
+    if ((this.lo | this.hi) == 0) { // if this == 0
       throw new Error('Underflow during prefix decrementing');
     }
     super.preDec();
@@ -166,7 +166,7 @@ export class u128 extends U128 {
 
   @inline @operator.postfix('++')
   postInc(): u128 {
-    if (this.lo == <u64>-1 && this.hi == <u64>-1) {
+    if ((this.lo & this.hi) == <u64>-1) { // if this == max
       throw new Error('Overflow during prefix incrementing');
     }
     return this.clone().preInc();
@@ -174,7 +174,7 @@ export class u128 extends U128 {
 
   @inline @operator.postfix('--')
   postDec(): u128 {
-    if (this.hi == 0 && this.lo == 0) {
+    if ((this.lo | this.hi) == 0) { // if this == 0
       throw new Error('Underflow during prefix decrementing');
     }
     return this.clone().preDec();
