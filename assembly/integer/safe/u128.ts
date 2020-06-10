@@ -215,11 +215,12 @@ export class u128 extends U128 {
     if (s == 127) { // this may overflow or not. Need extra checks.
       // See Hacker's Delight, 2nd Edition. 2–13 Overflow Detection
       // @ts-ignore
-      let t = a * changetype<u128>(b >> 1);
+      let t = changetype<u128>(U128.mul(a, b >> 1));
       // @ts-ignore
       if (t.hi >>> 63) { // if t < 0
         throw new Error("Overflow during multiply");
       }
+      // @ts-ignore
       let z = t >> 1;
       if (b.lo & 1) {
         // @ts-ignore
