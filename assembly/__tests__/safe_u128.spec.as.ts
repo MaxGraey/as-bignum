@@ -104,7 +104,7 @@ describe("Basic operations", () => {
 
 describe("Overflow Underflow Throwable", () => {
   it("Should throw when add two numbers 1", () => {
-    expectFn(() => {
+    expect(() => {
       var a = u128.One;
       var b = u128.Max;
       !(a + b);
@@ -112,7 +112,7 @@ describe("Overflow Underflow Throwable", () => {
   });
 
   it("Should throw when add two numbers 2", () => {
-    expectFn(() => {
+    expect(() => {
       var a = u128.Max;
       var b = u128.One;
       !(a + b);
@@ -120,7 +120,7 @@ describe("Overflow Underflow Throwable", () => {
   });
 
   it("Should throw when add two numbers 3", () => {
-    expectFn(() => {
+    expect(() => {
       var a = u128.from(-2);
       var b = new u128(2);
       !(a + b);
@@ -128,7 +128,7 @@ describe("Overflow Underflow Throwable", () => {
   });
 
   it("Should throw when subtract two numbers 1", () => {
-    expectFn(() => {
+    expect(() => {
       var a = u128.Zero;
       var b = u128.Max;
       !(a - b);
@@ -136,7 +136,7 @@ describe("Overflow Underflow Throwable", () => {
   });
 
   it("Should throw when subtract two numbers 2", () => {
-    expectFn(() => {
+    expect(() => {
       var a = u128.from(-2);
       var b = u128.Max;
       !(a - b);
@@ -144,29 +144,57 @@ describe("Overflow Underflow Throwable", () => {
   });
 
   it("Should throw when subtract two numbers 3", () => {
-    expectFn(() => {
+    expect(() => {
       var a = u128.Zero;
       var b = u128.One;
       !(a - b);
     }).toThrow();
   });
 
+  it("Should throw when post decrement min number", () => {
+    expect(() => {
+      var a = u128.Zero;
+      !(a--);
+    }).toThrow();
+  });
+
+  it("Should throw when post increment max number", () => {
+    expect(() => {
+      var a = u128.Max;
+      !(a++);
+    }).toThrow();
+  });
+
+  it("Should throw when pre decrement min number", () => {
+    expect(() => {
+      var a = u128.Zero;
+      !(--a);
+    }).toThrow();
+  });
+
+  it("Should throw when pre increment max number", () => {
+    expect(() => {
+      var a = u128.Max;
+      !(++a);
+    }).toThrow();
+  });
+
   it("Should throw multiply two numbers with overflow 1", () => {
-    expectFn(() => {
+    expect(() => {
       var a = new u128(0, 1);
       !(a * a);
     }).toThrow();
   });
 
   it("Should throw multiply two numbers with overflow 2", () => {
-    expectFn(() => {
+    expect(() => {
       var a = new u128(1, 1);
       !(a * a);
     }).toThrow();
   });
 
   it("Should throw multiply two numbers with overflow 3", () => {
-    expectFn(() => {
+    expect(() => {
       var a = u128.Max;
       var b = u128.from(2);
       !(a * b);
@@ -174,7 +202,7 @@ describe("Overflow Underflow Throwable", () => {
   });
 
   it("Should throw multiply two numbers with overflow 4", () => {
-    expectFn(() => {
+    expect(() => {
       var a = u128.Max;
       var b = u128.Max;
       !(a * b);
@@ -182,97 +210,97 @@ describe("Overflow Underflow Throwable", () => {
   });
 
   it("Should throw power with overflow 1", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(2) ** 128);
     }).toThrow();
   });
 
   it("Should throw power with overflow 2", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(3) ** 81);
     }).toThrow();
   });
 
   it("Should throw power with overflow 3", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(3) ** 120);
     }).toThrow();
   });
 
   it("Should throw power with overflow 4", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(4) ** 64);
     }).toThrow();
   });
 
   it("Should throw power with overflow 5", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(4) ** 120);
     }).toThrow();
   });
 
   it("Should throw power with overflow 6", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(5) ** 56);
     }).toThrow();
   });
 
   it("Should throw power with overflow 7", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(5) ** 60);
     }).toThrow();
   });
 
   it("Should throw power with overflow 8", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(6) ** 50);
     }).toThrow();
   });
 
   it("Should throw power with overflow 9", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(7) ** 49);
     }).toThrow();
   });
 
   it("Should throw power with overflow 10", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(8) ** 43);
     }).toThrow();
   });
 
   it("Should throw power with overflow 11", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(9) ** 41);
     }).toThrow();
   });
 
   it("Should throw power with overflow 12", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(10) ** 39);
     }).toThrow();
   });
 
   it("Should throw power with overflow 13", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(11) ** 38);
     }).toThrow();
   });
 
   it("Should throw power with overflow 14", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(12) ** 36);
     }).toThrow();
   });
 
   it("Should throw power with overflow 15", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(0, 1) ** 2);
     }).toThrow();
   });
 
   it("Should throw power with overflow 16", () => {
-    expectFn(() => {
+    expect(() => {
       !(new u128(u64.MAX_VALUE) ** 3);
     }).toThrow();
   });

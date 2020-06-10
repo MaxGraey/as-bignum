@@ -830,67 +830,67 @@ describe("Division And Mod Operation", () => {
 
 describe("Throwable", () => {
   it("Should throw from string with unsupported radix 1", () => {
-    expectFn(() => {
+    expect(() => {
      !(u128.fromString('0000', 1));
     }).toThrow();
   });
 
   it("Should throw from string with unsupported radix 2", () => {
-    expectFn(() => {
+    expect(() => {
      !(u128.fromString('1234', 37));
     }).toThrow();
   });
 
   it("Should throw from bytes with null 1", () => {
-    expectFn(() => {
+    expect(() => {
      !(u128.fromBytes(changetype<u8[]>(null)));
     }).toThrow();
   });
 
   it("Should throw from bytes with null 2", () => {
-    expectFn(() => {
+    expect(() => {
       !(u128.fromBytes(changetype<u8[]>(null), true));
     }).toThrow();
   });
 
   it("Should throw from bytes with wrong byte array length 1", () => {
-    expectFn(() => {
+    expect(() => {
      !(u128.fromBytes<u8[]>([]));
     }).toThrow();
   });
 
   it("Should throw from bytes with wrong byte array length 2", () => {
-    expectFn(() => {
+    expect(() => {
      !(u128.fromBytes<u8[]>([], true));
     }).toThrow();
   });
 
   it("Should throw from bytes with wrong byte array length 3", () => {
-    expectFn(() => {
+    expect(() => {
      !(u128.fromBytes<u8[]>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]));
     }).toThrow();
   });
 
   it("Should throw from bytes with wrong byte array length 4", () => {
-    expectFn(() => {
+    expect(() => {
      !(u128.fromBytes<u8[]>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], true));
     }).toThrow();
   });
 
   it("Should throw from bytes with wrong byte array length 5", () => {
-    expectFn(() => {
+    expect(() => {
       !(u128.fromBytes<Uint8Array>(new Uint8Array(0)));
     }).toThrow();
   });
 
   it("Should throw from bytes with wrong byte array length 6", () => {
-    expectFn(() => {
+    expect(() => {
       !(u128.fromBytes<Uint8Array>(new Uint8Array(0), true));
     }).toThrow();
   });
 
   it("Should throw from bytes with wrong byte array length 7", () => {
-    expectFn(() => {
+    expect(() => {
       let arr = new Uint8Array(18);
       for (let i = 0; i < 18; i++) {
         arr[i] = <u8>i;
@@ -900,7 +900,7 @@ describe("Throwable", () => {
   });
 
   it("Should throw from bytes with wrong byte array length 8", () => {
-    expectFn(() => {
+    expect(() => {
       let arr = new Uint8Array(18);
       for (let i = 0; i < 18; i++) {
         arr[i] = <u8>i;
@@ -910,14 +910,14 @@ describe("Throwable", () => {
   });
 
   it("Should throw when divide number by zero", () => {
-    expectFn(() => {
+    expect(() => {
       let a = new u128(1, 1);
       !(a / u128.Zero);
     }).toThrow();
   });
 
   it("Should throw when mod number by zero", () => {
-    expectFn(() => {
+    expect(() => {
       let a = new u128(1, 1);
       !(a % u128.Zero);
     }).toThrow();

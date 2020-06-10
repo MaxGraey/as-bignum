@@ -101,19 +101,21 @@ export class u128 extends U128 {
 
   static fromBytesLE(array: u8[]): u128 {
     assert(array.length && (array.length & 15) == 0);
+    // @ts-ignore
     var buffer = array.dataStart;
     return new u128(
-      load<u64>(buffer, 0),
+      load<u64>(buffer, 0 * sizeof<u64>()),
       load<u64>(buffer, 1 * sizeof<u64>())
     );
   }
 
   static fromBytesBE(array: u8[]): u128 {
     assert(array.length && (array.length & 15) == 0);
+    // @ts-ignore
     var buffer = array.dataStart;
     return new u128(
       bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
-      bswap<u64>(load<u64>(buffer, 0))
+      bswap<u64>(load<u64>(buffer, 0 * sizeof<u64>()))
     );
   }
 
@@ -146,25 +148,43 @@ export class u128 extends U128 {
 
   @inline @operator.prefix('++')
   preInc(): this {
-    assert(this.lo != <u64>-1 && this.hi != <u64>-1, "Overflow during prefix incrementing");
-    // TODO
-    // super.preInc();
+    if (this.lo == <u64>-1 && this.hi == <u64>-1) {
+      throw new Error('Overflow during prefix incrementing');
+    }
+    super.preInc();
     return this;
   }
 
   @inline @operator.prefix('--')
   preDec(): this {
-    assert(this.hi != 0 && this.lo != 0, "Overflow during prefix decrementing");
-    // TODO
-    // super.preDec();
+    if (this.hi == 0 && this.lo == 0) {
+      throw new Error('Underflow during prefix decrementing');
+    }
+    super.preDec();
     return this;
+  }
+
+  @inline @operator.postfix('++')
+  postInc(): u128 {
+    if (this.lo == <u64>-1 && this.hi == <u64>-1) {
+      throw new Error('Overflow during prefix incrementing');
+    }
+    return this.clone().postInc();
+  }
+
+  @inline @operator.postfix('--')
+  postDec(): u128 {
+    if (this.hi == 0 && this.lo == 0) {
+      throw new Error('Underflow during prefix decrementing');
+    }
+    return this.clone().preInc();
   }
 
   @inline @operator('+')
   static add(a: u128, b: u128): u128 {
     var bl = b.lo;
     var lo = a.lo + bl;
-    var c  = <u64>(lo < bl);
+    var c  = u64(lo < bl);
     var x  = a.hi;
     var y  = b.hi;
     var hi = x + y + c;
@@ -176,8 +196,9 @@ export class u128 extends U128 {
 
   @inline @operator('-')
   static sub(a: u128, b: u128): u128 {
-    // underflow guard
-    assert(a >= b, "Overflow during substraction");
+    if (a < b) {
+      throw new Error("Underflow during substraction");
+    }
     return changetype<u128>(
       U128.sub(changetype<U128>(a), changetype<U128>(b))
     );
@@ -185,8 +206,9 @@ export class u128 extends U128 {
 
   @inline @operator('*')
   static mul(a: u128, b: u128): u128 {
-    // overflow guard
-    assert(u128.clz(a) + u128.clz(b) >= 127, "Overflow during multiply");
+    if (u128.clz(a) + u128.clz(b) < 127) {
+      throw new Error("Overflow during multiply");
+    }
     return changetype<u128>(
       U128.mul(changetype<U128>(a), changetype<U128>(b))
     );
@@ -194,9 +216,9 @@ export class u128 extends U128 {
 
   @inline @operator('**')
   static pow(base: u128, exponent: i32): u128 {
-    if (isPowerOverflow128(base, exponent))
+    if (isPowerOverflow128(base, exponent)) {
       throw new Error("Overflow during power");
-
+    }
     return changetype<u128>(U128.pow(changetype<U128>(base), exponent));
   }
 
