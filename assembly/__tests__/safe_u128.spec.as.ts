@@ -85,6 +85,12 @@ describe("Basic operations", () => {
     expect(a * b).toStrictEqual(new u128(10248516654965971928, 5));
   });
 
+  it("Should multiply two numbers which clz(a) + clz(b) == 127 but not overflow", () => {
+    var a = u128.from("333333333333333333333");
+    var b = new u128(<u64>1000000000000000000);
+    expect(a * b).toStrictEqual(u128.from("333333333333333333333000000000000000000"));
+  });
+
   it("Should power number 1", () => {
     expect<u128>(u128.Zero ** 1024).toStrictEqual(u128.Zero);
   });
@@ -229,6 +235,14 @@ describe("Overflow Underflow Throwable", () => {
     expect(() => {
       var a = u128.Max;
       var b = u128.Max;
+      !(a * b);
+    }).toThrow();
+  });
+
+  it("Should throw multiply two numbers which clz(a) + clz(b) == 127", () => {
+    expect(() => {
+      let a = u128.from("511111111111111111111");
+      let b = new u128(<u64>1111111111111111111);
       !(a * b);
     }).toThrow();
   });
