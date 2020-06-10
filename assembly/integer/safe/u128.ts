@@ -206,8 +206,27 @@ export class u128 extends U128 {
 
   @inline @operator('*')
   static mul(a: u128, b: u128): u128 {
-    if (u128.clz(a) + u128.clz(b) < 127) {
+    var m = u128.clz(a);
+    var n = u128.clz(b);
+    var s = m + n;
+    if (s < 127) { // defenitely overflow
       throw new Error("Overflow during multiply");
+    }
+    if (s == 127) { // this may overflow or not. Need extra checks.
+      // See Hacker's Delight, 2nd Edition. 2–13 Overflow Detection
+      // @ts-ignore
+      let t = a * changetype<u128>(b >> 1);
+      // @ts-ignore
+      if (t.hi >>> 63) { // if t < 0
+        throw new Error("Overflow during multiply");
+      }
+      let z = t >> 1;
+      if (b.lo & 1) {
+        // @ts-ignore
+        if (z + a < a) {
+          throw new Error("Overflow during multiply");
+        }
+      }
     }
     return changetype<u128>(
       U128.mul(changetype<U128>(a), changetype<U128>(b))
