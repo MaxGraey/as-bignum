@@ -209,28 +209,29 @@ export class u128 extends U128 {
     if (a.isZero() || b.isZero()) {
       return u128.Zero;
     }
-    var m = u128.clz(a);
-    var n = u128.clz(b);
-    var s = m + n;
+    var s = u128.clz(a) + u128.clz(b);
     if (s < 127) { // defenitely overflow
       throw new Error("Overflow during multiplication");
     }
     if (s == 127) { // this may overflow or not. Need extra checks.
       // See Hacker's Delight, 2nd Edition. 2–13 Overflow Detection
+       // @ts-ignore
+      let tmp = U128.mul(changetype<U128>(a), changetype<U128>(b) >> 1);
       // @ts-ignore
-      let t = changetype<u128>(U128.mul(a, b >> 1));
-      // @ts-ignore
-      if (t.hi >>> 63) { // (signed)t < 0
+      if (tmp.hi >>> 63) { // (signed)t < 0
         throw new Error("Overflow during multiplication");
       }
       // @ts-ignore
-      let z = t >> 1;
+      let z = tmp << 1;
       if (b.lo & 1) {
         // @ts-ignore
-        if (z + a < a) {
+        z += a;
+        // @ts-ignore
+        if (z < a) {
           throw new Error("Overflow during multiplication");
         }
       }
+      return changetype<u128>(z);
     }
     return changetype<u128>(
       U128.mul(changetype<U128>(a), changetype<U128>(b))
