@@ -169,7 +169,7 @@ export class u128 extends U128 {
     if (this.lo == <u64>-1 && this.hi == <u64>-1) {
       throw new Error('Overflow during prefix incrementing');
     }
-    return this.clone().postInc();
+    return this.clone().preInc();
   }
 
   @inline @operator.postfix('--')
@@ -177,7 +177,7 @@ export class u128 extends U128 {
     if (this.hi == 0 && this.lo == 0) {
       throw new Error('Underflow during prefix decrementing');
     }
-    return this.clone().preInc();
+    return this.clone().preDec();
   }
 
   @inline @operator('+')

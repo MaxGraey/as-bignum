@@ -28,13 +28,37 @@ describe("Basic operations", () => {
   it("Should subtract two numbers 2", () => {
     var a = u128.Max;
     var b = u128.Max;
-    expect<u128>(a - b).toStrictEqual(u128.Zero);
+    expect(a - b).toStrictEqual(u128.Zero);
   });
 
   it("Should subtract two numbers 3", () => {
     var a = u128.Max;
     var b = u128.Zero;
-    expect<u128>(a - b).toStrictEqual(u128.Max);
+    expect(a - b).toStrictEqual(u128.Max);
+  });
+
+  it("Should pre decrement one", () => {
+    var a = u128.One;
+    --a;
+    expect(a).toStrictEqual(u128.Zero);
+  });
+
+  it("Should pre increment zero", () => {
+    var a = u128.Zero;
+    ++a;
+    expect(a).toStrictEqual(u128.One);
+  });
+
+  it("Should post increment zero", () => {
+    var a = u128.Zero;
+    a++;
+    expect(a).toStrictEqual(u128.One);
+  });
+
+  it("Should post decrement one", () => {
+    var a = u128.One;
+    a--;
+    expect(a).toStrictEqual(u128.Zero);
   });
 
   it("Should multiply two numbers 1", () => {
