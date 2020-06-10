@@ -206,6 +206,9 @@ export class u128 extends U128 {
 
   @inline @operator('*')
   static mul(a: u128, b: u128): u128 {
+    if (a.isZero() || b.isZero()) { // (a || b) == 0
+      return u128.Zero;
+    }
     var m = u128.clz(a);
     var n = u128.clz(b);
     var s = m + n;
