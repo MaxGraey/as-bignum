@@ -249,23 +249,25 @@ export class u128 {
   @inline @operator.prefix('-')
   neg(): u128 {
     var lo = ~this.lo, hi = ~this.hi;
-    var cy = ((lo & 1) + (lo >> 1)) >> 63;
-    return new u128(lo + 1, hi + cy);
+    var lo1 = lo + 1;
+    return new u128(lo1, hi + u64(lo1 < lo));
   }
 
   @inline @operator.prefix('++')
   preInc(): this {
-    var tmp  = this.lo + 1;
-    this.hi += ((this.lo ^ tmp) & this.lo) >> 63;
-    this.lo  = tmp;
+    var lo = this.lo;
+    var lo1 = lo + 1;
+    this.hi += u64(lo1 < lo);
+    this.lo = lo1;
     return this;
   }
 
   @inline @operator.prefix('--')
   preDec(): this {
-    var tmp  = this.lo - 1;
-    this.hi -= ((this.lo ^ tmp) & tmp) >> 63;
-    this.lo  = tmp;
+    var lo = this.lo;
+    var lo1 = lo - 1;
+    this.hi -= u64(lo1 > lo);
+    this.lo = lo1;
     return this;
   }
 

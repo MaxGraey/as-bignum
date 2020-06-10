@@ -146,7 +146,7 @@ export class u128 extends U128 {
     else throw new TypeError("Unsupported generic type");
   }
 
-  @inline @operator.prefix('++')
+  @operator.prefix('++')
   preInc(): this {
     if ((this.lo & this.hi) == <u64>-1) { // if this == max
       throw new Error('Overflow during prefix incrementing');
@@ -155,7 +155,7 @@ export class u128 extends U128 {
     return this;
   }
 
-  @inline @operator.prefix('--')
+  @operator.prefix('--')
   preDec(): this {
     if ((this.lo | this.hi) == 0) { // if this == 0
       throw new Error('Underflow during prefix decrementing');
@@ -164,7 +164,7 @@ export class u128 extends U128 {
     return this;
   }
 
-  @inline @operator.postfix('++')
+  @operator.postfix('++')
   postInc(): u128 {
     if ((this.lo & this.hi) == <u64>-1) { // if this == max
       throw new Error('Overflow during prefix incrementing');
@@ -172,7 +172,7 @@ export class u128 extends U128 {
     return this.clone().preInc();
   }
 
-  @inline @operator.postfix('--')
+  @operator.postfix('--')
   postDec(): u128 {
     if ((this.lo | this.hi) == 0) { // if this == 0
       throw new Error('Underflow during prefix decrementing');
@@ -180,7 +180,7 @@ export class u128 extends U128 {
     return this.clone().preDec();
   }
 
-  @inline @operator('+')
+  @operator('+')
   static add(a: u128, b: u128): u128 {
     var bl = b.lo;
     var lo = a.lo + bl;
@@ -194,7 +194,7 @@ export class u128 extends U128 {
     return new u128(lo, hi);
   }
 
-  @inline @operator('-')
+  @operator('-')
   static sub(a: u128, b: u128): u128 {
     if (a < b) {
       throw new Error("Underflow during substraction");
@@ -204,7 +204,7 @@ export class u128 extends U128 {
     );
   }
 
-  @inline @operator('*')
+  @operator('*')
   static mul(a: u128, b: u128): u128 {
     if (a.isZero() || b.isZero()) {
       return u128.Zero;
@@ -238,7 +238,7 @@ export class u128 extends U128 {
     );
   }
 
-  @inline @operator('**')
+  @operator('**')
   static pow(base: u128, exponent: i32): u128 {
     if (isPowerOverflow128(base, exponent)) {
       throw new Error("Overflow during power");
@@ -280,6 +280,7 @@ export class u128 extends U128 {
   // unsigned div and rem already contain traps
   //
 
+  @inline
   clone(): u128 {
     return new u128(this.lo, this.hi);
   }
