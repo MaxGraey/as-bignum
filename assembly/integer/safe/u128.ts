@@ -217,7 +217,7 @@ export class u128 extends U128 {
       // @ts-ignore
       let t = changetype<u128>(U128.mul(a, b >> 1));
       // @ts-ignore
-      if (t.hi >>> 63) { // if t < 0
+      if (t.hi >>> 63) { // (signed)t < 0
         throw new Error("Overflow during multiply");
       }
       // @ts-ignore
