@@ -213,7 +213,7 @@ export class u128 extends U128 {
     var n = u128.clz(b);
     var s = m + n;
     if (s < 127) { // defenitely overflow
-      throw new Error("Overflow during multiply");
+      throw new Error("Overflow during multiplication");
     }
     if (s == 127) { // this may overflow or not. Need extra checks.
       // See Hacker's Delight, 2nd Edition. 2–13 Overflow Detection
@@ -221,14 +221,14 @@ export class u128 extends U128 {
       let t = changetype<u128>(U128.mul(a, b >> 1));
       // @ts-ignore
       if (t.hi >>> 63) { // (signed)t < 0
-        throw new Error("Overflow during multiply");
+        throw new Error("Overflow during multiplication");
       }
       // @ts-ignore
       let z = t >> 1;
       if (b.lo & 1) {
         // @ts-ignore
         if (z + a < a) {
-          throw new Error("Overflow during multiply");
+          throw new Error("Overflow during multiplication");
         }
       }
     }
