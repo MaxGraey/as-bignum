@@ -88,6 +88,7 @@ describe("Basic operations", () => {
   it("Should multiply two numbers which clz(a) + clz(b) == 127 but not overflow", () => {
     var a = u128.from("333333333333333333333");
     var b = new u128(<u64>1000000000000000000);
+    expect(u128.clz(a) + u128.clz(b)).toBe(127);
     expect(a * b).toStrictEqual(u128.from("333333333333333333333000000000000000000"));
   });
 
