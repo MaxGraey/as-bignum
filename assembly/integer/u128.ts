@@ -106,9 +106,13 @@ export class u128 {
   @inline
   static fromBytes<T>(array: T, bigEndian: bool = false): u128 {
     if (array instanceof u8[]) {
-      return bigEndian ? u128.fromBytesBE(<u8[]>array) : u128.fromBytesLE(<u8[]>array);
+      return bigEndian
+        ? u128.fromBytesBE(<u8[]>array)
+        : u128.fromBytesLE(<u8[]>array);
     } else if (array instanceof Uint8Array) {
-      return bigEndian ? u128.fromUint8ArrayBE(<Uint8Array>array) : u128.fromUint8ArrayLE(<Uint8Array>array);
+      return bigEndian
+        ? u128.fromUint8ArrayBE(<Uint8Array>array)
+        : u128.fromUint8ArrayLE(<Uint8Array>array);
     } else {
       throw new TypeError("Unsupported generic type");
     }
@@ -116,15 +120,17 @@ export class u128 {
 
   static fromBytesLE(array: u8[]): u128 {
     assert(array.length && (array.length & 15) == 0);
+    // @ts-ignore
     var buffer = array.dataStart;
     return new u128(
-      load<u64>(buffer, 0),
+      load<u64>(buffer, 0 * sizeof<u64>()),
       load<u64>(buffer, 1 * sizeof<u64>())
     );
   }
 
   static fromBytesBE(array: u8[]): u128 {
     assert(array.length && (array.length & 15) == 0);
+    // @ts-ignore
     var buffer = array.dataStart;
     return new u128(
       bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
@@ -134,19 +140,21 @@ export class u128 {
 
   static fromUint8ArrayLE(array: Uint8Array): u128 {
     assert(array.length && (array.length & 15) == 0);
-    var buffer = array.dataStart
+    // @ts-ignore
+    var buffer = array.dataStart;
     return new u128(
-        load<u64>(buffer, 0),
-        load<u64>(buffer, 1 * sizeof<u64>())
+      load<u64>(buffer, 0 * sizeof<u64>()),
+      load<u64>(buffer, 1 * sizeof<u64>())
     );
   }
 
   static fromUint8ArrayBE(array: Uint8Array): u128 {
     assert(array.length && (array.length & 15) == 0);
-    var buffer = array.dataStart
+    // @ts-ignore
+    var buffer = array.dataStart;
     return new u128(
-        bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
-        bswap<u64>(load<u64>(buffer, 0 * sizeof<u64>()))
+      bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
+      bswap<u64>(load<u64>(buffer, 0 * sizeof<u64>()))
     );
   }
 
@@ -414,7 +422,7 @@ export class u128 {
   static add(a: u128, b: u128): u128 {
     var bl = b.lo;
     var lo = a.lo + bl;
-    var hi = a.hi + b.hi + (<u64>(lo < bl));
+    var hi = a.hi + b.hi + u64(lo < bl);
 
     return new u128(lo, hi);
   }
@@ -423,7 +431,7 @@ export class u128 {
   static sub(a: u128, b: u128): u128 {
     var al = a.lo;
     var lo = al   - b.lo;
-    var hi = a.hi - b.hi - (<u64>(lo > al));
+    var hi = a.hi - b.hi - u64(lo > al);
 
     return new u128(lo, hi);
   }
@@ -495,6 +503,7 @@ export class u128 {
         // if base is power of two do "1 << log2(base) * exp"
         if (!(lo & lo1)) {
           let shift = <i32>(64 - clz(lo1)) * exponent;
+          // @ts-ignore
           return shift < 128 ? u128.One << shift : u128.Zero;
         }
       }
@@ -503,6 +512,7 @@ export class u128 {
         let sqrbase = u128.sqr(base);
         switch (exponent) {
           case 2: return sqrbase;        // base ^ 2
+          // @ts-ignore
           case 3: return sqrbase * base; // base ^ 2 * base
           case 4: return sqrbase.sqr();  // base ^ 2 * base ^ 2
           default: break;
@@ -514,30 +524,37 @@ export class u128 {
         // 128 = 2 ^ 7, so need usually only seven cases
         switch (log) {
           case 7:
+            // @ts-ignore
             if (exponent & 1) result *= tmp;
             exponent >>= 1;
             tmp.sqr();
           case 6:
+            // @ts-ignore
             if (exponent & 1) result *= tmp;
             exponent >>= 1;
             tmp.sqr();
           case 5:
+            // @ts-ignore
             if (exponent & 1) result *= tmp;
             exponent >>= 1;
             tmp.sqr();
           case 4:
+            // @ts-ignore
             if (exponent & 1) result *= tmp;
             exponent >>= 1;
             tmp.sqr();
           case 3:
+            // @ts-ignore
             if (exponent & 1) result *= tmp;
             exponent >>= 1;
             tmp.sqr();
           case 2:
+            // @ts-ignore
             if (exponent & 1) result *= tmp;
             exponent >>= 1;
             tmp.sqr();
           case 1:
+            // @ts-ignore
             if (exponent & 1) result *= tmp;
         }
         return result;
@@ -545,6 +562,7 @@ export class u128 {
     }
 
     while (exponent > 0) {
+      // @ts-ignore
       if (exponent & 1) result *= tmp;
       exponent >>= 1;
       tmp.sqr();
@@ -562,7 +580,9 @@ export class u128 {
     let tmp = new u128();
     for (let i = 0; i < 64; ++i) {
       tmp.setU64(res | add);
+      // @ts-ignore
       let sqr = tmp * tmp;
+      // @ts-ignore
       if (value >= sqr) {
         res = tmp.lo;
       }
@@ -836,16 +856,19 @@ export class u128 {
     else throw new TypeError('Unsupported generic type');
   }
 
+  @inline
   private toArrayBufferLE(buffer: usize): void {
-    store<u64>(buffer, this.lo, 0);
+    store<u64>(buffer, this.lo, 0 * sizeof<u64>());
     store<u64>(buffer, this.hi, 1 * sizeof<u64>());
   }
 
+  @inline
   private toArrayBufferBE(buffer: usize): void {
-    store<u64>(buffer, bswap(this.hi), 0);
+    store<u64>(buffer, bswap(this.hi), 0 * sizeof<u64>());
     store<u64>(buffer, bswap(this.lo), 1 * sizeof<u64>());
   }
 
+  @inline
   private toArrayBuffer(buffer: usize, bigEndian: bool = false): void {
     if (bigEndian) {
       this.toArrayBufferBE(buffer);
@@ -862,8 +885,8 @@ export class u128 {
   @inline
   toBytes(bigEndian: bool = false): u8[] {
     var result = new Array<u8>(16);
-    var buffer = result.dataStart
-    this.toArrayBuffer(buffer, bigEndian);
+    // @ts-ignore
+    this.toArrayBuffer(result.dataStart, bigEndian);
     return result;
   }
 
@@ -875,8 +898,8 @@ export class u128 {
   @inline
   toUint8Array(bigEndian: bool = false): Uint8Array {
     var result = new Uint8Array(16);
-    var buffer = result.dataStart
-    this.toArrayBuffer(buffer, bigEndian);
+    // @ts-ignore
+    this.toArrayBuffer(result.dataStart, bigEndian);
     return result;
   }
 
@@ -900,6 +923,7 @@ export class u128 {
     if (radix == 16) {
       let shift: i32 = 124 - (u128.clz(it) & ~3);
       while (shift >= 0) {
+        // @ts-ignore
         it     >>= shift;
         result = result.concat(HEX_CHARS.charAt(<i32>(it.lo & 15)));
         shift  -= 4;
