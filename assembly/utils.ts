@@ -57,6 +57,7 @@ const HEX_CHARS = '0123456789abcdef';
   25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35
 ];
 
+@inline
 export function isPowerOverflow128(base: u128, exponent: i32): bool {
   if (!(exponent > 1 && base > u128.One)) return false;
   if (base.hi != 0 || exponent >= 128)    return true;

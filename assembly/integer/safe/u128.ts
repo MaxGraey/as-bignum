@@ -28,93 +28,77 @@ export class u128 extends U128 {
 
   @inline
   static fromI256(value: i256): u128 {
-    return new u128(value.lo1, value.lo2);
+    return changetype<u128>(U128.fromI256(value));
   }
 
   @inline
   static fromU256(value: u256): u128 {
-    return new u128(value.lo1, value.lo2);
+    return changetype<u128>(U128.fromU256(value));
   }
 
   @inline
   static fromI128(value: i128): u128 {
-    return new u128(value.lo, value.hi);
+    return changetype<u128>(U128.fromI128(value));
   }
 
   @inline
   static fromU128(value: u128): u128 {
-    return new u128(value.lo, value.hi);
+    return changetype<u128>(U128.fromU128(value));
   }
 
   @inline
   static fromI64(value: i64): u128 {
-    return new u128(value, value >> 63);
+    return changetype<u128>(U128.fromI64(value));
   }
 
   @inline
   static fromU64(value: u64): u128 {
-    return new u128(value);
+    return changetype<u128>(U128.fromU64(value));
   }
 
-  // TODO need improvement
-  // max safe uint for f64 actually 53-bits
   @inline
   static fromF64(value: f64): u128 {
-    return new u128(<u64>value, -(value < 0));
+    return changetype<u128>(U128.fromF64(value));
   }
 
-  // TODO need improvement
-  // max safe int for f32 actually 23-bits
   @inline
   static fromF32(value: f32): u128 {
-    return new u128(<u64>value, -(value < 0));
+    return changetype<u128>(U128.fromF32(value));
   }
 
   @inline
   static fromI32(value: i32): u128 {
-    // Workaround. See issue #247 in AS repositary
-    return new u128(<i64>value, <i64>value >> 63);
+    return changetype<u128>(U128.fromI32(value));
   }
 
   @inline
   static fromU32(value: u32): u128 {
-    return new u128(value);
+    return changetype<u128>(U128.fromU32(value));
   }
 
   @inline
   static fromBool(value: bool): u128 {
-    return new u128(<u64>value);
+    return changetype<u128>(U128.fromBool(value));
   }
 
   @inline
   static fromBits(lo1: u32, lo2: u32, hi1: u32, hi2: u32): u128 {
-    return new u128(
-      <u64>lo1 | ((<u64>lo2) << 32),
-      <u64>hi1 | ((<u64>hi2) << 32),
-    );
+    return changetype<u128>(U128.fromBits(lo1, lo2, hi1, hi2));
   }
 
   @inline
   static fromBytes(array: u8[], bigEndian: bool = false): u128 {
-    return bigEndian ? u128.fromBytesBE(array) : u128.fromBytesLE(array);
+    return changetype<u128>(U128.fromBytes(array, bigEndian));
   }
 
+  @inline
   static fromBytesLE(array: u8[]): u128 {
-    assert(array.length && (array.length & 15) == 0);
-    var buffer = array.dataStart;
-    return new u128(
-      load<u64>(buffer, 0),
-      load<u64>(buffer, 1 * sizeof<u64>())
-    );
+    return changetype<u128>(U128.fromBytesLE(array));
   }
 
+  @inline
   static fromBytesBE(array: u8[]): u128 {
-    assert(array.length && (array.length & 15) == 0);
-    var buffer = array.dataStart;
-    return new u128(
-      bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
-      bswap<u64>(load<u64>(buffer, 0))
-    );
+    return changetype<u128>(U128.fromBytesBE(array));
   }
 
   /**
@@ -137,6 +121,7 @@ export class u128 extends U128 {
     else if (value instanceof f64)    return u128.fromF64(<f64>value);
     else if (value instanceof i128)   return u128.fromI128(<i128>value);
     else if (value instanceof u128)   return u128.fromU128(<u128>value);
+    else if (value instanceof U128)   return u128.fromU128(<U128>value);
     else if (value instanceof i256)   return u128.fromI256(<i256>value);
     else if (value instanceof u256)   return u128.fromU256(<u256>value);
     else if (value instanceof u8[])   return u128.fromBytes(<u8[]>value);
@@ -144,27 +129,45 @@ export class u128 extends U128 {
     else throw new TypeError("Unsupported generic type");
   }
 
-  @inline @operator.prefix('++')
+  @operator.prefix('++')
   preInc(): this {
-    assert(this.lo != <u64>-1 && this.hi != <u64>-1, "Overflow during prefix incrementing");
-    // TODO
-    // super.preInc();
+    if ((this.lo & this.hi) == <u64>-1) { // if this == max
+      throw new Error('Overflow during prefix incrementing');
+    }
+    super.preInc();
     return this;
   }
 
-  @inline @operator.prefix('--')
+  @operator.prefix('--')
   preDec(): this {
-    assert(this.hi != 0 && this.lo != 0, "Overflow during prefix decrementing");
-    // TODO
-    // super.preDec();
+    if ((this.lo | this.hi) == 0) { // if this == 0
+      throw new Error('Underflow during prefix decrementing');
+    }
+    super.preDec();
     return this;
   }
 
-  @inline @operator('+')
+  @operator.postfix('++')
+  postInc(): u128 {
+    if ((this.lo & this.hi) == <u64>-1) { // if this == max
+      throw new Error('Overflow during prefix incrementing');
+    }
+    return this.clone().preInc();
+  }
+
+  @operator.postfix('--')
+  postDec(): u128 {
+    if ((this.lo | this.hi) == 0) { // if this == 0
+      throw new Error('Underflow during prefix decrementing');
+    }
+    return this.clone().preDec();
+  }
+
+  @operator('+')
   static add(a: u128, b: u128): u128 {
     var bl = b.lo;
     var lo = a.lo + bl;
-    var c  = <u64>(lo < bl);
+    var c  = u64(lo < bl);
     var x  = a.hi;
     var y  = b.hi;
     var hi = x + y + c;
@@ -174,35 +177,61 @@ export class u128 extends U128 {
     return new u128(lo, hi);
   }
 
-  @inline @operator('-')
+  @operator('-')
   static sub(a: u128, b: u128): u128 {
-    // underflow guard
-    assert(a >= b, "Overflow during substraction");
+    if (a < b) {
+      throw new Error("Underflow during substraction");
+    }
     return changetype<u128>(
       U128.sub(changetype<U128>(a), changetype<U128>(b))
     );
   }
 
-  @inline @operator('*')
+  @operator('*')
   static mul(a: u128, b: u128): u128 {
-    // overflow guard
-    assert(u128.clz(a) + u128.clz(b) >= 127, "Overflow during multiply");
+    if (a.isZero() || b.isZero()) {
+      return u128.Zero;
+    }
+    var s = u128.clz(a) + u128.clz(b);
+    if (s < 127) { // defenitely overflow
+      throw new Error("Overflow during multiplication");
+    }
+    if (s == 127) { // this may overflow or not. Need extra checks.
+      // See Hacker's Delight, 2nd Edition. 2–13 Overflow Detection
+       // @ts-ignore
+      let tmp = U128.mul(changetype<U128>(a), changetype<U128>(b) >> 1);
+      // @ts-ignore
+      if (tmp.hi >>> 63) { // (signed)t < 0
+        throw new Error("Overflow during multiplication");
+      }
+      // @ts-ignore
+      let z = tmp << 1;
+      if (b.lo & 1) {
+        // @ts-ignore
+        z += a;
+        // @ts-ignore
+        if (z < a) {
+          throw new Error("Overflow during multiplication");
+        }
+      }
+      return changetype<u128>(z);
+    }
     return changetype<u128>(
       U128.mul(changetype<U128>(a), changetype<U128>(b))
     );
   }
 
-  @inline @operator('**')
+  @operator('**')
   static pow(base: u128, exponent: i32): u128 {
-    if (isPowerOverflow128(base, exponent))
-      throw new Error("Overflow during power");
-
+    if (isPowerOverflow128(base, exponent)) {
+      throw new Error("Overflow during exponentiation");
+    }
     return changetype<u128>(U128.pow(changetype<U128>(base), exponent));
   }
 
   @inline
   toUnchecked(): U128 {
-    return <U128>this;
+    return changetype<U128>(this);
   }
 
   @inline
@@ -220,12 +249,12 @@ export class u128 extends U128 {
     else if (dummy instanceof u64)    return <T>this.toU64();
     else if (dummy instanceof f32)    return <T>this.toF64();
     else if (dummy instanceof f64)    return <T>this.toF64();
-    else if (dummy instanceof i128)   return <T>(this.toI128());
-    else if (dummy instanceof u128)   return <T>(this.toU128());
-    else if (dummy instanceof U128)   return <T>(this.toUnchecked());
-    else if (dummy instanceof u256)   return <T>(this.toU256());
-    else if (dummy instanceof U256)   return <T>(this.toU256());
-    else if (dummy instanceof u8[])   return <T>(this.toBytes());
+    else if (dummy instanceof i128)   return <T>this.toI128();
+    else if (dummy instanceof u128)   return <T>this;
+    else if (dummy instanceof U128)   return <T>this.toUnchecked();
+    else if (dummy instanceof u256)   return <T>this.toU256();
+    else if (dummy instanceof U256)   return <T>this.toU256();
+    else if (dummy instanceof u8[])   return <T>this.toBytes();
     else if (dummy instanceof String) return <T>this.toString();
     else throw new TypeError('Unsupported generic type');
   }
@@ -234,6 +263,7 @@ export class u128 extends U128 {
   // unsigned div and rem already contain traps
   //
 
+  @inline
   clone(): u128 {
     return new u128(this.lo, this.hi);
   }
