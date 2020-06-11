@@ -28,95 +28,77 @@ export class u128 extends U128 {
 
   @inline
   static fromI256(value: i256): u128 {
-    return new u128(value.lo1, value.lo2);
+    return changetype<u128>(U128.fromI256(value));
   }
 
   @inline
   static fromU256(value: u256): u128 {
-    return new u128(value.lo1, value.lo2);
+    return changetype<u128>(U128.fromU256(value));
   }
 
   @inline
   static fromI128(value: i128): u128 {
-    return new u128(value.lo, value.hi);
+    return changetype<u128>(U128.fromI128(value));
   }
 
   @inline
   static fromU128(value: u128): u128 {
-    return new u128(value.lo, value.hi);
+    return changetype<u128>(U128.fromU128(value));
   }
 
   @inline
   static fromI64(value: i64): u128 {
-    return new u128(value, value >> 63);
+    return changetype<u128>(U128.fromI64(value));
   }
 
   @inline
   static fromU64(value: u64): u128 {
-    return new u128(value);
+    return changetype<u128>(U128.fromU64(value));
   }
 
-  // TODO need improvement
-  // max safe uint for f64 actually 53-bits
   @inline
   static fromF64(value: f64): u128 {
-    return new u128(<u64>value, -(value < 0));
+    return changetype<u128>(U128.fromF64(value));
   }
 
-  // TODO need improvement
-  // max safe int for f32 actually 23-bits
   @inline
   static fromF32(value: f32): u128 {
-    return new u128(<u64>value, -(value < 0));
+    return changetype<u128>(U128.fromF32(value));
   }
 
   @inline
   static fromI32(value: i32): u128 {
-    // Workaround. See issue #247 in AS repositary
-    return new u128(<i64>value, <i64>value >> 63);
+    return changetype<u128>(U128.fromI32(value));
   }
 
   @inline
   static fromU32(value: u32): u128 {
-    return new u128(value);
+    return changetype<u128>(U128.fromU32(value));
   }
 
   @inline
   static fromBool(value: bool): u128 {
-    return new u128(<u64>value);
+    return changetype<u128>(U128.fromBool(value));
   }
 
   @inline
   static fromBits(lo1: u32, lo2: u32, hi1: u32, hi2: u32): u128 {
-    return new u128(
-      <u64>lo1 | ((<u64>lo2) << 32),
-      <u64>hi1 | ((<u64>hi2) << 32),
-    );
+    return changetype<u128>(U128.fromBits(lo1, lo2, hi1, hi2));
   }
 
   @inline
   static fromBytes(array: u8[], bigEndian: bool = false): u128 {
-    return bigEndian ? u128.fromBytesBE(array) : u128.fromBytesLE(array);
+    return changetype<u128>(U128.fromBytes(array, bigEndian));
   }
 
+  @inline
   static fromBytesLE(array: u8[]): u128 {
-    assert(array.length && (array.length & 15) == 0);
-    // @ts-ignore
-    var buffer = array.dataStart;
-    return new u128(
-      load<u64>(buffer, 0 * sizeof<u64>()),
-      load<u64>(buffer, 1 * sizeof<u64>())
-    );
+    return changetype<u128>(U128.fromBytesLE(array));
   }
 
+  @inline
   static fromBytesBE(array: u8[]): u128 {
-    assert(array.length && (array.length & 15) == 0);
-    // @ts-ignore
-    var buffer = array.dataStart;
-    return new u128(
-      bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
-      bswap<u64>(load<u64>(buffer, 0 * sizeof<u64>()))
-    );
+    return changetype<u128>(U128.fromBytesBE(array));
   }
 
   /**
@@ -139,6 +121,7 @@ export class u128 extends U128 {
     else if (value instanceof f64)    return u128.fromF64(<f64>value);
     else if (value instanceof i128)   return u128.fromI128(<i128>value);
     else if (value instanceof u128)   return u128.fromU128(<u128>value);
+    else if (value instanceof U128)   return u128.fromU128(<U128>value);
     else if (value instanceof i256)   return u128.fromI256(<i256>value);
     else if (value instanceof u256)   return u128.fromU256(<u256>value);
     else if (value instanceof u8[])   return u128.fromBytes(<u8[]>value);
