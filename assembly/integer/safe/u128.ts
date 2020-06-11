@@ -241,7 +241,7 @@ export class u128 extends U128 {
   @operator('**')
   static pow(base: u128, exponent: i32): u128 {
     if (isPowerOverflow128(base, exponent)) {
-      throw new Error("Overflow during power");
+      throw new Error("Overflow during exponentiation");
     }
     return changetype<u128>(U128.pow(changetype<U128>(base), exponent));
   }
