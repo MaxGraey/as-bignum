@@ -625,11 +625,19 @@ export class u128 {
     return !u128.lt(a, b);
   }
 
+   /**
+   * Get ordering
+   * if a > b then result is greater than 0
+   * if a < b then result is lesser than 0
+   * if a = b then result is eqal to 0
+   * @param  a 128-bit unsigned integer
+   * @param  b 128-bit unsigned integer
+   * @returns  32-bit signed integer
+   */
   @inline
-  static cmp(a: u128, b: u128): i32 {
+  static ord(a: u128, b: u128): i32 {
     var dlo: i64 = a.lo - b.lo;
     var dhi: i64 = a.hi - b.hi;
-    // return <i32>(dhi != 0 ? dhi : dlo);
     return <i32>select<i64>(dhi, dlo, dhi != 0);
   }
 
@@ -668,6 +676,7 @@ export class u128 {
    * @param  value 128-bit unsigned integer
    * @returns      128-bit unsigned integer
    */
+  @inline
   static sqr(value: u128): u128 {
     return value.clone().sqr();
   }

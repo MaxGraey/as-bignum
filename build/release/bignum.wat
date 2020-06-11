@@ -144,7 +144,7 @@
  (export "u128.gt" (func $assembly/integer/u128/u128.gt))
  (export "u128.le" (func $assembly/integer/u128/u128.le))
  (export "u128.ge" (func $assembly/integer/u128/u128.ge))
- (export "u128.cmp" (func $assembly/integer/u128/u128.cmp))
+ (export "u128.ord" (func $assembly/integer/u128/u128.ord))
  (export "u128.popcnt" (func $assembly/integer/u128/u128.popcnt))
  (export "u128.clz" (func $assembly/integer/u128/u128.clz))
  (export "u128.ctz" (func $assembly/integer/u128/u128.ctz))
@@ -2942,16 +2942,7 @@
   i64.store offset=8
   local.get $0
  )
- (func $assembly/integer/u128/u128.sqr (; 47 ;) (param $0 i32) (result i32)
-  i32.const 0
-  local.get $0
-  i64.load
-  local.get $0
-  i64.load offset=8
-  call $assembly/integer/u128/u128#constructor
-  call $assembly/integer/u128/u128#sqr
- )
- (func $assembly/integer/u128/u128.pow (; 48 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.pow (; 47 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i64)
@@ -3133,8 +3124,13 @@
     i32.const 4
     i32.le_s
     if
+     i32.const 0
      local.get $3
-     call $assembly/integer/u128/u128.sqr
+     i64.load
+     local.get $3
+     i64.load offset=8
+     call $assembly/integer/u128/u128#constructor
+     call $assembly/integer/u128/u128#sqr
      local.set $6
      block $break|1
       block $case2|1
@@ -3416,7 +3412,7 @@
   end
   local.get $1
  )
- (func $assembly/integer/u128/u128.sqrt (; 49 ;) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128.sqrt (; 48 ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i64)
@@ -3566,7 +3562,7 @@
   i64.const 0
   call $assembly/integer/u128/u128#constructor
  )
- (func $assembly/integer/u128/u128.eq (; 50 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.eq (; 49 ;) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   i64.load offset=8
   local.get $1
@@ -3582,7 +3578,7 @@
    i32.const 0
   end
  )
- (func $assembly/integer/u128/u128.ne (; 51 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.ne (; 50 ;) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   i64.load offset=8
   local.get $1
@@ -3599,7 +3595,7 @@
   end
   i32.eqz
  )
- (func $assembly/integer/u128/u128.lt (; 52 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.lt (; 51 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (local $3 i64)
   local.get $0
@@ -3621,7 +3617,7 @@
    i64.lt_u
   end
  )
- (func $assembly/integer/u128/u128.gt (; 53 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.gt (; 52 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (local $3 i64)
   local.get $0
@@ -3643,7 +3639,7 @@
    i64.gt_u
   end
  )
- (func $assembly/integer/u128/u128.le (; 54 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.le (; 53 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (local $3 i64)
   local.get $0
@@ -3666,7 +3662,7 @@
   end
   i32.eqz
  )
- (func $assembly/integer/u128/u128.ge (; 55 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.ge (; 54 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (local $3 i64)
   local.get $0
@@ -3689,7 +3685,7 @@
   end
   i32.eqz
  )
- (func $assembly/integer/u128/u128.cmp (; 56 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.ord (; 55 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   local.get $0
   i64.load offset=8
@@ -3708,7 +3704,7 @@
   select
   i32.wrap_i64
  )
- (func $assembly/integer/u128/u128.popcnt (; 57 ;) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128.popcnt (; 56 ;) (param $0 i32) (result i32)
   local.get $0
   i64.load
   i64.popcnt
@@ -3718,7 +3714,7 @@
   i64.add
   i32.wrap_i64
  )
- (func $assembly/integer/u128/u128.clz (; 58 ;) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128.clz (; 57 ;) (param $0 i32) (result i32)
   (local $1 i64)
   (local $2 i64)
   local.get $0
@@ -3748,7 +3744,7 @@
   i32.and
   i32.add
  )
- (func $assembly/integer/u128/u128.ctz (; 59 ;) (param $0 i32) (result i32)
+ (func $assembly/integer/u128/u128.ctz (; 58 ;) (param $0 i32) (result i32)
   (local $1 i64)
   (local $2 i64)
   local.get $0
@@ -3777,6 +3773,15 @@
   i32.const 64
   i32.and
   i32.add
+ )
+ (func $assembly/integer/u128/u128.sqr (; 59 ;) (param $0 i32) (result i32)
+  i32.const 0
+  local.get $0
+  i64.load
+  local.get $0
+  i64.load offset=8
+  call $assembly/integer/u128/u128#constructor
+  call $assembly/integer/u128/u128#sqr
  )
  (func $assembly/integer/u256/u256#constructor (; 60 ;) (param $0 i32) (param $1 i64) (param $2 i64) (param $3 i64) (param $4 i64) (result i32)
   local.get $0
@@ -6308,7 +6313,7 @@
   if
    i32.const 608
    i32.const 432
-   i32.const 919
+   i32.const 928
    i32.const 4
    call $~lib/builtins/abort
    unreachable
