@@ -1047,28 +1047,21 @@
   i32.const 0
   local.get $0
   i64.trunc_f64_u
-  i32.const 0
   local.get $0
-  f64.const 0
-  f64.lt
-  i32.sub
-  i32.const 0
-  i32.ne
-  i64.extend_i32_u
+  i64.reinterpret_f64
+  i64.const 63
+  i64.shr_s
   call $assembly/integer/u128/u128#constructor
  )
  (func $assembly/integer/u128/u128.fromF32 (; 18 ;) (param $0 f32) (result i32)
   i32.const 0
   local.get $0
   i64.trunc_f32_u
-  i32.const 0
   local.get $0
-  f32.const 0
-  f32.lt
-  i32.sub
-  i32.const 0
-  i32.ne
-  i64.extend_i32_u
+  i32.reinterpret_f32
+  i32.const 31
+  i32.shr_s
+  i64.extend_i32_s
   call $assembly/integer/u128/u128#constructor
  )
  (func $assembly/integer/u128/u128.fromI32 (; 19 ;) (param $0 i32) (result i32)

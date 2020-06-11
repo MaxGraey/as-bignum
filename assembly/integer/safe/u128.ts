@@ -231,7 +231,7 @@ export class u128 extends U128 {
 
   @inline
   toUnchecked(): U128 {
-    return <U128>this;
+    return changetype<U128>(this);
   }
 
   @inline
