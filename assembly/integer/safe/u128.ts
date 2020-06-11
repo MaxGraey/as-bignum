@@ -250,7 +250,7 @@ export class u128 extends U128 {
     else if (dummy instanceof f32)    return <T>this.toF64();
     else if (dummy instanceof f64)    return <T>this.toF64();
     else if (dummy instanceof i128)   return <T>this.toI128();
-    else if (dummy instanceof u128)   return <T>this.toU128();
+    else if (dummy instanceof u128)   return <T>this;
     else if (dummy instanceof U128)   return <T>this.toUnchecked();
     else if (dummy instanceof u256)   return <T>this.toU256();
     else if (dummy instanceof U256)   return <T>this.toU256();
