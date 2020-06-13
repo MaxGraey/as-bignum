@@ -58,7 +58,6 @@ export class u256 {
     return new u256(value, mask, mask, mask);
   }
 
-  @inline
   static fromBits(
     l0: u32, l1: u32, l2: u32, l3: u32,
     h0: u32, h1: u32, h2: u32, h3: u32,
@@ -370,7 +369,7 @@ export class u256 {
     return new u256(a.lo1 & b.lo1, a.lo2 & b.lo2, a.hi1 & b.hi1, a.hi2 & b.hi2);
   }
 
-  @inline @operator('>>')
+  @operator('>>')
   static shr(value: u256, shift: i32): u256 {
     shift &= 255;
 
