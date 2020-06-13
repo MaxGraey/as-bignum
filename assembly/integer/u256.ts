@@ -266,15 +266,10 @@ export class u256 {
       hi1b = b.hi1,
       hi2b = b.hi2;
 
-    var s1 = lo1a + lo1b;
-    var s2 = lo2a + lo2b;
-    var s3 = hi1a + hi1b;
-    var s4 = hi2a + hi2b;
-
-    var lo1 = s1;
-    var lo2 = s2 + u64(lo1 < lo1b);
-    var hi1 = s3 + u64(lo2 < s2);
-    var hi2 = s4 + u64(hi1 < s3);
+    var lo1 = lo1a + lo1b;
+    var lo2 = lo2a + lo2b + u64(lo1 < lo1b);
+    var hi1 = hi1a + hi1b + u64(lo2 < lo2b);
+    var hi2 = hi2a + hi2b + u64(hi1 < hi1b);
     return new u256(lo1, lo2, hi1, hi2);
   }
 
@@ -292,15 +287,10 @@ export class u256 {
       hi1b = b.hi1,
       hi2b = b.hi2;
 
-    var s1 = lo1a - lo1b;
-    var s2 = lo2a - lo2b;
-    var s3 = hi1a - hi1b;
-    var s4 = hi2a - hi2b;
-
-    var lo1 = s1;
-    var lo2 = s2 - u64(lo1 > lo1a);
-    var hi1 = s3 - u64(lo2 > s2) - u64(lo1 > lo1a);
-    var hi2 = s4 - u64(hi1 > s3) - u64(lo2 > s2) - u64(lo1 > lo1a);
+    var lo1 = lo1a - lo1b;
+    var lo2 = lo2a - lo2b - u64(lo1 > lo1a);
+    var hi1 = hi1a - hi1b - u64(lo2 > lo2a);
+    var hi2 = hi2a - hi2b - u64(hi1 > hi1a);
     return new u256(lo1, lo2, hi1, hi2);
   }
 
