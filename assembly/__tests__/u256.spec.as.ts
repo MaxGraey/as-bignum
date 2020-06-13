@@ -182,40 +182,49 @@ describe("Basic Operations", () => {
   it("Should binary or numbers", () => {
     var a = new u256(1, 3, 0, 4);
     var b = new u256(2, 4, 3, 3);
-    expect((a | b)).toStrictEqual(new u256(1 | 2, 3 | 4, 0 | 3, 4 | 3));
+    var r = new u256(1 | 2, 3 | 4, 0 | 3, 4 | 3);
+    expect(a | b).toStrictEqual(r);
+    expect(b | a).toStrictEqual(r);
   });
 
   it("Should binary xor numbers", () => {
     var a = new u256(1, 3, 0, 4);
     var b = new u256(2, 4, 3, 3);
-    expect((a ^ b)).toStrictEqual(new u256(1 ^ 2, 3 ^ 4, 0 ^ 3, 4 ^ 3));
+    var r = new u256(1 ^ 2, 3 ^ 4, 0 ^ 3, 4 ^ 3);
+    expect(a ^ b).toStrictEqual(r);
+    expect(b ^ a).toStrictEqual(r);
   });
 
   it("Should binary and numbers", () => {
     var a = new u256(1, 3, 0, 4);
     var b = new u256(2, 4, 3, 3);
-    expect((a & b)).toStrictEqual(new u256(1 & 2, 3 & 4, 0 & 3, 4 & 3));
+    var r = new u256(1 & 2, 3 & 4, 0 & 3, 4 & 3);
+    expect(a & b).toStrictEqual(r);
+    expect(b & a).toStrictEqual(r);
   });
 
   it("Should add [1, 0, 0, 0] and [max, 0, 0, 0]", () => {
     var a = u256.One;
     var b = new u256(u64.MAX_VALUE, 0, 0, 0);
-    expect(a + b).toStrictEqual(new u256(0, 1, 0, 0));
-    expect(b + a).toStrictEqual(new u256(0, 1, 0, 0));
+    var r = new u256(0, 1, 0, 0);
+    expect(a + b).toStrictEqual(r);
+    expect(b + a).toStrictEqual(r);
   });
 
   it("Should add [1, 0, 0, 0] and [max, max, 0, 0]", () => {
     var a = u256.One;
     var b = new u256(u64.MAX_VALUE, u64.MAX_VALUE, 0, 0);
-    expect(a + b).toStrictEqual(new u256(0, 0, 1, 0));
-    expect(b + a).toStrictEqual(new u256(0, 0, 1, 0));
+    var r = new u256(0, 0, 1, 0);
+    expect(a + b).toStrictEqual(r);
+    expect(b + a).toStrictEqual(r);
   });
 
   it("Should add [1, 0, 0, 0] and [max, max, max, 0]", () => {
     var a = u256.One;
     var b = new u256(u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE, 0);
-    expect(a + b).toStrictEqual(new u256(0, 0, 0, 1));
-    expect(b + a).toStrictEqual(new u256(0, 0, 0, 1));
+    var r = new u256(0, 0, 0, 1);
+    expect(a + b).toStrictEqual(r);
+    expect(b + a).toStrictEqual(r);
   });
 
   it("Should add [1, 1, 1, 1] and [max - 1, max - 1, max - 1, max - 1]", () => {
@@ -223,33 +232,61 @@ describe("Basic Operations", () => {
     const pre = u64.MAX_VALUE - 1;
     var a = new u256(one, one, one, one);
     var b = new u256(pre, pre, pre, pre);
-    expect(a + b).toStrictEqual(u256.Max);
-    expect(b + a).toStrictEqual(u256.Max);
+    var r = u256.Max;
+    expect(a + b).toStrictEqual(r);
+    expect(b + a).toStrictEqual(r);
   });
 
   it("Should sub one minus one", () => {
     var a = u256.One;
-    var b = u256.One;
-    expect(a - b).toStrictEqual(u256.Zero);
+    var b = a;
+    var r = u256.Zero
+    expect(a - b).toStrictEqual(r);
   });
 
   it("Should sub [2, 2, 2, 2] and [1, 1, 1, 1]", () => {
     var a = new u256(2, 2, 2, 2);
     var b = new u256(1, 1, 1, 1);
-    expect(a - b).toStrictEqual(b);
+    var r = b;
+    expect(a - b).toStrictEqual(r);
   });
 
   it("Should sub [max, max, max, max] and [1, 2, 3, 4]", () => {
     const max = u64.MAX_VALUE;
     var a = u256.Max;
     var b = new u256(1, 2, 3, 4);
-    expect(a - b).toStrictEqual(new u256(max - 1, max - 2, max - 3, max - 4));
+    var r = new u256(max - 1, max - 2, max - 3, max - 4);
+    expect(a - b).toStrictEqual(r);
   });
 
   it("Should sub [0, 0, 0, 0] and [1, 1, 1, 1]", () => {
     const max = u64.MAX_VALUE;
     var a = u256.Zero;
     var b = new u256(1, 1, 1, 1);
-    expect(a - b).toStrictEqual(new u256(max, max - 1, max - 1, max - 1));
+    var r = new u256(max, max - 1, max - 1, max - 1);
+    expect(a - b).toStrictEqual(r);
+  });
+
+  it("Should sub [0, 0, 0, 0] and [max, max, max, max]", () => {
+    var a = u256.Zero;
+    var b = u256.Max;
+    var r = u256.One;
+    expect(a - b).toStrictEqual(r);
+  });
+
+  it("Should sub [max, max, max, max] and [1, 0, 0, 0]", () => {
+    const max = u64.MAX_VALUE;
+    var a = u256.Max;
+    var b = u256.One;
+    var r = new u256(max - 1, max, max, max);
+    expect(a - b).toStrictEqual(r);
+  });
+
+  it("Should sub [1, 2, 3, 4] and [max - 1, max - 2, max - 3, max - 4]", () => {
+    const max = u64.MAX_VALUE;
+    var a = new u256(1, 2, 3, 4);
+    var b = new u256(max - 1, max - 2, max - 3, max - 4);
+    var r = new u256(3, 4, 6, 8);
+    expect(a - b).toStrictEqual(r);
   });
 });
