@@ -393,12 +393,30 @@ describe("Basic Operations", () => {
     var a = new u128(100, 255);
     var b = new u128(255, 100);
     expect(a + b).toStrictEqual(new u128(355, 355));
+    expect(b + a).toStrictEqual(new u128(355, 355));
   });
 
   it("Should add two numbers 2", () => {
     var a = u128.from(-2);
     var b = u128.One;
     expect(a + b).toStrictEqual(u128.Max);
+    expect(b + a).toStrictEqual(u128.Max);
+  });
+
+  it("Should add two numbers 3", () => {
+    var a = new u128(u64.MAX_VALUE);
+    var b = u128.One;
+    var r = new u128(0, 1);
+    expect(a + b).toStrictEqual(r);
+    expect(b + a).toStrictEqual(r);
+  });
+
+  it("Should add two numbers with owerflow", () => {
+    var a = new u128(u64.MAX_VALUE, u64.MAX_VALUE);
+    var b = new u128(1, 1);
+    var r = new u128(0, 1);
+    expect(a + b).toStrictEqual(r);
+    expect(b + a).toStrictEqual(r);
   });
 
   it("Should subtract two numbers", () => {
@@ -446,12 +464,14 @@ describe("Basic Operations", () => {
     var a = u128.from(43545453452);
     var b = u128.from(2353454354);
     expect(a * b).toStrictEqual(new u128(10248516654965971928, 5));
+    expect(b * a).toStrictEqual(new u128(10248516654965971928, 5));
   });
 
   it("Should multiply two numbers 1", () => {
     var a = u128.Max;
     var b = u128.One;
     expect(a * b).toStrictEqual(a);
+    expect(b * a).toStrictEqual(a);
   });
 
   it("Should multiply two numbers with overflow 1", () => {
