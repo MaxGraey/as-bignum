@@ -372,26 +372,22 @@ export class u256 {
   @operator('>>')
   static shr(value: u256, shift: i32): u256 {
     shift &= 255;
-
-    // need for preventing redundant i32 -> u64 extends
-    var shift64 = shift as u64;
-    var lo1: u64, lo2: u64, hi1: u64, hi2: u64;
-
+    var off = shift as u64;
     if (shift <= 64) {
       if (shift == 0) return value;
-      hi2 =  value.hi2 >> shift64;
-      hi1 = (value.hi1 >> shift64) | (hi2 << (64 - shift64));
-      lo2 = (value.lo2 >> shift64) | (hi1 << (64 - shift64));
-      lo1 = (value.lo1 >> shift64) | (lo2 << (64 - shift64));
+      let hi2 =  value.hi2 >> off;
+      let hi1 = (value.hi1 >> off) | (hi2 << (64 - off));
+      let lo2 = (value.lo2 >> off) | (hi1 << (64 - off));
+      let lo1 = (value.lo1 >> off) | (lo2 << (64 - off));
       return new u256(lo1, lo2, hi1, hi2);
     } else if (shift > 64 && shift <= 128) {
-      hi1 = value.hi2 >> (128 - shift64);
+      let hi1 = value.hi2 >> (128 - off);
       return new u256(value.lo2, value.hi1, hi1);
     } else if (shift > 128 && shift <= 192) {
-      lo2 = value.hi2 >> (192 - shift);
+      let lo2 = value.hi2 >> (192 - off);
       return new u256(value.hi1, lo2);
     } else {
-      return new u256(value.hi2 >> (256 - shift64));
+      return new u256(value.hi2 >> (256 - off));
     }
   }
 

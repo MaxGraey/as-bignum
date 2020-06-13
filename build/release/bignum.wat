@@ -7036,8 +7036,7 @@
      local.get $0
      i64.load offset=24
      i64.const 192
-     local.get $1
-     i64.extend_i32_s
+     local.get $2
      i64.sub
      i64.shr_u
      i64.const 0
@@ -7921,7 +7920,7 @@
   if
    i32.const 608
    i32.const 896
-   i32.const 627
+   i32.const 623
    i32.const 4
    call $~lib/builtins/abort
    unreachable
