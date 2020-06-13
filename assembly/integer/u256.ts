@@ -267,9 +267,12 @@ export class u256 {
       hi2b = b.hi2;
 
     var lo1 = lo1a + lo1b;
-    var lo2 = lo2a + lo2b + u64(lo1 < lo1b);
-    var hi1 = hi1a + hi1b + u64(lo2 < lo2b);
-    var hi2 = hi2a + hi2b + u64(hi1 < hi1b);
+    var cy  = ((lo1a & lo1b) | ((lo1a | lo1b) & ~lo1)) >> 63;
+    var lo2 = lo2a + lo2b + cy;
+        cy  = ((lo2a & lo2b) | ((lo2a | lo2b) & ~lo2)) >> 63;
+    var hi1 = hi1a + hi1b + cy;
+        cy  = ((hi1a & hi1b) | ((hi1a | hi1b) & ~hi1)) >> 63;
+    var hi2 = hi2a + hi2b + cy;
     return new u256(lo1, lo2, hi1, hi2);
   }
 
@@ -288,9 +291,12 @@ export class u256 {
       hi2b = b.hi2;
 
     var lo1 = lo1a - lo1b;
-    var lo2 = lo2a - lo2b - u64(lo1 > lo1a);
-    var hi1 = hi1a - hi1b - u64(lo2 > lo2a);
-    var hi2 = hi2a - hi2b - u64(hi1 > hi1a);
+    var cy  = ((~lo1a & lo1b) | ((~lo1a | lo1b) & lo1)) >> 63;
+    var lo2 = lo2a - lo2b - cy;
+        cy  = ((~lo2a & lo2b) | ((~lo2a | lo2b) & lo2)) >> 63;
+    var hi1 = hi1a - hi1b - cy;
+        cy  = ((~hi1a & hi1b) | ((~hi1a | hi1b) & hi1)) >> 63;
+    var hi2 = hi2a - hi2b - cy;
     return new u256(lo1, lo2, hi1, hi2);
   }
 

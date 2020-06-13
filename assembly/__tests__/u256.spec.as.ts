@@ -201,18 +201,21 @@ describe("Basic Operations", () => {
     var a = u256.One;
     var b = new u256(u64.MAX_VALUE, 0, 0, 0);
     expect(a + b).toStrictEqual(new u256(0, 1, 0, 0));
+    expect(b + a).toStrictEqual(new u256(0, 1, 0, 0));
   });
 
   it("Should add [1, 0, 0, 0] and [max, max, 0, 0]", () => {
     var a = u256.One;
     var b = new u256(u64.MAX_VALUE, u64.MAX_VALUE, 0, 0);
     expect(a + b).toStrictEqual(new u256(0, 0, 1, 0));
+    expect(b + a).toStrictEqual(new u256(0, 0, 1, 0));
   });
 
   it("Should add [1, 0, 0, 0] and [max, max, max, 0]", () => {
     var a = u256.One;
     var b = new u256(u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE, 0);
     expect(a + b).toStrictEqual(new u256(0, 0, 0, 1));
+    expect(b + a).toStrictEqual(new u256(0, 0, 0, 1));
   });
 
   it("Should add [1, 1, 1, 1] and [max - 1, max - 1, max - 1, max - 1]", () => {
@@ -221,6 +224,7 @@ describe("Basic Operations", () => {
     var a = new u256(one, one, one, one);
     var b = new u256(pre, pre, pre, pre);
     expect(a + b).toStrictEqual(u256.Max);
+    expect(b + a).toStrictEqual(u256.Max);
   });
 
   it("Should sub one minus one", () => {
