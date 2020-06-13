@@ -498,13 +498,13 @@ export class u128 {
       if (!hi) {
         let lo1 = lo - 1;
         // "1 ^ exponent" always return "1"
-        if (!lo1) return u128.One;
+        if (!lo1) return result;
 
         // if base is power of two do "1 << log2(base) * exp"
         if (!(lo & lo1)) {
           let shift = <i32>(64 - clz(lo1)) * exponent;
           // @ts-ignore
-          return shift < 128 ? u128.One << shift : u128.Zero;
+          return shift < 128 ? result << shift : u128.Zero;
         }
       }
 
