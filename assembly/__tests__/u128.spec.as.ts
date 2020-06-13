@@ -78,19 +78,23 @@ describe("String Conversion", () => {
   });
 
   it("Should convert from hex string", () => {
-    expect(u128.fromString('123456abcdef', 16)).toStrictEqual(new u128(0x123456abcdef));
+    expect(u128.fromString('123456abcdef', 16))
+      .toStrictEqual(new u128(0x123456abcdef));
   });
 
   it("Should convert from mixed case hex string", () => {
-    expect(u128.from('0xabcdefABCDEF')).toStrictEqual(new u128(0xabcdefABCDEF));
+    expect(u128.from('0xabcdefABCDEF'))
+      .toStrictEqual(new u128(0xabcdefABCDEF));
   });
 
   it("Should convert from octal string", () => {
-    expect(u128.from('0o01234567')).toStrictEqual(u128.from(0o01234567));
+    expect(u128.from('0o01234567'))
+      .toStrictEqual(u128.from(0o01234567));
   });
 
   it("Should convert from binary string", () => {
-    expect(u128.from('0b10101010101010101010')).toStrictEqual(u128.from(0b10101010101010101010));
+    expect(u128.from('0b10101010101010101010'))
+      .toStrictEqual(u128.from(0b10101010101010101010));
   });
 });
 
@@ -102,7 +106,8 @@ describe("Buffer Conversion", () => {
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
     ];
 
-    expect(u128.fromBytes(arr)).toStrictEqual(new u128(0x8877665544332211, 0x12ffeeddccbbaa99));
+    expect(u128.fromBytes(arr))
+      .toStrictEqual(new u128(0x8877665544332211, 0x12ffeeddccbbaa99));
   });
 
   it("Should convert from bytes Little Endian 2", () => {
@@ -112,7 +117,8 @@ describe("Buffer Conversion", () => {
     ];
     var uint8Array = arrayToUint8Array(arr);
 
-    expect(u128.fromBytes<Uint8Array>(uint8Array)).toStrictEqual(new u128(0x8877665544332211, 0x12ffeeddccbbaa99));
+    expect(u128.fromBytes<Uint8Array>(uint8Array))
+      .toStrictEqual(new u128(0x8877665544332211, 0x12ffeeddccbbaa99));
   });
 
   it("Should convert from bytes Big Endian 1", () => {
@@ -121,7 +127,8 @@ describe("Buffer Conversion", () => {
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
     ];
 
-    expect(u128.fromBytes(arr, true)).toStrictEqual(new u128(0x99aabbccddeeff12, 0x1122334455667788));
+    expect(u128.fromBytes(arr, true))
+      .toStrictEqual(new u128(0x99aabbccddeeff12, 0x1122334455667788));
   });
 
   it("Should convert from bytes Big Endian 2", () => {
@@ -131,7 +138,8 @@ describe("Buffer Conversion", () => {
     ];
     var uint8Array = arrayToUint8Array(arr);
 
-    expect(u128.fromBytes<Uint8Array>(uint8Array, true)).toStrictEqual(new u128(0x99aabbccddeeff12, 0x1122334455667788));
+    expect(u128.fromBytes<Uint8Array>(uint8Array, true))
+      .toStrictEqual(new u128(0x99aabbccddeeff12, 0x1122334455667788));
   });
 
   it("Should convert to bytes Litte Endian 1", () => {
