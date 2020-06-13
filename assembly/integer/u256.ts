@@ -237,7 +237,7 @@ export class u256 {
     return this;
   }
 
-  @inline @operator.prefix('-')
+  @operator.prefix('-')
   neg(): u256 {
     var
       lo1 = ~this.lo1,
@@ -253,7 +253,7 @@ export class u256 {
     return new u256(lo1p, lo2p, hi1p, hi2p);
   }
 
-  @inline @operator.prefix('++')
+  @operator.prefix('++')
   preInc(): this {
     var
       lo1 = this.lo1,
@@ -274,7 +274,7 @@ export class u256 {
     return this;
   }
 
-  @inline @operator.prefix('--')
+  @operator.prefix('--')
   preDec(): this {
     var
       lo1 = this.lo1,
@@ -305,7 +305,7 @@ export class u256 {
     return this.clone().preDec();
   }
 
-  @inline @operator('+')
+  @operator('+')
   static add(a: u256, b: u256): u256 {
     var
       lo1a = a.lo1,
@@ -330,7 +330,7 @@ export class u256 {
     return new u256(lo1, lo2, hi1, hi2);
   }
 
-  @inline @operator('-')
+  @operator('-')
   static sub(a: u256, b: u256): u256 {
     var
       lo1a = a.lo1,
@@ -411,7 +411,7 @@ export class u256 {
     return !u256.eq(a, b);
   }
 
-  @inline @operator('<')
+  @operator('<')
   static lt(a: u256, b: u256): bool {
     var ah2 = a.hi2, ah1 = a.hi1, bh2 = b.hi2, bh1 = b.hi1, al2 = a.lo2, bl2 = b.lo2;
     if (ah2 == bh2) {
@@ -440,7 +440,6 @@ export class u256 {
     return !u256.lt(a, b);
   }
 
-  @inline
   static popcnt(value: u256): i32 {
     var count = popcnt(value.lo1);
     if (value.lo2) count += popcnt(value.lo2);
@@ -449,7 +448,6 @@ export class u256 {
     return <i32>count;
   }
 
-  @inline
   static clz(value: u256): i32 {
          if (value.hi2) return <i32>(clz(value.hi2) + 0);
     else if (value.hi1) return <i32>(clz(value.hi1) + 64);
@@ -457,7 +455,6 @@ export class u256 {
     else                return <i32>(clz(value.lo1) + 192);
   }
 
-  @inline
   static ctz(value: u256): i32 {
          if (value.lo1) return <i32>(ctz(value.lo1) + 0);
     else if (value.lo2) return <i32>(ctz(value.lo2) + 64);
@@ -558,6 +555,7 @@ export class u256 {
     store<u64>(buffer, bswap(this.lo1), 3 * sizeof<u64>());
   }
 
+  @inline
   private toArrayBuffer(buffer: usize, bigEndian: bool = false): void {
     if (bigEndian) {
       this.toArrayBufferBE(buffer);
@@ -602,8 +600,8 @@ export class u256 {
   @inline
   toBytes(bigEndian: bool = false): u8[] {
     var result = new Array<u8>(32);
-    var buffer = result.dataStart;
-    this.toArrayBuffer(buffer, bigEndian);
+    // @ts-ignore
+    this.toArrayBuffer(result.dataStart, bigEndian);
     return result;
   }
 
@@ -615,8 +613,8 @@ export class u256 {
   @inline
   toUint8Array(bigEndian: bool = false): Uint8Array {
     var result = new Uint8Array(32);
-    var buffer = result.dataStart;
-    this.toArrayBuffer(buffer, bigEndian);
+    // @ts-ignore
+    this.toArrayBuffer(result.dataStart, bigEndian);
     return result;
   }
 
