@@ -423,20 +423,16 @@ export class u128 {
   @inline @operator('+')
   static add(a: u128, b: u128): u128 {
     var alo = a.lo;
-    var blo = b.lo;
-    var lo = alo + blo;
-    var cy = ((alo & blo) | ((alo | blo) & ~lo)) >> 63;
-    var hi = a.hi + b.hi + cy;
+    var lo = alo + b.lo;
+    var hi = a.hi + b.hi + u64(lo < alo);
     return new u128(lo, hi);
   }
 
   @inline @operator('-')
   static sub(a: u128, b: u128): u128 {
     var alo = a.lo;
-    var blo = b.lo;
-    var lo = alo - blo;
-    var cy = ((~alo & blo) | ((~alo | blo) & lo)) >> 63;
-    var hi = a.hi - b.hi - cy;
+    var lo = alo - b.lo;
+    var hi = a.hi - b.hi - u64(lo > alo);
     return new u128(lo, hi);
   }
 
