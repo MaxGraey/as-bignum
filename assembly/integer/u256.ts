@@ -249,7 +249,60 @@ export class u256 {
     var lo2p = lo2 + u64(lo1p < lo1);
     var hi1p = hi1 + ((lo2 & ~lo2p) >> 63);
     var hi2p = hi2 + ((hi1 & ~hi1p) >> 63);
+
     return new u256(lo1p, lo2p, hi1p, hi2p);
+  }
+
+  @inline @operator.prefix('++')
+  preInc(): this {
+    var
+      lo1 = this.lo1,
+      lo2 = this.lo2,
+      hi1 = this.hi1,
+      hi2 = this.hi2;
+
+    var lo1p = lo1 + 1;
+    var lo2p = lo2 + u64(lo1p < lo1);
+    var hi1p = hi1 + ((lo2 & ~lo2p) >> 63);
+    var hi2p = hi2 + ((hi1 & ~hi1p) >> 63);
+
+    this.lo1 = lo1p;
+    this.lo2 = lo2p;
+    this.hi1 = hi1p;
+    this.hi2 = hi2p;
+
+    return this;
+  }
+
+  @inline @operator.prefix('--')
+  preDec(): this {
+    var
+      lo1 = this.lo1,
+      lo2 = this.lo2,
+      hi1 = this.hi1,
+      hi2 = this.hi2;
+
+    var lo1p = lo1 - 1;
+    var lo2p = lo2 - u64(lo1p > lo1);
+    var hi1p = hi1 - ((~lo2 & lo2p) >> 63);
+    var hi2p = hi2 - ((~hi1 & hi1p) >> 63);
+
+    this.lo1 = lo1p;
+    this.lo2 = lo2p;
+    this.hi1 = hi1p;
+    this.hi2 = hi2p;
+
+    return this;
+  }
+
+  @inline @operator.postfix('++')
+  postInc(): u256 {
+    return this.clone().preInc();
+  }
+
+  @inline @operator.postfix('--')
+  postDec(): u256 {
+    return this.clone().preDec();
   }
 
   @inline @operator('+')
