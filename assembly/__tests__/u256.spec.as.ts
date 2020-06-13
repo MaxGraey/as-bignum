@@ -36,9 +36,9 @@ describe("Buffer Conversion", () => {
     expect(u256.fromBytes(arr))
       .toStrictEqual(new u256(
         0x8877665544332211,
-        0x12ffeeddccbbaa99,
+        0x12FFEEDDCCBBAA99,
         0x8877665544332211,
-        0x12ffeeddccbbaa99
+        0x12FFEEDDCCBBAA99
       ));
   });
 
@@ -53,9 +53,9 @@ describe("Buffer Conversion", () => {
     expect(u256.fromBytes(arr))
       .toStrictEqual(new u256(
         0x8877665544332211,
-        0x12ffeeddccbbaa99,
+        0x12FFEEDDCCBBAA99,
         0x8877665544332211,
-        0x12ffeeddccbbaa99
+        0x12FFEEDDCCBBAA99
       ));
   });
 
@@ -69,9 +69,9 @@ describe("Buffer Conversion", () => {
 
     expect(u256.fromBytes(arr, true))
       .toStrictEqual(new u256(
-        0x99aabbccddeeff12,
+        0x99AABBCCDDEEFF12,
         0x1122334455667788,
-        0x99aabbccddeeff12,
+        0x99AABBCCDDEEFF12,
         0x1122334455667788
       ));
   });
@@ -86,9 +86,9 @@ describe("Buffer Conversion", () => {
 
     expect(u256.fromBytes(arr, true))
       .toStrictEqual(new u256(
-        0x99aabbccddeeff12,
+        0x99AABBCCDDEEFF12,
         0x1122334455667788,
-        0x99aabbccddeeff12,
+        0x99AABBCCDDEEFF12,
         0x1122334455667788
       ));
   });
@@ -96,9 +96,9 @@ describe("Buffer Conversion", () => {
   it("Should convert to bytes Litte Endian 1", () => {
     var u = new u256(
       0x8877665544332211,
-      0x12ffeeddccbbaa99,
+      0x12FFEEDDCCBBAA99,
       0x8877665544332211,
-      0x12ffeeddccbbaa99
+      0x12FFEEDDCCBBAA99
     );
     var a = u.toBytes();
     expect(
@@ -116,9 +116,9 @@ describe("Buffer Conversion", () => {
   it("Should convert to bytes Litte Endian 2", () => {
     var u = new u256(
       0x8877665544332211,
-      0x12ffeeddccbbaa99,
+      0x12FFEEDDCCBBAA99,
       0x8877665544332211,
-      0x12ffeeddccbbaa99
+      0x12FFEEDDCCBBAA99
     );
     var a = u.toUint8Array();
     expect(
@@ -135,9 +135,9 @@ describe("Buffer Conversion", () => {
 
   it("Should convert to bytes Big Endian 1", () => {
     var u = new u256(
-      0x99aabbccddeeff12,
+      0x99AABBCCDDEEFF12,
       0x1122334455667788,
-      0x99aabbccddeeff12,
+      0x99AABBCCDDEEFF12,
       0x1122334455667788
     );
     var a = u.toBytes(true);
@@ -155,9 +155,9 @@ describe("Buffer Conversion", () => {
 
   it("Should convert to bytes Big Endian 2", () => {
     var u = new u256(
-      0x99aabbccddeeff12,
+      0x99AABBCCDDEEFF12,
       0x1122334455667788,
-      0x99aabbccddeeff12,
+      0x99AABBCCDDEEFF12,
       0x1122334455667788
     );
     var a = u.toUint8Array(true);
@@ -192,7 +192,7 @@ describe("Basic Operations", () => {
 
   it("Should number unary positive", () => {
     var a = new u256(1, 2, 3, 4);
-    expect(a).toStrictEqual(+a);
+    expect(+a).toStrictEqual(a);
   });
 
   it("Should number unary negative zero equal to zero", () => {
