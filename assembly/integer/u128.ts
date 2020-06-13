@@ -489,10 +489,9 @@ export class u128 {
       case 1: return tmp;
     }
 
-    var lo = base.lo;
-    var hi = base.hi;
-
     if (ASC_SHRINK_LEVEL < 1) {
+      var lo = base.lo;
+      var hi = base.hi;
       // if base > u64::max and exp > 1 always return "0"
       if (!lo) return u128.Zero;
       if (!hi) {
@@ -509,12 +508,12 @@ export class u128 {
       }
 
       if (exponent <= 4) {
-        let sqrbase = u128.sqr(base);
+        let baseSq = tmp.sqr();
         switch (exponent) {
-          case 2: return sqrbase;        // base ^ 2
+          case 2: return baseSq;        // base ^ 2
           // @ts-ignore
-          case 3: return sqrbase * base; // base ^ 2 * base
-          case 4: return sqrbase.sqr();  // base ^ 2 * base ^ 2
+          case 3: return baseSq * base; // base ^ 2 * base
+          case 4: return baseSq.sqr();  // base ^ 2 * base ^ 2
           default: break;
         }
       }

@@ -3136,12 +3136,7 @@
     i32.const 4
     i32.le_s
     if
-     i32.const 0
-     local.get $3
-     i64.load
-     local.get $3
-     i64.load offset=8
-     call $assembly/integer/u128/u128#constructor
+     local.get $2
      call $assembly/integer/u128/u128#sqr
      local.set $6
      block $break|1
@@ -6278,7 +6273,7 @@
   if
    i32.const 608
    i32.const 432
-   i32.const 907
+   i32.const 906
    i32.const 4
    call $~lib/builtins/abort
    unreachable
