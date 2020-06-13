@@ -41,9 +41,8 @@
  (data (i32.const 724) "\01\00\00\00\01")
  (data (i32.const 736) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00n\00u\00l\00l")
  (data (i32.const 768) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00~\00l\00i\00b\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s")
- (data (i32.const 832) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00u\00n\00d\00e\00f\00i\00n\00e\00d")
- (data (i32.const 880) "0\00\00\00\01\00\00\00\01\00\00\000\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00g\00e\00r\00/\00u\002\005\006\00.\00t\00s")
- (data (i32.const 944) "\n\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\003\00\00\00\02\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\001\00\00\00\02\00\00\001\04\00\00\02")
+ (data (i32.const 832) "0\00\00\00\01\00\00\00\01\00\00\000\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00g\00e\00r\00/\00u\002\005\006\00.\00t\00s")
+ (data (i32.const 896) "\n\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\003\00\00\00\02\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\001\00\00\00\02\00\00\001\04\00\00\02")
  (global $~lib/rt/stub/startOffset (mut i32) (i32.const 0))
  (global $~lib/rt/stub/offset (mut i32) (i32.const 0))
  (global $assembly/globals/__divmod_quot_lo (mut i64) (i64.const 0))
@@ -51,7 +50,7 @@
  (global $assembly/globals/__divmod_rem (mut i64) (i64.const 0))
  (global $assembly/globals/__res128_lo (mut i64) (i64.const 0))
  (global $assembly/globals/__res128_hi (mut i64) (i64.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 944))
+ (global $~lib/rt/__rtti_base i32 (i32.const 896))
  (global $assembly/integer/u128/u128 i32 (i32.const 3))
  (global $~argumentsLength (mut i32) (i32.const 0))
  (global $assembly/integer/u256/u256 i32 (i32.const 6))
@@ -6248,32 +6247,26 @@
   local.get $0
  )
  (func $assembly/integer/u128/u128#toString (; 105 ;) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
+  (local $2 i64)
   (local $3 i64)
-  (local $4 i64)
+  (local $4 i32)
   (local $5 i32)
   (local $6 i64)
   (local $7 i64)
   (local $8 i64)
+  i32.const 1
   local.get $1
-  i32.const 10
+  i32.const 16
+  i32.eq
   local.get $1
-  select
-  local.tee $2
   i32.const 10
   i32.eq
-  if (result i32)
-   i32.const 1
-  else
-   local.get $2
-   i32.const 16
-   i32.eq
-  end
+  select
   i32.eqz
   if
    i32.const 608
    i32.const 432
-   i32.const 906
+   i32.const 905
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -6296,34 +6289,34 @@
   local.get $0
   i64.load offset=8
   call $assembly/integer/u128/u128#constructor
-  local.set $1
-  local.get $2
+  local.set $4
+  local.get $1
   i32.const 16
   i32.eq
   if
    i32.const 124
-   local.get $1
-   i64.load offset=8
-   local.tee $4
    local.get $4
+   i64.load offset=8
+   local.tee $3
+   local.get $3
    i64.const 1
    i64.sub
    i64.xor
    i64.const 63
    i64.shr_s
-   local.tee $3
+   local.tee $2
    i64.const -1
    i64.xor
-   local.get $4
-   i64.and
    local.get $3
-   local.get $1
+   i64.and
+   local.get $2
+   local.get $4
    i64.load
    i64.and
    i64.or
    i64.clz
    i32.wrap_i64
-   local.get $3
+   local.get $2
    i32.wrap_i64
    i32.const 64
    i32.and
@@ -6331,29 +6324,29 @@
    i32.const -4
    i32.and
    i32.sub
-   local.set $2
+   local.set $1
    loop $while-continue|0
-    local.get $2
+    local.get $1
     i32.const 0
     i32.ge_s
     if
      local.get $5
      i32.const 0
-     local.get $1
+     local.get $4
      local.tee $0
      i64.load offset=8
      local.tee $7
-     local.get $2
+     local.get $1
      i32.const 127
      i32.and
      i64.extend_i32_s
-     local.tee $3
+     local.tee $2
      i64.const 63
      i64.and
-     local.tee $4
+     local.tee $3
      i64.shr_u
      local.tee $8
-     local.get $3
+     local.get $2
      i64.const 6
      i64.shr_u
      i64.const 1
@@ -6363,8 +6356,8 @@
      i64.xor
      i64.and
      local.get $6
-     local.get $3
-     local.get $3
+     local.get $2
+     local.get $2
      i64.const 127
      i64.add
      i64.or
@@ -6376,13 +6369,13 @@
      i64.sub
      local.get $7
      i64.const 64
-     local.get $4
+     local.get $3
      i64.sub
      i64.shl
      i64.and
      local.get $0
      i64.load
-     local.get $4
+     local.get $3
      i64.shr_u
      i64.or
      i64.and
@@ -6391,7 +6384,7 @@
      local.get $8
      i64.and
      call $assembly/integer/u128/u128#constructor
-     local.tee $1
+     local.tee $4
      i64.load
      i64.const 15
      i64.and
@@ -6399,26 +6392,18 @@
      call $~lib/string/String#charAt
      call $~lib/string/String#concat
      local.set $5
-     local.get $2
+     local.get $1
      i32.const 4
      i32.sub
-     local.set $2
+     local.set $1
      br $while-continue|0
     end
    end
    local.get $5
    return
-  else
-   local.get $2
-   i32.const 10
-   i32.eq
-   if
-    local.get $0
-    call $assembly/utils/u128toa10
-    return
-   end
   end
-  i32.const 848
+  local.get $0
+  call $assembly/utils/u128toa10
  )
  (func $assembly/integer/u256/u256.Zero.get:Zero (; 106 ;) (result i32)
   i32.const 0
@@ -6545,8 +6530,8 @@
   i32.eqz
   if
    i32.const 0
-   i32.const 896
-   i32.const 90
+   i32.const 848
+   i32.const 77
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -6579,8 +6564,8 @@
   i32.eqz
   if
    i32.const 0
-   i32.const 896
-   i32.const 102
+   i32.const 848
+   i32.const 89
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -6617,8 +6602,8 @@
   i32.eqz
   if
    i32.const 0
-   i32.const 896
-   i32.const 114
+   i32.const 848
+   i32.const 101
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -6651,8 +6636,8 @@
   i32.eqz
   if
    i32.const 0
-   i32.const 896
-   i32.const 126
+   i32.const 848
+   i32.const 113
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -7902,25 +7887,19 @@
  (func $assembly/integer/u256/u256#toString (; 163 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
+  i32.const 1
   local.get $1
-  i32.const 10
+  i32.const 16
+  i32.eq
   local.get $1
-  select
-  local.tee $1
   i32.const 10
   i32.eq
-  if (result i32)
-   i32.const 1
-  else
-   local.get $1
-   i32.const 16
-   i32.eq
-  end
+  select
   i32.eqz
   if
    i32.const 608
-   i32.const 896
-   i32.const 623
+   i32.const 848
+   i32.const 609
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -7991,22 +7970,14 @@
    end
    local.get $2
    return
-  else
-   local.get $1
-   i32.const 10
-   i32.eq
-   if
-    local.get $0
-    call $assembly/utils/u256toa10
-    return
-   end
   end
-  i32.const 848
+  local.get $0
+  call $assembly/utils/u256toa10
  )
  (func $~start (; 164 ;)
-  i32.const 1040
+  i32.const 992
   global.set $~lib/rt/stub/startOffset
-  i32.const 1040
+  i32.const 992
   global.set $~lib/rt/stub/offset
  )
  (func $assembly/integer/u128/u128#constructor|trampoline (; 165 ;) (param $0 i32) (param $1 i64) (param $2 i64) (result i32)
@@ -8075,7 +8046,7 @@
     end
     unreachable
    end
-   i32.const 0
+   i32.const 10
    local.set $1
   end
   local.get $0
@@ -8172,7 +8143,7 @@
     end
     unreachable
    end
-   i32.const 0
+   i32.const 10
    local.set $1
   end
   local.get $0

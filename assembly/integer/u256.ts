@@ -6,25 +6,12 @@ import { u256toa10 }  from "../utils";
 
 export class u256 {
 
-  @inline
-  static get Zero(): u256 {
-    return new u256();
-  }
+  @inline static get Zero(): u256 { return new u256(); }
+  @inline static get One():  u256 { return new u256(1); }
+  @inline static get Min():  u256 { return new u256(); }
+  @inline static get Max():  u256 { return new u256(-1, -1, -1, -1); }
 
-  @inline
-  static get One(): u256 {
-    return new u256(1);
-  }
-
-  @inline
-  static get Min(): u256 {
-    return new u256();
-  }
-
-  @inline
-  static get Max(): u256 {
-    return new u256(u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE);
-  }
+  // TODO: fromString
 
   @inline
   static fromU256(value: u256): u256 {
@@ -618,10 +605,8 @@ export class u256 {
     return new u256(this.lo1, this.lo2, this.hi1, this.hi2);
   }
 
-  toString(radix: i32 = 0): string {
-    if (!radix) radix = 10;
+  toString(radix: i32 = 10): string {
     assert(radix == 10 || radix == 16, 'radix argument must be between 10 or 16');
-
     if (this.isZero()) return '0';
 
     var result = '';
@@ -634,9 +619,7 @@ export class u256 {
         shift -= 4;
       }
       return result;
-    } else if (radix == 10) {
-      return u256toa10(this);
     }
-    return "undefined";
+    return u256toa10(this);
   }
 }

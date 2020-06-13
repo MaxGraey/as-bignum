@@ -901,10 +901,8 @@ export class u128 {
     return new u128(this.lo, this.hi);
   }
 
-  toString(radix: i32 = 0): string {
-    if (!radix) radix = 10;
+  toString(radix: i32 = 10): string {
     assert(radix == 10 || radix == 16, 'radix argument must be between 10 or 16');
-
     if (this.isZero()) return '0';
 
     var result = '';
@@ -918,10 +916,7 @@ export class u128 {
         shift  -= 4;
       }
       return result;
-    } else if (radix == 10) {
-      return u128toa10(this);
     }
-
-    return 'undefined';
+    return u128toa10(this);
   }
 }
