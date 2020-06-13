@@ -105,19 +105,16 @@ describe("Buffer Conversion", () => {
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
     ];
-
     expect(u128.fromBytes(arr))
       .toStrictEqual(new u128(0x8877665544332211, 0x12ffeeddccbbaa99));
   });
 
   it("Should convert from bytes Little Endian 2", () => {
-    var arr: u8[] = [
+    var arr = arrayToUint8Array([
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
-    ];
-    var uint8Array = arrayToUint8Array(arr);
-
-    expect(u128.fromBytes<Uint8Array>(uint8Array))
+    ]);
+    expect(u128.fromBytes(arr))
       .toStrictEqual(new u128(0x8877665544332211, 0x12ffeeddccbbaa99));
   });
 
@@ -126,19 +123,16 @@ describe("Buffer Conversion", () => {
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
     ];
-
     expect(u128.fromBytes(arr, true))
       .toStrictEqual(new u128(0x99aabbccddeeff12, 0x1122334455667788));
   });
 
   it("Should convert from bytes Big Endian 2", () => {
-    var arr: u8[] = [
+    var arr = arrayToUint8Array([
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
-    ];
-    var uint8Array = arrayToUint8Array(arr);
-
-    expect(u128.fromBytes<Uint8Array>(uint8Array, true))
+    ]);
+    expect(u128.fromBytes(arr, true))
       .toStrictEqual(new u128(0x99aabbccddeeff12, 0x1122334455667788));
   });
 
