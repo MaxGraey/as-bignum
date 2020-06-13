@@ -267,8 +267,9 @@ export class u256 {
       hi2b = b.hi2;
 
     var lo1 = lo1a + lo1b;
-    var cy  = ((lo1a & lo1b) | ((lo1a | lo1b) & ~lo1)) >> 63;
+    var cy  = u64(lo1 < lo1a);
     var lo2 = lo2a + lo2b + cy;
+        // for a + b + c case we should calculate carry bit differently
         cy  = ((lo2a & lo2b) | ((lo2a | lo2b) & ~lo2)) >> 63;
     var hi1 = hi1a + hi1b + cy;
         cy  = ((hi1a & hi1b) | ((hi1a | hi1b) & ~hi1)) >> 63;
@@ -291,8 +292,9 @@ export class u256 {
       hi2b = b.hi2;
 
     var lo1 = lo1a - lo1b;
-    var cy  = ((~lo1a & lo1b) | ((~lo1a | lo1b) & lo1)) >> 63;
+    var cy  = u64(lo1 > lo1a);
     var lo2 = lo2a - lo2b - cy;
+        // for a - b - c case we should calculate carry bit differently
         cy  = ((~lo2a & lo2b) | ((~lo2a | lo2b) & lo2)) >> 63;
     var hi1 = hi1a - hi1b - cy;
         cy  = ((~hi1a & hi1b) | ((~hi1a | hi1b) & hi1)) >> 63;
