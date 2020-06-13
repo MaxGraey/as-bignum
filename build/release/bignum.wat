@@ -7788,49 +7788,53 @@
   (local $1 i64)
   (local $2 i64)
   (local $3 i64)
-  (local $4 i64)
-  local.get $0
-  i64.load offset=16
-  i64.const -1
-  i64.xor
-  local.tee $1
   local.get $0
   i64.load offset=8
   i64.const -1
   i64.xor
-  local.tee $2
+  local.tee $3
   local.get $0
   i64.load
   i64.const -1
   i64.xor
-  local.tee $3
+  local.tee $1
   i64.const 1
-  i64.add
-  local.tee $4
-  local.get $3
-  i64.lt_u
-  i64.extend_i32_u
-  i64.add
-  local.tee $3
-  local.get $2
-  i64.lt_u
-  i64.extend_i32_u
   i64.add
   local.tee $2
   local.get $1
   i64.lt_u
   i64.extend_i32_u
+  i64.add
+  local.set $1
+  i32.const 0
+  local.get $2
+  local.get $1
+  local.get $0
+  i64.load offset=16
+  i64.const -1
+  i64.xor
+  local.tee $2
+  local.get $3
+  local.get $1
+  i64.const -1
+  i64.xor
+  i64.and
+  i64.const 63
+  i64.shr_u
+  i64.add
+  local.tee $1
   local.get $0
   i64.load offset=24
   i64.const -1
   i64.xor
-  i64.add
-  local.set $1
-  i32.const 0
-  local.get $4
-  local.get $3
   local.get $2
   local.get $1
+  i64.const -1
+  i64.xor
+  i64.and
+  i64.const 63
+  i64.shr_u
+  i64.add
   call $assembly/integer/u256/u256#constructor
  )
  (func $assembly/integer/u256/u256#toI128 (; 151 ;) (param $0 i32) (result i32)

@@ -247,8 +247,8 @@ export class u256 {
 
     var lo1p = lo1 + 1;
     var lo2p = lo2 + u64(lo1p < lo1);
-    var hi1p = hi1 + u64(lo2p < lo2);
-    var hi2p = hi2 + u64(hi1p < hi1);
+    var hi1p = hi1 + ((lo2 & ~lo2p) >> 63);
+    var hi2p = hi2 + ((hi1 & ~hi1p) >> 63);
     return new u256(lo1p, lo2p, hi1p, hi2p);
   }
 
