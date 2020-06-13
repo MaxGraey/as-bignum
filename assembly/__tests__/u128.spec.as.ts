@@ -425,6 +425,37 @@ describe("Basic Operations", () => {
     expect(a - b).toStrictEqual(new u128(255, 100));
   });
 
+  it("Should sub [0, 0] and [1, 1]", () => {
+    const max = u64.MAX_VALUE;
+    var a = u128.Zero;
+    var b = new u128(1, 1);
+    var r = new u128(max, max - 1);
+    expect(a - b).toStrictEqual(r);
+  });
+
+  it("Should sub [0, 0] and [max, max]", () => {
+    var a = u128.Zero;
+    var b = u128.Max;
+    var r = u128.One;
+    expect(a - b).toStrictEqual(r);
+  });
+
+  it("Should sub [max, max] and [1, 0]", () => {
+    const max = u64.MAX_VALUE;
+    var a = u128.Max;
+    var b = u128.One;
+    var r = new u128(max - 1, max);
+    expect(a - b).toStrictEqual(r);
+  });
+
+  it("Should sub [1, 2] and [max - 1, max - 2]", () => {
+    const max = u64.MAX_VALUE;
+    var a = new u128(1, 2);
+    var b = new u128(max - 1, max - 2);
+    var r = new u128(3, 4);
+    expect(a - b).toStrictEqual(r);
+  });
+
   it("Should subtract from zero equal negative number", () => {
     var a = new u128(100, 255);
     expect<u128>(u128.Zero - a).toStrictEqual(-a);
