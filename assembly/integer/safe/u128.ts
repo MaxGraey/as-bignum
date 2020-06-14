@@ -132,7 +132,7 @@ export class u128 extends U128 {
   @operator.prefix('++')
   preInc(): this {
     if ((this.lo & this.hi) == <u64>-1) { // if this == max
-      throw new Error('Overflow during prefix incrementing');
+      throw new RangeError('Overflow during prefix incrementing');
     }
     super.preInc();
     return this;
@@ -141,7 +141,7 @@ export class u128 extends U128 {
   @operator.prefix('--')
   preDec(): this {
     if ((this.lo | this.hi) == 0) { // if this == 0
-      throw new Error('Underflow during prefix decrementing');
+      throw new RangeError('Underflow during prefix decrementing');
     }
     super.preDec();
     return this;
@@ -150,7 +150,7 @@ export class u128 extends U128 {
   @operator.postfix('++')
   postInc(): u128 {
     if ((this.lo & this.hi) == <u64>-1) { // if this == max
-      throw new Error('Overflow during prefix incrementing');
+      throw new RangeError('Overflow during prefix incrementing');
     }
     return this.clone().preInc();
   }
@@ -158,7 +158,7 @@ export class u128 extends U128 {
   @operator.postfix('--')
   postDec(): u128 {
     if ((this.lo | this.hi) == 0) { // if this == 0
-      throw new Error('Underflow during prefix decrementing');
+      throw new RangeError('Underflow during prefix decrementing');
     }
     return this.clone().preDec();
   }
@@ -172,7 +172,7 @@ export class u128 extends U128 {
     var y  = b.hi;
     var hi = x + y + c;
     if (((hi ^ x) & (hi ^ y)) < c) {
-      throw new Error('Overflow during addision');
+      throw new RangeError('Overflow during addision');
     }
     return new u128(lo, hi);
   }
@@ -180,7 +180,7 @@ export class u128 extends U128 {
   @operator('-')
   static sub(a: u128, b: u128): u128 {
     if (a < b) {
-      throw new Error("Underflow during substraction");
+      throw new RangeError("Underflow during substraction");
     }
     return changetype<u128>(
       U128.sub(changetype<U128>(a), changetype<U128>(b))
@@ -194,7 +194,7 @@ export class u128 extends U128 {
     }
     var s = u128.clz(a) + u128.clz(b);
     if (s < 127) { // defenitely overflow
-      throw new Error("Overflow during multiplication");
+      throw new RangeError("Overflow during multiplication");
     }
     if (s == 127) { // this may overflow or not. Need extra checks.
       // See Hacker's Delight, 2nd Edition. 2–13 Overflow Detection
@@ -202,7 +202,7 @@ export class u128 extends U128 {
       let tmp = U128.mul(changetype<U128>(a), changetype<U128>(b) >> 1);
       // @ts-ignore
       if (tmp.hi >>> 63) { // (signed)t < 0
-        throw new Error("Overflow during multiplication");
+        throw new RangeError("Overflow during multiplication");
       }
       // @ts-ignore
       let z = tmp << 1;
@@ -211,7 +211,7 @@ export class u128 extends U128 {
         z += a;
         // @ts-ignore
         if (z < a) {
-          throw new Error("Overflow during multiplication");
+          throw new RangeError("Overflow during multiplication");
         }
       }
       return changetype<u128>(z);

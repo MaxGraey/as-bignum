@@ -190,8 +190,9 @@ export function __ctz128(lo: u64, hi: u64): i32 {
 @global
 export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
   var bzn = __clz128(blo, bhi); // N
-  if (bzn == 128)
-    unreachable(); // div by zero
+  if (bzn == 128) {
+    throw new RangeError("Division by zero"); // division by zero
+  }
 
   var azn = __clz128(alo, ahi); // M
   var btz = __ctz128(blo, bhi); // N
