@@ -23,8 +23,8 @@ export class i128 {
   @inline static get Max():  i128 { return new i128(u64.MAX_VALUE, 0x7FFFFFFFFFFFFFFF); }
 
   @inline
-  static fromString(value: string, radix: i32 = 0): i128 {
-    return this.fromU128(atou128(value, radix));
+  static fromString(value: string, radix: i32 = 10): i128 {
+    return changetype<i128>(atou128(value, radix));
   }
 
   @inline

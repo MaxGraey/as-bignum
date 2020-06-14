@@ -22,7 +22,7 @@ export class u128 extends U128 {
   @inline static get Max():  u128 { return new u128(-1, -1); }
 
   @inline
-  static fromString(value: string, radix: i32 = 0): u128 {
+  static fromString(value: string, radix: i32 = 10): u128 {
     return changetype<u128>(atou128(value, radix));
   }
 

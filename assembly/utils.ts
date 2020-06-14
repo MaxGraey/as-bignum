@@ -128,8 +128,7 @@ export function u256toa10(value: u256): string {
   return result;
 }
 
-export function atou128(str: string, radix: i32 = 0): u128 {
-  if (!radix) radix = 10;
+export function atou128(str: string, radix: i32 = 10): u128 {
   if (radix < 2 || radix > 36) {
     throw new Error("Invalid radix");
   }
@@ -141,7 +140,8 @@ export function atou128(str: string, radix: i32 = 0): u128 {
     return u128.Zero;
   }
   var isNeg = first == CharCode.MINUS;
-  var index = <i32>(isNeg || first == CharCode.PLUS);
+  // @ts-ignore
+  var index = <i32>(isNeg | (first == CharCode.PLUS));
 
   if (str.charCodeAt(index) == CharCode._0) {
     let second = str.charCodeAt(++index);
@@ -162,10 +162,12 @@ export function atou128(str: string, radix: i32 = 0): u128 {
       let n: u32 = str.charCodeAt(index) - CharCode._0;
       if (n > <u32>(CharCode.z - CharCode._0)) break;
 
-      let num = table[n];
+      let num = unchecked(table[n]);
       if (num >= <u8>radix) break;
 
+      // @ts-ignore
       result *= radix128;
+      // @ts-ignore
       result += u128.fromU64(num);
     } while (++index < len);
   } else {
@@ -174,7 +176,9 @@ export function atou128(str: string, radix: i32 = 0): u128 {
         do {
           let num: u32 = str.charCodeAt(index) - CharCode._0;
           if (num >= 2) break;
+          // @ts-ignore
           result <<= 1;
+          // @ts-ignore
           result |= u128.fromU64(num);
         } while (++index < len);
         break;
@@ -183,7 +187,9 @@ export function atou128(str: string, radix: i32 = 0): u128 {
         do {
           let num: u32 = str.charCodeAt(index) - CharCode._0;
           if (num >= 10) break;
+          // @ts-ignore
           result  = (result << 3) + (result << 1);
+          // @ts-ignore
           result += u128.fromU64(num);
         } while (++index < len);
         break;
@@ -193,10 +199,12 @@ export function atou128(str: string, radix: i32 = 0): u128 {
           let n: u32 = str.charCodeAt(index) - CharCode._0;
           if (n > <u32>(CharCode.z - CharCode._0)) break;
 
-          let num = table[n];
+          let num = unchecked(table[n]);
           if (num >= 16) break;
 
+          // @ts-ignore
           result <<= 4;
+          // @ts-ignore
           result |= u128.fromU64(num);
         } while (++index < len);
         break;
@@ -207,16 +215,18 @@ export function atou128(str: string, radix: i32 = 0): u128 {
           let n: u32 = str.charCodeAt(index) - CharCode._0;
           if (n > <u32>(CharCode.z - CharCode._0)) break;
 
-          let num = table[n];
+          let num = unchecked(table[n]);
           if (num >= <u8>radix) break;
 
+          // @ts-ignore
           result *= radix128;
+          // @ts-ignore
           result += u128.fromU64(num);
         } while (++index < len);
         break;
       }
     }
   }
-
+  // @ts-ignore
   return isNeg ? -result : result;
 }
