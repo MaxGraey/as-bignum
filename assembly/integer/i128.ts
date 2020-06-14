@@ -60,19 +60,20 @@ export class i128 {
   // max safe uint for f64 actually 53-bits
   @inline
   static fromF64(value: f64): i128 {
-    return new u128(<u64>value, -(<u64>(value < 0)));
+    return new u128(<u64>value, reinterpret<i64>(value) >> 63);
   }
 
   // TODO need improvement
   // max safe int for f32 actually 23-bits
   @inline
   static fromF32(value: f32): i128 {
-    return new i128(<u64>value, -(<i64>(value < 0)));
+    return new i128(<u64>value, i64(reinterpret<i32>(value) >> 31));
   }
 
   @inline
   static fromI32(value: i32): i128 {
-    return new i128(<u64>value, <i64>value >> 63);
+    var val64 = <u64>value;
+    return new i128(val64, <i64>val64 >> 63);
   }
 
   @inline
@@ -90,7 +91,7 @@ export class i128 {
 
   @inline
   static fromBytes(array: u8[], le: bool = true): i128 {
-    return le ? i128.fromBytesLE(array) : u128.fromBytesBE(array);
+    return le ? i128.fromBytesLE(array) : i128.fromBytesBE(array);
   }
 
   static fromBytesLE(array: u8[]): i128 {
@@ -145,8 +146,8 @@ export class i128 {
   ) {}
 
   @inline
-  isNeg(): bool {
-    return <bool>(this.hi >>> 63);
+  isNegative(): bool {
+    return changetype<bool>(this.hi < 0);
   }
 
   @inline
@@ -167,8 +168,8 @@ export class i128 {
   @inline @operator.prefix('-')
   neg(): i128 {
     var lo = ~this.lo, hi = ~this.hi;
-    var cy = ((lo & 1) + (lo >> 1)) >> 63;
-    return new i128(lo + 1, hi + cy);
+    var lo1 = lo + 1;
+    return new i128(lo1, hi + u64(lo1 < lo));
   }
 
   @inline @operator.prefix('!')
@@ -235,21 +236,19 @@ export class i128 {
 
   @inline @operator('+')
   static add(a: i128, b: i128): i128 {
-    var bl = b.lo;
-    // var lo = a.lo + bl   - (<i64>(b  <  0));
-    var lo = a.lo + bl   - (b.hi >>> 63);
-    var hi = a.hi + b.hi + (<i64>(lo < bl));
-
+    var blo = b.lo;
+    var bhi = b.hi;
+    var lo = a.lo + blo - (bhi >>> 63);
+    var hi = a.hi + bhi + i64(lo < blo);
     return new i128(lo, hi);
   }
 
   @inline @operator('-')
   static sub(a: i128, b: i128): i128 {
-    var al = a.lo;
-    // var lo = al   - b.lo + (<i64>(b  <  0));
-    var lo = al   - b.lo + (b.hi >>> 63);
-    var hi = a.hi - b.hi - (<i64>(lo > al));
-
+    var alo = a.lo;
+    var bhi = b.hi;
+    var lo = alo  - b.lo + (bhi >>> 63);
+    var hi = a.hi - bhi  - i64(lo > alo);
     return new i128(lo, hi);
   }
 
