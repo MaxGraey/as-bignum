@@ -8,12 +8,11 @@ import { u128 } from './integer/u128';
  */
 
 // used for returning quotient and reminder from __divmod128
-export var __divmod_quot_lo: u64 = 0;
-export var __divmod_quot_hi: u64 = 0;
-export var __divmod_rem:     u64 = 0;
+@lazy export var __divmod_quot_hi: u64 = 0;
+@lazy export var __divmod_rem:     u64 = 0;
 
 // used for returning low and high part of __mulq64, __multi3 etc
-export var __res128_hi: u64 = 0;
+@lazy export var __res128_hi: u64 = 0;
 
 /**
  * Convert 128-bit unsigned integer to 64-bit float
@@ -116,20 +115,17 @@ export function __multi3(al: u64, ah: u64, bl: u64, bh: u64): u64 {
   return lo;
 }
 
-export var __float_u128_lo: u64 = 0;
-export var __float_u128_hi: u64 = 0;
-
 // @ts-ignore: decorator
 @global
-export function __floatuntfdi(value: f64): void {
+export function __floatuntfdi(value: f64): u64 {
   var u = reinterpret<u64>(value);
 
   // if (value < -1.7014118346046e38) { // -(2^127-1)
   if (value < reinterpret<f64>(0xC7F0000000000000)) { // -(2^128-1)
-    // overflow negative
-    __float_u128_lo = 0;
     // __float_u128_hi = <u64>-1; // for i128
-    __float_u128_hi = 0;
+    __res128_hi = 0;
+    // overflow negative
+    return 0;
     // } else if (value < -9.2233720368547e18) { // -2^63-1 // for i128
   } else if (value < reinterpret<f64>(0xC3F0000000000000)) { // // -(2^64-1)
     let lo: u64, hi: u64, m: u64;
@@ -145,14 +141,14 @@ export function __floatuntfdi(value: f64): void {
       lo = m << u;
       hi = m >> (64 - u);
     }
-    __float_u128_lo = ~lo;
-    __float_u128_hi = ~hi;
+    __res128_hi = ~hi;
+    return ~lo;
     // } else if (value < 9.2233720368547e18) { // 2^63-1 // for i128
   } else if (value < reinterpret<f64>(0x43F0000000000000)) { // 2^64-1
-    // fit in a u64
-    __float_u128_lo = <u64>value;
     // __float_u128_hi = (value < 0) ? -1 : 0; // for int
-    __float_u128_hi = 0;
+    __res128_hi = 0;
+    // fit in a u64
+    return <u64>value;
     // } else if (value < 1.7014118346046e38) {
   } else if (value < reinterpret<f64>(0x47F0000000000000)) { // 2^128-1
     let lo: u64, hi: u64, m: u64;
@@ -167,12 +163,12 @@ export function __floatuntfdi(value: f64): void {
       lo = m << u;
       hi = m >> (64 - u);
     }
-    __float_u128_lo = lo;
-    __float_u128_hi = hi;
+    __res128_hi = hi;
+    return lo;
   } else {
     // overflow positive
-    __float_u128_lo = <u64>-1;
-    __float_u128_hi = <u64>-1; // 0x7FFFFFFFFFFFFFFF for i128
+    __res128_hi = <u64>-1; // 0x7FFFFFFFFFFFFFFF for i128
+    return <u64>-1;
   }
 }
 
@@ -196,7 +192,7 @@ export function __ctz128(lo: u64, hi: u64): i32 {
 
 // @ts-ignore: decorator
 @global
-export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
+export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
   var bzn = __clz128(blo, bhi); // N
   if (bzn == 128)
     unreachable(); // div by zero
@@ -205,73 +201,65 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
   var btz = __ctz128(blo, bhi); // N
 
   if (!(alo | ahi)) {
-    __divmod_quot_lo = 0;
     __divmod_quot_hi = 0;
     __divmod_rem     = 0;
-    return;
+    return 0;
   }
 
   if (bzn == 127) {
-    __divmod_quot_lo = alo;
     __divmod_quot_hi = ahi;
     __divmod_rem     = 0;
-    return;
+    return alo;
   }
 
-  if (btz + bzn == 127) {
-    // TODO
-    // __divmod_quot = a >> btz
-    // b++
-    // __divmod_rem = a & b
-    return;
-  }
+  // if (btz + bzn == 127) {
+  //   // TODO
+  //   // __divmod_quot = a >> btz
+  //   // b++
+  //   // __divmod_rem = a & b
+  //   return;
+  // }
 
   if (!(ahi | bhi)) {
     __divmod_quot_hi = 0;
-
     // if `b.lo` is power of two
     if (!(blo & (blo - 1))) {
-      __divmod_quot_lo = alo >> btz;
       __divmod_rem  = 0;
+      return alo >> btz;
     } else {
       let dlo = alo / blo;
-      __divmod_quot_lo = dlo
-      __divmod_rem     = alo - dlo * blo;
+      __divmod_rem = alo - dlo * blo;
+      return dlo;
     }
-    return;
   }
 
   // if b.lo == 0 and `b.hi` is power of two
-  if (!blo && !(bhi & (bhi - 1))) {
-    __divmod_rem = 0;
+  // if (!blo && !(bhi & (bhi - 1))) {
+  //   __divmod_rem = 0;
 
-    // TODO
+  //   // TODO
 
-    return;
-  }
+  //   return 0;
+  // }
 
   var diff: i64 = ahi - bhi;
   var cmp = <i32>(diff != 0 ? diff : alo - blo); // TODO optimize this
 
   if (cmp <= 0) {
-    __divmod_quot_lo = u64(cmp == 0);
     __divmod_quot_hi = 0;
     __divmod_rem     = 0;
-    return;
+    return u64(cmp == 0);
   }
 
   if (bzn - azn <= 5) {
     // TODO
     // fast path
-    __udivmod128core(alo, ahi, blo, bhi);
-  } else {
-    __udivmod128core(alo, ahi, blo, bhi);
+    return __udivmod128core(alo, ahi, blo, bhi);
   }
+  return __udivmod128core(alo, ahi, blo, bhi);
 }
 
-// @ts-ignore: decorator
-@global
-export function __udivmod128core(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
+function __udivmod128core(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
   var a = new u128(alo, ahi);
   var b = new u128(blo, bhi);
   var q = u128.Zero;
@@ -302,25 +290,24 @@ export function __udivmod128core(alo: u64, ahi: u64, blo: u64, bhi: u64): void {
   }
   q <<= (blz - alz - i + 1);
 
-  __divmod_quot_lo = q.lo;
   __divmod_quot_hi = q.hi;
   __divmod_rem     = n.lo;
+  return q.lo;
 }
 
 // @ts-ignore: decorator
 @global
-export function __udivmod128_10(_q: usize, _r: usize, lo: u64, hi: u64): void {
+export function __udivmod128_10(lo: u64, hi: u64): u64 {
   if (!hi) {
     __divmod_quot_hi = 0;
     if (lo < 10) {
-      __divmod_quot_lo = 0;
-      __divmod_rem     = 0;
+      __divmod_rem = 0;
+      return 0;
     } else {
       let qlo = lo / 10;
-      __divmod_quot_lo = qlo;
-      __divmod_rem     = lo - qlo * 10;
+      __divmod_rem = lo - qlo * 10;
+      return qlo;
     }
-    return;
   }
 
   var q: u128, r: u128;
@@ -337,7 +324,7 @@ export function __udivmod128_10(_q: usize, _r: usize, lo: u64, hi: u64): void {
   r = n - (((q << 2) + q) << 1);
   n = q + u128.fromBool(r.lo > 9);
 
-  __divmod_quot_lo = n.lo;
   __divmod_quot_hi = n.hi;
   __divmod_rem     = r.lo;
+  return n.lo;
 }
