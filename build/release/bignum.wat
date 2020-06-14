@@ -9,8 +9,8 @@
  (type $none_=>_none (func))
  (type $i32_=>_none (func (param i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
- (type $i64_i64_i64_i64_=>_none (func (param i64 i64 i64 i64)))
  (type $i32_i32_=>_none (func (param i32 i32)))
+ (type $i64_i64_i64_i64_=>_none (func (param i64 i64 i64 i64)))
  (type $i32_i64_i64_=>_i32 (func (param i32 i64 i64) (result i32)))
  (type $i32_i64_i64_i64_i64_=>_i32 (func (param i32 i64 i64 i64 i64) (result i32)))
  (type $i64_i64_=>_i32 (func (param i64 i64) (result i32)))
@@ -21,6 +21,7 @@
  (type $i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
  (type $i64_=>_i64 (func (param i64) (result i64)))
+ (type $i64_i64_i64_i64_=>_i64 (func (param i64 i64 i64 i64) (result i64)))
  (type $i32_=>_f32 (func (param i32) (result f32)))
  (type $i32_=>_f64 (func (param i32) (result f64)))
  (type $i64_i64_=>_f64 (func (param i64 i64) (result f64)))
@@ -47,7 +48,6 @@
  (global $assembly/globals/__divmod_quot_lo (mut i64) (i64.const 0))
  (global $assembly/globals/__divmod_quot_hi (mut i64) (i64.const 0))
  (global $assembly/globals/__divmod_rem (mut i64) (i64.const 0))
- (global $assembly/globals/__res128_lo (mut i64) (i64.const 0))
  (global $assembly/globals/__res128_hi (mut i64) (i64.const 0))
  (global $~lib/rt/__rtti_base i32 (i32.const 848))
  (global $assembly/integer/u128/u128 i32 (i32.const 3))
@@ -353,11 +353,12 @@
   i64.const -1
   call $assembly/integer/u128/u128#constructor
  )
- (func $assembly/globals/__multi3 (; 11 ;) (param $0 i64) (param $1 i64) (param $2 i64) (param $3 i64)
+ (func $assembly/globals/__multi3 (; 11 ;) (param $0 i64) (param $1 i64) (param $2 i64) (param $3 i64) (result i64)
   (local $4 i64)
   (local $5 i64)
   (local $6 i64)
   (local $7 i64)
+  (local $8 i64)
   local.get $0
   i64.const 4294967295
   i64.and
@@ -367,38 +368,32 @@
   i64.and
   local.tee $5
   i64.mul
-  local.tee $6
-  i64.const 4294967295
-  i64.and
+  local.set $6
   local.get $4
   local.get $2
   i64.const 32
   i64.shr_u
-  local.tee $4
-  i64.mul
-  local.get $5
-  local.get $0
-  i64.const 32
-  i64.shr_u
-  local.tee $5
-  i64.mul
-  local.get $6
-  i64.const 32
-  i64.shr_u
-  i64.add
-  local.tee $6
-  i64.const 4294967295
-  i64.and
-  i64.add
   local.tee $7
-  i64.const 32
-  i64.shl
-  i64.add
-  global.set $assembly/globals/__res128_lo
-  local.get $4
+  i64.mul
   local.get $5
+  local.get $0
+  i64.const 32
+  i64.shr_u
+  local.tee $5
   i64.mul
   local.get $6
+  i64.const 32
+  i64.shr_u
+  i64.add
+  local.tee $8
+  i64.const 4294967295
+  i64.and
+  i64.add
+  local.set $4
+  local.get $5
+  local.get $7
+  i64.mul
+  local.get $8
   i64.const 32
   i64.shr_u
   i64.add
@@ -410,11 +405,18 @@
   local.get $3
   i64.mul
   i64.add
-  local.get $7
+  local.get $4
   i64.const 32
   i64.shr_u
   i64.add
   global.set $assembly/globals/__res128_hi
+  local.get $6
+  i64.const 4294967295
+  i64.and
+  local.get $4
+  i64.const 32
+  i64.shl
+  i64.or
  )
  (func $assembly/utils/atou128 (; 12 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
@@ -927,6 +929,7 @@
       i32.and
       i32.ge_u
       br_if $do-break|4
+      i32.const 0
       local.get $0
       i64.load
       local.get $0
@@ -936,8 +939,6 @@
       local.get $8
       i64.load offset=8
       call $assembly/globals/__multi3
-      i32.const 0
-      global.get $assembly/globals/__res128_lo
       global.get $assembly/globals/__res128_hi
       call $assembly/integer/u128/u128#constructor
       local.set $0
@@ -1113,7 +1114,7 @@
   if
    i32.const 0
    i32.const 320
-   i32.const 122
+   i32.const 121
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -1169,7 +1170,7 @@
   if
    i32.const 0
    i32.const 320
-   i32.const 132
+   i32.const 131
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -1201,7 +1202,7 @@
   if
    i32.const 0
    i32.const 320
-   i32.const 142
+   i32.const 141
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -1231,7 +1232,7 @@
   if
    i32.const 0
    i32.const 320
-   i32.const 152
+   i32.const 151
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -1718,6 +1719,7 @@
   call $assembly/integer/u128/u128#constructor
  )
  (func $assembly/integer/u128/u128.mul (; 37 ;) (param $0 i32) (param $1 i32) (result i32)
+  i32.const 0
   local.get $0
   i64.load
   local.get $0
@@ -1727,8 +1729,6 @@
   local.get $1
   i64.load offset=8
   call $assembly/globals/__multi3
-  i32.const 0
-  global.get $assembly/globals/__res128_lo
   global.get $assembly/globals/__res128_hi
   call $assembly/integer/u128/u128#constructor
  )
@@ -3127,6 +3127,7 @@
         local.get $6
         return
        end
+       i32.const 0
        local.get $6
        i64.load
        local.get $6
@@ -3136,8 +3137,6 @@
        local.get $3
        i64.load offset=8
        call $assembly/globals/__multi3
-       i32.const 0
-       global.get $assembly/globals/__res128_lo
        global.get $assembly/globals/__res128_hi
        call $assembly/integer/u128/u128#constructor
        return
@@ -3174,7 +3173,9 @@
            i32.const 1
            i32.and
            if
+            i32.const 0
             local.get $0
+            local.tee $3
             i64.load
             local.get $0
             i64.load offset=8
@@ -3183,8 +3184,6 @@
             local.get $2
             i64.load offset=8
             call $assembly/globals/__multi3
-            i32.const 0
-            global.get $assembly/globals/__res128_lo
             global.get $assembly/globals/__res128_hi
             call $assembly/integer/u128/u128#constructor
             local.set $0
@@ -3201,7 +3200,9 @@
           i32.const 1
           i32.and
           if
+           i32.const 0
            local.get $0
+           local.tee $3
            i64.load
            local.get $0
            i64.load offset=8
@@ -3210,8 +3211,6 @@
            local.get $2
            i64.load offset=8
            call $assembly/globals/__multi3
-           i32.const 0
-           global.get $assembly/globals/__res128_lo
            global.get $assembly/globals/__res128_hi
            call $assembly/integer/u128/u128#constructor
            local.set $0
@@ -3228,7 +3227,9 @@
          i32.const 1
          i32.and
          if
+          i32.const 0
           local.get $0
+          local.tee $3
           i64.load
           local.get $0
           i64.load offset=8
@@ -3237,8 +3238,6 @@
           local.get $2
           i64.load offset=8
           call $assembly/globals/__multi3
-          i32.const 0
-          global.get $assembly/globals/__res128_lo
           global.get $assembly/globals/__res128_hi
           call $assembly/integer/u128/u128#constructor
           local.set $0
@@ -3255,7 +3254,9 @@
         i32.const 1
         i32.and
         if
+         i32.const 0
          local.get $0
+         local.tee $3
          i64.load
          local.get $0
          i64.load offset=8
@@ -3264,8 +3265,6 @@
          local.get $2
          i64.load offset=8
          call $assembly/globals/__multi3
-         i32.const 0
-         global.get $assembly/globals/__res128_lo
          global.get $assembly/globals/__res128_hi
          call $assembly/integer/u128/u128#constructor
          local.set $0
@@ -3282,7 +3281,9 @@
        i32.const 1
        i32.and
        if
+        i32.const 0
         local.get $0
+        local.tee $3
         i64.load
         local.get $0
         i64.load offset=8
@@ -3291,8 +3292,6 @@
         local.get $2
         i64.load offset=8
         call $assembly/globals/__multi3
-        i32.const 0
-        global.get $assembly/globals/__res128_lo
         global.get $assembly/globals/__res128_hi
         call $assembly/integer/u128/u128#constructor
         local.set $0
@@ -3309,7 +3308,9 @@
       i32.const 1
       i32.and
       if
+       i32.const 0
        local.get $0
+       local.tee $3
        i64.load
        local.get $0
        i64.load offset=8
@@ -3318,8 +3319,6 @@
        local.get $2
        i64.load offset=8
        call $assembly/globals/__multi3
-       i32.const 0
-       global.get $assembly/globals/__res128_lo
        global.get $assembly/globals/__res128_hi
        call $assembly/integer/u128/u128#constructor
        local.set $0
@@ -3336,17 +3335,17 @@
      i32.const 1
      i32.and
      if
+      i32.const 0
       local.get $0
+      local.tee $1
       i64.load
-      local.get $0
+      local.get $1
       i64.load offset=8
       local.get $2
       i64.load
       local.get $2
       i64.load offset=8
       call $assembly/globals/__multi3
-      i32.const 0
-      global.get $assembly/globals/__res128_lo
       global.get $assembly/globals/__res128_hi
       call $assembly/integer/u128/u128#constructor
       local.set $0
@@ -3362,7 +3361,9 @@
       i32.const 1
       i32.and
       if
+       i32.const 0
        local.get $0
+       local.tee $3
        i64.load
        local.get $0
        i64.load offset=8
@@ -3371,8 +3372,6 @@
        local.get $2
        i64.load offset=8
        call $assembly/globals/__multi3
-       i32.const 0
-       global.get $assembly/globals/__res128_lo
        global.get $assembly/globals/__res128_hi
        call $assembly/integer/u128/u128#constructor
        local.set $0
@@ -3490,6 +3489,7 @@
     local.get $1
     i64.const 0
     i64.store offset=8
+    i32.const 0
     local.get $1
     i64.load
     local.get $1
@@ -3499,8 +3499,6 @@
     local.get $1
     i64.load offset=8
     call $assembly/globals/__multi3
-    i32.const 0
-    global.get $assembly/globals/__res128_lo
     global.get $assembly/globals/__res128_hi
     call $assembly/integer/u128/u128#constructor
     local.tee $5
@@ -6243,7 +6241,7 @@
   if
    i32.const 496
    i32.const 320
-   i32.const 905
+   i32.const 904
    i32.const 4
    call $~lib/builtins/abort
    unreachable

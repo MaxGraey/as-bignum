@@ -13,7 +13,6 @@ export var __divmod_quot_hi: u64 = 0;
 export var __divmod_rem:     u64 = 0;
 
 // used for returning low and high part of __mulq64, __multi3 etc
-export var __res128_lo: u64 = 0;
 export var __res128_hi: u64 = 0;
 
 /**
@@ -65,70 +64,56 @@ export function __floatuntidf(lo: u64, hi: u64): f64 {
 
 // @ts-ignore: decorator
 @global
-export function __umulh64(u: u64, v: u64): u64 {
-  var u0 = u & 0xFFFFFFFF;
-  var v0 = v & 0xFFFFFFFF;
+export function __umulh64(a: u64, b: u64): u64 {
+  var u = a & 0xFFFFFFFF; a >>= 32;
+  var v = b & 0xFFFFFFFF; b >>= 32;
 
-  var u1 = u >> 32;
-  var v1 = v >> 32;
-
-  var l = u0 * v0;
-  var t = u1 * v0 + (l >> 32);
-  var w = u0 * v1 + (t & 0xFFFFFFFF);
-
-  t >>= 32;
-  w >>= 32;
-
-  return u1 * v1 + t + w;
+  var uv = u * v;
+  var uv = a * v + (uv >> 32);
+  var w0 = u * b + (uv & 0xFFFFFFFF);
+  return a * b + (uv >> 32) + (w0 >> 32);
 }
 
 // @ts-ignore: decorator
 @global
-export function __umulq64(_res: usize, u: u64, v: u64): void {
-  var u1: u64 , v1: u64, w0: u64, w1: u64, t: u64;
+export function __umulq64(a: u64, b: u64): u64 {
+  var u = a & 0xFFFFFFFF; a >>= 32;
+  var v = b & 0xFFFFFFFF; b >>= 32;
 
-  u1 = u & 0xFFFFFFFF;
-  v1 = v & 0xFFFFFFFF;
+  var uv = u * v;
+  var w0 = uv & 0xFFFFFFFF;
+      uv = a * v + (uv >> 32);
+  var w1 = uv >> 32;
+      uv = u * b + (uv & 0xFFFFFFFF);
 
-  u >>= 32;
-  v >>= 32;
-
-  t  = u1 * v1;
-  w0 = t & 0xFFFFFFFF;
-  t  = u * v1 + (t >> 32);
-  w1 = t >> 32;
-  t  = u1 * v + (t & 0xFFFFFFFF);
-
-  __res128_lo = (t << 32) + w0;
-  __res128_hi = u * v + w1 + (t >> 32);
+  __res128_hi = a * b + w1 + (uv >> 32);
+  return (uv << 32) | w0;
 }
 
 // @ts-ignore: decorator
 @global
-export function __multi3(_res: usize, al: u64, ah: u64, bl: u64, bh: u64): void {
+export function __multi3(al: u64, ah: u64, bl: u64, bh: u64): u64 {
   var u = al, v = bl;
   var w: u64, k: u64;
 
-  var u1 = u & 0xFFFFFFFF;
-  var v1 = v & 0xFFFFFFFF;
+  var u1 = u & 0xFFFFFFFF; u >>= 32;
+  var v1 = v & 0xFFFFFFFF; v >>= 32;
   var t  = u1 * v1;
   var w1 = t & 0xFFFFFFFF;
 
-  u = u >> 32;
   t = u * v1 + (t >> 32);
   k = t & 0xFFFFFFFF;
   w = t >> 32;
-  v = v >> 32;
   t = u1 * v + k;
 
-  var lo  = w1 + (t << 32);
+  var lo  = (t << 32) | w1;
   var hi  = u  * v + w;
       hi += ah * bl;
       hi += al * bh;
       hi += t >> 32;
 
-  __res128_lo = lo;
   __res128_hi = hi;
+  return lo;
 }
 
 export var __float_u128_lo: u64 = 0;

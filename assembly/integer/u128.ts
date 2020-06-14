@@ -9,7 +9,6 @@ import {
   __floatuntidf,
 
   __multi3,
-  __res128_lo,
   __res128_hi,
 
   __udivmod128,
@@ -439,8 +438,8 @@ export class u128 {
   // mul: u128 x u128 = u128
   @inline @operator('*')
   static mul(a: u128, b: u128): u128 {
-    __multi3(changetype<usize>(0), a.lo, a.hi, b.lo, b.hi);
-    return new u128(__res128_lo, __res128_hi);
+    var lo = __multi3(a.lo, a.hi, b.lo, b.hi);
+    return new u128(lo, __res128_hi);
   }
 
   @inline @operator('/')
