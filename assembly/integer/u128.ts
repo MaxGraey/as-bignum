@@ -246,7 +246,8 @@ export class u128 {
 
   @inline @operator.prefix('-')
   neg(): u128 {
-    var lo = ~this.lo, hi = ~this.hi;
+    var lo = ~this.lo;
+    var hi = ~this.hi;
     var lo1 = lo + 1;
     return new u128(lo1, hi + u64(lo1 < lo));
   }

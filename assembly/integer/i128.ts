@@ -167,9 +167,10 @@ export class i128 {
 
   @inline @operator.prefix('-')
   neg(): i128 {
-    var lo = ~this.lo, hi = ~this.hi;
+    var lo = ~this.lo;
+    var hi = ~this.hi;
     var lo1 = lo + 1;
-    return new i128(lo1, hi + u64(lo1 < lo));
+    return new i128(lo1, hi + i64(lo1 < lo));
   }
 
   @inline @operator.prefix('!')
