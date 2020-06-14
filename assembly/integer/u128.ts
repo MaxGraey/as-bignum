@@ -422,19 +422,17 @@ export class u128 {
 
   @inline @operator('+')
   static add(a: u128, b: u128): u128 {
-    var bl = b.lo;
-    var lo = a.lo + bl;
-    var hi = a.hi + b.hi + u64(lo < bl);
-
+    var alo = a.lo;
+    var lo = alo + b.lo;
+    var hi = a.hi + b.hi + u64(lo < alo);
     return new u128(lo, hi);
   }
 
   @inline @operator('-')
   static sub(a: u128, b: u128): u128 {
-    var al = a.lo;
-    var lo = al   - b.lo;
-    var hi = a.hi - b.hi - u64(lo > al);
-
+    var alo = a.lo;
+    var lo = alo - b.lo;
+    var hi = a.hi - b.hi - u64(lo > alo);
     return new u128(lo, hi);
   }
 
@@ -491,32 +489,31 @@ export class u128 {
       case 1: return tmp;
     }
 
-    var lo = base.lo;
-    var hi = base.hi;
-
     if (ASC_SHRINK_LEVEL < 1) {
+      var lo = base.lo;
+      var hi = base.hi;
       // if base > u64::max and exp > 1 always return "0"
       if (!lo) return u128.Zero;
       if (!hi) {
         let lo1 = lo - 1;
         // "1 ^ exponent" always return "1"
-        if (!lo1) return u128.One;
+        if (!lo1) return result;
 
         // if base is power of two do "1 << log2(base) * exp"
         if (!(lo & lo1)) {
           let shift = <i32>(64 - clz(lo1)) * exponent;
           // @ts-ignore
-          return shift < 128 ? u128.One << shift : u128.Zero;
+          return shift < 128 ? result << shift : u128.Zero;
         }
       }
 
       if (exponent <= 4) {
-        let sqrbase = u128.sqr(base);
+        let baseSq = tmp.sqr();
         switch (exponent) {
-          case 2: return sqrbase;        // base ^ 2
+          case 2: return baseSq;        // base ^ 2
           // @ts-ignore
-          case 3: return sqrbase * base; // base ^ 2 * base
-          case 4: return sqrbase.sqr();  // base ^ 2 * base ^ 2
+          case 3: return baseSq * base; // base ^ 2 * base
+          case 4: return baseSq.sqr();  // base ^ 2 * base ^ 2
           default: break;
         }
       }
@@ -904,10 +901,8 @@ export class u128 {
     return new u128(this.lo, this.hi);
   }
 
-  toString(radix: i32 = 0): string {
-    if (!radix) radix = 10;
+  toString(radix: i32 = 10): string {
     assert(radix == 10 || radix == 16, 'radix argument must be between 10 or 16');
-
     if (this.isZero()) return '0';
 
     var result = '';
@@ -921,10 +916,7 @@ export class u128 {
         shift  -= 4;
       }
       return result;
-    } else if (radix == 10) {
-      return u128toa10(this);
     }
-
-    return 'undefined';
+    return u128toa10(this);
   }
 }

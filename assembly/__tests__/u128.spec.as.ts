@@ -78,19 +78,23 @@ describe("String Conversion", () => {
   });
 
   it("Should convert from hex string", () => {
-    expect(u128.fromString('123456abcdef', 16)).toStrictEqual(new u128(0x123456abcdef));
+    expect(u128.fromString('123456abcdef', 16))
+      .toStrictEqual(new u128(0x123456ABCDEF));
   });
 
   it("Should convert from mixed case hex string", () => {
-    expect(u128.from('0xabcdefABCDEF')).toStrictEqual(new u128(0xabcdefABCDEF));
+    expect(u128.from('0xabcdefABCDEF'))
+      .toStrictEqual(new u128(0xABCDEFABCDEF));
   });
 
   it("Should convert from octal string", () => {
-    expect(u128.from('0o01234567')).toStrictEqual(u128.from(0o01234567));
+    expect(u128.from('0o01234567'))
+      .toStrictEqual(u128.from(0o01234567));
   });
 
   it("Should convert from binary string", () => {
-    expect(u128.from('0b10101010101010101010')).toStrictEqual(u128.from(0b10101010101010101010));
+    expect(u128.from('0b10101010101010101010'))
+      .toStrictEqual(u128.from(0b10101010101010101010));
   });
 });
 
@@ -101,18 +105,17 @@ describe("Buffer Conversion", () => {
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
     ];
-
-    expect(u128.fromBytes(arr)).toStrictEqual(new u128(0x8877665544332211, 0x12ffeeddccbbaa99));
+    expect(u128.fromBytes(arr))
+      .toStrictEqual(new u128(0x8877665544332211, 0x12FFEEDDCCBBAA99));
   });
 
   it("Should convert from bytes Little Endian 2", () => {
-    var arr: u8[] = [
+    var arr = arrayToUint8Array([
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
-    ];
-    var uint8Array = arrayToUint8Array(arr);
-
-    expect(u128.fromBytes<Uint8Array>(uint8Array)).toStrictEqual(new u128(0x8877665544332211, 0x12ffeeddccbbaa99));
+    ]);
+    expect(u128.fromBytes(arr))
+      .toStrictEqual(new u128(0x8877665544332211, 0x12FFEEDDCCBBAA99));
   });
 
   it("Should convert from bytes Big Endian 1", () => {
@@ -120,23 +123,22 @@ describe("Buffer Conversion", () => {
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
     ];
-
-    expect(u128.fromBytes(arr, true)).toStrictEqual(new u128(0x99aabbccddeeff12, 0x1122334455667788));
+    expect(u128.fromBytes(arr, true))
+      .toStrictEqual(new u128(0x99AABBCCDDEEFF12, 0x1122334455667788));
   });
 
   it("Should convert from bytes Big Endian 2", () => {
-    var arr: u8[] = [
+    var arr = arrayToUint8Array([
       0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88,
       0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x12
-    ];
-    var uint8Array = arrayToUint8Array(arr);
-
-    expect(u128.fromBytes<Uint8Array>(uint8Array, true)).toStrictEqual(new u128(0x99aabbccddeeff12, 0x1122334455667788));
+    ]);
+    expect(u128.fromBytes(arr, true))
+      .toStrictEqual(new u128(0x99AABBCCDDEEFF12, 0x1122334455667788));
   });
 
   it("Should convert to bytes Litte Endian 1", () => {
     // var a: u8[] = (new u128(0x8877665544332211, 0x12ffeeddccbbaa99)).toBytes();
-    var u = new u128(0x8877665544332211, 0x12ffeeddccbbaa99);
+    var u = new u128(0x8877665544332211, 0x12FFEEDDCCBBAA99);
     var a = u.toBytes();
     expect(
       a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
@@ -148,18 +150,18 @@ describe("Buffer Conversion", () => {
 
   it("Should convert to bytes Litte Endian 2", () => {
     // var a: u8[] = (new u128(0x8877665544332211, 0x12ffeeddccbbaa99)).toBytes();
-    var u = new u128(0x8877665544332211, 0x12ffeeddccbbaa99);
+    var u = new u128(0x8877665544332211, 0x12FFEEDDCCBBAA99);
     var a = u.toUint8Array();
     expect(
-        a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
-        a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
-        a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
-        a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12
+      a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
+      a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
+      a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
+      a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12
     ).toBe(true);
   });
 
   it("Should convert to bytes Big Endian 1", () => {
-    var u = new u128(0x99aabbccddeeff12, 0x1122334455667788);
+    var u = new u128(0x99AABBCCDDEEFF12, 0x1122334455667788);
     var a = u.toBytes(true);
     expect(
       a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
@@ -170,13 +172,13 @@ describe("Buffer Conversion", () => {
   });
 
   it("Should convert to bytes Big Endian 2", () => {
-    var u = new u128(0x99aabbccddeeff12, 0x1122334455667788);
+    var u = new u128(0x99AABBCCDDEEFF12, 0x1122334455667788);
     var a = u.toUint8Array(true);
     expect(
-        a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
-        a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
-        a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
-        a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12
+      a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
+      a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
+      a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
+      a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12
     ).toBe(true);
   });
 });
@@ -307,32 +309,54 @@ describe("Basic Operations", () => {
 
   it("Should binary or numbers", () => {
     var a = new u128(0,   123);
-    var b = new u128(111, 0);
-    expect((a | b)).toStrictEqual(new u128(111, 123));
+    var b = new u128(111, 222);
+    var r = new u128(0 | 111, 123 | 222);
+    expect(a | b).toStrictEqual(r);
+    expect(b | a).toStrictEqual(r);
   });
 
   it("Should binary xor numbers", () => {
     var a = new u128(111, 123);
     var b = new u128(111, 0);
-    expect((a ^ b)).toStrictEqual(new u128(0, 123));
+    var r = new u128(111 ^ 111, 123 ^ 0);
+    expect(a ^ b).toStrictEqual(r);
+    expect(b ^ a).toStrictEqual(r);
   });
 
   it("Should binary and numbers", () => {
     var a = new u128(0xFF00, 123);
     var b = new u128(0x00FF, 234);
-    expect((a & b)).toStrictEqual(new u128(0, 106));
+    var r = new u128(0xFF00 & 0x00FF, 123 & 234);
+    expect(a & b).toStrictEqual(r);
+    expect(b & a).toStrictEqual(r);
   });
 
-  it("Should equal two numbers", () => {
+  it("Should equal two numbers 1", () => {
     var a = new u128(100, 255);
     var b = new u128(100, 255);
-    expect(a).toStrictEqual(b);
+    expect(a == b).toBe(true);
+    expect(b == a).toBe(true);
   });
 
-  it("Should non equal two numbers", () => {
+  it("Should equal two numbers 2", () => {
+    var a = new u128(1, u64.MAX_VALUE);
+    var b = new u128(1, u64.MAX_VALUE);
+    expect(a == b).toBe(true);
+    expect(b == a).toBe(true);
+  });
+
+  it("Should non equal two numbers 1", () => {
     var a = new u128(1, 1);
     var b = new u128(1, 0);
     expect(a != b).toBe(true);
+    expect(b != a).toBe(true);
+  });
+
+  it("Should non equal two numbers 2", () => {
+    var a = new u128(0, 2);
+    var b = new u128(2, 0);
+    expect(a != b).toBe(true);
+    expect(b != a).toBe(true);
   });
 
   it("Should compare less two numbers 1", () => {
@@ -392,19 +416,71 @@ describe("Basic Operations", () => {
   it("Should add two numbers 1", () => {
     var a = new u128(100, 255);
     var b = new u128(255, 100);
-    expect(a + b).toStrictEqual(new u128(355, 355));
+    var r = new u128(355, 355);
+    expect(a + b).toStrictEqual(r);
+    expect(b + a).toStrictEqual(r);
   });
 
   it("Should add two numbers 2", () => {
     var a = u128.from(-2);
     var b = u128.One;
-    expect(a + b).toStrictEqual(u128.Max);
+    var r = u128.Max;
+    expect(a + b).toStrictEqual(r);
+    expect(b + a).toStrictEqual(r);
+  });
+
+  it("Should add two numbers 3", () => {
+    var a = new u128(u64.MAX_VALUE);
+    var b = u128.One;
+    var r = new u128(0, 1);
+    expect(a + b).toStrictEqual(r);
+    expect(b + a).toStrictEqual(r);
+  });
+
+  it("Should add two numbers with owerflow", () => {
+    var a = new u128(u64.MAX_VALUE, u64.MAX_VALUE);
+    var b = new u128(1, 1);
+    var r = new u128(0, 1);
+    expect(a + b).toStrictEqual(r);
+    expect(b + a).toStrictEqual(r);
   });
 
   it("Should subtract two numbers", () => {
     var a = new u128(355, 355);
     var b = new u128(100, 255);
-    expect(a - b).toStrictEqual(new u128(255, 100));
+    var r = new u128(255, 100);
+    expect(a - b).toStrictEqual(r);
+  });
+
+  it("Should sub [0, 0] and [1, 1]", () => {
+    const max = u64.MAX_VALUE;
+    var a = u128.Zero;
+    var b = new u128(1, 1);
+    var r = new u128(max, max - 1);
+    expect(a - b).toStrictEqual(r);
+  });
+
+  it("Should sub [0, 0] and [max, max]", () => {
+    var a = u128.Zero;
+    var b = u128.Max;
+    var r = u128.One;
+    expect(a - b).toStrictEqual(r);
+  });
+
+  it("Should sub [max, max] and [1, 0]", () => {
+    const max = u64.MAX_VALUE;
+    var a = u128.Max;
+    var b = u128.One;
+    var r = new u128(max - 1, max);
+    expect(a - b).toStrictEqual(r);
+  });
+
+  it("Should sub [1, 2] and [max - 1, max - 2]", () => {
+    const max = u64.MAX_VALUE;
+    var a = new u128(1, 2);
+    var b = new u128(max - 1, max - 2);
+    var r = new u128(3, 4);
+    expect(a - b).toStrictEqual(r);
   });
 
   it("Should subtract from zero equal negative number", () => {
@@ -445,13 +521,17 @@ describe("Basic Operations", () => {
   it("Should multiply two numbers", () => {
     var a = u128.from(43545453452);
     var b = u128.from(2353454354);
-    expect(a * b).toStrictEqual(new u128(10248516654965971928, 5));
+    var r = new u128(10248516654965971928, 5);
+    expect(a * b).toStrictEqual(r);
+    expect(b * a).toStrictEqual(r);
   });
 
   it("Should multiply two numbers 1", () => {
     var a = u128.Max;
     var b = u128.One;
-    expect(a * b).toStrictEqual(a);
+    var r = a;
+    expect(a * b).toStrictEqual(r);
+    expect(b * a).toStrictEqual(r);
   });
 
   it("Should multiply two numbers with overflow 1", () => {
