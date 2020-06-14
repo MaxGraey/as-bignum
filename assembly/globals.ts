@@ -175,8 +175,6 @@ export function __floatuntfdi(value: f64): u64 {
 // @ts-ignore: decorator
 @global @inline
 export function __clz128(lo: u64, hi: u64): i32 {
-  // return <i32>(hi ? clz(hi) : clz(lo) + 64);
-  // var mask: u64 = -(<u64>(hi == 0));
   var mask: u64 = <i64>(hi ^ (hi - 1)) >> 63;
   return <i32>clz((hi & ~mask) | (lo & mask)) + (<i32>mask & 64);
 }
@@ -184,8 +182,6 @@ export function __clz128(lo: u64, hi: u64): i32 {
 // @ts-ignore: decorator
 @global @inline
 export function __ctz128(lo: u64, hi: u64): i32 {
-  // return <i32>(lo ? ctz(lo) : ctz(hi) + 64);
-  // var mask: u64 = -(<u64>(lo == 0));
   var mask: u64 = <i64>(lo ^ (lo - 1)) >> 63;
   return <i32>ctz((hi & mask) | (lo & ~mask)) + (<i32>mask & 64);
 }
