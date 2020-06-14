@@ -1,12 +1,5 @@
 import { u128 } from './integer/u128';
 
-/*
- * Current utility functions can be overloaded by imported from environment with same name and signatue.
- *
- * Example:
- *  declare function __floatuntidf(lo: u64, hi: u64): f64
- */
-
 // used for returning quotient and reminder from __divmod128
 @lazy export var __divmod_quot_hi: u64 = 0;
 @lazy export var __divmod_rem:     u64 = 0;
