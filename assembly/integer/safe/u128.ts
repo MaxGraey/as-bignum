@@ -149,17 +149,11 @@ export class u128 extends U128 {
 
   @operator.postfix('++')
   postInc(): u128 {
-    if ((this.lo & this.hi) == <u64>-1) { // if this == max
-      throw new RangeError('Overflow during prefix incrementing');
-    }
     return this.clone().preInc();
   }
 
   @operator.postfix('--')
   postDec(): u128 {
-    if ((this.lo | this.hi) == 0) { // if this == 0
-      throw new RangeError('Underflow during prefix decrementing');
-    }
     return this.clone().preDec();
   }
 
