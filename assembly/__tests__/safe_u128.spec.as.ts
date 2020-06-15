@@ -133,6 +133,7 @@ describe("Basic operations", () => {
   });
 })
 
+/*
 describe("Overflow Underflow Throwable", () => {
   it("Should throw when add two numbers 1", () => {
     expect(() => {
@@ -362,3 +363,4 @@ describe("Buffer Conversion", () => {
     expect(u128.fromBytes(arr, true)).toStrictEqual(new u128(0x99aabbccddeeff12, 0x1122334455667788));
   });
 });
+*/
