@@ -291,7 +291,7 @@ export class i128 {
   }
 
   @inline
-  static cmp(a: i128, b: i128): i32 {
+  static ord(a: i128, b: i128): i32 {
     var dlo = (a.lo - b.lo) as i64;
     var dhi = a.hi - b.hi;
     // return <i32>(dhi != 0 ? dhi : dlo);
