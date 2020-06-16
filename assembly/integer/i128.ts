@@ -146,7 +146,12 @@ export class i128 {
   ) {}
 
   @inline
-  isNegative(): bool {
+  isPos(): bool {
+    return changetype<bool>(this.hi >= 0);
+  }
+
+  @inline
+  isNeg(): bool {
     return changetype<bool>(this.hi < 0);
   }
 
@@ -170,7 +175,18 @@ export class i128 {
     var lo = ~this.lo;
     var hi = ~this.hi;
     var lo1 = lo + 1;
-    return new i128(lo1, hi + i64(lo1 < lo));
+    return new i128(lo1, hi + i64(lo > 0));
+  }
+
+  @inline
+  abs(): i128 {
+    var lo = this.lo;
+    var hi = this.hi;
+    if (hi < 0) {
+      lo = ~(lo - 1);
+      hi = ~hi + i64(lo == 0);
+    }
+    return new i128(lo, hi);
   }
 
   @inline @operator.prefix('!')
