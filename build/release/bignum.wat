@@ -3704,6 +3704,13 @@
   i64.ne
   select
   i32.wrap_i64
+  local.tee $0
+  i32.const 0
+  i32.gt_s
+  local.get $0
+  i32.const 0
+  i32.lt_s
+  i32.sub
  )
  (func $assembly/integer/u128/u128.popcnt (; 55 ;) (param $0 i32) (result i32)
   local.get $0
@@ -6261,7 +6268,7 @@
   if
    i32.const 608
    i32.const 320
-   i32.const 909
+   i32.const 912
    i32.const 4
    call $~lib/builtins/abort
    unreachable

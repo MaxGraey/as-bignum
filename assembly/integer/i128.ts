@@ -292,10 +292,11 @@ export class i128 {
 
   @inline
   static ord(a: i128, b: i128): i32 {
-    var dlo = (a.lo - b.lo) as i64;
+    var dlo = a.lo - b.lo;
     var dhi = a.hi - b.hi;
-    // return <i32>(dhi != 0 ? dhi : dlo);
-    return <i32>select<i64>(dhi, dlo, dhi != 0);
+    var cmp = <i32>select<i64>(dhi, dlo, dhi != 0);
+    // normalize to [-1, 0, 1]
+    return i32(cmp > 0) - i32(cmp < 0);
   }
 
   @inline
