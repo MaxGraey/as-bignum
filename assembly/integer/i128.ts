@@ -178,17 +178,6 @@ export class i128 {
     return new i128(lo1, hi + i64(lo > 0));
   }
 
-  @inline
-  abs(): i128 {
-    var lo = this.lo;
-    var hi = this.hi;
-    if (hi < 0) {
-      lo = ~(lo - 1);
-      hi = ~hi + i64(lo == 0);
-    }
-    return new i128(lo, hi);
-  }
-
   @inline @operator.prefix('!')
   static isEmpty(value: i128): bool {
     return value === null || !value.isZero();
@@ -326,9 +315,13 @@ export class i128 {
 
   @inline
   static abs(value: i128): i128 {
-    return value.isNeg() ? value.neg() : value;
-    // var mask = value >> 127;
-    // return (value ^ mask) - mask;
+    var lo = value.lo;
+    var hi = value.hi;
+    if (hi < 0) {
+      lo = ~(lo - 1);
+      hi = ~hi + i64(lo == 0);
+    }
+    return new i128(lo, hi);
   }
 
   // TODO
