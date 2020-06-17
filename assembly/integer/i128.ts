@@ -147,12 +147,12 @@ export class i128 {
 
   @inline
   isPos(): bool {
-    return changetype<bool>(this.hi >= 0);
+    return this.hi >= 0;
   }
 
   @inline
   isNeg(): bool {
-    return changetype<bool>(this.hi < 0);
+    return this.hi < 0;
   }
 
   @inline
