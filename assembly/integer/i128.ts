@@ -60,7 +60,7 @@ export class i128 {
   // max safe uint for f64 actually 53-bits
   @inline
   static fromF64(value: f64): i128 {
-    return new u128(<u64>value, reinterpret<i64>(value) >> 63);
+    return new i128(<u64>value, reinterpret<i64>(value) >> 63);
   }
 
   // TODO need improvement
@@ -90,28 +90,58 @@ export class i128 {
   }
 
   @inline
-  static fromBytes(array: u8[], le: bool = true): i128 {
-    return le ? i128.fromBytesLE(array) : i128.fromBytesBE(array);
+  static fromBytes<T>(array: T, bigEndian: bool = false): i128 {
+    if (array instanceof u8[]) {
+      return bigEndian
+        ? i128.fromBytesBE(<u8[]>array)
+        : i128.fromBytesLE(<u8[]>array);
+    } else if (array instanceof Uint8Array) {
+      return bigEndian
+        ? i128.fromUint8ArrayBE(<Uint8Array>array)
+        : i128.fromUint8ArrayLE(<Uint8Array>array);
+    } else {
+      throw new TypeError("Unsupported generic type");
+    }
   }
 
   static fromBytesLE(array: u8[]): i128 {
-    assert(array.length == 16);
-
-    var lo: u64 = 0, hi: i64 = 0;
-    for (let i = 0; i <  8; ++i) lo |= unchecked(array[i]) << (i << 3);
-    for (let i = 8; i < 16; ++i) hi |= unchecked(array[i]) << (i << 3);
-
-    return new i128(lo, hi);
+    assert(array.length && (array.length & 15) == 0);
+    // @ts-ignore
+    var buffer = array.dataStart;
+    return new i128(
+      load<u64>(buffer, 0 * sizeof<u64>()),
+      load<u64>(buffer, 1 * sizeof<u64>())
+    );
   }
 
   static fromBytesBE(array: u8[]): i128 {
-    assert(array.length == 16);
+    assert(array.length && (array.length & 15) == 0);
+    // @ts-ignore
+    var buffer = array.dataStart;
+    return new i128(
+      bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
+      bswap<u64>(load<u64>(buffer, 0 * sizeof<u64>()))
+    );
+  }
 
-    var lo: u64 = 0, hi: i64 = 0;
-    for (let i = 0; i <  8; ++i) hi |= unchecked(array[i]) << ((7  - i) << 3);
-    for (let i = 8; i < 16; ++i) lo |= unchecked(array[i]) << ((15 - i) << 3);
+  static fromUint8ArrayLE(array: Uint8Array): i128 {
+    assert(array.length && (array.length & 15) == 0);
+    // @ts-ignore
+    var buffer = array.dataStart;
+    return new i128(
+      load<u64>(buffer, 0 * sizeof<u64>()),
+      load<u64>(buffer, 1 * sizeof<u64>())
+    );
+  }
 
-    return new i128(lo, hi);
+  static fromUint8ArrayBE(array: Uint8Array): i128 {
+    assert(array.length && (array.length & 15) == 0);
+    // @ts-ignore
+    var buffer = array.dataStart;
+    return new i128(
+      bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
+      bswap<u64>(load<u64>(buffer, 0 * sizeof<u64>()))
+    );
   }
 
   /**
@@ -180,7 +210,7 @@ export class i128 {
 
   @inline @operator.prefix('!')
   static isEmpty(value: i128): bool {
-    return value === null || !value.isZero();
+    return value === null || value.isZero();
   }
 
   @inline @operator('|')
@@ -265,7 +295,7 @@ export class i128 {
 
   @inline @operator('!=')
   static ne(a: i128, b: i128): bool {
-    return !u128.eq(a, b);
+    return !i128.eq(a, b);
   }
 
   @inline @operator('<')

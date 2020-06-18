@@ -1,24 +1,24 @@
 (module
- (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
+ (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $none_=>_i32 (func (result i32)))
+ (type $i64_=>_i32 (func (param i64) (result i32)))
  (type $i32_=>_i64 (func (param i32) (result i64)))
  (type $i32_i64_=>_none (func (param i32 i64)))
  (type $i32_i64_=>_i32 (func (param i32 i64) (result i32)))
- (type $i64_=>_i32 (func (param i64) (result i32)))
+ (type $i32_i64_i64_=>_i32 (func (param i32 i64 i64) (result i32)))
  (type $none_=>_none (func))
  (type $i32_=>_none (func (param i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
- (type $i64_i64_i64_i64_=>_i64 (func (param i64 i64 i64 i64) (result i64)))
- (type $i32_i32_=>_none (func (param i32 i32)))
- (type $i32_i64_i64_=>_i32 (func (param i32 i64 i64) (result i32)))
- (type $i32_i64_i64_i64_i64_=>_i32 (func (param i32 i64 i64 i64 i64) (result i32)))
- (type $i64_i64_=>_i32 (func (param i64 i64) (result i32)))
  (type $f32_=>_i32 (func (param f32) (result i32)))
  (type $f64_=>_i32 (func (param f64) (result i32)))
- (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
+ (type $i64_i64_i64_i64_=>_i64 (func (param i64 i64 i64 i64) (result i64)))
+ (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32) (result i32)))
+ (type $i32_i64_i64_i64_i64_=>_i32 (func (param i32 i64 i64 i64 i64) (result i32)))
+ (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $i32_i32_i32_i32_i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
+ (type $i64_i64_=>_i32 (func (param i64 i64) (result i32)))
  (type $i64_=>_i64 (func (param i64) (result i64)))
  (type $i64_i64_=>_i64 (func (param i64 i64) (result i64)))
  (type $i32_=>_f32 (func (param i32) (result f32)))
@@ -43,16 +43,18 @@
  (data (i32.const 768) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00I\00n\00d\00e\00x\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e")
  (data (i32.const 832) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00~\00l\00i\00b\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s")
  (data (i32.const 896) "0\00\00\00\01\00\00\00\01\00\00\000\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00g\00e\00r\00/\00u\002\005\006\00.\00t\00s")
- (data (i32.const 960) "\n\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\003\00\00\00\02\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\001\00\00\00\02\00\00\001\04\00\00\02")
+ (data (i32.const 960) "0\00\00\00\01\00\00\00\01\00\00\000\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00g\00e\00r\00/\00i\001\002\008\00.\00t\00s")
+ (data (i32.const 1024) "\n\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\003\00\00\00\02\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\001\00\00\00\02\00\00\001\04\00\00\02")
  (global $~lib/rt/stub/startOffset (mut i32) (i32.const 0))
  (global $~lib/rt/stub/offset (mut i32) (i32.const 0))
  (global $assembly/globals/__res128_hi (mut i64) (i64.const 0))
  (global $assembly/globals/__divmod_quot_hi (mut i64) (i64.const 0))
  (global $assembly/globals/__divmod_rem (mut i64) (i64.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 960))
+ (global $~lib/rt/__rtti_base i32 (i32.const 1024))
  (global $assembly/integer/u128/u128 i32 (i32.const 3))
  (global $~argumentsLength (mut i32) (i32.const 0))
  (global $assembly/integer/u256/u256 i32 (i32.const 6))
+ (global $assembly/integer/i128/i128 i32 (i32.const 7))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/stub/__alloc))
  (export "__retain" (func $~lib/rt/stub/__retain))
@@ -217,6 +219,57 @@
  (export "u256.popcnt" (func $assembly/integer/u256/u256.popcnt))
  (export "u256.clz" (func $assembly/integer/u256/u256.clz))
  (export "u256.ctz" (func $assembly/integer/u256/u256.ctz))
+ (export "i128" (global $assembly/integer/i128/i128))
+ (export "i128#get:lo" (func $assembly/integer/u128/u128#get:lo))
+ (export "i128#set:lo" (func $assembly/integer/u128/u128#set:lo))
+ (export "i128#get:hi" (func $assembly/integer/u128/u128#get:hi))
+ (export "i128#set:hi" (func $assembly/integer/u128/u128#set:hi))
+ (export "i128#constructor" (func $assembly/integer/i128/i128#constructor|trampoline))
+ (export "i128#isPos" (func $assembly/integer/i128/i128#isPos))
+ (export "i128#isNeg" (func $assembly/integer/i128/i128#isNeg))
+ (export "i128#isZero" (func $assembly/integer/u128/u128#isZero))
+ (export "i128#not" (func $assembly/integer/i128/i128#not))
+ (export "i128#pos" (func $~lib/rt/stub/__retain))
+ (export "i128#neg" (func $assembly/integer/i128/i128#neg))
+ (export "i128.get:Zero" (func $assembly/integer/i128/i128.Zero.get:Zero))
+ (export "i128.get:One" (func $assembly/integer/i128/i128.One.get:One))
+ (export "i128.get:Min" (func $assembly/integer/i128/i128.Min.get:Min))
+ (export "i128.get:Max" (func $assembly/integer/i128/i128.Max.get:Max))
+ (export "i128.fromString" (func $assembly/integer/u128/u128.fromString|trampoline))
+ (export "i128.fromI256" (func $assembly/integer/u128/u128#toI128))
+ (export "i128.fromU256" (func $assembly/integer/u128/u128#toI128))
+ (export "i128.fromI128" (func $assembly/integer/u128/u128#toI128))
+ (export "i128.fromU128" (func $assembly/integer/u128/u128#toI128))
+ (export "i128.fromI64" (func $assembly/integer/i128/i128.fromI64))
+ (export "i128.fromU64" (func $assembly/integer/i128/i128.fromU64))
+ (export "i128.fromF64" (func $assembly/integer/i128/i128.fromF64))
+ (export "i128.fromF32" (func $assembly/integer/i128/i128.fromF32))
+ (export "i128.fromI32" (func $assembly/integer/i128/i128.fromI32))
+ (export "i128.fromU32" (func $assembly/integer/i128/i128.fromU32))
+ (export "i128.fromBits" (func $assembly/integer/i128/i128.fromBits))
+ (export "i128.fromBytesLE" (func $assembly/integer/i128/i128.fromBytesLE))
+ (export "i128.fromBytesBE" (func $assembly/integer/i128/i128.fromBytesBE))
+ (export "i128.fromUint8ArrayLE" (func $assembly/integer/i128/i128.fromUint8ArrayLE))
+ (export "i128.fromUint8ArrayBE" (func $assembly/integer/i128/i128.fromUint8ArrayBE))
+ (export "i128.isEmpty" (func $assembly/integer/i128/i128.isEmpty))
+ (export "i128.or" (func $assembly/integer/i128/i128.or))
+ (export "i128.xor" (func $assembly/integer/i128/i128.xor))
+ (export "i128.and" (func $assembly/integer/i128/i128.and))
+ (export "i128.shl" (func $assembly/integer/i128/i128.shl))
+ (export "i128.shr_u" (func $assembly/integer/i128/i128.shr_u))
+ (export "i128.add" (func $assembly/integer/i128/i128.add))
+ (export "i128.sub" (func $assembly/integer/i128/i128.sub))
+ (export "i128.eq" (func $assembly/integer/u128/u128.eq))
+ (export "i128.ne" (func $assembly/integer/u128/u128.ne))
+ (export "i128.lt" (func $assembly/integer/i128/i128.lt))
+ (export "i128.gt" (func $assembly/integer/i128/i128.gt))
+ (export "i128.le" (func $assembly/integer/i128/i128.le))
+ (export "i128.ge" (func $assembly/integer/i128/i128.ge))
+ (export "i128.ord" (func $assembly/integer/u128/u128.ord))
+ (export "i128.popcnt" (func $assembly/integer/u128/u128.popcnt))
+ (export "i128.clz" (func $assembly/integer/u128/u128.clz))
+ (export "i128.ctz" (func $assembly/integer/u128/u128.ctz))
+ (export "i128.abs" (func $assembly/integer/i128/i128.abs))
  (start $~start)
  (func $~lib/rt/stub/maybeGrowMemory (; 1 ;) (param $0 i32)
   (local $1 i32)
@@ -4075,20 +4128,25 @@
   i64.const 0
   call $assembly/integer/u256/u256#constructor
  )
- (func $assembly/integer/i128/i128#constructor (; 80 ;) (param $0 i64) (param $1 i64) (result i32)
-  (local $2 i32)
-  i32.const 16
-  i32.const 7
-  call $~lib/rt/stub/__alloc
-  local.tee $2
+ (func $assembly/integer/i128/i128#constructor (; 80 ;) (param $0 i32) (param $1 i64) (param $2 i64) (result i32)
   local.get $0
-  i64.store
-  local.get $2
+  i32.eqz
+  if
+   i32.const 16
+   i32.const 7
+   call $~lib/rt/stub/__alloc
+   local.set $0
+  end
+  local.get $0
   local.get $1
-  i64.store offset=8
+  i64.store
+  local.get $0
   local.get $2
+  i64.store offset=8
+  local.get $0
  )
  (func $assembly/integer/u128/u128#toI128 (; 81 ;) (param $0 i32) (result i32)
+  i32.const 0
   local.get $0
   i64.load
   local.get $0
@@ -7683,6 +7741,7 @@
   call $assembly/integer/u256/u256#preDec
  )
  (func $assembly/integer/u256/u256#toI128 (; 154 ;) (param $0 i32) (result i32)
+  i32.const 0
   local.get $0
   i64.load
   local.get $0
@@ -7976,13 +8035,633 @@
   local.get $0
   call $assembly/utils/u256toa10
  )
- (func $~start (; 163 ;)
-  i32.const 1056
+ (func $assembly/integer/i128/i128.Zero.get:Zero (; 163 ;) (result i32)
+  i32.const 0
+  i64.const 0
+  i64.const 0
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.One.get:One (; 164 ;) (result i32)
+  i32.const 0
+  i64.const 1
+  i64.const 0
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.Min.get:Min (; 165 ;) (result i32)
+  i32.const 0
+  i64.const 0
+  i64.const -9223372036854775808
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.Max.get:Max (; 166 ;) (result i32)
+  i32.const 0
+  i64.const -1
+  i64.const 9223372036854775807
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.fromI64 (; 167 ;) (param $0 i64) (result i32)
+  i32.const 0
+  local.get $0
+  local.get $0
+  i64.const 63
+  i64.shr_s
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.fromU64 (; 168 ;) (param $0 i64) (result i32)
+  i32.const 0
+  local.get $0
+  i64.const 0
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.fromF64 (; 169 ;) (param $0 f64) (result i32)
+  i32.const 0
+  local.get $0
+  i64.trunc_f64_u
+  local.get $0
+  i64.reinterpret_f64
+  i64.const 63
+  i64.shr_s
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.fromF32 (; 170 ;) (param $0 f32) (result i32)
+  i32.const 0
+  local.get $0
+  i64.trunc_f32_u
+  local.get $0
+  i32.reinterpret_f32
+  i32.const 31
+  i32.shr_s
+  i64.extend_i32_s
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.fromI32 (; 171 ;) (param $0 i32) (result i32)
+  (local $1 i64)
+  i32.const 0
+  local.get $0
+  i64.extend_i32_s
+  local.tee $1
+  local.get $1
+  i64.const 63
+  i64.shr_s
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.fromU32 (; 172 ;) (param $0 i32) (result i32)
+  i32.const 0
+  local.get $0
+  i64.extend_i32_u
+  i64.const 0
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.fromBits (; 173 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+  i32.const 0
+  local.get $0
+  i64.extend_i32_s
+  local.get $1
+  i64.extend_i32_s
+  i64.const 32
+  i64.shl
+  i64.or
+  local.get $2
+  i64.extend_i32_s
+  local.get $3
+  i64.extend_i32_s
+  i64.const 32
+  i64.shl
+  i64.or
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.fromBytesLE (; 174 ;) (param $0 i32) (result i32)
+  local.get $0
+  i32.load offset=12
+  if (result i32)
+   local.get $0
+   i32.load offset=12
+   i32.const 15
+   i32.and
+   i32.eqz
+  else
+   i32.const 0
+  end
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 976
+   i32.const 108
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+  i32.const 0
+  local.get $0
+  i32.load offset=4
+  local.tee $0
+  i64.load
+  local.get $0
+  i64.load offset=8
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.fromBytesBE (; 175 ;) (param $0 i32) (result i32)
+  local.get $0
+  i32.load offset=12
+  if (result i32)
+   local.get $0
+   i32.load offset=12
+   i32.const 15
+   i32.and
+   i32.eqz
+  else
+   i32.const 0
+  end
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 976
+   i32.const 118
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+  i32.const 0
+  local.get $0
+  i32.load offset=4
+  local.tee $0
+  i64.load offset=8
+  call $~lib/polyfills/bswap<u64>
+  local.get $0
+  i64.load
+  call $~lib/polyfills/bswap<u64>
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.fromUint8ArrayLE (; 176 ;) (param $0 i32) (result i32)
+  local.get $0
+  i32.load offset=8
+  if (result i32)
+   local.get $0
+   i32.load offset=8
+   i32.const 15
+   i32.and
+   i32.eqz
+  else
+   i32.const 0
+  end
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 976
+   i32.const 128
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+  i32.const 0
+  local.get $0
+  i32.load offset=4
+  local.tee $0
+  i64.load
+  local.get $0
+  i64.load offset=8
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.fromUint8ArrayBE (; 177 ;) (param $0 i32) (result i32)
+  local.get $0
+  i32.load offset=8
+  if (result i32)
+   local.get $0
+   i32.load offset=8
+   i32.const 15
+   i32.and
+   i32.eqz
+  else
+   i32.const 0
+  end
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 976
+   i32.const 138
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+  i32.const 0
+  local.get $0
+  i32.load offset=4
+  local.tee $0
+  i64.load offset=8
+  call $~lib/polyfills/bswap<u64>
+  local.get $0
+  i64.load
+  call $~lib/polyfills/bswap<u64>
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.isEmpty (; 178 ;) (param $0 i32) (result i32)
+  local.get $0
+  if (result i32)
+   local.get $0
+   i64.load
+   local.get $0
+   i64.load offset=8
+   i64.or
+   i64.eqz
+   i32.const 0
+   i32.ne
+  else
+   i32.const 1
+  end
+ )
+ (func $assembly/integer/i128/i128.or (; 179 ;) (param $0 i32) (param $1 i32) (result i32)
+  i32.const 0
+  local.get $0
+  i64.load
+  local.get $1
+  i64.load
+  i64.or
+  local.get $0
+  i64.load offset=8
+  local.get $1
+  i64.load offset=8
+  i64.or
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.xor (; 180 ;) (param $0 i32) (param $1 i32) (result i32)
+  i32.const 0
+  local.get $0
+  i64.load
+  local.get $1
+  i64.load
+  i64.xor
+  local.get $0
+  i64.load offset=8
+  local.get $1
+  i64.load offset=8
+  i64.xor
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.and (; 181 ;) (param $0 i32) (param $1 i32) (result i32)
+  i32.const 0
+  local.get $0
+  i64.load
+  local.get $1
+  i64.load
+  i64.and
+  local.get $0
+  i64.load offset=8
+  local.get $1
+  i64.load offset=8
+  i64.and
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.shl (; 182 ;) (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i64)
+  (local $3 i64)
+  (local $4 i64)
+  (local $5 i64)
+  (local $6 i64)
+  local.get $0
+  i64.load
+  local.tee $5
+  local.get $1
+  i32.const 127
+  i32.and
+  i64.extend_i32_s
+  local.tee $2
+  i64.const 63
+  i64.and
+  local.tee $3
+  i64.shl
+  local.tee $6
+  local.get $2
+  i64.const 6
+  i64.shr_u
+  i64.const 1
+  i64.sub
+  local.tee $4
+  i64.const -1
+  i64.xor
+  i64.and
+  local.get $4
+  local.get $2
+  local.get $2
+  i64.const 127
+  i64.add
+  i64.or
+  i64.const 64
+  i64.and
+  i64.const 6
+  i64.shr_u
+  i64.const 1
+  i64.sub
+  local.get $5
+  i64.const 64
+  local.get $3
+  i64.sub
+  i64.shr_u
+  i64.and
+  local.get $0
+  i64.load offset=8
+  local.get $3
+  i64.shl
+  i64.or
+  i64.and
+  i64.or
+  local.set $2
+  i32.const 0
+  local.get $4
+  local.get $6
+  i64.and
+  local.get $2
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.shr_u (; 183 ;) (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i64)
+  (local $3 i64)
+  (local $4 i64)
+  (local $5 i64)
+  (local $6 i64)
+  i32.const 0
+  local.get $0
+  i64.load offset=8
+  local.tee $5
+  local.get $1
+  i32.const 127
+  i32.and
+  i64.extend_i32_s
+  local.tee $2
+  i64.const 63
+  i64.and
+  local.tee $3
+  i64.shr_u
+  local.tee $6
+  local.get $2
+  i64.const 6
+  i64.shr_u
+  i64.const 1
+  i64.sub
+  local.tee $4
+  i64.const -1
+  i64.xor
+  i64.and
+  local.get $4
+  local.get $2
+  local.get $2
+  i64.const 127
+  i64.add
+  i64.or
+  i64.const 64
+  i64.and
+  i64.const 6
+  i64.shr_u
+  i64.const 1
+  i64.sub
+  local.get $5
+  i64.const 64
+  local.get $3
+  i64.sub
+  i64.shl
+  i64.and
+  local.get $0
+  i64.load
+  local.get $3
+  i64.shr_u
+  i64.or
+  i64.and
+  i64.or
+  local.get $4
+  local.get $6
+  i64.and
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.add (; 184 ;) (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i64)
+  (local $3 i64)
+  (local $4 i64)
+  i32.const 0
+  local.get $1
+  i64.load
+  local.tee $2
+  local.get $0
+  i64.load
+  i64.add
+  local.get $1
+  i64.load offset=8
+  local.tee $3
+  i64.const 63
+  i64.shr_u
+  i64.sub
+  local.tee $4
+  local.get $4
+  local.get $2
+  i64.lt_u
+  i64.extend_i32_u
+  local.get $3
+  local.get $0
+  i64.load offset=8
+  i64.add
+  i64.add
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.sub (; 185 ;) (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i64)
+  (local $3 i64)
+  (local $4 i64)
+  i32.const 0
+  local.get $0
+  i64.load
+  local.tee $2
+  local.get $1
+  i64.load
+  i64.sub
+  local.get $1
+  i64.load offset=8
+  local.tee $3
+  i64.const 63
+  i64.shr_u
+  i64.add
+  local.tee $4
+  local.get $0
+  i64.load offset=8
+  local.get $3
+  i64.sub
+  local.get $4
+  local.get $2
+  i64.gt_u
+  i64.extend_i32_u
+  i64.sub
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128.lt (; 186 ;) (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i64)
+  (local $3 i64)
+  local.get $0
+  i64.load offset=8
+  local.tee $2
+  local.get $1
+  i64.load offset=8
+  local.tee $3
+  i64.eq
+  if (result i32)
+   local.get $0
+   i64.load
+   local.get $1
+   i64.load
+   i64.lt_u
+  else
+   local.get $2
+   local.get $3
+   i64.lt_s
+  end
+ )
+ (func $assembly/integer/i128/i128.gt (; 187 ;) (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i64)
+  (local $3 i64)
+  local.get $0
+  i64.load offset=8
+  local.tee $2
+  local.get $1
+  i64.load offset=8
+  local.tee $3
+  i64.eq
+  if (result i32)
+   local.get $0
+   i64.load
+   local.get $1
+   i64.load
+   i64.gt_u
+  else
+   local.get $2
+   local.get $3
+   i64.gt_s
+  end
+ )
+ (func $assembly/integer/i128/i128.le (; 188 ;) (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i64)
+  (local $3 i64)
+  local.get $0
+  i64.load offset=8
+  local.tee $2
+  local.get $1
+  i64.load offset=8
+  local.tee $3
+  i64.eq
+  if (result i32)
+   local.get $0
+   i64.load
+   local.get $1
+   i64.load
+   i64.gt_u
+  else
+   local.get $2
+   local.get $3
+   i64.gt_s
+  end
+  i32.eqz
+ )
+ (func $assembly/integer/i128/i128.ge (; 189 ;) (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i64)
+  (local $3 i64)
+  local.get $0
+  i64.load offset=8
+  local.tee $2
+  local.get $1
+  i64.load offset=8
+  local.tee $3
+  i64.eq
+  if (result i32)
+   local.get $0
+   i64.load
+   local.get $1
+   i64.load
+   i64.lt_u
+  else
+   local.get $2
+   local.get $3
+   i64.lt_s
+  end
+  i32.eqz
+ )
+ (func $assembly/integer/i128/i128.abs (; 190 ;) (param $0 i32) (result i32)
+  (local $1 i64)
+  (local $2 i64)
+  local.get $0
+  i64.load
+  local.set $1
+  local.get $0
+  i64.load offset=8
+  local.tee $2
+  i64.const 0
+  i64.lt_s
+  if
+   local.get $1
+   i64.const 1
+   i64.sub
+   i64.const -1
+   i64.xor
+   local.tee $1
+   i64.eqz
+   i64.extend_i32_u
+   local.get $2
+   i64.const -1
+   i64.xor
+   i64.add
+   local.set $2
+  end
+  i32.const 0
+  local.get $1
+  local.get $2
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128#isPos (; 191 ;) (param $0 i32) (result i32)
+  local.get $0
+  i64.load offset=8
+  i64.const 0
+  i64.ge_s
+ )
+ (func $assembly/integer/i128/i128#isNeg (; 192 ;) (param $0 i32) (result i32)
+  local.get $0
+  i64.load offset=8
+  i64.const 0
+  i64.lt_s
+ )
+ (func $assembly/integer/i128/i128#not (; 193 ;) (param $0 i32) (result i32)
+  i32.const 0
+  local.get $0
+  i64.load
+  i64.const -1
+  i64.xor
+  local.get $0
+  i64.load offset=8
+  i64.const -1
+  i64.xor
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128#neg (; 194 ;) (param $0 i32) (result i32)
+  (local $1 i64)
+  i32.const 0
+  local.get $0
+  i64.load
+  i64.const -1
+  i64.xor
+  local.tee $1
+  i64.const 1
+  i64.add
+  local.get $1
+  i64.const 0
+  i64.gt_u
+  i64.extend_i32_u
+  local.get $0
+  i64.load offset=8
+  i64.const -1
+  i64.xor
+  i64.add
+  call $assembly/integer/i128/i128#constructor
+ )
+ (func $~start (; 195 ;)
+  i32.const 1120
   global.set $~lib/rt/stub/startOffset
-  i32.const 1056
+  i32.const 1120
   global.set $~lib/rt/stub/offset
  )
- (func $assembly/integer/u128/u128#constructor|trampoline (; 164 ;) (param $0 i32) (param $1 i64) (param $2 i64) (result i32)
+ (func $assembly/integer/u128/u128#constructor|trampoline (; 196 ;) (param $0 i32) (param $1 i64) (param $2 i64) (result i32)
   block $2of2
    block $1of2
     block $0of2
@@ -8003,11 +8682,11 @@
   local.get $2
   call $assembly/integer/u128/u128#constructor
  )
- (func $~setArgumentsLength (; 165 ;) (param $0 i32)
+ (func $~setArgumentsLength (; 197 ;) (param $0 i32)
   local.get $0
   global.set $~argumentsLength
  )
- (func $assembly/integer/u128/u128#toBytes|trampoline (; 166 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128#toBytes|trampoline (; 198 ;) (param $0 i32) (param $1 i32) (result i32)
   block $1of1
    block $0of1
     block $outOfRange
@@ -8023,7 +8702,7 @@
   local.get $1
   call $assembly/integer/u128/u128#toBytes
  )
- (func $assembly/integer/u128/u128#toUint8Array|trampoline (; 167 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128#toUint8Array|trampoline (; 199 ;) (param $0 i32) (param $1 i32) (result i32)
   block $1of1
    block $0of1
     block $outOfRange
@@ -8039,7 +8718,7 @@
   local.get $1
   call $assembly/integer/u128/u128#toUint8Array
  )
- (func $assembly/integer/u128/u128#toString|trampoline (; 168 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128#toString|trampoline (; 200 ;) (param $0 i32) (param $1 i32) (result i32)
   block $1of1
    block $0of1
     block $outOfRange
@@ -8055,7 +8734,7 @@
   local.get $1
   call $assembly/integer/u128/u128#toString
  )
- (func $assembly/integer/u128/u128.fromString|trampoline (; 169 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u128/u128.fromString|trampoline (; 201 ;) (param $0 i32) (param $1 i32) (result i32)
   block $1of1
    block $0of1
     block $outOfRange
@@ -8073,7 +8752,7 @@
   local.get $1
   call $assembly/utils/atou128
  )
- (func $assembly/integer/u256/u256#constructor|trampoline (; 170 ;) (param $0 i32) (param $1 i64) (param $2 i64) (param $3 i64) (param $4 i64) (result i32)
+ (func $assembly/integer/u256/u256#constructor|trampoline (; 202 ;) (param $0 i32) (param $1 i64) (param $2 i64) (param $3 i64) (param $4 i64) (result i32)
   block $4of4
    block $3of4
     block $2of4
@@ -8104,7 +8783,7 @@
   local.get $4
   call $assembly/integer/u256/u256#constructor
  )
- (func $assembly/integer/u256/u256#toBytes|trampoline (; 171 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u256/u256#toBytes|trampoline (; 203 ;) (param $0 i32) (param $1 i32) (result i32)
   block $1of1
    block $0of1
     block $outOfRange
@@ -8120,7 +8799,7 @@
   local.get $1
   call $assembly/integer/u256/u256#toBytes
  )
- (func $assembly/integer/u256/u256#toUint8Array|trampoline (; 172 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u256/u256#toUint8Array|trampoline (; 204 ;) (param $0 i32) (param $1 i32) (result i32)
   block $1of1
    block $0of1
     block $outOfRange
@@ -8136,7 +8815,7 @@
   local.get $1
   call $assembly/integer/u256/u256#toUint8Array
  )
- (func $assembly/integer/u256/u256#toString|trampoline (; 173 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/integer/u256/u256#toString|trampoline (; 205 ;) (param $0 i32) (param $1 i32) (result i32)
   block $1of1
    block $0of1
     block $outOfRange
@@ -8151,5 +8830,26 @@
   local.get $0
   local.get $1
   call $assembly/integer/u256/u256#toString
+ )
+ (func $assembly/integer/i128/i128#constructor|trampoline (; 206 ;) (param $0 i32) (param $1 i64) (param $2 i64) (result i32)
+  block $2of2
+   block $1of2
+    block $0of2
+     block $outOfRange
+      global.get $~argumentsLength
+      br_table $0of2 $1of2 $2of2 $outOfRange
+     end
+     unreachable
+    end
+    i64.const 0
+    local.set $1
+   end
+   i64.const 0
+   local.set $2
+  end
+  local.get $0
+  local.get $1
+  local.get $2
+  call $assembly/integer/i128/i128#constructor
  )
 )
