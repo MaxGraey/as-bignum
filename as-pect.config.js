@@ -6,6 +6,7 @@ module.exports = {
     "--binaryFile": ["output.wasm"],
     "--runtime": ["stub"]
   },
+  outputBinary: false,
   imports: {},
   disclude: [/node_modules/]
 };
