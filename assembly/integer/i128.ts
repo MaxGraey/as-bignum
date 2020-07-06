@@ -93,7 +93,9 @@ export class i128 {
   static fromBytes<T>(array: T, bigEndian: bool = false): i128 {
     if (array instanceof u8[]) {
       return bigEndian
+        // @ts-ignore
         ? i128.fromBytesBE(<u8[]>array)
+        // @ts-ignore
         : i128.fromBytesLE(<u8[]>array);
     } else if (array instanceof Uint8Array) {
       return bigEndian
@@ -205,7 +207,7 @@ export class i128 {
     var lo = ~this.lo;
     var hi = ~this.hi;
     var lo1 = lo + 1;
-    return new i128(lo1, hi + i64(lo > 0));
+    return new i128(lo1, hi + i64(lo1 < 0));
   }
 
   @inline @operator.prefix('!')
@@ -348,8 +350,8 @@ export class i128 {
   static abs(value: i128): i128 {
     var lo = value.lo;
     var hi = value.hi;
-    if (hi < 0) {
-      lo = ~(lo - 1);
+    if (hi >>> 63) {
+      lo = -lo;
       hi = ~hi + i64(lo == 0);
     }
     return new i128(lo, hi);
