@@ -9790,7 +9790,7 @@
   if
    i32.const 0
    i32.const 2032
-   i32.const 108
+   i32.const 110
    i32.const 5
    call $~lib/builtins/abort
    unreachable
@@ -9821,7 +9821,7 @@
   if
    i32.const 0
    i32.const 2032
-   i32.const 118
+   i32.const 120
    i32.const 5
    call $~lib/builtins/abort
    unreachable
@@ -9899,7 +9899,7 @@
   if
    i32.const 0
    i32.const 2032
-   i32.const 128
+   i32.const 130
    i32.const 5
    call $~lib/builtins/abort
    unreachable
@@ -9930,7 +9930,7 @@
   if
    i32.const 0
    i32.const 2032
-   i32.const 138
+   i32.const 140
    i32.const 5
    call $~lib/builtins/abort
    unreachable
@@ -10324,14 +10324,14 @@
   local.get $0
   i64.load offset=8
   local.tee $1
+  i64.const 63
+  i64.shr_u
   i64.const 0
-  i64.lt_s
+  i64.ne
   if
+   i64.const 0
    local.get $2
-   i64.const 1
    i64.sub
-   i64.const -1
-   i64.xor
    local.tee $2
    i64.eqz
    i64.extend_i32_u
@@ -10377,12 +10377,12 @@
   i64.load
   i64.const -1
   i64.xor
-  local.tee $1
   i64.const 1
   i64.add
+  local.tee $1
   local.get $1
   i64.const 0
-  i64.gt_u
+  i64.lt_u
   i64.extend_i32_u
   local.get $0
   i64.load offset=8
