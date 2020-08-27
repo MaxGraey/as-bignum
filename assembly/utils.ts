@@ -2,7 +2,8 @@ import { CharCode } from "util/string";
 import { u128 } from "./integer/u128";
 import { u256 } from "./integer/u256";
 
-const HEX_CHARS = '0123456789abcdef';
+// @ts-ignore: decorator
+@lazy const HEX_CHARS = '0123456789abcdef';
 
 // @ts-ignore: decorator
 @lazy const MaxBaseForExponent128: u64[] = [
