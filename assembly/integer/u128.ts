@@ -575,23 +575,26 @@ export class u128 {
 
   // compute floor(sqrt(x))
   static sqrt(value: u128): u128 {
-    if (value <= u128.One)    return value;
-    if (value <= new u128(3)) return u128.One;
-
-    let res: u64 = 0;
-    let add: u64 = 0x8000000000000000;
-    let tmp = new u128();
-    for (let i = 0; i < 64; ++i) {
-      tmp.setU64(res | add);
+    if (value < new u128(2)) return value;
+    var res = u128.Zero;
+    var rem = value.clone();
+    // @ts-ignore
+    var pos = u128.One << (127 - (u128.clz(value) | 1));
+    // @ts-ignore
+    while (!pos.isZero()) {
       // @ts-ignore
-      let sqr = tmp * tmp;
-      // @ts-ignore
-      if (value >= sqr) {
-        res = tmp.lo;
+      value = res + pos;
+      if (rem >= value) {
+        // @ts-ignore
+        rem = rem - value;
+        // @ts-ignore
+        res = pos + value;
       }
-      add >>= 1;
+      // @ts-ignore
+      res >>= 1;
+      pos >>= 2;
     }
-    return new u128(res);
+    return res;
   }
 
   @inline @operator('==')
