@@ -484,13 +484,10 @@ export class u128 {
     var result = u128.One;
 
     if (base == result) return result;
-    if (exponent < 0) return u128.Zero;
-
     var tmp = base.clone();
-
-    switch (exponent) {
-      case 0: return result;
-      case 1: return tmp;
+    if (exponent <= 1) {
+      if (exponent < 0) return u128.Zero;
+      return exponent == 0 ? result : tmp;
     }
 
     if (ASC_SHRINK_LEVEL < 1) {
@@ -575,9 +572,11 @@ export class u128 {
 
   // compute floor(sqrt(x))
   static sqrt(value: u128): u128 {
-    if (value < new u128(2)) return value;
-    var res = u128.Zero;
     var rem = value.clone();
+    if (value < new u128(2)) {
+      return rem;
+    }
+    var res = u128.Zero;
     // @ts-ignore
     var pos = u128.One << (127 - (u128.clz(value) | 1));
     // @ts-ignore
