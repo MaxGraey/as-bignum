@@ -756,6 +756,11 @@ describe("Exponention Operation", () => {
     expect(u128.sqrt(a)).toStrictEqual(new u128(31));
   });
 
+  it("Should sqrt 0x33333333333333333333333333333333 value number", () => {
+    var a = new u128(0x3333333333333333, 0x3333333333333333);
+    expect(u128.sqrt(a)).toStrictEqual(new u128(0x727C9716FFB764D5));
+  });
+
   it("Should sqrt max value number", () => {
     var a = u128.Max;
     expect(u128.sqrt(a)).toStrictEqual(new u128(u64.MAX_VALUE));
