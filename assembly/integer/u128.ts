@@ -75,12 +75,12 @@ export class u128 {
   // max safe int for f32 actually 23-bits
   @inline
   static fromF32(value: f32): u128 {
-    return new u128(<u64>value, reinterpret<i32>(value) >> 31);
+    return new u128(<u64>value, <u64>(reinterpret<i32>(value) >> 31));
   }
 
   @inline
   static fromI32(value: i32): u128 {
-    return new u128(value, value >> 63);
+    return new u128(value, value >> 31);
   }
 
   @inline
