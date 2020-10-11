@@ -1091,7 +1091,7 @@
   local.get $0
   i64.extend_i32_s
   local.get $0
-  i32.const 63
+  i32.const 31
   i32.shr_s
   i64.extend_i32_s
   call $assembly/integer/u128/u128#constructor
@@ -5153,7 +5153,7 @@
   i64.store
   local.get $0
   local.get $1
-  i32.const 63
+  i32.const 31
   i32.shr_s
   i64.extend_i32_s
   i64.store offset=8
@@ -7733,7 +7733,7 @@
   local.get $0
   i64.extend_i32_s
   local.get $0
-  i32.const 63
+  i32.const 31
   i32.shr_s
   i64.extend_i32_s
   local.tee $1
@@ -9022,7 +9022,7 @@
   i64.store
   local.get $0
   local.get $1
-  i32.const 63
+  i32.const 31
   i32.shr_s
   i64.extend_i32_s
   local.tee $2
@@ -9797,14 +9797,13 @@
   call $assembly/integer/i128/i128#constructor
  )
  (func $assembly/integer/i128/i128.fromI32 (param $0 i32) (result i32)
-  (local $1 i64)
   i32.const 0
   local.get $0
   i64.extend_i32_s
-  local.tee $1
-  local.get $1
-  i64.const 63
-  i64.shr_s
+  local.get $0
+  i32.const 31
+  i32.shr_s
+  i64.extend_i32_s
   call $assembly/integer/i128/i128#constructor
  )
  (func $assembly/integer/i128/i128.fromU32 (param $0 i32) (result i32)
@@ -9848,7 +9847,7 @@
   if
    i32.const 0
    i32.const 2032
-   i32.const 110
+   i32.const 109
    i32.const 5
    call $~lib/builtins/abort
    unreachable
@@ -9879,7 +9878,7 @@
   if
    i32.const 0
    i32.const 2032
-   i32.const 120
+   i32.const 119
    i32.const 5
    call $~lib/builtins/abort
    unreachable
@@ -9957,7 +9956,7 @@
   if
    i32.const 0
    i32.const 2032
-   i32.const 130
+   i32.const 129
    i32.const 5
    call $~lib/builtins/abort
    unreachable
@@ -9988,7 +9987,7 @@
   if
    i32.const 0
    i32.const 2032
-   i32.const 140
+   i32.const 139
    i32.const 5
    call $~lib/builtins/abort
    unreachable
@@ -10384,8 +10383,7 @@
   local.tee $1
   i64.const 63
   i64.shr_u
-  i64.const 0
-  i64.ne
+  i32.wrap_i64
   if
    i64.const 0
    local.get $2
