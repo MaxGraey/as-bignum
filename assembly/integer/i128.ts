@@ -60,19 +60,19 @@ export class i128 {
   // max safe uint for f64 actually 53-bits
   @inline
   static fromF64(value: f64): i128 {
-    return new u128(<u64>value, -(<u64>(value < 0)));
+    return new i128(<u64>value, reinterpret<i64>(value) >> 63);
   }
 
   // TODO need improvement
   // max safe int for f32 actually 23-bits
   @inline
   static fromF32(value: f32): i128 {
-    return new i128(<u64>value, -(<i64>(value < 0)));
+    return new i128(<u64>value, <i64>(reinterpret<i32>(value) >> 31));
   }
 
   @inline
   static fromI32(value: i32): i128 {
-    return new i128(<u64>value, <i64>value >> 63);
+    return new i128(<u64>value, <i64>(value >> 31));
   }
 
   @inline
@@ -90,7 +90,7 @@ export class i128 {
 
   @inline
   static fromBytes(array: u8[], le: bool = true): i128 {
-    return le ? i128.fromBytesLE(array) : u128.fromBytesBE(array);
+    return le ? i128.fromBytesLE(array) : i128.fromBytesBE(array);
   }
 
   static fromBytesLE(array: u8[]): i128 {

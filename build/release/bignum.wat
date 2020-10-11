@@ -1038,7 +1038,7 @@
   local.get $0
   i64.extend_i32_s
   local.get $0
-  i32.const 63
+  i32.const 31
   i32.shr_s
   i64.extend_i32_s
   call $assembly/integer/u128/u128#constructor
@@ -5093,7 +5093,7 @@
   i64.store
   local.get $0
   local.get $1
-  i32.const 63
+  i32.const 31
   i32.shr_s
   i64.extend_i32_s
   i64.store offset=8
@@ -7668,7 +7668,7 @@
   local.get $0
   i64.extend_i32_s
   local.get $0
-  i32.const 63
+  i32.const 31
   i32.shr_s
   i64.extend_i32_s
   local.tee $1
@@ -8957,7 +8957,7 @@
   i64.store
   local.get $0
   local.get $1
-  i32.const 63
+  i32.const 31
   i32.shr_s
   i64.extend_i32_s
   local.tee $2
