@@ -722,8 +722,8 @@ export class u128 {
   }
 
   /**
-   * Calculate multiply & division (this * multiplier / divider)
-   * without owerflow in multiplication for 128-bit unsigned integer
+   * Calculate multiply and division as `this * multiplier / divider`
+   * without overflow in multiplication part.
    *
    * @returns 128-bit unsigned integer
    */
