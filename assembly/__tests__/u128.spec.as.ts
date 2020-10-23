@@ -914,6 +914,18 @@ describe("Division And Mod Operation", () => {
 });
 
 describe("Multiply and Division without Overflow", () => {
+  it("Should muldiv return zero 1", () => {
+    let a = new u128(10248516654965971928, 5);
+    let b = new u128(22972907047680);
+    expect(a.muldiv(u128.Zero, b)).toStrictEqual(u128.Zero);
+  });
+
+  it("Should muldiv return zero 2", () => {
+    let a = u128.Zero;
+    let b = new u128(22972907047680);
+    expect(a.muldiv(u128.One, b)).toStrictEqual(u128.Zero);
+  });
+
   it("Should muldiv same number 1", () => {
     let a = new u128(10248516654965971928, 5);
     let b = new u128(22972907047680);
