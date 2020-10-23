@@ -913,6 +913,14 @@ describe("Division And Mod Operation", () => {
   });
 });
 
+describe("Multiply and Division without Overflow", () => {
+  it("Should muldiv same number", () => {
+    let a = new u128(10248516654965971928, 5);
+    let b = new u128(22972907047680);
+    expect(a.muldiv(b, b)).toStrictEqual(a);
+  });
+});
+
 describe("Throwable", () => {
   it("Should throw from string with unsupported radix 1", () => {
     expect(() => {

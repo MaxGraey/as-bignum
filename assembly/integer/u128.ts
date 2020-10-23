@@ -722,6 +722,51 @@ export class u128 {
   }
 
   /**
+   * Calculate multiply & division (this * multiplier / divider)
+   * without owerflow in multiplication for 128-bit unsigned integer
+   *
+   * @returns 128-bit unsigned integer
+   */
+  muldiv(multiplier: u128, divider: u128): u128 {
+    let a = this;
+    let b = multiplier;
+    let c = divider;
+    let q = u128.Zero;
+    let r = u128.Zero;
+    let ql = __udivmod128(b.lo, b.hi, c.lo, c.hi);
+    let qn = new u128(ql, __divmod_quot_hi); // b / c
+    let rn = new u128(__divmod_rem);         // b % c
+
+    while (!a.isZero()) {
+      if (a.lo & 1) {
+        // @ts-ignore
+        q += qn;
+        // @ts-ignore
+        r += rn;
+        if (r >= c) {
+          // @ts-ignore
+          ++q;
+          // @ts-ignore
+          r -= c;
+        }
+      }
+      // @ts-ignore
+      a >>= 1;
+      // @ts-ignore
+      qn <<= 1;
+      // @ts-ignore
+      rn <<= 1;
+      if (rn >= c) {
+        // @ts-ignore
+        ++qn;
+        // @ts-ignore
+        rn -= c;
+      }
+    }
+    return q;
+  }
+
+  /**
   * Convert to 256-bit signed integer
   * @returns 256-bit signed integer
   */
