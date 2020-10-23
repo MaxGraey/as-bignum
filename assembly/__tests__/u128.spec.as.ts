@@ -958,11 +958,27 @@ describe("Multiply and Division without Overflow", () => {
     expect(a.muldiv(b, c)).toStrictEqual(new u128(11529215046426383701, 384307168023325354));
   });
 
-  it("Should muldiv big arguments with overflow 128-bits", () => {
+  it("Should muldiv with small b and huge c", () => {
+    // FIXME: this failed!
+
+    let a = new u128(9223372032559808512, 123456);
+    let b = new u128(123456);
+    let c = new u128(0xFFFFFFFFFFFFFFFF, 123456);
+    expect(a.muldiv(b, c)).toStrictEqual(new u128(123455));
+  });
+
+  it("Should muldiv big arguments with overflow 128-bits 1", () => {
     let a = new u128(17368525644200112449, 244614);
     let b = new u128(4017580189248773693, 12699);
     let c = new u128(3434515);
     expect(a.muldiv(b, c)).toStrictEqual(new u128(12770041117111790654, 8684128842189806128));
+  });
+
+  it("Should muldiv big arguments with overflow 128-bits 2", () => {
+    let a = u128.Max;
+    let b = new u128(0x7FFFFFFFFFFFFFFF, 0x8111111111111111);
+    let c = new u128(0x3333333333333333);
+    expect(a.muldiv(b, c)).toStrictEqual(new u128(9223372036854775803, 384307168202282322));
   });
 });
 
