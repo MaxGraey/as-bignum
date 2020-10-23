@@ -16,6 +16,7 @@
  (type $f64_=>_i32 (func (param f64) (result i32)))
  (type $i64_i64_i64_i64_=>_i64 (func (param i64 i64 i64 i64) (result i64)))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
+ (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
  (type $i64_i64_=>_i64 (func (param i64 i64) (result i64)))
@@ -79,6 +80,7 @@
  (export "u128#postInc" (func $assembly/integer/u128/u128#postInc))
  (export "u128#postDec" (func $assembly/integer/u128/u128#postDec))
  (export "u128#sqr" (func $assembly/integer/u128/u128#sqr))
+ (export "u128#muldiv" (func $assembly/integer/u128/u128#muldiv))
  (export "u128#toI256" (func $assembly/integer/u128/u128#toI256))
  (export "u128#toU256" (func $assembly/integer/u128/u128#toU256))
  (export "u128#toI128" (func $assembly/integer/u128/u128#toI128))
@@ -1865,24 +1867,14 @@
   local.get $4
   i64.load offset=8
   call $assembly/integer/u128/u128#constructor
-  local.tee $5
-  i64.load offset=8
-  local.tee $2
-  local.get $2
-  i64.const 1
-  i64.sub
-  i64.xor
-  i64.const 63
-  i64.shr_s
-  local.set $11
+  local.set $5
   i32.const 0
   local.get $9
   i64.load
-  local.tee $0
-  local.get $9
-  i64.load offset=8
-  local.tee $1
-  local.get $1
+  local.tee $11
+  local.get $3
+  local.get $3
+  local.get $3
   i64.const 1
   i64.sub
   i64.xor
@@ -1891,11 +1883,9 @@
   local.tee $3
   i64.const -1
   i64.xor
-  local.get $1
   i64.and
+  local.get $2
   local.get $3
-  local.get $9
-  i64.load
   i64.and
   i64.or
   i64.clz
@@ -1906,19 +1896,25 @@
   i32.and
   i32.add
   local.tee $12
-  local.get $2
-  local.get $11
+  local.get $1
+  local.get $1
+  local.get $1
+  i64.const 1
+  i64.sub
+  i64.xor
+  i64.const 63
+  i64.shr_s
+  local.tee $1
   i64.const -1
   i64.xor
   i64.and
-  local.get $11
-  local.get $5
-  i64.load
+  local.get $0
+  local.get $1
   i64.and
   i64.or
   i64.clz
   i32.wrap_i64
-  local.get $11
+  local.get $1
   i32.wrap_i64
   i32.const 64
   i32.and
@@ -1929,27 +1925,27 @@
   i32.const 127
   i32.and
   i64.extend_i32_s
-  local.tee $11
+  local.tee $3
   i64.const 63
   i64.and
-  local.tee $3
-  i64.shl
   local.tee $2
-  local.get $11
+  i64.shl
+  local.tee $1
+  local.get $3
   i64.const 6
   i64.shr_u
   i64.const 1
   i64.sub
-  local.tee $1
+  local.tee $0
   i64.and
-  local.get $2
   local.get $1
+  local.get $0
   i64.const -1
   i64.xor
   i64.and
-  local.get $1
-  local.get $11
-  local.get $11
+  local.get $0
+  local.get $3
+  local.get $3
   i64.const 127
   i64.add
   i64.or
@@ -1959,15 +1955,15 @@
   i64.shr_u
   i64.const 1
   i64.sub
-  local.get $0
+  local.get $11
   i64.const 64
-  local.get $3
+  local.get $2
   i64.sub
   i64.shr_u
   i64.and
   local.get $9
   i64.load offset=8
-  local.get $3
+  local.get $2
   i64.shl
   i64.or
   i64.and
@@ -2370,7 +2366,7 @@
   i32.const 64
   i32.and
   i32.add
-  local.tee $6
+  local.tee $5
   i32.const 128
   i32.eq
   if
@@ -2404,7 +2400,7 @@
   i32.const 64
   i32.and
   i32.add
-  local.set $7
+  local.set $6
   local.get $3
   local.get $2
   local.get $2
@@ -2428,7 +2424,7 @@
   i32.const 64
   i32.and
   i32.add
-  local.set $5
+  local.set $7
   local.get $0
   local.get $1
   i64.or
@@ -2441,7 +2437,7 @@
    i64.const 0
    return
   end
-  local.get $6
+  local.get $5
   i32.const 127
   i32.eq
   if
@@ -2469,7 +2465,7 @@
     i64.const 0
     global.set $assembly/globals/__divmod_rem
     local.get $0
-    local.get $5
+    local.get $7
     i64.extend_i32_s
     i64.shr_u
     return
@@ -2499,23 +2495,32 @@
   i64.const 0
   i64.ne
   select
-  i32.wrap_i64
-  local.tee $5
+  local.tee $4
+  i64.const 0
+  i64.gt_s
+  local.get $4
+  i64.const 0
+  i64.lt_s
+  i32.sub
   i32.const 0
-  i32.le_s
+  i32.ne
+  i32.const 0
+  i32.le_u
   if
    i64.const 0
    global.set $assembly/globals/__divmod_quot_hi
-   i64.const 0
+   local.get $0
+   local.get $2
+   i64.rem_u
    global.set $assembly/globals/__divmod_rem
-   local.get $5
-   i32.eqz
+   local.get $4
+   i64.eqz
    i64.extend_i32_u
    return
   end
   block $folding-inner0
+   local.get $5
    local.get $6
-   local.get $7
    i32.sub
    i32.const 5
    i32.le_s
@@ -5254,6 +5259,272 @@
   i64.store
   local.get $0
  )
+ (func $assembly/integer/u128/u128#muldiv (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i64)
+  (local $7 i64)
+  local.get $0
+  local.set $3
+  i32.const 0
+  i64.const 0
+  i64.const 0
+  call $assembly/integer/u128/u128#constructor
+  local.set $5
+  i32.const 0
+  i64.const 0
+  i64.const 0
+  call $assembly/integer/u128/u128#constructor
+  local.set $0
+  i32.const 0
+  local.get $1
+  i64.load
+  local.get $1
+  i64.load offset=8
+  local.get $2
+  local.tee $4
+  i64.load
+  local.get $4
+  i64.load offset=8
+  call $assembly/globals/__udivmod128
+  global.get $assembly/globals/__divmod_quot_hi
+  call $assembly/integer/u128/u128#constructor
+  local.set $1
+  i32.const 0
+  global.get $assembly/globals/__divmod_rem
+  i64.const 0
+  call $assembly/integer/u128/u128#constructor
+  local.set $2
+  loop $while-continue|0
+   local.get $3
+   i64.load
+   local.get $3
+   i64.load offset=8
+   i64.or
+   i64.eqz
+   i32.eqz
+   if
+    local.get $3
+    i64.load
+    i64.const 1
+    i64.and
+    i32.wrap_i64
+    if
+     i32.const 0
+     local.get $5
+     i64.load
+     local.tee $6
+     local.get $1
+     i64.load
+     i64.add
+     local.tee $7
+     local.get $7
+     local.get $6
+     i64.lt_u
+     i64.extend_i32_u
+     local.get $5
+     i64.load offset=8
+     local.get $1
+     i64.load offset=8
+     i64.add
+     i64.add
+     call $assembly/integer/u128/u128#constructor
+     local.set $5
+     i32.const 0
+     local.get $0
+     i64.load
+     local.tee $6
+     local.get $2
+     i64.load
+     i64.add
+     local.tee $7
+     local.get $7
+     local.get $6
+     i64.lt_u
+     i64.extend_i32_u
+     local.get $0
+     i64.load offset=8
+     local.get $2
+     i64.load offset=8
+     i64.add
+     i64.add
+     call $assembly/integer/u128/u128#constructor
+     local.tee $0
+     i64.load offset=8
+     local.tee $6
+     local.get $4
+     i64.load offset=8
+     local.tee $7
+     i64.eq
+     if (result i32)
+      local.get $0
+      i64.load
+      local.get $4
+      i64.load
+      i64.lt_u
+     else
+      local.get $6
+      local.get $7
+      i64.lt_u
+     end
+     if (result i32)
+      local.get $0
+     else
+      local.get $5
+      local.get $5
+      i64.load offset=8
+      local.get $5
+      i64.load
+      local.tee $6
+      i64.const 1
+      i64.add
+      local.tee $7
+      local.get $6
+      i64.lt_u
+      i64.extend_i32_u
+      i64.add
+      i64.store offset=8
+      local.get $5
+      local.get $7
+      i64.store
+      i32.const 0
+      local.get $0
+      i64.load
+      local.tee $6
+      local.get $4
+      i64.load
+      i64.sub
+      local.tee $7
+      local.get $0
+      i64.load offset=8
+      local.get $4
+      i64.load offset=8
+      i64.sub
+      local.get $7
+      local.get $6
+      i64.gt_u
+      i64.extend_i32_u
+      i64.sub
+      call $assembly/integer/u128/u128#constructor
+     end
+     local.set $0
+    end
+    i32.const 0
+    local.get $3
+    i64.load offset=8
+    local.tee $6
+    i64.const 1
+    i64.shr_u
+    local.tee $7
+    i64.const 0
+    i64.and
+    local.get $6
+    i64.const 63
+    i64.shl
+    local.get $3
+    i64.load
+    i64.const 1
+    i64.shr_u
+    i64.or
+    i64.or
+    local.get $7
+    call $assembly/integer/u128/u128#constructor
+    local.set $3
+    i32.const 0
+    local.get $1
+    i64.load
+    local.tee $6
+    i64.const 1
+    i64.shl
+    local.get $1
+    i64.load offset=8
+    i64.const 1
+    i64.shl
+    local.get $6
+    i64.const 63
+    i64.shr_u
+    i64.or
+    call $assembly/integer/u128/u128#constructor
+    local.set $1
+    i32.const 0
+    local.get $2
+    i64.load
+    local.tee $6
+    i64.const 1
+    i64.shl
+    local.get $2
+    i64.load offset=8
+    i64.const 1
+    i64.shl
+    local.get $6
+    i64.const 63
+    i64.shr_u
+    i64.or
+    call $assembly/integer/u128/u128#constructor
+    local.tee $2
+    i64.load offset=8
+    local.tee $6
+    local.get $4
+    i64.load offset=8
+    local.tee $7
+    i64.eq
+    if (result i32)
+     local.get $2
+     i64.load
+     local.get $4
+     i64.load
+     i64.lt_u
+    else
+     local.get $6
+     local.get $7
+     i64.lt_u
+    end
+    i32.eqz
+    if
+     local.get $1
+     local.get $1
+     i64.load offset=8
+     local.get $1
+     i64.load
+     local.tee $6
+     i64.const 1
+     i64.add
+     local.tee $7
+     local.get $6
+     i64.lt_u
+     i64.extend_i32_u
+     i64.add
+     i64.store offset=8
+     local.get $1
+     local.get $7
+     i64.store
+     i32.const 0
+     local.get $2
+     i64.load
+     local.tee $6
+     local.get $4
+     i64.load
+     i64.sub
+     local.tee $7
+     local.get $2
+     i64.load offset=8
+     local.get $4
+     i64.load offset=8
+     i64.sub
+     local.get $7
+     local.get $6
+     i64.gt_u
+     i64.extend_i32_u
+     i64.sub
+     call $assembly/integer/u128/u128#constructor
+     local.set $2
+    end
+    br $while-continue|0
+   end
+  end
+  local.get $5
+ )
  (func $assembly/integer/u128/u128#toI256 (param $0 i32) (result i32)
   (local $1 i64)
   (local $2 i64)
@@ -7407,7 +7678,7 @@
   if
    i32.const 1616
    i32.const 1280
-   i32.const 911
+   i32.const 956
    i32.const 5
    call $~lib/builtins/abort
    unreachable
