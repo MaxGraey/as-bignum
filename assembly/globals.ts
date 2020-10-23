@@ -233,9 +233,10 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
   // }
 
   var diff: i64 = ahi - bhi;
-  var cmp = <i32>(diff != 0 ? diff : alo - blo); // TODO optimize this
+  var cmp = <i64>(diff != 0 ? diff : alo - blo); // TODO optimize this
 
-  if (cmp <= 0) {
+  // @ts-ignore
+  if (((cmp > 0) - (cmp < 0)) <= 0) {
     __divmod_quot_hi = 0;
     __divmod_rem = alo % blo;
     return u64(cmp == 0);
