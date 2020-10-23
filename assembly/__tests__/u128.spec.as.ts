@@ -914,10 +914,30 @@ describe("Division And Mod Operation", () => {
 });
 
 describe("Multiply and Division without Overflow", () => {
-  it("Should muldiv same number", () => {
+  it("Should muldiv same number 1", () => {
     let a = new u128(10248516654965971928, 5);
     let b = new u128(22972907047680);
     expect(a.muldiv(b, b)).toStrictEqual(a);
+  });
+
+  it("Should muldiv same number 2", () => {
+    let a = u128.Max;
+    let b = new u128(-1);
+    expect(a.muldiv(b, b)).toStrictEqual(a);
+  });
+
+  it("Should muldiv small arguments without overflow 64-bits", () => {
+    let a = new u128(498419840516515123);
+    let b = new u128(6132198419878046132);
+    let c = new u128(9156498145135109843);
+    expect(a.muldiv(b, c)).toStrictEqual(new u128(333796753956109993));
+  });
+
+  it("Should muldiv small arguments with overflow 64-bits", () => {
+    let a = new u128(9223372032559808512);
+    let b = new u128(9223372036854775807);
+    let c = new u128(12);
+    expect(a.muldiv(b, c)).toStrictEqual(new u128(11529215046426383701, 384307168023325354));
   });
 });
 
