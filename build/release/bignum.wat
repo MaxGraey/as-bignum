@@ -1850,26 +1850,14 @@
   local.get $0
   local.get $1
   call $assembly/integer/u128/u128#constructor
-  local.set $4
+  local.set $6
+  i32.const 0
   i32.const 0
   local.get $2
   local.get $3
   call $assembly/integer/u128/u128#constructor
-  local.set $9
-  i32.const 0
-  i64.const 0
-  i64.const 0
-  call $assembly/integer/u128/u128#constructor
-  local.set $8
-  i32.const 0
-  local.get $4
-  i64.load
-  local.get $4
-  i64.load offset=8
-  call $assembly/integer/u128/u128#constructor
-  local.set $5
-  i32.const 0
-  local.get $9
+  local.tee $10
+  local.tee $4
   i64.load
   local.tee $11
   local.get $3
@@ -1921,7 +1909,7 @@
   i32.add
   local.tee $14
   i32.sub
-  local.tee $10
+  local.tee $9
   i32.const 127
   i32.and
   i64.extend_i32_s
@@ -1961,7 +1949,7 @@
   i64.sub
   i64.shr_u
   i64.and
-  local.get $9
+  local.get $4
   i64.load offset=8
   local.get $2
   i64.shl
@@ -1970,6 +1958,18 @@
   i64.or
   call $assembly/integer/u128/u128#constructor
   local.set $7
+  i32.const 0
+  i64.const 0
+  i64.const 0
+  call $assembly/integer/u128/u128#constructor
+  local.set $8
+  i32.const 0
+  local.get $6
+  i64.load
+  local.get $6
+  i64.load offset=8
+  call $assembly/integer/u128/u128#constructor
+  local.set $5
   i32.const 0
   i32.const 0
   i64.const 1
@@ -2049,7 +2049,7 @@
   local.get $4
   i64.load
   local.tee $0
-  local.get $10
+  local.get $9
   i32.const 127
   i32.and
   i64.extend_i32_s
@@ -2102,14 +2102,14 @@
    local.get $5
    i64.load offset=8
    local.tee $1
-   local.get $9
+   local.get $10
    i64.load offset=8
    local.tee $0
    i64.eq
    if (result i32)
     local.get $5
     i64.load
-    local.get $9
+    local.get $10
     i64.load
     i64.lt_u
    else
@@ -2152,7 +2152,7 @@
     i64.load offset=8
     i64.and
     call $assembly/integer/u128/u128#constructor
-    local.tee $10
+    local.tee $9
     i64.load offset=8
     local.tee $1
     local.get $7
@@ -2160,7 +2160,7 @@
     local.tee $0
     i64.eq
     if (result i32)
-     local.get $10
+     local.get $9
      i64.load
      local.get $7
      i64.load
