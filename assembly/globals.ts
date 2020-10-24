@@ -232,13 +232,11 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
   //   return 0;
   // }
 
-  var diff: i64 = ahi - bhi;
-  var cmp = <i64>(diff != 0 ? diff : alo - blo);
-  // @ts-ignore
-  if (((cmp > 0) - (cmp < 0)) <= 0) {
+  if (ahi != bhi ? ahi < bhi : alo <= blo) {
     __divmod_quot_hi = 0;
     __divmod_rem = alo % blo;
-    return u64(cmp == 0);
+    // @ts-ignore
+    return u64((ahi == bhi) & (alo == blo));
   }
 
   if (bzn - azn <= 5) {
