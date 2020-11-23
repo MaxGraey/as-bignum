@@ -363,18 +363,18 @@ export class u256 {
     if (shift <= 64) {
       if (shift == 0) return value;
       let hi2 =  value.hi2 >> off;
-      let hi1 = (value.hi1 >> off) | (hi2 << (64 - off));
-      let lo2 = (value.lo2 >> off) | (hi1 << (64 - off));
-      let lo1 = (value.lo1 >> off) | (lo2 << (64 - off));
+      let hi1 = (value.hi1 >> off) | (value.hi2 << 64 - off);
+      let lo2 = (value.lo2 >> off) | (value.hi1 << 64 - off);
+      let lo1 = (value.lo1 >> off) | (value.lo2 << 64 - off);
       return new u256(lo1, lo2, hi1, hi2);
     } else if (shift > 64 && shift <= 128) {
-      let hi1 = value.hi2 >> (128 - off);
+      let hi1 = value.hi2 >> 128 - off;
       return new u256(value.lo2, value.hi1, hi1);
     } else if (shift > 128 && shift <= 192) {
-      let lo2 = value.hi2 >> (192 - off);
+      let lo2 = value.hi2 >> 192 - off;
       return new u256(value.hi1, lo2);
     } else {
-      return new u256(value.hi2 >> (256 - off));
+      return new u256(value.hi2 >> 256 - off);
     }
   }
 
@@ -385,7 +385,10 @@ export class u256 {
 
   @inline @operator('==')
   static eq(a: u256, b: u256): bool {
-    return a.lo1 == b.lo1 && a.lo2 == b.lo2 && a.hi1 == b.hi1 && a.hi2 == b.hi2;
+    return (
+      a.lo1 == b.lo1 && a.lo2 == b.lo2 &&
+      a.hi1 == b.hi1 && a.hi2 == b.hi2
+    );
   }
 
   @inline @operator('!=')
@@ -395,7 +398,9 @@ export class u256 {
 
   @operator('<')
   static lt(a: u256, b: u256): bool {
-    var ah2 = a.hi2, ah1 = a.hi1, bh2 = b.hi2, bh1 = b.hi1, al2 = a.lo2, bl2 = b.lo2;
+    var ah2 = a.hi2, ah1 = a.hi1,
+        bh2 = b.hi2, bh1 = b.hi1,
+        al2 = a.lo2, bl2 = b.lo2;
     if (ah2 == bh2) {
       if (ah1 == bh1) {
         return al2 == bl2 ? a.lo1 < b.lo1 : al2 < bl2

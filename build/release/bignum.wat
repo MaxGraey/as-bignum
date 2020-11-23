@@ -8308,8 +8308,6 @@
  (func $assembly/integer/u256/u256.shr (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (local $3 i64)
-  (local $4 i64)
-  (local $5 i64)
   local.get $1
   i32.const 255
   i32.and
@@ -8328,39 +8326,39 @@
    end
    i32.const 0
    local.get $0
+   i64.load offset=8
+   i64.const 64
+   local.get $2
+   i64.sub
+   local.tee $3
+   i64.shl
+   local.get $0
    i64.load
    local.get $2
    i64.shr_u
+   i64.or
+   local.get $0
+   i64.load offset=16
+   local.get $3
+   i64.shl
    local.get $0
    i64.load offset=8
    local.get $2
    i64.shr_u
+   i64.or
+   local.get $0
+   i64.load offset=24
+   local.get $3
+   i64.shl
    local.get $0
    i64.load offset=16
    local.get $2
    i64.shr_u
+   i64.or
    local.get $0
    i64.load offset=24
    local.get $2
    i64.shr_u
-   local.tee $3
-   i64.const 64
-   local.get $2
-   i64.sub
-   local.tee $2
-   i64.shl
-   i64.or
-   local.tee $4
-   local.get $2
-   i64.shl
-   i64.or
-   local.tee $5
-   local.get $2
-   i64.shl
-   i64.or
-   local.get $5
-   local.get $4
-   local.get $3
    call $assembly/integer/u256/u256#constructor
   else
    local.get $1
@@ -9506,7 +9504,7 @@
   if
    i32.const 1616
    i32.const 1968
-   i32.const 609
+   i32.const 614
    i32.const 5
    call $~lib/builtins/abort
    unreachable
