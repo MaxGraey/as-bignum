@@ -848,6 +848,12 @@ describe("Division And Mod Operation", () => {
     expect(a / b).toStrictEqual(u128.from(9196400));
   });
 
+  it("Should divide two numbers without remainder 4", () => {
+    let a = u128.from('9801427805542018869750100000000');
+    let b = u128.from(10);
+    expect(a / b).toStrictEqual(u128.from('980142780554201886975010000000'));
+  });
+
   it("Should divide two numbers with remainder 1", () => {
     let a = new u128(3152652666208173568, 2);
     let b = u128.from(43543534534534);
