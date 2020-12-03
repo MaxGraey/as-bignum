@@ -187,7 +187,7 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
     throw new RangeError("Division by zero"); // division by zero
   }
 
-  var azn = __clz128(alo, ahi); // M
+  // var azn = __clz128(alo, ahi); // M
   var btz = __ctz128(blo, bhi); // N
 
   if (!(alo | ahi)) {
