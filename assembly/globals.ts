@@ -232,20 +232,20 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
   //   return 0;
   // }
 
-  var diff: i64 = ahi - bhi;
-  var cmp = <i32>(diff != 0 ? diff : alo - blo); // TODO optimize this
+  // var diff: i64 = ahi - bhi;
+  // var cmp = <i32>(diff != 0 ? diff : alo - blo); // TODO optimize this
 
-  if (cmp <= 0) {
-    __divmod_quot_hi = 0;
-    __divmod_rem     = 0;
-    return u64(cmp == 0);
-  }
+  // if (cmp <= 0) {
+  //   __divmod_quot_hi = 0;
+  //   __divmod_rem     = 0;
+  //   return u64(cmp == 0);
+  // }
 
-  if (bzn - azn <= 5) {
-    // TODO
-    // fast path
-    return __udivmod128core(alo, ahi, blo, bhi);
-  }
+  // if (bzn - azn <= 5) {
+  //   // TODO
+  //   // fast path
+  //   return __udivmod128core(alo, ahi, blo, bhi);
+  // }
   return __udivmod128core(alo, ahi, blo, bhi);
 }
 
