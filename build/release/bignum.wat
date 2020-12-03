@@ -2346,7 +2346,6 @@
   (local $4 i64)
   (local $5 i32)
   (local $6 i32)
-  (local $7 i32)
   local.get $3
   local.get $3
   local.get $3
@@ -2370,7 +2369,7 @@
   i32.const 64
   i32.and
   i32.add
-  local.tee $6
+  local.tee $5
   i32.const 128
   i32.eq
   if
@@ -2381,30 +2380,6 @@
    call $~lib/builtins/abort
    unreachable
   end
-  local.get $1
-  local.get $1
-  local.get $1
-  i64.const 1
-  i64.sub
-  i64.xor
-  i64.const 63
-  i64.shr_s
-  local.tee $4
-  i64.const -1
-  i64.xor
-  i64.and
-  local.get $0
-  local.get $4
-  i64.and
-  i64.or
-  i64.clz
-  i32.wrap_i64
-  local.get $4
-  i32.wrap_i64
-  i32.const 64
-  i32.and
-  i32.add
-  local.set $7
   local.get $3
   local.get $2
   local.get $2
@@ -2428,7 +2403,7 @@
   i32.const 64
   i32.and
   i32.add
-  local.set $5
+  local.set $6
   local.get $0
   local.get $1
   i64.or
@@ -2441,7 +2416,7 @@
    i64.const 0
    return
   end
-  local.get $6
+  local.get $5
   i32.const 127
   i32.eq
   if
@@ -2469,7 +2444,7 @@
     i64.const 0
     global.set $assembly/globals/__divmod_rem
     local.get $0
-    local.get $5
+    local.get $6
     i64.extend_i32_s
     i64.shr_u
     return
@@ -2487,39 +2462,6 @@
     return
    end
    unreachable
-  end
-  local.get $1
-  local.get $3
-  i64.sub
-  local.tee $4
-  local.get $0
-  local.get $2
-  i64.sub
-  local.get $4
-  i64.const 0
-  i64.ne
-  select
-  i32.wrap_i64
-  local.tee $5
-  i32.const 0
-  i32.le_s
-  if
-   i64.const 0
-   global.set $assembly/globals/__divmod_quot_hi
-   i64.const 0
-   global.set $assembly/globals/__divmod_rem
-   local.get $5
-   i32.eqz
-   i64.extend_i32_u
-   return
-  end
-  block $folding-inner0
-   local.get $6
-   local.get $7
-   i32.sub
-   i32.const 5
-   i32.le_s
-   br_if $folding-inner0
   end
   local.get $0
   local.get $1
