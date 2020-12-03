@@ -445,10 +445,28 @@ export class u128 {
 
   @inline @operator('/')
   static div(a: u128, b: u128): u128 {
-    return new u128(
-      __udivmod128(a.lo, a.hi, b.lo, b.hi),
-      __divmod_quot_hi
-    );
+    assert(b != u128.Zero, 'cannot divide by zero');
+
+    let q = u128.Zero;
+    let r = u128.Zero;
+    for (let i = 127; i >= 0; i--) {
+      r = r << 1;
+      // TODO: can use faster way to get a bit
+      r += (a >> i) & u128.One;
+
+      if (r >= b) {
+        r = r - b;
+        // TODO: can use faster way to set a bit
+        q = q | (u128.One << i);
+      }
+    }
+
+    return q;
+
+    // return new u128(
+    //   __udivmod128(a.lo, a.hi, b.lo, b.hi),
+    //   __divmod_quot_hi
+    // );
   }
 
   @inline @operator('%')
