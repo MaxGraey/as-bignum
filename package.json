@@ -32,11 +32,11 @@
     "test:ci": "asp --nortrace 2> /dev/null"
   },
   "devDependencies": {
-    "@as-pect/cli": "^4.0.0",
-    "@types/node": "^14.0.26",
-    "assemblyscript": "^0.15.1",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
+    "@as-pect/cli": "^5.0.0",
+    "@types/node": "^14.14.10",
+    "assemblyscript": "^0.17.4",
+    "ts-node": "^9.1.0",
+    "typescript": "^4.1.2"
   },
   "releaseFiles": [
     "assembly/",
