@@ -187,7 +187,7 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
     throw new RangeError("Division by zero"); // division by zero
   }
 
-  var azn = __clz128(alo, ahi); // M
+  // var azn = __clz128(alo, ahi); // M
   var btz = __ctz128(blo, bhi); // N
 
   if (!(alo | ahi)) {
@@ -232,18 +232,20 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
   //   return 0;
   // }
 
-  if (ahi != bhi ? ahi < bhi : alo <= blo) {
-    __divmod_quot_hi = 0;
-    __divmod_rem = alo % blo;
-    // @ts-ignore
-    return u64((ahi == bhi) & (alo == blo));
-  }
+  // var diff: i64 = ahi - bhi;
+  // var cmp = <i32>(diff != 0 ? diff : alo - blo); // TODO optimize this
 
-  if (bzn - azn <= 5) {
-    // TODO
-    // fast path
-    return __udivmod128core(alo, ahi, blo, bhi);
-  }
+  // if (cmp <= 0) {
+  //   __divmod_quot_hi = 0;
+  //   __divmod_rem     = 0;
+  //   return u64(cmp == 0);
+  // }
+
+  // if (bzn - azn <= 5) {
+  //   // TODO
+  //   // fast path
+  //   return __udivmod128core(alo, ahi, blo, bhi);
+  // }
   return __udivmod128core(alo, ahi, blo, bhi);
 }
 
