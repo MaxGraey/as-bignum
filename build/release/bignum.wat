@@ -6402,9 +6402,9 @@
      i64.load
      i64.add
      local.tee $7
-     local.get $7
      local.get $6
-     i64.lt_u
+     local.get $7
+     i64.gt_u
      i64.extend_i32_u
      local.get $5
      i64.load offset=8
@@ -6422,9 +6422,9 @@
      i64.load
      i64.add
      local.tee $7
-     local.get $7
      local.get $6
-     i64.lt_u
+     local.get $7
+     i64.gt_u
      i64.extend_i32_u
      local.get $0
      i64.load offset=8
@@ -6459,17 +6459,17 @@
       i64.load offset=8
       local.get $5
       i64.load
-      local.tee $6
+      local.tee $7
       i64.const 1
       i64.add
-      local.tee $7
-      local.get $6
+      local.tee $6
+      local.get $7
       i64.lt_u
       i64.extend_i32_u
       i64.add
       i64.store offset=8
       local.get $5
-      local.get $7
+      local.get $6
       i64.store
       i32.const 0
       local.get $0
@@ -6484,24 +6484,22 @@
       local.get $4
       i64.load offset=8
       i64.sub
-      local.get $7
       local.get $6
-      i64.gt_u
+      local.get $7
+      i64.lt_u
       i64.extend_i32_u
       i64.sub
       call $assembly/integer/u128/u128#constructor
      end
      local.set $0
     end
-    i32.const 0
     local.get $3
     i64.load offset=8
     local.tee $6
     i64.const 1
     i64.shr_u
-    local.tee $7
-    i64.const 0
-    i64.and
+    local.set $7
+    i32.const 0
     local.get $6
     i64.const 63
     i64.shl
@@ -6509,7 +6507,6 @@
     i64.load
     i64.const 1
     i64.shr_u
-    i64.or
     i64.or
     local.get $7
     call $assembly/integer/u128/u128#constructor
@@ -6570,17 +6567,17 @@
      i64.load offset=8
      local.get $1
      i64.load
-     local.tee $6
+     local.tee $7
      i64.const 1
      i64.add
-     local.tee $7
-     local.get $6
+     local.tee $6
+     local.get $7
      i64.lt_u
      i64.extend_i32_u
      i64.add
      i64.store offset=8
      local.get $1
-     local.get $7
+     local.get $6
      i64.store
      i32.const 0
      local.get $2
@@ -6595,9 +6592,9 @@
      local.get $4
      i64.load offset=8
      i64.sub
-     local.get $7
      local.get $6
-     i64.gt_u
+     local.get $7
+     i64.lt_u
      i64.extend_i32_u
      i64.sub
      call $assembly/integer/u128/u128#constructor
@@ -9750,7 +9747,7 @@
   if
    i32.const 1744
    i32.const 1376
-   i32.const 911
+   i32.const 956
    i32.const 5
    call $~lib/builtins/abort
    unreachable
