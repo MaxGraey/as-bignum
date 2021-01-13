@@ -954,9 +954,8 @@ describe("Multiply and Division without Overflow", () => {
 
   // FIXME:
   // it("Should muldiv same number 3", () => {
-  //   let a = u128.Max;
-  //   let b = u128.Max;
-  //   expect(a.muldiv(b, b)).toStrictEqual(a);
+  //   let max = u128.Max;
+  //   expect(max.muldiv(max, max)).toStrictEqual(max);
   // });
 
   it("Should muldiv small arguments without overflow 64-bits", () => {
