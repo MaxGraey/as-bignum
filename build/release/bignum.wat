@@ -3607,6 +3607,22 @@
   end
   local.get $1
   local.get $3
+  i64.eq
+  i32.const 0
+  local.get $0
+  local.get $2
+  i64.eq
+  select
+  if
+   i64.const 0
+   global.set $assembly/globals/__divmod_quot_hi
+   i64.const 0
+   global.set $assembly/globals/__divmod_rem
+   i64.const 1
+   return
+  end
+  local.get $1
+  local.get $3
   i64.or
   i64.eqz
   if

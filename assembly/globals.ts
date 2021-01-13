@@ -202,6 +202,13 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
     return alo;
   }
 
+  // a == b
+  if (alo == blo && ahi == bhi) {
+    __divmod_quot_hi = 0;
+    __divmod_rem = 0;
+    return 1;
+  }
+
   // if (btz + bzn == 127) {
   //   // TODO
   //   // __divmod_quot = a >> btz

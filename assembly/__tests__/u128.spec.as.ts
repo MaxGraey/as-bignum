@@ -918,6 +918,17 @@ describe("Division And Mod Operation", () => {
     let a = new u128(10248516654965971928, 5);
     expect(a / a).toStrictEqual(u128.One);
   });
+
+  it("Should mod number same max value", () => {
+    let a = u128.Max;
+    expect(a % a).toStrictEqual(u128.Zero);
+  });
+
+  it("Should div number same max value", () => {
+    let a = u128.Max;
+    expect(a / a).toStrictEqual(u128.One);
+  });
+
 });
 
 describe("Throwable", () => {
@@ -1012,6 +1023,20 @@ describe("Throwable", () => {
     expect(() => {
       let a = new u128(1, 1);
       !(a % u128.Zero);
+    }).toThrow();
+  });
+
+  it("Should throw when div divider and divisor is zero", () => {
+    expect(() => {
+      let a = u128.Zero;
+      !(a / a);
+    }).toThrow();
+  });
+
+  it("Should throw when mod divider and divisor is zero", () => {
+    expect(() => {
+      let a = u128.Zero;
+      !(a % a);
     }).toThrow();
   });
 });
