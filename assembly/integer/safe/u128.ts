@@ -87,8 +87,8 @@ export class u128 extends U128 {
   }
 
   @inline
-  static fromBytes(array: u8[], bigEndian: bool = false): u128 {
-    return changetype<u128>(U128.fromBytes(array, bigEndian));
+  static fromBytes<T>(array: T, bigEndian: bool = false): u128 {
+    return changetype<u128>(U128.fromBytes<T>(array, bigEndian));
   }
 
   @inline
@@ -99,6 +99,16 @@ export class u128 extends U128 {
   @inline
   static fromBytesBE(array: u8[]): u128 {
     return changetype<u128>(U128.fromBytesBE(array));
+  }
+
+  @inline
+  static fromUint8ArrayLE(array: Uint8Array): u128 {
+    return changetype<u128>(U128.fromUint8ArrayLE(array));
+  }
+
+  @inline
+  static fromUint8ArrayBE(array: Uint8Array): u128 {
+    return changetype<u128>(U128.fromUint8ArrayBE(array));
   }
 
   /**
@@ -125,6 +135,7 @@ export class u128 extends U128 {
     else if (value instanceof i256)   return u128.fromI256(<i256>value);
     else if (value instanceof u256)   return u128.fromU256(<u256>value);
     else if (value instanceof u8[])   return u128.fromBytes(<u8[]>value);
+    else if (value instanceof Uint8Array) return u128.fromBytes(<Uint8Array>value);
     else if (value instanceof String) return u128.fromString(<string>value);
     else throw new TypeError("Unsupported generic type");
   }
@@ -192,7 +203,7 @@ export class u128 extends U128 {
     }
     if (s == 127) { // this may overflow or not. Need extra checks.
       // See Hacker's Delight, 2nd Edition. 2–13 Overflow Detection
-       // @ts-ignore
+      // @ts-ignore
       let tmp = U128.mul(changetype<U128>(a), changetype<U128>(b) >> 1);
       // @ts-ignore
       if (tmp.hi >>> 63) { // (signed)t < 0
@@ -249,6 +260,7 @@ export class u128 extends U128 {
     else if (dummy instanceof u256)   return <T>this.toU256();
     else if (dummy instanceof U256)   return <T>this.toU256();
     else if (dummy instanceof u8[])   return <T>this.toBytes();
+    else if (dummy instanceof Uint8Array) return <T>this.toUint8Array();
     else if (dummy instanceof String) return <T>this.toString();
     else throw new TypeError('Unsupported generic type');
   }
