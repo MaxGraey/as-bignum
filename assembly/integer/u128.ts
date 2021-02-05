@@ -902,7 +902,6 @@ export class u128 {
   * Return copy of current 128-bit value
   * @returns 128-bit unsigned integer
   */
-  @inline
   clone(): u128 {
     return new u128(this.lo, this.hi);
   }

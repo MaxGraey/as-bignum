@@ -1,4 +1,4 @@
-import { u256 } from './u256';
+import { u256Safe as u256 } from './u256';
 import { i128 } from './i128';
 import { i256 } from './i256';
 import { u128 as U128 } from '../u128';
@@ -14,7 +14,7 @@ import { isPowerOverflow128, atou128 } from '../../utils';
 // declare function logF64(v: f64): void;
 
 // export namespace safe {
-export class u128 extends U128 {
+class u128 extends U128 {
 
   @inline static get Zero(): u128 { return new u128(); }
   @inline static get One():  u128 { return new u128(1); }
@@ -274,3 +274,5 @@ export class u128 extends U128 {
     return new u128(this.lo, this.hi);
   }
 }
+
+export {u128 as u128Safe}
