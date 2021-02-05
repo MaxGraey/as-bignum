@@ -275,4 +275,4 @@ class u128 extends U128 {
   }
 }
 
-export {u128 as u128Safe}
+export { u128 as u128Safe };
