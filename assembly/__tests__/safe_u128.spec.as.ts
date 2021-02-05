@@ -1,4 +1,5 @@
-import { u128 } from '../../assembly/integer/safe/u128';
+import { u128Safe as u128  } from '..';
+
 
 describe("Basic operations", () => {
   it("Should add two numbers 1", () => {
