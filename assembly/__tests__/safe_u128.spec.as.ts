@@ -93,6 +93,12 @@ describe("Basic operations", () => {
     expect(a * b).toStrictEqual(u128.from("333333333333333333333000000000000000000"));
   });
 
+  it("Should div two safe u128s", () => {
+    var a = u128.from("2222222");
+    var b = u128.One;
+    expect(u128.div(a,b)).toStrictEqual(a);
+  });
+
   it("Should power number 1", () => {
     expect<u128>(u128.Zero ** 1024).toStrictEqual(u128.Zero);
   });
