@@ -226,7 +226,6 @@ class u128 extends U128 {
     );
   }
 
-  // TODO: ensure saftey
   @inline @operator('/')
   static div(a: u128, b: u128): u128 {
     return changetype<u128>(U128.div(a, b));
