@@ -226,6 +226,12 @@ class u128 extends U128 {
     );
   }
 
+  // TODO: ensure saftey
+  @inline @operator('/')
+  static div(a: u128, b: u128): u128 {
+    return changetype<u128>(U128.div(a, b));
+  }
+
   @operator('**')
   static pow(base: u128, exponent: i32): u128 {
     if (isPowerOverflow128(base, exponent)) {
