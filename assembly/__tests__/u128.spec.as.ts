@@ -904,9 +904,9 @@ describe("Division And Mod Operation", () => {
   });
 
   it("Should mod two numbers with remainder 3", () => {
-    let a = new u128(123456);
-    let b = new u128(0xFFFFFFFFFFFFFFFF, 123456);
-    expect(a % b).toStrictEqual(u128.from(123456));
+    let a = new u128(987775983032474055, 5421010862427527591);
+    let b = new u128(1000000000011111);
+    expect(a % b).toStrictEqual(new u128(344332109866679));
   });
 
   it("Should mod number with one", () => {

@@ -1,4 +1,5 @@
-import { u128 } from '../../assembly/integer/safe/u128';
+import { u128Safe as u128  } from '..';
+
 
 describe("Basic operations", () => {
   it("Should add two numbers 1", () => {
@@ -90,6 +91,12 @@ describe("Basic operations", () => {
     var b = new u128(<u64>1000000000000000000);
     expect(u128.clz(a) + u128.clz(b)).toBe(127);
     expect(a * b).toStrictEqual(u128.from("333333333333333333333000000000000000000"));
+  });
+
+  it("Should div two safe u128s", () => {
+    var a = u128.from("2222222");
+    var b = u128.One;
+    expect(u128.div(a,b)).toStrictEqual(a);
   });
 
   it("Should power number 1", () => {

@@ -605,7 +605,6 @@ export class u256 {
     return result;
   }
 
-  @inline
   clone(): u256 {
     return new u256(this.lo1, this.lo2, this.hi1, this.hi2);
   }

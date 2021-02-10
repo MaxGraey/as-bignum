@@ -1,4 +1,4 @@
-import { u256 } from './u256';
+import { u256Safe as u256 } from './u256';
 import { i128 } from './i128';
 import { i256 } from './i256';
 import { u128 as U128 } from '../u128';
@@ -14,7 +14,7 @@ import { isPowerOverflow128, atou128 } from '../../utils';
 // declare function logF64(v: f64): void;
 
 // export namespace safe {
-export class u128 extends U128 {
+class u128 extends U128 {
 
   @inline static get Zero(): u128 { return new u128(); }
   @inline static get One():  u128 { return new u128(1); }
@@ -140,6 +140,46 @@ export class u128 extends U128 {
     else throw new TypeError("Unsupported generic type");
   }
 
+  @inline @operator('|')
+  static or(a: u128, b: u128): u128 {
+    return changetype<u128>(U128.or(a, b));
+  }
+
+  @inline @operator('^')
+  static xor(a: u128, b: u128): u128 {
+    return changetype<u128>(U128.xor(a, b));
+  }
+
+  @inline @operator('&')
+  static and(a: u128, b: u128): u128 {
+    return changetype<u128>(U128.and(a, b));
+  }
+
+  @inline @operator('<<')
+  static shl(value: u128, shift: i32): u128 {
+    return changetype<u128>(U128.shl(value, shift));
+  }
+
+  @inline @operator('>>')
+  static shr(value: u128, shift: i32): u128 {
+   return changetype<u128>(U128.shr(value, shift));
+  }
+
+  @inline @operator('>>>')
+  static shr_u(value: u128, shift: i32): u128 {
+    return u128.shr(value, shift);
+  }
+
+  @inline
+  static rotl(value: u128, shift: i32): u128 {
+    return changetype<u128>(U128.rotl(value, shift));
+  }
+
+  @inline
+  static rotr(value: u128, shift: i32): u128 {
+    return changetype<u128>(U128.rotr(value, shift));
+  }
+
   @operator.prefix('++')
   preInc(): this {
     if ((this.lo & this.hi) == <u64>-1) { // if this == max
@@ -226,6 +266,11 @@ export class u128 extends U128 {
     );
   }
 
+  @inline @operator('/')
+  static div(a: u128, b: u128): u128 {
+    return changetype<u128>(U128.div(a, b));
+  }
+
   @operator('**')
   static pow(base: u128, exponent: i32): u128 {
     if (isPowerOverflow128(base, exponent)) {
@@ -233,6 +278,27 @@ export class u128 extends U128 {
     }
     return changetype<u128>(U128.pow(changetype<U128>(base), exponent));
   }
+
+  @inline @operator('%')
+  static rem(a: u128, b: u128): u128 {
+    return changetype<u128>(U128.rem(a, b));
+  }
+
+  @inline
+  static div10(value: u128): u128 {
+    return changetype<u128>(U128.div10(value));
+  }
+
+  @inline
+  static rem10(value: u128): u128 {
+    return changetype<u128>(U128.rem10(value));
+  }
+
+  // compute floor(sqrt(x))
+  static sqrt(value: u128): u128 {
+    return changetype<u128>(U128.sqrt(value));
+  }
+
 
   @inline
   toUnchecked(): U128 {
@@ -274,3 +340,5 @@ export class u128 extends U128 {
     return new u128(this.lo, this.hi);
   }
 }
+
+export { u128 as u128Safe };
