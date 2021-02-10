@@ -2,7 +2,8 @@ import { u128 } from './integer/u128';
 
 // used for returning quotient and reminder from __divmod128
 @lazy export var __divmod_quot_hi: u64 = 0;
-@lazy export var __divmod_rem:     u64 = 0;
+@lazy export var __divmod_rem_lo:  u64 = 0;
+@lazy export var __divmod_rem_hi:  u64 = 0;
 
 // used for returning low and high part of __mulq64, __multi3 etc
 @lazy export var __res128_hi: u64 = 0;
@@ -183,6 +184,8 @@ export function __ctz128(lo: u64, hi: u64): i32 {
 @global
 export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
   var bzn = __clz128(blo, bhi); // N
+
+  // b == 0
   if (bzn == 128) {
     throw new RangeError("Division by zero"); // division by zero
   }
@@ -190,22 +193,27 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
   // var azn = __clz128(alo, ahi); // M
   var btz = __ctz128(blo, bhi); // N
 
+  // a == 0
   if (!(alo | ahi)) {
     __divmod_quot_hi = 0;
-    __divmod_rem     = 0;
+    __divmod_rem_lo  = 0;
+    __divmod_rem_hi  = 0;
     return 0;
   }
 
+  // a / 1
   if (bzn == 127) {
     __divmod_quot_hi = ahi;
-    __divmod_rem     = 0;
+    __divmod_rem_lo  = 0;
+    __divmod_rem_hi  = 0;
     return alo;
   }
 
   // a == b
   if (alo == blo && ahi == bhi) {
     __divmod_quot_hi = 0;
-    __divmod_rem = 0;
+    __divmod_rem_lo  = 0;
+    __divmod_rem_hi  = 0;
     return 1;
   }
 
@@ -219,13 +227,14 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
 
   if (!(ahi | bhi)) {
     __divmod_quot_hi = 0;
+    __divmod_rem_hi  = 0;
     // if `b.lo` is power of two
     if (!(blo & (blo - 1))) {
-      __divmod_rem  = 0;
+      __divmod_rem_lo = 0;
       return alo >> btz;
     } else {
       let dlo = alo / blo;
-      __divmod_rem = alo - dlo * blo;
+      __divmod_rem_lo = alo - dlo * blo;
       return dlo;
     }
   }
@@ -288,7 +297,8 @@ function __udivmod128core(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
   q <<= (blz - alz - i + 1);
 
   __divmod_quot_hi = q.hi;
-  __divmod_rem     = n.lo;
+  __divmod_rem_lo  = n.lo;
+  __divmod_rem_hi  = n.hi;
   return q.lo;
 }
 
@@ -298,11 +308,13 @@ export function __udivmod128_10(lo: u64, hi: u64): u64 {
   if (!hi) {
     __divmod_quot_hi = 0;
     if (lo < 10) {
-      __divmod_rem = 0;
+      __divmod_rem_lo = 0;
+      __divmod_rem_hi = 0;
       return 0;
     } else {
       let qlo = lo / 10;
-      __divmod_rem = lo - qlo * 10;
+      __divmod_rem_lo = lo - qlo * 10;
+      __divmod_rem_hi = 0;
       return qlo;
     }
   }
@@ -322,6 +334,7 @@ export function __udivmod128_10(lo: u64, hi: u64): u64 {
   n = q + u128.fromBool(r.lo > 9);
 
   __divmod_quot_hi = n.hi;
-  __divmod_rem     = r.lo;
+  __divmod_rem_lo  = r.lo;
+  __divmod_rem_hi  = r.hi;
   return n.lo;
 }
