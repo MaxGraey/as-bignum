@@ -15,7 +15,8 @@ import {
   __udivmod128_10,
 
   __divmod_quot_hi,
-  __divmod_rem,
+  __divmod_rem_lo,
+  __divmod_rem_hi,
 } from '../globals';
 
 import { atou128, u128toa10 } from '../utils';
@@ -454,7 +455,7 @@ export class u128 {
   @inline @operator('%')
   static rem(a: u128, b: u128): u128 {
     __udivmod128(a.lo, a.hi, b.lo, b.hi);
-    return u128.from(__divmod_rem);
+    return new u128(__divmod_rem_lo, __divmod_rem_hi);
   }
 
   @inline
@@ -468,7 +469,7 @@ export class u128 {
   @inline
   static rem10(value: u128): u128 {
     __udivmod128_10(value.lo, value.hi);
-    return u128.from(__divmod_rem);
+    return new u128(__divmod_rem_lo, __divmod_rem_hi);
   }
 
   /**
