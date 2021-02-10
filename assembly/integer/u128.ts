@@ -732,11 +732,14 @@ export class u128 {
     let a = this;
     let b = multiplier;
     let c = divider;
+
     let q = u128.Zero;
     let r = u128.Zero;
+
     let ql = __udivmod128(b.lo, b.hi, c.lo, c.hi);
-    let qn = new u128(ql, __divmod_quot_hi); // b / c
-    let rn = new u128(__divmod_rem);         // b % c
+
+    let qn = new u128(ql, __divmod_quot_hi);             // b / c
+    let rn = new u128(__divmod_rem_lo, __divmod_rem_hi); // b % c
 
     while (!a.isZero()) {
       if (a.lo & 1) {
