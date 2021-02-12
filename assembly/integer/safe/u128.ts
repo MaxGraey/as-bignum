@@ -299,6 +299,11 @@ class u128 extends U128 {
     return changetype<u128>(U128.sqrt(value));
   }
 
+  @inline
+  static muldiv(number: u128, numerator: u128, denominator: u128): u128 {
+    // TODO: check overflow
+    return changetype<u128>(U128.muldiv(number, numerator, denominator));
+  }
 
   @inline
   toUnchecked(): U128 {

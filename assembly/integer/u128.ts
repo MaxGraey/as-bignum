@@ -723,15 +723,15 @@ export class u128 {
   }
 
   /**
-   * Calculate multiply and division as `this * multiplier / divider`
+   * Calculate multiply and division as `number * numerator / denominator`
    * without overflow in multiplication part.
    *
    * @returns 128-bit unsigned integer
    */
-  muldiv(multiplier: u128, divider: u128): u128 {
-    let a = this;
-    let b = multiplier;
-    let c = divider;
+  static muldiv(number: u128, numerator: u128, denominator: u128): u128 {
+    let a = number;
+    let b = numerator;
+    let c = denominator;
 
     let q = u128.Zero;
     let r = u128.Zero;
