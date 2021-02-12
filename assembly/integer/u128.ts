@@ -252,7 +252,7 @@ export class u128 {
     return new u128(lo1, hi + u64(lo1 < lo));
   }
 
-  @inline @operator.prefix('++')
+  @operator.prefix('++')
   preInc(): this {
     var lo = this.lo;
     var lo1 = lo + 1;
@@ -261,7 +261,7 @@ export class u128 {
     return this;
   }
 
-  @inline @operator.prefix('--')
+  @operator.prefix('--')
   preDec(): this {
     var lo = this.lo;
     var lo1 = lo - 1;
@@ -270,12 +270,12 @@ export class u128 {
     return this;
   }
 
-  @inline @operator.postfix('++')
+  @operator.postfix('++')
   postInc(): u128 {
     return this.clone().preInc();
   }
 
-  @inline @operator.postfix('--')
+  @operator.postfix('--')
   postDec(): u128 {
     return this.clone().preDec();
   }
