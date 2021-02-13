@@ -733,6 +733,8 @@ export class u128 {
     let b = numerator;
     let c = denominator;
 
+    if (b == c) return a.clone();
+
     let q = u128.Zero;
     let r = u128.Zero;
 
