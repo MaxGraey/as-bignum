@@ -733,22 +733,17 @@ export class u128 {
     let b = numerator;
     let c = denominator;
 
-    if (c.isZero()) {
-      throw new RangeError("Division by zero");
-    }
-
-    if (b == c) return a.clone();
-
-    let q = u128.Zero;
-    let r = u128.Zero;
-
     let ql = __udivmod128(b.lo, b.hi, c.lo, c.hi);
 
     let qn = new u128(ql, __divmod_quot_hi);             // b / c
     let rn = new u128(__divmod_rem_lo, __divmod_rem_hi); // b % c
 
-    while (!a.isZero()) {
-      if (a.lo & 1) {
+    let q = u128.Zero;
+    let r = u128.Zero;
+    let n = a.clone();
+
+    while (!n.isZero()) {
+      if (n.lo & 1) {
         // @ts-ignore
         q += qn;
         // @ts-ignore
@@ -761,11 +756,12 @@ export class u128 {
         }
       }
       // @ts-ignore
-      a >>= 1;
+      n >>= 1;
       // @ts-ignore
       qn <<= 1;
       // @ts-ignore
       rn <<= 1;
+
       if (rn >= c) {
         // @ts-ignore
         ++qn;
