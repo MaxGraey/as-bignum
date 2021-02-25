@@ -198,12 +198,12 @@ class u128 extends U128 {
     return this;
   }
 
-  @operator.postfix('++')
+  @inline @operator.postfix('++')
   postInc(): u128 {
     return this.clone().preInc();
   }
 
-  @operator.postfix('--')
+  @inline @operator.postfix('--')
   postDec(): u128 {
     return this.clone().preDec();
   }
@@ -224,9 +224,7 @@ class u128 extends U128 {
 
   @operator('-')
   static sub(a: u128, b: u128): u128 {
-    if (a < b) {
-      throw new RangeError("Underflow during substraction");
-    }
+    if (a < b) throw new RangeError("Underflow during substraction");
     return changetype<u128>(
       U128.sub(changetype<U128>(a), changetype<U128>(b))
     );
@@ -271,7 +269,7 @@ class u128 extends U128 {
     return changetype<u128>(U128.div(a, b));
   }
 
-  @operator('**')
+  @inline @operator('**')
   static pow(base: u128, exponent: i32): u128 {
     if (isPowerOverflow128(base, exponent)) {
       throw new Error("Overflow during exponentiation");
@@ -295,13 +293,14 @@ class u128 extends U128 {
   }
 
   // compute floor(sqrt(x))
+  @inline
   static sqrt(value: u128): u128 {
     return changetype<u128>(U128.sqrt(value));
   }
 
   @inline
   static muldiv(number: u128, numerator: u128, denominator: u128): u128 {
-    // TODO: check overflow
+    // TODO: Need implement overflow checking
     return changetype<u128>(U128.muldiv(number, numerator, denominator));
   }
 
