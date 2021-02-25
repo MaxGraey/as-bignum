@@ -733,6 +733,10 @@ export class u128 {
     let b = numerator;
     let c = denominator;
 
+    if (c.isZero()) {
+      throw new RangeError("Division by zero");
+    }
+
     if (b == c) return a.clone();
 
     let q = u128.Zero;
