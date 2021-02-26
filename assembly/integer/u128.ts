@@ -252,7 +252,7 @@ export class u128 {
     return new u128(lo1, hi + u64(lo1 < lo));
   }
 
-  @inline @operator.prefix('++')
+  @operator.prefix('++')
   preInc(): this {
     var lo = this.lo;
     var lo1 = lo + 1;
@@ -261,7 +261,7 @@ export class u128 {
     return this;
   }
 
-  @inline @operator.prefix('--')
+  @operator.prefix('--')
   preDec(): this {
     var lo = this.lo;
     var lo1 = lo - 1;
@@ -270,12 +270,12 @@ export class u128 {
     return this;
   }
 
-  @inline @operator.postfix('++')
+  @operator.postfix('++')
   postInc(): u128 {
     return this.clone().preInc();
   }
 
-  @inline @operator.postfix('--')
+  @operator.postfix('--')
   postDec(): u128 {
     return this.clone().preDec();
   }
@@ -720,6 +720,56 @@ export class u128 {
     this.hi = hi;
 
     return this;
+  }
+
+  /**
+   * Calculate multiply and division as `number * numerator / denominator`
+   * without overflow in multiplication part.
+   *
+   * @returns 128-bit unsigned integer
+   */
+  static muldiv(number: u128, numerator: u128, denominator: u128): u128 {
+    let a = number;
+    let b = numerator;
+    let c = denominator;
+
+    let ql = __udivmod128(b.lo, b.hi, c.lo, c.hi);
+
+    let qn = new u128(ql, __divmod_quot_hi);             // b / c
+    let rn = new u128(__divmod_rem_lo, __divmod_rem_hi); // b % c
+
+    let q = u128.Zero;
+    let r = u128.Zero;
+    let n = a.clone();
+
+    while (!n.isZero()) {
+      if (n.lo & 1) {
+        // @ts-ignore
+        q += qn;
+        // @ts-ignore
+        r += rn;
+        if (r >= c) {
+          // @ts-ignore
+          ++q;
+          // @ts-ignore
+          r -= c;
+        }
+      }
+      // @ts-ignore
+      n >>= 1;
+      // @ts-ignore
+      qn <<= 1;
+      // @ts-ignore
+      rn <<= 1;
+
+      if (rn >= c) {
+        // @ts-ignore
+        ++qn;
+        // @ts-ignore
+        rn -= c;
+      }
+    }
+    return q;
   }
 
   /**

@@ -198,12 +198,12 @@ class u128 extends U128 {
     return this;
   }
 
-  @operator.postfix('++')
+  @inline @operator.postfix('++')
   postInc(): u128 {
     return this.clone().preInc();
   }
 
-  @operator.postfix('--')
+  @inline @operator.postfix('--')
   postDec(): u128 {
     return this.clone().preDec();
   }
@@ -224,9 +224,7 @@ class u128 extends U128 {
 
   @operator('-')
   static sub(a: u128, b: u128): u128 {
-    if (a < b) {
-      throw new RangeError("Underflow during substraction");
-    }
+    if (a < b) throw new RangeError("Underflow during substraction");
     return changetype<u128>(
       U128.sub(changetype<U128>(a), changetype<U128>(b))
     );
@@ -271,7 +269,7 @@ class u128 extends U128 {
     return changetype<u128>(U128.div(a, b));
   }
 
-  @operator('**')
+  @inline @operator('**')
   static pow(base: u128, exponent: i32): u128 {
     if (isPowerOverflow128(base, exponent)) {
       throw new Error("Overflow during exponentiation");
@@ -295,10 +293,16 @@ class u128 extends U128 {
   }
 
   // compute floor(sqrt(x))
+  @inline
   static sqrt(value: u128): u128 {
     return changetype<u128>(U128.sqrt(value));
   }
 
+  @inline
+  static muldiv(number: u128, numerator: u128, denominator: u128): u128 {
+    // TODO: Need implement overflow checking
+    return changetype<u128>(U128.muldiv(number, numerator, denominator));
+  }
 
   @inline
   toUnchecked(): U128 {
@@ -309,25 +313,25 @@ class u128 extends U128 {
   as<T>(): T {
     var dummy: T;
 
-         if (dummy instanceof bool)   return <T>this.toBool();
-    else if (dummy instanceof i8)     return <T>this.toI64();
-    else if (dummy instanceof u8)     return <T>this.toU64();
-    else if (dummy instanceof i16)    return <T>this.toI64();
-    else if (dummy instanceof u16)    return <T>this.toU64();
-    else if (dummy instanceof i32)    return <T>this.toI64();
-    else if (dummy instanceof i64)    return <T>this.toI64();
-    else if (dummy instanceof u32)    return <T>this.toU64();
-    else if (dummy instanceof u64)    return <T>this.toU64();
-    else if (dummy instanceof f32)    return <T>this.toF64();
-    else if (dummy instanceof f64)    return <T>this.toF64();
-    else if (dummy instanceof i128)   return <T>this.toI128();
-    else if (dummy instanceof u128)   return <T>this;
-    else if (dummy instanceof U128)   return <T>this.toUnchecked();
-    else if (dummy instanceof u256)   return <T>this.toU256();
-    else if (dummy instanceof U256)   return <T>this.toU256();
-    else if (dummy instanceof u8[])   return <T>this.toBytes();
+         if (dummy instanceof bool)       return <T>this.toBool();
+    else if (dummy instanceof i8)         return <T>this.toI64();
+    else if (dummy instanceof u8)         return <T>this.toU64();
+    else if (dummy instanceof i16)        return <T>this.toI64();
+    else if (dummy instanceof u16)        return <T>this.toU64();
+    else if (dummy instanceof i32)        return <T>this.toI64();
+    else if (dummy instanceof i64)        return <T>this.toI64();
+    else if (dummy instanceof u32)        return <T>this.toU64();
+    else if (dummy instanceof u64)        return <T>this.toU64();
+    else if (dummy instanceof f32)        return <T>this.toF64();
+    else if (dummy instanceof f64)        return <T>this.toF64();
+    else if (dummy instanceof i128)       return <T>this.toI128();
+    else if (dummy instanceof u128)       return <T>this;
+    else if (dummy instanceof U128)       return <T>this.toUnchecked();
+    else if (dummy instanceof u256)       return <T>this.toU256();
+    else if (dummy instanceof U256)       return <T>this.toU256();
+    else if (dummy instanceof u8[])       return <T>this.toBytes();
     else if (dummy instanceof Uint8Array) return <T>this.toUint8Array();
-    else if (dummy instanceof String) return <T>this.toString();
+    else if (dummy instanceof String)     return <T>this.toString();
     else throw new TypeError('Unsupported generic type');
   }
 

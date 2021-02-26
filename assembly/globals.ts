@@ -268,13 +268,13 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
 function __udivmod128core(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
   var a = new u128(alo, ahi);
   var b = new u128(blo, bhi);
-  var q = u128.Zero;
-  var n = a.clone();
   // get leading zeros for left alignment
-  var alz = __clz128(n.lo, n.hi);
-  var blz = __clz128(b.lo, b.hi);
+  var alz = __clz128(alo, ahi);
+  var blz = __clz128(blo, bhi);
   var off = blz - alz;
   var nb  = b << off;
+  var q = u128.Zero;
+  var n = a.clone();
 
   // create a mask with the length of b
   var mask = u128.One;
