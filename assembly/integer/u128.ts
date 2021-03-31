@@ -350,7 +350,7 @@ export class u128 {
   @inline
   static rotl(value: u128, shift: i32): u128 {
     let n = shift & 127;
-    if (n == 0) return value;
+    if (n == 0) return value.clone();
 
     let lo = value.lo;
     let hi = value.hi;
@@ -370,7 +370,7 @@ export class u128 {
   @inline
   static rotr(value: u128, shift: i32): u128 {
     let n = shift & 127;
-    if (n == 0) return value;
+    if (n == 0) return value.clone();
 
     let lo = value.lo;
     let hi = value.hi;

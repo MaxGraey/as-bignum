@@ -2813,6 +2813,7 @@
   i32.eqz
   if
    local.get $0
+   call $assembly/integer/u128/u128#clone@virtual
    return
   end
   local.get $0
@@ -2875,6 +2876,7 @@
   i32.eqz
   if
    local.get $0
+   call $assembly/integer/u128/u128#clone@virtual
    return
   end
   local.get $0
@@ -9534,13 +9536,17 @@
   (local $3 i64)
   (local $4 i64)
   (local $5 i64)
-  block $assembly/integer/u128/u128.rotl|inlined.0
+  block $assembly/integer/u128/u128.rotl|inlined.0 (result i32)
    local.get $1
    i32.const 127
    i32.and
    local.tee $1
    i32.eqz
-   br_if $assembly/integer/u128/u128.rotl|inlined.0
+   if
+    local.get $0
+    call $assembly/integer/u128/u128#clone@virtual
+    br $assembly/integer/u128/u128.rotl|inlined.0
+   end
    local.get $0
    i64.load
    local.set $3
@@ -9555,7 +9561,6 @@
     local.get $2
     local.get $3
     call $assembly/integer/u128/u128#constructor
-    local.set $0
     br $assembly/integer/u128/u128.rotl|inlined.0
    end
    local.get $1
@@ -9570,41 +9575,43 @@
    i64.const 64
    local.get $1
    i64.extend_i32_s
-   local.tee $4
+   local.tee $5
    i64.sub
-   local.set $5
+   local.set $4
    i32.const 0
    local.get $3
-   local.get $4
+   local.get $5
    i64.shl
    local.get $2
-   local.get $5
+   local.get $4
    i64.shr_u
    i64.or
    local.get $2
-   local.get $4
+   local.get $5
    i64.shl
    local.get $3
-   local.get $5
+   local.get $4
    i64.shr_u
    i64.or
    call $assembly/integer/u128/u128#constructor
-   local.set $0
   end
-  local.get $0
  )
  (func $assembly/integer/safe/u128/u128.rotr (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
   (local $3 i64)
   (local $4 i64)
   (local $5 i64)
-  block $assembly/integer/u128/u128.rotr|inlined.0
+  block $assembly/integer/u128/u128.rotr|inlined.0 (result i32)
    local.get $1
    i32.const 127
    i32.and
    local.tee $1
    i32.eqz
-   br_if $assembly/integer/u128/u128.rotr|inlined.0
+   if
+    local.get $0
+    call $assembly/integer/u128/u128#clone@virtual
+    br $assembly/integer/u128/u128.rotr|inlined.0
+   end
    local.get $0
    i64.load
    local.set $3
@@ -9619,7 +9626,6 @@
     local.get $2
     local.get $3
     call $assembly/integer/u128/u128#constructor
-    local.set $0
     br $assembly/integer/u128/u128.rotr|inlined.0
    end
    i32.const 0
@@ -9636,25 +9642,23 @@
    i64.const 64
    local.get $1
    i64.extend_i32_s
-   local.tee $4
-   i64.sub
    local.tee $5
+   i64.sub
+   local.tee $4
    i64.shl
    local.get $3
-   local.get $4
+   local.get $5
    i64.shr_u
    i64.or
    local.get $3
-   local.get $5
+   local.get $4
    i64.shl
    local.get $2
-   local.get $4
+   local.get $5
    i64.shr_u
    i64.or
    call $assembly/integer/u128/u128#constructor
-   local.set $0
   end
-  local.get $0
  )
  (func $assembly/integer/safe/u128/u128.add (param $0 i32) (param $1 i32) (result i32)
   (local $2 i64)
