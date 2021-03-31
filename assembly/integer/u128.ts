@@ -349,74 +349,42 @@ export class u128 {
 
   @inline
   static rotl(value: u128, shift: i32): u128 {
-    shift &= 127;
-    if (shift == 0) return value;
+    let n = shift & 127;
+    if (n == 0) return value;
 
-    var shift64 = (128 - shift) as u64;
-
-    var mod1 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
-    var mod2 = (shift64 >> 6) - 1;
-
-    shift64 &= 63;
-
-    var vl = value.lo;
-    var vh = value.hi;
-    var hi1 = vh >> shift64;
-    var lo1 = hi1 & ~mod2;
-
-    lo1 |= ((vl >> shift64) | ((vh << (64 - shift64)) & mod1)) & mod2;
-    hi1 &= mod2;
-
-    shift64 = shift;
-
-    mod1 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
-    mod2 = (shift64 >> 6) - 1;
-
-    shift64 &= 63;
-
-    var lo2 = vl << shift64;
-    var hi2 = lo2 & ~mod2;
-
-    hi2 |= ((vh << shift64) | ((vl >> (64 - shift64)) & mod1)) & mod2;
-    lo2 &= mod2;
-
-    return new u128(lo1 | lo2, hi1 | hi2);
+    let lo = value.lo;
+    let hi = value.hi;
+    if (n == 64) {
+      return new u128(hi, lo);
+    }
+    if (n & 64) {
+      let t = lo; lo = hi; hi = t;
+    }
+    let slo = lo << n;
+    let shi = hi << n;
+    let rlo = lo >> (64 - n);
+    let rhi = hi >> (64 - n);
+    return new u128(slo | rhi, shi | rlo);
   }
 
   @inline
   static rotr(value: u128, shift: i32): u128 {
-    shift &= 127;
-    if (shift == 0) return value;
+    let n = shift & 127;
+    if (n == 0) return value;
 
-    var shift64 = (128 - shift) as u64;
-
-    var mod1 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
-    var mod2 = (shift64 >> 6) - 1;
-
-    shift64 &= 63;
-
-    var vl = value.lo;
-    var vh = value.hi;
-    var lo1 = vl << shift64;
-    var hi1 = lo1 & ~mod2;
-
-    hi1 |= ((vh << shift64) | ((vl >> (64 - shift64)) & mod1)) & mod2;
-    lo1 &= mod2;
-
-    shift64 = shift;
-
-    mod1 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
-    mod2 = (shift64 >> 6) - 1;
-
-    shift64 &= 63;
-
-    var hi2 = vh >> shift64;
-    var lo2 = hi2 & ~mod2;
-
-    lo2 |= ((vl >> shift64) | ((vh << (64 - shift64)) & mod1)) & mod2;
-    hi2 &= mod2;
-
-    return new u128(lo1 | lo2, hi1 | hi2);
+    let lo = value.lo;
+    let hi = value.hi;
+    if (n == 64) {
+      return new u128(hi, lo);
+    }
+    if (n & 64) {
+      let t = lo; lo = hi; hi = t;
+    }
+    let slo = lo >> n;
+    let shi = hi >> n;
+    let rlo = lo << (64 - n);
+    let rhi = hi << (64 - n);
+    return new u128(slo | rhi, shi | rlo);
   }
 
   @inline @operator('+')
