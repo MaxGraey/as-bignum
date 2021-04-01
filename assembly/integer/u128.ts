@@ -364,7 +364,7 @@ export class u128 {
     let shi = hi << n;
     let rlo = lo >> (64 - n);
     let rhi = hi >> (64 - n);
-    return new u128(slo | rhi, shi | rlo);
+    return new u128(shi | rlo, slo | rhi);
   }
 
   @inline
@@ -384,7 +384,7 @@ export class u128 {
     let shi = hi >> n;
     let rlo = lo << (64 - n);
     let rhi = hi << (64 - n);
-    return new u128(slo | rhi, shi | rlo);
+    return new u128(shi | rlo, slo | rhi);
   }
 
   @inline @operator('+')
