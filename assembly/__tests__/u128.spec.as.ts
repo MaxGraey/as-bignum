@@ -518,6 +518,79 @@ describe("Basic Operations", () => {
     expect(a >> 0).toStrictEqual(a);
   });
 
+  it("Should invariant rotate left with zero number", () => {
+    var a = new u128(1, 1);
+    expect(u128.rotl(a, 0)).toStrictEqual(a);
+  });
+
+  it("Should invariant rotate right with zero number", () => {
+    var a = new u128(1, 1);
+    expect(u128.rotr(a, 0)).toStrictEqual(a);
+  });
+
+  it("Should swap lo/hi with left rotation with 64 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(987654321, 123456789);
+    expect(u128.rotl(a, 64)).toStrictEqual(r);
+  });
+
+  it("Should swap lo/hi with right rotation with 64 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(987654321, 123456789);
+    expect(u128.rotr(a, 64)).toStrictEqual(r);
+  });
+
+  it("Should left rotation with 1 number", () => {
+    var a = new u128(0, 1);
+    var r = new u128(0, 2);
+    expect(u128.rotl(a, 1)).toStrictEqual(r);
+    expect(u128.rotl(a, 1)).toStrictEqual(u128.from("36893488147419103232"));
+  });
+
+  it("Should right rotation with 1 number", () => {
+    var a = new u128(1, 0);
+    var r = new u128(0, 9223372036854775808);
+    expect(u128.rotr(a, 1)).toStrictEqual(r);
+    expect(u128.rotr(a, 1)).toStrictEqual(u128.from("170141183460469231731687303715884105728"));
+  });
+
+  it("Should left rotation with 32 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(530242871224172544, 4241943008448086016);
+    expect(u128.rotl(a, 32)).toStrictEqual(r);
+  });
+
+  it("Should right rotation with 32 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(4241943008448086016, 530242871224172544);
+    expect(u128.rotr(a, 32)).toStrictEqual(r);
+    expect(u128.rotr(a, 32)).toStrictEqual(u128.from("9781254542381241820752866247306117120"));
+  });
+
+  it("Should left rotation with 16 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(8090864123904, 64726913581056);
+    expect(u128.rotl(a, 16)).toStrictEqual(r);
+  });
+
+  it("Should right rotation with 16 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(7543810850822293339, 14777717752286165726);
+    expect(u128.rotr(a, 16)).toStrictEqual(r);
+  });
+
+  it("Should left rotation with 97 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(8483886016896172032, 1060485742448345088);
+    expect(u128.rotl(a, 97)).toStrictEqual(r);
+  });
+
+  it("Should right rotation with 97 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(265121435612086272, 2120971504224043008);
+    expect(u128.rotr(a, 97)).toStrictEqual(r);
+  });
+
   it("Should multiply two numbers", () => {
     var a = u128.from(43545453452);
     var b = u128.from(2353454354);

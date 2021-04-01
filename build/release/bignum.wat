@@ -2806,11 +2806,6 @@
   (local $3 i64)
   (local $4 i64)
   (local $5 i64)
-  (local $6 i64)
-  (local $7 i64)
-  (local $8 i64)
-  (local $9 i64)
-  (local $10 i64)
   local.get $1
   i32.const 127
   i32.and
@@ -2818,107 +2813,54 @@
   i32.eqz
   if
    local.get $0
+   call $assembly/integer/u128/u128#clone@virtual
    return
   end
-  i64.const 128
-  local.get $1
-  i64.extend_i32_s
-  local.tee $3
-  i64.sub
-  local.tee $2
-  i64.const 63
-  i64.and
-  local.set $4
   local.get $0
   i64.load
-  local.tee $5
-  local.get $3
-  i64.const 63
-  i64.and
-  local.tee $6
-  i64.shl
-  local.set $7
-  i32.const 0
+  local.set $3
   local.get $0
   i64.load offset=8
-  local.tee $8
-  local.get $4
-  i64.shr_u
-  local.tee $10
-  local.get $2
-  i64.const 6
-  i64.shr_u
-  i64.const 1
-  i64.sub
-  local.tee $9
-  i64.const -1
-  i64.xor
-  i64.and
-  local.get $9
-  local.get $2
-  local.get $2
-  i64.const 127
-  i64.add
-  i64.or
+  local.set $2
+  local.get $1
+  i32.const 64
+  i32.eq
+  if
+   i32.const 0
+   local.get $2
+   local.get $3
+   call $assembly/integer/u128/u128#constructor
+   return
+  end
+  local.get $1
+  i32.const 64
+  i32.and
+  if
+   local.get $3
+   local.get $2
+   local.set $3
+   local.set $2
+  end
   i64.const 64
-  i64.and
-  i64.const 6
-  i64.shr_u
-  i64.const 1
+  local.get $1
+  i64.extend_i32_s
+  local.tee $5
   i64.sub
-  local.get $8
-  i64.const 64
-  local.get $4
-  i64.sub
-  i64.shl
-  i64.and
+  local.set $4
+  i32.const 0
+  local.get $3
   local.get $5
+  i64.shl
+  local.get $2
   local.get $4
   i64.shr_u
   i64.or
-  i64.and
-  i64.or
-  local.get $3
-  i64.const 6
-  i64.shr_u
-  i64.const 1
-  i64.sub
-  local.tee $2
-  local.get $7
-  i64.and
-  i64.or
-  local.get $9
-  local.get $10
-  i64.and
-  local.get $7
   local.get $2
-  i64.const -1
-  i64.xor
-  i64.and
-  local.get $2
-  local.get $3
-  local.get $3
-  i64.const 127
-  i64.add
-  i64.or
-  i64.const 64
-  i64.and
-  i64.const 6
-  i64.shr_u
-  i64.const 1
-  i64.sub
   local.get $5
-  i64.const 64
-  local.get $6
-  i64.sub
-  i64.shr_u
-  i64.and
-  local.get $8
-  local.get $6
   i64.shl
-  i64.or
-  i64.and
-  i64.or
+  local.get $3
+  local.get $4
+  i64.shr_u
   i64.or
   call $assembly/integer/u128/u128#constructor
  )
@@ -2927,12 +2869,6 @@
   (local $3 i64)
   (local $4 i64)
   (local $5 i64)
-  (local $6 i64)
-  (local $7 i64)
-  (local $8 i64)
-  (local $9 i64)
-  (local $10 i64)
-  (local $11 i64)
   local.get $1
   i32.const 127
   i32.and
@@ -2940,106 +2876,53 @@
   i32.eqz
   if
    local.get $0
+   call $assembly/integer/u128/u128#clone@virtual
    return
   end
-  i64.const 128
-  local.get $1
-  i64.extend_i32_s
-  local.tee $2
-  i64.sub
-  local.tee $3
-  i64.const 63
-  i64.and
-  local.set $4
-  i32.const 0
-  local.get $3
-  i64.const 6
-  i64.shr_u
-  i64.const 1
-  i64.sub
-  local.tee $5
   local.get $0
   i64.load
-  local.tee $6
-  local.get $4
-  i64.shl
-  local.tee $10
-  i64.and
+  local.set $3
   local.get $0
   i64.load offset=8
-  local.tee $7
+  local.set $2
+  local.get $1
+  i32.const 64
+  i32.eq
+  if
+   i32.const 0
+   local.get $2
+   local.get $3
+   call $assembly/integer/u128/u128#constructor
+   return
+  end
+  i32.const 0
+  local.get $1
+  i32.const 64
+  i32.and
+  if
+   local.get $3
+   local.get $2
+   local.set $3
+   local.set $2
+  end
   local.get $2
-  i64.const 63
-  i64.and
-  local.tee $8
-  i64.shr_u
-  local.tee $11
-  local.get $2
-  i64.const 6
-  i64.shr_u
-  i64.const 1
-  i64.sub
-  local.tee $9
-  i64.const -1
-  i64.xor
-  i64.and
-  local.get $9
-  local.get $2
-  local.get $2
-  i64.const 127
-  i64.add
-  i64.or
   i64.const 64
-  i64.and
-  i64.const 6
-  i64.shr_u
-  i64.const 1
+  local.get $1
+  i64.extend_i32_s
+  local.tee $5
   i64.sub
-  local.get $7
-  i64.const 64
-  local.get $8
-  i64.sub
+  local.tee $4
   i64.shl
-  i64.and
-  local.get $6
-  local.get $8
-  i64.shr_u
-  i64.or
-  i64.and
-  i64.or
-  i64.or
-  local.get $9
-  local.get $11
-  i64.and
-  local.get $10
-  local.get $5
-  i64.const -1
-  i64.xor
-  i64.and
-  local.get $5
   local.get $3
-  local.get $3
-  i64.const 127
-  i64.add
+  local.get $5
+  i64.shr_u
   i64.or
-  i64.const 64
-  i64.and
-  i64.const 6
-  i64.shr_u
-  i64.const 1
-  i64.sub
-  local.get $6
-  i64.const 64
-  local.get $4
-  i64.sub
-  i64.shr_u
-  i64.and
-  local.get $7
+  local.get $3
   local.get $4
   i64.shl
-  i64.or
-  i64.and
-  i64.or
+  local.get $2
+  local.get $5
+  i64.shr_u
   i64.or
   call $assembly/integer/u128/u128#constructor
  )
@@ -9653,119 +9536,64 @@
   (local $3 i64)
   (local $4 i64)
   (local $5 i64)
-  (local $6 i64)
-  (local $7 i64)
-  (local $8 i64)
-  (local $9 i64)
-  (local $10 i64)
-  local.get $1
-  i32.const 127
-  i32.and
-  local.tee $1
-  if (result i32)
-   i64.const 128
+  block $assembly/integer/u128/u128.rotl|inlined.0 (result i32)
    local.get $1
-   i64.extend_i32_s
-   local.tee $3
-   i64.sub
-   local.tee $2
-   i64.const 63
-   i64.and
-   local.set $4
+   i32.const 127
+   i32.and
+   local.tee $1
+   i32.eqz
+   if
+    local.get $0
+    call $assembly/integer/u128/u128#clone@virtual
+    br $assembly/integer/u128/u128.rotl|inlined.0
+   end
    local.get $0
    i64.load
-   local.tee $5
-   local.get $3
-   i64.const 63
-   i64.and
-   local.tee $6
-   i64.shl
-   local.set $7
-   i32.const 0
+   local.set $3
    local.get $0
    i64.load offset=8
-   local.tee $8
-   local.get $4
-   i64.shr_u
-   local.tee $10
-   local.get $2
-   i64.const 6
-   i64.shr_u
-   i64.const 1
-   i64.sub
-   local.tee $9
-   i64.const -1
-   i64.xor
-   i64.and
-   local.get $9
-   local.get $2
-   local.get $2
-   i64.const 127
-   i64.add
-   i64.or
+   local.set $2
+   local.get $1
+   i32.const 64
+   i32.eq
+   if
+    i32.const 0
+    local.get $2
+    local.get $3
+    call $assembly/integer/u128/u128#constructor
+    br $assembly/integer/u128/u128.rotl|inlined.0
+   end
+   local.get $1
+   i32.const 64
+   i32.and
+   if
+    local.get $3
+    local.get $2
+    local.set $3
+    local.set $2
+   end
    i64.const 64
-   i64.and
-   i64.const 6
-   i64.shr_u
-   i64.const 1
+   local.get $1
+   i64.extend_i32_s
+   local.tee $5
    i64.sub
-   local.get $8
-   i64.const 64
-   local.get $4
-   i64.sub
-   i64.shl
-   i64.and
+   local.set $4
+   i32.const 0
+   local.get $3
    local.get $5
+   i64.shl
+   local.get $2
    local.get $4
    i64.shr_u
    i64.or
-   i64.and
-   i64.or
-   local.get $3
-   i64.const 6
-   i64.shr_u
-   i64.const 1
-   i64.sub
-   local.tee $2
-   local.get $7
-   i64.and
-   i64.or
-   local.get $9
-   local.get $10
-   i64.and
-   local.get $7
    local.get $2
-   i64.const -1
-   i64.xor
-   i64.and
-   local.get $2
-   local.get $3
-   local.get $3
-   i64.const 127
-   i64.add
-   i64.or
-   i64.const 64
-   i64.and
-   i64.const 6
-   i64.shr_u
-   i64.const 1
-   i64.sub
    local.get $5
-   i64.const 64
-   local.get $6
-   i64.sub
-   i64.shr_u
-   i64.and
-   local.get $8
-   local.get $6
    i64.shl
-   i64.or
-   i64.and
-   i64.or
+   local.get $3
+   local.get $4
+   i64.shr_u
    i64.or
    call $assembly/integer/u128/u128#constructor
-  else
-   local.get $0
   end
  )
  (func $assembly/integer/safe/u128/u128.rotr (param $0 i32) (param $1 i32) (result i32)
@@ -9773,119 +9601,63 @@
   (local $3 i64)
   (local $4 i64)
   (local $5 i64)
-  (local $6 i64)
-  (local $7 i64)
-  (local $8 i64)
-  (local $9 i64)
-  (local $10 i64)
-  (local $11 i64)
-  local.get $1
-  i32.const 127
-  i32.and
-  local.tee $1
-  if (result i32)
-   i64.const 128
+  block $assembly/integer/u128/u128.rotr|inlined.0 (result i32)
    local.get $1
-   i64.extend_i32_s
-   local.tee $2
-   i64.sub
-   local.tee $3
-   i64.const 63
-   i64.and
-   local.set $4
-   i32.const 0
-   local.get $3
-   i64.const 6
-   i64.shr_u
-   i64.const 1
-   i64.sub
-   local.tee $5
+   i32.const 127
+   i32.and
+   local.tee $1
+   i32.eqz
+   if
+    local.get $0
+    call $assembly/integer/u128/u128#clone@virtual
+    br $assembly/integer/u128/u128.rotr|inlined.0
+   end
    local.get $0
    i64.load
-   local.tee $6
-   local.get $4
-   i64.shl
-   local.tee $10
-   i64.and
+   local.set $3
    local.get $0
    i64.load offset=8
-   local.tee $7
+   local.set $2
+   local.get $1
+   i32.const 64
+   i32.eq
+   if
+    i32.const 0
+    local.get $2
+    local.get $3
+    call $assembly/integer/u128/u128#constructor
+    br $assembly/integer/u128/u128.rotr|inlined.0
+   end
+   i32.const 0
+   local.get $1
+   i32.const 64
+   i32.and
+   if
+    local.get $3
+    local.get $2
+    local.set $3
+    local.set $2
+   end
    local.get $2
-   i64.const 63
-   i64.and
-   local.tee $8
-   i64.shr_u
-   local.tee $11
-   local.get $2
-   i64.const 6
-   i64.shr_u
-   i64.const 1
-   i64.sub
-   local.tee $9
-   i64.const -1
-   i64.xor
-   i64.and
-   local.get $9
-   local.get $2
-   local.get $2
-   i64.const 127
-   i64.add
-   i64.or
    i64.const 64
-   i64.and
-   i64.const 6
-   i64.shr_u
-   i64.const 1
+   local.get $1
+   i64.extend_i32_s
+   local.tee $5
    i64.sub
-   local.get $7
-   i64.const 64
-   local.get $8
-   i64.sub
+   local.tee $4
    i64.shl
-   i64.and
-   local.get $6
-   local.get $8
-   i64.shr_u
-   i64.or
-   i64.and
-   i64.or
-   i64.or
-   local.get $9
-   local.get $11
-   i64.and
-   local.get $10
-   local.get $5
-   i64.const -1
-   i64.xor
-   i64.and
-   local.get $5
    local.get $3
-   local.get $3
-   i64.const 127
-   i64.add
+   local.get $5
+   i64.shr_u
    i64.or
-   i64.const 64
-   i64.and
-   i64.const 6
-   i64.shr_u
-   i64.const 1
-   i64.sub
-   local.get $6
-   i64.const 64
-   local.get $4
-   i64.sub
-   i64.shr_u
-   i64.and
-   local.get $7
+   local.get $3
    local.get $4
    i64.shl
-   i64.or
-   i64.and
-   i64.or
+   local.get $2
+   local.get $5
+   i64.shr_u
    i64.or
    call $assembly/integer/u128/u128#constructor
-  else
-   local.get $0
   end
  )
  (func $assembly/integer/safe/u128/u128.add (param $0 i32) (param $1 i32) (result i32)
@@ -10937,7 +10709,7 @@
   if
    i32.const 1744
    i32.const 1376
-   i32.const 961
+   i32.const 929
    i32.const 5
    call $~lib/builtins/abort
    unreachable
