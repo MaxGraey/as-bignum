@@ -117,6 +117,7 @@ export class u128 {
     }
   }
 
+  @inline
   static fromBytesLE(array: u8[]): u128 {
     assert(array.length && (array.length & 15) == 0);
     // @ts-ignore
@@ -127,6 +128,7 @@ export class u128 {
     );
   }
 
+  @inline
   static fromBytesBE(array: u8[]): u128 {
     assert(array.length && (array.length & 15) == 0);
     // @ts-ignore
@@ -137,6 +139,7 @@ export class u128 {
     );
   }
 
+  @inline
   static fromUint8ArrayLE(array: Uint8Array): u128 {
     assert(array.length && (array.length & 15) == 0);
     // @ts-ignore
@@ -651,12 +654,6 @@ export class u128 {
   @inline
   static sqr(value: u128): u128 {
     return value.clone().sqr();
-  }
-
-  // wide mul: u128 * u128 = u256
-  static mulq(a: u128, b: u128): u256 {
-    // TODO
-    return u256.Zero;
   }
 
   /**

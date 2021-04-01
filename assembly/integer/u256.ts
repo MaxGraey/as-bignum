@@ -45,6 +45,7 @@ export class u256 {
     return new u256(value, mask, mask, mask);
   }
 
+  @inline
   static fromBits(
     l0: u32, l1: u32, l2: u32, l3: u32,
     h0: u32, h1: u32, h2: u32, h3: u32,
@@ -73,6 +74,7 @@ export class u256 {
     }
   }
 
+  @inline
   static fromBytesLE(array: u8[]): u256 {
     assert(array.length && (array.length & 31) == 0);
     // @ts-ignore
@@ -85,6 +87,7 @@ export class u256 {
     );
   }
 
+  @inline
   static fromBytesBE(array: u8[]): u256 {
     assert(array.length && (array.length & 31) == 0);
     // @ts-ignore
@@ -97,6 +100,7 @@ export class u256 {
     );
   }
 
+  @inline
   static fromUint8ArrayLE(array: Uint8Array): u256 {
     assert(array.length && (array.length & 31) == 0);
     // @ts-ignore
@@ -109,6 +113,7 @@ export class u256 {
     );
   }
 
+  @inline
   static fromUint8ArrayBE(array: Uint8Array): u256 {
     assert(array.length && (array.length & 31) == 0);
     // @ts-ignore
@@ -427,6 +432,7 @@ export class u256 {
     return !u256.lt(a, b);
   }
 
+  @inline
   static popcnt(value: u256): i32 {
     var count = popcnt(value.lo1);
     if (value.lo2) count += popcnt(value.lo2);
@@ -435,6 +441,7 @@ export class u256 {
     return <i32>count;
   }
 
+  @inline
   static clz(value: u256): i32 {
          if (value.hi2) return <i32>(clz(value.hi2) + 0);
     else if (value.hi1) return <i32>(clz(value.hi1) + 64);
@@ -442,6 +449,7 @@ export class u256 {
     else                return <i32>(clz(value.lo1) + 192);
   }
 
+  @inline
   static ctz(value: u256): i32 {
          if (value.lo1) return <i32>(ctz(value.lo1) + 0);
     else if (value.lo2) return <i32>(ctz(value.lo2) + 64);
@@ -528,6 +536,7 @@ export class u256 {
     return <bool>(this.lo1 | this.lo2 | this.hi1 | this.hi2);
   }
 
+  @inline
   private toArrayBufferLE(buffer: usize): void {
     store<u64>(buffer, this.lo1, 0 * sizeof<u64>());
     store<u64>(buffer, this.lo2, 1 * sizeof<u64>());
@@ -535,6 +544,7 @@ export class u256 {
     store<u64>(buffer, this.hi2, 3 * sizeof<u64>());
   }
 
+  @inline
   private toArrayBufferBE(buffer: usize): void {
     store<u64>(buffer, bswap(this.hi2), 0 * sizeof<u64>());
     store<u64>(buffer, bswap(this.hi1), 1 * sizeof<u64>());
