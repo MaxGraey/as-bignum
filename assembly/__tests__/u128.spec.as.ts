@@ -518,6 +518,79 @@ describe("Basic Operations", () => {
     expect(a >> 0).toStrictEqual(a);
   });
 
+  it("Should invariant rotate left with zero number", () => {
+    var a = new u128(1, 1);
+    expect(u128.rotl(a, 0)).toStrictEqual(a);
+  });
+
+  it("Should invariant rotate right with zero number", () => {
+    var a = new u128(1, 1);
+    expect(u128.rotr(a, 0)).toStrictEqual(a);
+  });
+
+  it("Should swap lo/hi with left rotation with 64 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(987654321, 123456789);
+    expect(u128.rotl(a, 64)).toStrictEqual(r);
+  });
+
+  it("Should swap lo/hi with right rotation with 64 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(987654321, 123456789);
+    expect(u128.rotr(a, 64)).toStrictEqual(r);
+  });
+
+  it("Should left rotation with 1 number", () => {
+    var a = new u128(0, 1);
+    var r = new u128(0, 2);
+    expect(u128.rotl(a, 1)).toStrictEqual(r);
+    expect(u128.rotl(a, 1)).toStrictEqual(u128.from("36893488147419103232"));
+  });
+
+  it("Should right rotation with 1 number", () => {
+    var a = new u128(1, 0);
+    var r = new u128(0, 9223372036854775808);
+    expect(u128.rotr(a, 1)).toStrictEqual(r);
+    expect(u128.rotr(a, 1)).toStrictEqual(u128.from("170141183460469231731687303715884105728"));
+  });
+
+  it("Should left rotation with 32 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(530242871224172544, 4241943008448086016);
+    expect(u128.rotl(a, 32)).toStrictEqual(r);
+  });
+
+  it("Should right rotation with 32 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(4241943008448086016, 530242871224172544);
+    expect(u128.rotr(a, 32)).toStrictEqual(r);
+    expect(u128.rotr(a, 32)).toStrictEqual(u128.from("9781254542381241820752866247306117120"));
+  });
+
+  it("Should left rotation with 16 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(8090864123904, 64726913581056);
+    expect(u128.rotl(a, 16)).toStrictEqual(r);
+  });
+
+  it("Should right rotation with 16 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(7543810850822293339, 14777717752286165726);
+    expect(u128.rotr(a, 16)).toStrictEqual(r);
+  });
+
+  it("Should left rotation with 97 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(8483886016896172032, 1060485742448345088);
+    expect(u128.rotl(a, 97)).toStrictEqual(r);
+  });
+
+  it("Should right rotation with 97 number", () => {
+    var a = new u128(123456789, 987654321);
+    var r = new u128(265121435612086272, 2120971504224043008);
+    expect(u128.rotr(a, 97)).toStrictEqual(r);
+  });
+
   it("Should multiply two numbers", () => {
     var a = u128.from(43545453452);
     var b = u128.from(2353454354);
@@ -848,6 +921,13 @@ describe("Division And Mod Operation", () => {
     expect(a / b).toStrictEqual(u128.from(9196400));
   });
 
+  // regression
+  it("Should divide two numbers without remainder 4", () => {
+    let a = u128.from('9801427805542018869750100000000');
+    let b = u128.from(10);
+    expect(a / b).toStrictEqual(u128.from('980142780554201886975010000000'));
+  });
+
   it("Should divide two numbers with remainder 1", () => {
     let a = new u128(3152652666208173568, 2);
     let b = u128.from(43543534534534);
@@ -896,6 +976,12 @@ describe("Division And Mod Operation", () => {
     expect(a % b).toStrictEqual(u128.from(17518179721730));
   });
 
+  it("Should mod two numbers with remainder 3", () => {
+    let a = new u128(987775983032474055, 5421010862427527591);
+    let b = new u128(1000000000011111);
+    expect(a % b).toStrictEqual(new u128(344332109866679));
+  });
+
   it("Should mod number with one", () => {
     let a = new u128(10248516654965971928, 5);
     let b = u128.One;
@@ -910,6 +996,85 @@ describe("Division And Mod Operation", () => {
   it("Should divide two same numbers", () => {
     let a = new u128(10248516654965971928, 5);
     expect(a / a).toStrictEqual(u128.One);
+  });
+
+  it("Should mod number same max value", () => {
+    let a = u128.Max;
+    expect(a % a).toStrictEqual(u128.Zero);
+  });
+
+  it("Should div number same max value", () => {
+    let a = u128.Max;
+    expect(a / a).toStrictEqual(u128.One);
+  });
+
+});
+
+describe("Multiply and Division without Overflow", () => {
+  it("Should muldiv return zero 1", () => {
+    let a = new u128(10248516654965971928, 5);
+    let b = new u128(22972907047680);
+    expect(u128.muldiv(a, u128.Zero, b)).toStrictEqual(u128.Zero);
+  });
+
+  it("Should muldiv return zero 2", () => {
+    let a = u128.Zero;
+    let b = new u128(22972907047680);
+    expect(u128.muldiv(a, u128.One, b)).toStrictEqual(u128.Zero);
+  });
+
+  it("Should muldiv same number 1", () => {
+    let a = new u128(10248516654965971928, 5);
+    let b = new u128(22972907047680);
+    expect(u128.muldiv(a, b, b)).toStrictEqual(a);
+  });
+
+  it("Should muldiv same number 2", () => {
+    let a = u128.Max;
+    let b = new u128(-1);
+    expect(u128.muldiv(a, b, b)).toStrictEqual(a);
+  });
+
+  it("Should muldiv same number 3", () => {
+    let max = u128.Max;
+    expect(u128.muldiv(max, max, max)).toStrictEqual(max);
+  });
+
+  it("Should muldiv small arguments without overflow 64-bits", () => {
+    let a = new u128(498419840516515123);
+    let b = new u128(6132198419878046132);
+    let c = new u128(9156498145135109843);
+    expect(u128.muldiv(a, b, c)).toStrictEqual(new u128(333796753956109993));
+  });
+
+  it("Should muldiv small arguments with overflow 64-bits", () => {
+    let a = new u128(9223372032559808512);
+    let b = new u128(9223372036854775807);
+    let c = new u128(12);
+    expect(u128.muldiv(a, b, c)).toStrictEqual(new u128(11529215046426383701, 384307168023325354));
+  });
+
+  it("Should muldiv with small b and huge c", () => {
+    // FIXME: this failed!
+
+    let a = new u128(9223372032559808512, 123456);
+    let b = new u128(123456);
+    let c = new u128(0xFFFFFFFFFFFFFFFF, 123456);
+    expect(u128.muldiv(a, b, c)).toStrictEqual(new u128(123455));
+  });
+
+  it("Should muldiv big arguments with overflow 128-bits 1", () => {
+    let a = new u128(17368525644200112449, 244614);
+    let b = new u128(4017580189248773693, 12699);
+    let c = new u128(3434515);
+    expect(u128.muldiv(a, b, c)).toStrictEqual(new u128(12770041117111790654, 8684128842189806128));
+  });
+
+  it("Should muldiv big arguments with overflow 128-bits 2", () => {
+    let a = u128.Max;
+    let b = new u128(0x7FFFFFFFFFFFFFFF, 0x8111111111111111);
+    let c = new u128(0x3333333333333333);
+    expect(u128.muldiv(a, b, c)).toStrictEqual(new u128(9223372036854775803, 384307168202282322));
   });
 });
 
@@ -1005,6 +1170,27 @@ describe("Throwable", () => {
     expect(() => {
       let a = new u128(1, 1);
       !(a % u128.Zero);
+    }).toThrow();
+  });
+
+  it("Should throw when div divider and divisor is zero", () => {
+    expect(() => {
+      let a = u128.Zero;
+      !(a / a);
+    }).toThrow();
+  });
+
+  it("Should throw when mod divider and divisor is zero", () => {
+    expect(() => {
+      let a = u128.Zero;
+      !(a % a);
+    }).toThrow();
+  });
+
+  it("Should throw when divide number by zero for muldiv", () => {
+    expect(() => {
+      let a = new u128(1, 1);
+      !(u128.muldiv(a, a, u128.Zero));
     }).toThrow();
   });
 });

@@ -1,4 +1,5 @@
-import { u128 } from '../../assembly/integer/safe/u128';
+import { u128Safe as u128  } from '..';
+
 
 describe("Basic operations", () => {
   it("Should add two numbers 1", () => {
@@ -92,6 +93,12 @@ describe("Basic operations", () => {
     expect(a * b).toStrictEqual(u128.from("333333333333333333333000000000000000000"));
   });
 
+  it("Should div two safe u128s", () => {
+    var a = u128.from("2222222");
+    var b = u128.One;
+    expect(u128.div(a,b)).toStrictEqual(a);
+  });
+
   it("Should power number 1", () => {
     expect<u128>(u128.Zero ** 1024).toStrictEqual(u128.Zero);
   });
@@ -133,7 +140,6 @@ describe("Basic operations", () => {
   });
 })
 
-/*
 describe("Overflow Underflow Throwable", () => {
   it("Should throw when add two numbers 1", () => {
     expect(() => {
@@ -344,7 +350,7 @@ describe("Overflow Underflow Throwable", () => {
       !(new u128(u64.MAX_VALUE) ** 3);
     }).toThrow();
   });
-})
+});
 
 describe("Buffer Conversion", () => {
   it("Should convert from bytes Little Endian", () => {
@@ -363,4 +369,3 @@ describe("Buffer Conversion", () => {
     expect(u128.fromBytes(arr, true)).toStrictEqual(new u128(0x99aabbccddeeff12, 0x1122334455667788));
   });
 });
-*/
