@@ -250,7 +250,8 @@ export class u128 {
 
   @inline @operator.prefix('-')
   neg(): u128 {
-    var lo = ~this.lo, hi = ~this.hi;
+    var lo = ~this.lo;
+    var hi = ~this.hi;
     var lo1 = lo + 1;
     return new u128(lo1, hi + u64(lo1 < lo));
   }
@@ -602,18 +603,20 @@ export class u128 {
 
    /**
    * Get ordering
-   * if a > b then result is greater than 0
-   * if a < b then result is lesser than 0
-   * if a = b then result is eqal to 0
+   * if a > b then result is  1
+   * if a < b then result is -1
+   * if a = b then result is  0
    * @param  a 128-bit unsigned integer
    * @param  b 128-bit unsigned integer
    * @returns  32-bit signed integer
    */
   @inline
   static ord(a: u128, b: u128): i32 {
-    var dlo: i64 = a.lo - b.lo;
-    var dhi: i64 = a.hi - b.hi;
-    return <i32>select<i64>(dhi, dlo, dhi != 0);
+    var dlo = a.lo - b.lo;
+    var dhi = a.hi - b.hi;
+    var cmp = <i32>select<i64>(dhi, dlo, dhi != 0);
+    // normalize to [-1, 0, 1]
+    return i32(cmp > 0) - i32(cmp < 0);
   }
 
   /**

@@ -90,28 +90,60 @@ export class i128 {
   }
 
   @inline
-  static fromBytes(array: u8[], le: bool = true): i128 {
-    return le ? i128.fromBytesLE(array) : i128.fromBytesBE(array);
+  static fromBytes<T>(array: T, bigEndian: bool = false): i128 {
+    if (array instanceof u8[]) {
+      return bigEndian
+        // @ts-ignore
+        ? i128.fromBytesBE(<u8[]>array)
+        // @ts-ignore
+        : i128.fromBytesLE(<u8[]>array);
+    } else if (array instanceof Uint8Array) {
+      return bigEndian
+        ? i128.fromUint8ArrayBE(<Uint8Array>array)
+        : i128.fromUint8ArrayLE(<Uint8Array>array);
+    } else {
+      throw new TypeError("Unsupported generic type");
+    }
   }
 
   static fromBytesLE(array: u8[]): i128 {
-    assert(array.length == 16);
-
-    var lo: u64 = 0, hi: i64 = 0;
-    for (let i = 0; i <  8; ++i) lo |= unchecked(array[i]) << (i << 3);
-    for (let i = 8; i < 16; ++i) hi |= unchecked(array[i]) << (i << 3);
-
-    return new i128(lo, hi);
+    assert(array.length && (array.length & 15) == 0);
+    // @ts-ignore
+    var buffer = array.dataStart;
+    return new i128(
+      load<u64>(buffer, 0 * sizeof<u64>()),
+      load<u64>(buffer, 1 * sizeof<u64>())
+    );
   }
 
   static fromBytesBE(array: u8[]): i128 {
-    assert(array.length == 16);
+    assert(array.length && (array.length & 15) == 0);
+    // @ts-ignore
+    var buffer = array.dataStart;
+    return new i128(
+      bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
+      bswap<u64>(load<u64>(buffer, 0 * sizeof<u64>()))
+    );
+  }
 
-    var lo: u64 = 0, hi: i64 = 0;
-    for (let i = 0; i <  8; ++i) hi |= unchecked(array[i]) << ((7  - i) << 3);
-    for (let i = 8; i < 16; ++i) lo |= unchecked(array[i]) << ((15 - i) << 3);
+  static fromUint8ArrayLE(array: Uint8Array): i128 {
+    assert(array.length && (array.length & 15) == 0);
+    // @ts-ignore
+    var buffer = array.dataStart;
+    return new i128(
+      load<u64>(buffer, 0 * sizeof<u64>()),
+      load<u64>(buffer, 1 * sizeof<u64>())
+    );
+  }
 
-    return new i128(lo, hi);
+  static fromUint8ArrayBE(array: Uint8Array): i128 {
+    assert(array.length && (array.length & 15) == 0);
+    // @ts-ignore
+    var buffer = array.dataStart;
+    return new i128(
+      bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
+      bswap<u64>(load<u64>(buffer, 0 * sizeof<u64>()))
+    );
   }
 
   /**
@@ -146,8 +178,13 @@ export class i128 {
   ) {}
 
   @inline
+  isPos(): bool {
+    return this.hi >= 0;
+  }
+
+  @inline
   isNeg(): bool {
-    return <bool>(this.hi >>> 63);
+    return this.hi < 0;
   }
 
   @inline
@@ -167,14 +204,15 @@ export class i128 {
 
   @inline @operator.prefix('-')
   neg(): i128 {
-    var lo = ~this.lo, hi = ~this.hi;
-    var cy = ((lo & 1) + (lo >> 1)) >> 63;
-    return new i128(lo + 1, hi + cy);
+    var lo = ~this.lo;
+    var hi = ~this.hi;
+    var lo1 = lo + 1;
+    return new i128(lo1, hi + i64(lo1 < 0));
   }
 
   @inline @operator.prefix('!')
   static isEmpty(value: i128): bool {
-    return value === null || !value.isZero();
+    return value === null || value.isZero();
   }
 
   @inline @operator('|')
@@ -236,21 +274,19 @@ export class i128 {
 
   @inline @operator('+')
   static add(a: i128, b: i128): i128 {
-    var bl = b.lo;
-    // var lo = a.lo + bl   - (<i64>(b  <  0));
-    var lo = a.lo + bl   - (b.hi >>> 63);
-    var hi = a.hi + b.hi + (<i64>(lo < bl));
-
+    var blo = b.lo;
+    var bhi = b.hi;
+    var lo = a.lo + blo - (bhi >>> 63);
+    var hi = a.hi + bhi + i64(lo < blo);
     return new i128(lo, hi);
   }
 
   @inline @operator('-')
   static sub(a: i128, b: i128): i128 {
-    var al = a.lo;
-    // var lo = al   - b.lo + (<i64>(b  <  0));
-    var lo = al   - b.lo + (b.hi >>> 63);
-    var hi = a.hi - b.hi - (<i64>(lo > al));
-
+    var alo = a.lo;
+    var bhi = b.hi;
+    var lo = alo  - b.lo + (bhi >>> 63);
+    var hi = a.hi - bhi  - i64(lo > alo);
     return new i128(lo, hi);
   }
 
@@ -261,7 +297,7 @@ export class i128 {
 
   @inline @operator('!=')
   static ne(a: i128, b: i128): bool {
-    return !u128.eq(a, b);
+    return !i128.eq(a, b);
   }
 
   @inline @operator('<')
@@ -287,11 +323,12 @@ export class i128 {
   }
 
   @inline
-  static cmp(a: i128, b: i128): i32 {
-    var dlo = (a.lo - b.lo) as i64;
+  static ord(a: i128, b: i128): i32 {
+    var dlo = a.lo - b.lo;
     var dhi = a.hi - b.hi;
-    // return <i32>(dhi != 0 ? dhi : dlo);
-    return <i32>select<i64>(dhi, dlo, dhi != 0);
+    var cmp = <i32>select<i64>(dhi, dlo, dhi != 0);
+    // normalize to [-1, 0, 1]
+    return i32(cmp > 0) - i32(cmp < 0);
   }
 
   @inline
@@ -311,9 +348,13 @@ export class i128 {
 
   @inline
   static abs(value: i128): i128 {
-    return value.isNeg() ? value.neg() : value;
-    // var mask = value >> 127;
-    // return (value ^ mask) - mask;
+    var lo = value.lo;
+    var hi = value.hi;
+    if (hi >>> 63) {
+      lo = -lo;
+      hi = ~hi + i64(lo == 0);
+    }
+    return new i128(lo, hi);
   }
 
   // TODO

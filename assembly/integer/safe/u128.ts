@@ -1,6 +1,6 @@
 import { u256Safe as u256 } from './u256';
-import { i128 } from './i128';
-import { i256 } from './i256';
+import { i128Safe } from './i128';
+import { i256Safe } from './i256';
 import { u128 as U128 } from '../u128';
 import { u256 as U256 } from '../u256';
 import { i128 as I128 } from '../i128';
@@ -27,7 +27,12 @@ class u128 extends U128 {
   }
 
   @inline
-  static fromI256(value: i256): u128 {
+  static fromI256(value: I256): u128 {
+    return changetype<u128>(U128.fromI256(value));
+  }
+
+  @inline
+  static fromI256Safe(value: i256Safe): u128 {
     return changetype<u128>(U128.fromI256(value));
   }
 
@@ -37,7 +42,12 @@ class u128 extends U128 {
   }
 
   @inline
-  static fromI128(value: i128): u128 {
+  static fromI128(value: I128): u128 {
+    return changetype<u128>(U128.fromI128(value));
+  }
+
+  @inline
+  static fromI128Safe(value: i128Safe): u128 {
     return changetype<u128>(U128.fromI128(value));
   }
 
@@ -118,25 +128,27 @@ class u128 extends U128 {
    */
   @inline
   static from<T>(value: T): u128 {
-         if (value instanceof bool)   return u128.fromU64(<u64>value);
-    else if (value instanceof i8)     return u128.fromI64(<i64>value);
-    else if (value instanceof u8)     return u128.fromU64(<u64>value);
-    else if (value instanceof i16)    return u128.fromI64(<i64>value);
-    else if (value instanceof u16)    return u128.fromU64(<u64>value);
-    else if (value instanceof i32)    return u128.fromI64(<i64>value);
-    else if (value instanceof u32)    return u128.fromU64(<u64>value);
-    else if (value instanceof i64)    return u128.fromI64(<i64>value);
-    else if (value instanceof u64)    return u128.fromU64(<u64>value);
-    else if (value instanceof f32)    return u128.fromF64(<f64>value);
-    else if (value instanceof f64)    return u128.fromF64(<f64>value);
-    else if (value instanceof i128)   return u128.fromI128(<i128>value);
-    else if (value instanceof u128)   return u128.fromU128(<u128>value);
-    else if (value instanceof U128)   return u128.fromU128(<U128>value);
-    else if (value instanceof i256)   return u128.fromI256(<i256>value);
-    else if (value instanceof u256)   return u128.fromU256(<u256>value);
-    else if (value instanceof u8[])   return u128.fromBytes(<u8[]>value);
+         if (value instanceof bool)       return u128.fromU64(<u64>value);
+    else if (value instanceof i8)         return u128.fromI64(<i64>value);
+    else if (value instanceof u8)         return u128.fromU64(<u64>value);
+    else if (value instanceof i16)        return u128.fromI64(<i64>value);
+    else if (value instanceof u16)        return u128.fromU64(<u64>value);
+    else if (value instanceof i32)        return u128.fromI64(<i64>value);
+    else if (value instanceof u32)        return u128.fromU64(<u64>value);
+    else if (value instanceof i64)        return u128.fromI64(<i64>value);
+    else if (value instanceof u64)        return u128.fromU64(<u64>value);
+    else if (value instanceof f32)        return u128.fromF64(<f64>value);
+    else if (value instanceof f64)        return u128.fromF64(<f64>value);
+    else if (value instanceof I128)       return u128.fromI128(<I128>value);
+    else if (value instanceof i128Safe)   return u128.fromI128(<i128Safe>value);
+    else if (value instanceof u128)       return u128.fromU128(<u128>value);
+    else if (value instanceof U128)       return u128.fromU128(<U128>value);
+    else if (value instanceof I256)       return u128.fromI128(<I256>value);
+    else if (value instanceof i256Safe)   return u128.fromI256(<i256Safe>value);
+    else if (value instanceof u256)       return u128.fromU256(<u256>value);
+    else if (value instanceof u8[])       return u128.fromBytes(<u8[]>value);
     else if (value instanceof Uint8Array) return u128.fromBytes(<Uint8Array>value);
-    else if (value instanceof String) return u128.fromString(<string>value);
+    else if (value instanceof String)     return u128.fromString(<string>value);
     else throw new TypeError("Unsupported generic type");
   }
 
