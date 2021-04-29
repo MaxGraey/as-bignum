@@ -119,24 +119,12 @@ export class u128 {
 
   @inline
   static fromBytesLE(array: u8[]): u128 {
-    assert(array.length && (array.length & 15) == 0);
-    // @ts-ignore
-    var buffer = array.dataStart;
-    return new u128(
-      load<u64>(buffer, 0 * sizeof<u64>()),
-      load<u64>(buffer, 1 * sizeof<u64>())
-    );
+    return u128.fromUint8ArrayLE(changetype<Uint8Array>(array));
   }
 
   @inline
   static fromBytesBE(array: u8[]): u128 {
-    assert(array.length && (array.length & 15) == 0);
-    // @ts-ignore
-    var buffer = array.dataStart;
-    return new u128(
-      bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
-      bswap<u64>(load<u64>(buffer, 0 * sizeof<u64>()))
-    );
+    return u128.fromUint8ArrayBE(changetype<Uint8Array>(array));
   }
 
   @inline
@@ -150,6 +138,7 @@ export class u128 {
     );
   }
 
+  @inline
   static fromUint8ArrayBE(array: Uint8Array): u128 {
     assert(array.length && (array.length & 15) == 0);
     // @ts-ignore
