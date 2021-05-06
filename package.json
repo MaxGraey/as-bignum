@@ -38,7 +38,7 @@
     "ts-node": "^9.1.0",
     "typescript": "^4.1.2"
   },
-  "releaseFiles": [
+  "files": [
     "assembly/",
     "build/",
     "README.md",
