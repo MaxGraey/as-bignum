@@ -69,10 +69,10 @@ arg@^4.1.0:
   resolved "https://registry.yarnpkg.com/arg/-/arg-4.1.3.tgz#269fc7ad5b8e42cb63c896d5666017261c144089"
   integrity sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ+71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==
 
-assemblyscript@^0.18.29:
-  version "0.18.30"
-  resolved "https://registry.yarnpkg.com/assemblyscript/-/assemblyscript-0.18.30.tgz#d7485b627f66390f6688aa927c8aabf9ec796155"
-  integrity sha512-+Ii/MoWJJ1Mh4lhgKX4Cxx3toFNY86r4WvnsA3Ucu0OjtsIqdZzP+M9cGonAdaOzkU1gprZXu+6IO1ARSK8CCg==
+assemblyscript@^0.18.31:
+  version "0.18.31"
+  resolved "https://registry.yarnpkg.com/assemblyscript/-/assemblyscript-0.18.31.tgz#ceee70fb75c78bc009831c25680967f3c089c9cc"
+  integrity sha512-4MtKf1nnmY0eh+v4PKVnIjT8HPTRBqJqACW3kXQoDztyFBLHN1WxGSgZ9iPsLbm/6xKNYD0l6j9y03PoMv+Qog==
   dependencies:
     binaryen "100.0.0-nightly.20210413"
     long "^4.0.0"

@@ -6765,6 +6765,7 @@
  (func $~lib/array/Array<u8>#constructor (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
+  (local $3 i32)
   i32.const 16
   i32.const 5
   call $~lib/rt/stub/__new
@@ -6786,25 +6787,31 @@
   if
    i32.const 1728
    i32.const 1776
-   i32.const 58
+   i32.const 64
    i32.const 60
    call $~lib/builtins/abort
    unreachable
   end
   local.get $0
+  i32.const 8
+  local.get $0
+  i32.const 8
+  i32.gt_u
+  select
+  local.tee $2
   i32.const 0
   call $~lib/rt/stub/__new
-  local.tee $2
-  local.get $0
+  local.tee $3
+  local.get $2
   call $~lib/memory/memory.fill
   local.get $1
-  local.get $2
+  local.get $3
   i32.store
   local.get $1
-  local.get $2
+  local.get $3
   i32.store offset=4
   local.get $1
-  local.get $0
+  local.get $2
   i32.store offset=8
   local.get $1
   local.get $0
@@ -10533,7 +10540,7 @@
    if
     i32.const 2128
     i32.const 1776
-    i32.const 92
+    i32.const 99
     i32.const 42
     call $~lib/builtins/abort
     unreachable

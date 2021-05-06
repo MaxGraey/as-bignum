@@ -34,7 +34,7 @@
   "devDependencies": {
     "@as-pect/cli": "^6.1.0",
     "@types/node": "^15.0.1",
-    "assemblyscript": "^0.18.29",
+    "assemblyscript": "^0.18.31",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   },
@@ -43,7 +43,6 @@
     "build/",
     "README.md",
     "LICENSE",
-    "package.json",
-    "yarn.lock"
+    "package.json"
   ]
 }
