@@ -28,17 +28,17 @@
     "build": "yarn build:release",
     "build:debug": "npx asc assembly/index.ts -b build/debug/bignum.wasm -t build/debug/bignum.wat --debug --sourceMap --runtime stub",
     "build:release": "npx asc assembly/index.ts -b build/release/bignum.wasm -t build/release/bignum.wat -O3 --sourceMap --runtime stub",
-    "test": "asp --nortrace --verbose",
-    "test:ci": "asp --nortrace 2> /dev/null"
+    "test": "asp --verbose",
+    "test:ci": "asp 2> /dev/null"
   },
   "devDependencies": {
-    "@as-pect/cli": "^5.0.0",
-    "@types/node": "^14.14.10",
-    "assemblyscript": "^0.17.4",
-    "ts-node": "^9.1.0",
-    "typescript": "^4.1.2"
+    "@as-pect/cli": "^6.1.1",
+    "@types/node": "^15.0.1",
+    "assemblyscript": "^0.18.31",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
   },
-  "releaseFiles": [
+  "files": [
     "assembly/",
     "build/",
     "README.md",
