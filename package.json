@@ -43,6 +43,7 @@
     "build/",
     "README.md",
     "LICENSE",
-    "package.json"
+    "package.json",
+    "yarn.lock"
   ]
 }
