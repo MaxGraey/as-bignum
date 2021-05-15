@@ -63,7 +63,9 @@ export class u256 {
     // @ts-ignore
     if (array instanceof u8[]) {
       return bigEndian
+        // @ts-ignore
         ? u256.fromBytesBE(<u8[]>array)
+        // @ts-ignore
         : u256.fromBytesLE(<u8[]>array);
     } else if (array instanceof Uint8Array) {
       return bigEndian
@@ -90,7 +92,6 @@ export class u256 {
   @inline
   static fromBytesBE(array: u8[]): u256 {
     assert(array.length && (array.length & 31) == 0);
-    // @ts-ignore
     var buffer = array.dataStart;
     return new u256(
       bswap<u64>(load<u64>(buffer, 3 * sizeof<u64>())),
@@ -103,7 +104,6 @@ export class u256 {
   @inline
   static fromUint8ArrayLE(array: Uint8Array): u256 {
     assert(array.length && (array.length & 31) == 0);
-    // @ts-ignore
     var buffer = array.dataStart;
     return new u256(
         load<u64>(buffer, 0 * sizeof<u64>()),
@@ -116,7 +116,6 @@ export class u256 {
   @inline
   static fromUint8ArrayBE(array: Uint8Array): u256 {
     assert(array.length && (array.length & 31) == 0);
-    // @ts-ignore
     var buffer = array.dataStart;
     return new u256(
         bswap<u64>(load<u64>(buffer, 3 * sizeof<u64>())),
@@ -597,7 +596,6 @@ export class u256 {
   @inline
   toBytes(bigEndian: bool = false): u8[] {
     var result = new Array<u8>(32);
-    // @ts-ignore
     this.toArrayBuffer(result.dataStart, bigEndian);
     return result;
   }
@@ -610,7 +608,6 @@ export class u256 {
   @inline
   toUint8Array(bigEndian: bool = false): Uint8Array {
     var result = new Uint8Array(32);
-    // @ts-ignore
     this.toArrayBuffer(result.dataStart, bigEndian);
     return result;
   }
@@ -628,6 +625,7 @@ export class u256 {
     if (radix == 16) {
       let shift: i32 = 252 - (u256.clz(it) & ~3);
       while (shift >= 0) {
+        // @ts-ignore
         it >>= shift;
         result = result.concat(HEX_CHARS.charAt(<i32>(it.lo1 & 15)));
         shift -= 4;

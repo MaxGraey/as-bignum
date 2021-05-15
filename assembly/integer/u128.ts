@@ -888,7 +888,6 @@ export class u128 {
   @inline
   toBytes(bigEndian: bool = false): u8[] {
     var result = new Array<u8>(16);
-    // @ts-ignore
     this.toArrayBuffer(result.dataStart, bigEndian);
     return result;
   }
@@ -901,7 +900,6 @@ export class u128 {
   @inline
   toUint8Array(bigEndian: bool = false): Uint8Array {
     var result = new Uint8Array(16);
-    // @ts-ignore
     this.toArrayBuffer(result.dataStart, bigEndian);
     return result;
   }

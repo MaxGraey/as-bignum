@@ -108,18 +108,17 @@ export class i128 {
 
   @inline
   static fromBytesLE(array: u8[]): i128 {
-    return i128.fromUint8ArrayLE(changetype<Uint8Array>(array));
+    return this.fromUint8ArrayLE(changetype<Uint8Array>(array));
   }
 
   @inline
   static fromBytesBE(array: u8[]): i128 {
-    return i128.fromUint8ArrayBE(changetype<Uint8Array>(array));
+    return this.fromUint8ArrayBE(changetype<Uint8Array>(array));
   }
 
   @inline
   static fromUint8ArrayLE(array: Uint8Array): i128 {
     assert(array.length && (array.length & 15) == 0);
-    // @ts-ignore
     var buffer = array.dataStart;
     return new i128(
       load<u64>(buffer, 0 * sizeof<u64>()),
@@ -129,7 +128,6 @@ export class i128 {
 
   static fromUint8ArrayBE(array: Uint8Array): i128 {
     assert(array.length && (array.length & 15) == 0);
-    // @ts-ignore
     var buffer = array.dataStart;
     return new i128(
       bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
@@ -347,6 +345,51 @@ export class i128 {
     }
     return new i128(lo, hi);
   }
+
+  @inline
+  private toArrayBufferLE(buffer: usize): void {
+    store<u64>(buffer, this.lo, 0 * sizeof<u64>());
+    store<u64>(buffer, this.hi, 1 * sizeof<u64>());
+  }
+
+  @inline
+  private toArrayBufferBE(buffer: usize): void {
+    store<u64>(buffer, bswap<u64>(this.hi), 0 * sizeof<u64>());
+    store<u64>(buffer, bswap<u64>(this.lo), 1 * sizeof<u64>());
+  }
+
+  @inline
+  private toArrayBuffer(buffer: usize, bigEndian: bool = false): void {
+    if (bigEndian) {
+      this.toArrayBufferBE(buffer);
+    } else {
+      this.toArrayBufferLE(buffer);
+    }
+  }
+
+  /**
+   * Convert to byte array
+   * @param le Little or Big Endian? Default: true
+   * @returns  Array of bytes
+   */
+   @inline
+   toBytes(bigEndian: bool = false): u8[] {
+     var result = new Array<u8>(16);
+     this.toArrayBuffer(result.dataStart, bigEndian);
+     return result;
+   }
+
+   /**
+    * Convert to Uint8Array
+    * @param le Little or Big Endian? Default: true
+    * @returns  Uint8Array
+    */
+   @inline
+   toUint8Array(bigEndian: bool = false): Uint8Array {
+     var result = new Uint8Array(16);
+     this.toArrayBuffer(result.dataStart, bigEndian);
+     return result;
+   }
 
   // TODO
 }

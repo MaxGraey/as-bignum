@@ -52,18 +52,18 @@
  (data (i32.const 1384) "\05\00\00\00\10\00\00\00\10\05\00\00\10\05\00\00K\00\00\00K")
  (data (i32.const 1420) "L")
  (data (i32.const 1432) "\01\00\00\000\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00g\00e\00r\00/\00i\001\002\008\00.\00t\00s")
- (data (i32.const 1500) "L")
- (data (i32.const 1512) "\01\00\00\000\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00g\00e\00r\00/\00u\001\002\008\00.\00t\00s")
- (data (i32.const 1580) "<")
- (data (i32.const 1592) "\01\00\00\00 \00\00\00D\00i\00v\00i\00s\00i\00o\00n\00 \00b\00y\00 \00z\00e\00r\00o")
- (data (i32.const 1644) "<")
- (data (i32.const 1656) "\01\00\00\00&\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00g\00l\00o\00b\00a\00l\00s\00.\00t\00s")
- (data (i32.const 1708) ",")
- (data (i32.const 1720) "\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h")
- (data (i32.const 1756) ",")
- (data (i32.const 1768) "\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s")
+ (data (i32.const 1500) ",")
+ (data (i32.const 1512) "\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h")
+ (data (i32.const 1548) ",")
+ (data (i32.const 1560) "\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s")
+ (data (i32.const 1596) "<")
+ (data (i32.const 1608) "\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s")
+ (data (i32.const 1660) "L")
+ (data (i32.const 1672) "\01\00\00\000\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00g\00e\00r\00/\00u\001\002\008\00.\00t\00s")
+ (data (i32.const 1740) "<")
+ (data (i32.const 1752) "\01\00\00\00 \00\00\00D\00i\00v\00i\00s\00i\00o\00n\00 \00b\00y\00 \00z\00e\00r\00o")
  (data (i32.const 1804) "<")
- (data (i32.const 1816) "\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s")
+ (data (i32.const 1816) "\01\00\00\00&\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00g\00l\00o\00b\00a\00l\00s\00.\00t\00s")
  (data (i32.const 1868) "l")
  (data (i32.const 1880) "\01\00\00\00N\00\00\00r\00a\00d\00i\00x\00 \00a\00r\00g\00u\00m\00e\00n\00t\00 \00m\00u\00s\00t\00 \00b\00e\00 \00b\00e\00t\00w\00e\00e\00n\00 \001\000\00 \00o\00r\00 \001\006")
  (data (i32.const 1980) "\1c")
@@ -108,6 +108,8 @@
  (export "i128#not" (func $assembly/integer/i128/i128#not))
  (export "i128#pos" (func $assembly/integer/i128/i128#pos))
  (export "i128#neg" (func $assembly/integer/i128/i128#neg))
+ (export "i128#toBytes" (func $assembly/integer/i128/i128#toBytes@varargs))
+ (export "i128#toUint8Array" (func $assembly/integer/i128/i128#toUint8Array@varargs))
  (export "i128.get:Zero" (func $assembly/integer/i128/i128.get:Zero))
  (export "i128.get:One" (func $assembly/integer/i128/i128.get:One))
  (export "i128.get:Min" (func $assembly/integer/i128/i128.get:Min))
@@ -315,6 +317,8 @@
  (export "i128Safe#not" (func $assembly/integer/i128/i128#not))
  (export "i128Safe#pos" (func $assembly/integer/i128/i128#pos))
  (export "i128Safe#neg" (func $assembly/integer/i128/i128#neg))
+ (export "i128Safe#toBytes" (func $assembly/integer/i128/i128#toBytes@varargs))
+ (export "i128Safe#toUint8Array" (func $assembly/integer/i128/i128#toUint8Array@varargs))
  (export "i256Safe" (global $assembly/integer/safe/i256/i256))
  (export "i256Safe#get:lo1" (func $assembly/integer/i256/i256#get:lo1))
  (export "i256Safe#set:lo1" (func $assembly/integer/i128/i128#set:lo))
@@ -1399,7 +1403,7 @@
   if
    i32.const 0
    i32.const 1440
-   i32.const 131
+   i32.const 130
    i32.const 5
    call $~lib/builtins/abort
    unreachable
@@ -2002,6 +2006,285 @@
   i64.xor
   call $assembly/integer/i128/i128#constructor
  )
+ (func $~lib/memory/memory.fill (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  block $~lib/util/memory/memset|inlined.0
+   local.get $1
+   i32.eqz
+   br_if $~lib/util/memory/memset|inlined.0
+   local.get $0
+   i32.const 0
+   i32.store8
+   local.get $0
+   local.get $1
+   i32.add
+   local.tee $2
+   i32.const 1
+   i32.sub
+   i32.const 0
+   i32.store8
+   local.get $1
+   i32.const 2
+   i32.le_u
+   br_if $~lib/util/memory/memset|inlined.0
+   local.get $0
+   i32.const 0
+   i32.store8 offset=1
+   local.get $0
+   i32.const 0
+   i32.store8 offset=2
+   local.get $2
+   i32.const 2
+   i32.sub
+   i32.const 0
+   i32.store8
+   local.get $2
+   i32.const 3
+   i32.sub
+   i32.const 0
+   i32.store8
+   local.get $1
+   i32.const 6
+   i32.le_u
+   br_if $~lib/util/memory/memset|inlined.0
+   local.get $0
+   i32.const 0
+   i32.store8 offset=3
+   local.get $2
+   i32.const 4
+   i32.sub
+   i32.const 0
+   i32.store8
+   local.get $1
+   i32.const 8
+   i32.le_u
+   br_if $~lib/util/memory/memset|inlined.0
+   local.get $0
+   i32.const 0
+   local.get $0
+   i32.sub
+   i32.const 3
+   i32.and
+   local.tee $2
+   i32.add
+   local.tee $0
+   i32.const 0
+   i32.store
+   local.get $0
+   local.get $1
+   local.get $2
+   i32.sub
+   i32.const -4
+   i32.and
+   local.tee $2
+   i32.add
+   local.tee $1
+   i32.const 4
+   i32.sub
+   i32.const 0
+   i32.store
+   local.get $2
+   i32.const 8
+   i32.le_u
+   br_if $~lib/util/memory/memset|inlined.0
+   local.get $0
+   i32.const 0
+   i32.store offset=4
+   local.get $0
+   i32.const 0
+   i32.store offset=8
+   local.get $1
+   i32.const 12
+   i32.sub
+   i32.const 0
+   i32.store
+   local.get $1
+   i32.const 8
+   i32.sub
+   i32.const 0
+   i32.store
+   local.get $2
+   i32.const 24
+   i32.le_u
+   br_if $~lib/util/memory/memset|inlined.0
+   local.get $0
+   i32.const 0
+   i32.store offset=12
+   local.get $0
+   i32.const 0
+   i32.store offset=16
+   local.get $0
+   i32.const 0
+   i32.store offset=20
+   local.get $0
+   i32.const 0
+   i32.store offset=24
+   local.get $1
+   i32.const 28
+   i32.sub
+   i32.const 0
+   i32.store
+   local.get $1
+   i32.const 24
+   i32.sub
+   i32.const 0
+   i32.store
+   local.get $1
+   i32.const 20
+   i32.sub
+   i32.const 0
+   i32.store
+   local.get $1
+   i32.const 16
+   i32.sub
+   i32.const 0
+   i32.store
+   local.get $0
+   local.get $0
+   i32.const 4
+   i32.and
+   i32.const 24
+   i32.add
+   local.tee $1
+   i32.add
+   local.set $0
+   local.get $2
+   local.get $1
+   i32.sub
+   local.set $1
+   loop $while-continue|0
+    local.get $1
+    i32.const 32
+    i32.ge_u
+    if
+     local.get $0
+     i64.const 0
+     i64.store
+     local.get $0
+     i64.const 0
+     i64.store offset=8
+     local.get $0
+     i64.const 0
+     i64.store offset=16
+     local.get $0
+     i64.const 0
+     i64.store offset=24
+     local.get $1
+     i32.const 32
+     i32.sub
+     local.set $1
+     local.get $0
+     i32.const 32
+     i32.add
+     local.set $0
+     br $while-continue|0
+    end
+   end
+  end
+ )
+ (func $~lib/array/Array<u8>#constructor (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  i32.const 16
+  i32.const 5
+  call $~lib/rt/stub/__new
+  local.tee $1
+  i32.const 0
+  i32.store
+  local.get $1
+  i32.const 0
+  i32.store offset=4
+  local.get $1
+  i32.const 0
+  i32.store offset=8
+  local.get $1
+  i32.const 0
+  i32.store offset=12
+  local.get $0
+  i32.const 1073741820
+  i32.gt_u
+  if
+   i32.const 1520
+   i32.const 1568
+   i32.const 64
+   i32.const 60
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $0
+  i32.const 8
+  local.get $0
+  i32.const 8
+  i32.gt_u
+  select
+  local.tee $2
+  i32.const 0
+  call $~lib/rt/stub/__new
+  local.tee $3
+  local.get $2
+  call $~lib/memory/memory.fill
+  local.get $1
+  local.get $3
+  i32.store
+  local.get $1
+  local.get $3
+  i32.store offset=4
+  local.get $1
+  local.get $2
+  i32.store offset=8
+  local.get $1
+  local.get $0
+  i32.store offset=12
+  local.get $1
+ )
+ (func $~lib/arraybuffer/ArrayBufferView#constructor (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  local.get $0
+  i32.eqz
+  if
+   i32.const 12
+   i32.const 2
+   call $~lib/rt/stub/__new
+   local.set $0
+  end
+  local.get $0
+  i32.const 0
+  i32.store
+  local.get $0
+  i32.const 0
+  i32.store offset=4
+  local.get $0
+  i32.const 0
+  i32.store offset=8
+  local.get $1
+  i32.const 1073741820
+  i32.gt_u
+  if
+   i32.const 1520
+   i32.const 1616
+   i32.const 18
+   i32.const 57
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $1
+  i32.const 0
+  call $~lib/rt/stub/__new
+  local.tee $2
+  local.get $1
+  call $~lib/memory/memory.fill
+  local.get $0
+  local.get $2
+  i32.store
+  local.get $0
+  local.get $2
+  i32.store offset=4
+  local.get $0
+  local.get $1
+  i32.store offset=8
+  local.get $0
+ )
  (func $assembly/integer/u128/u128.get:Zero (result i32)
   i32.const 0
   i64.const 0
@@ -2138,7 +2421,7 @@
   i32.eqz
   if
    i32.const 0
-   i32.const 1520
+   i32.const 1680
    i32.const 132
    i32.const 5
    call $~lib/builtins/abort
@@ -2169,7 +2452,7 @@
   i32.eqz
   if
    i32.const 0
-   i32.const 1520
+   i32.const 1680
    i32.const 143
    i32.const 5
    call $~lib/builtins/abort
@@ -3170,8 +3453,8 @@
   i32.const 128
   i32.eq
   if
-   i32.const 1600
-   i32.const 1664
+   i32.const 1760
+   i32.const 1824
    i32.const 190
    i32.const 5
    call $~lib/builtins/abort
@@ -6586,285 +6869,6 @@
   call $assembly/globals/__floatuntidf
   f32.demote_f64
  )
- (func $~lib/memory/memory.fill (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  block $~lib/util/memory/memset|inlined.0
-   local.get $1
-   i32.eqz
-   br_if $~lib/util/memory/memset|inlined.0
-   local.get $0
-   i32.const 0
-   i32.store8
-   local.get $0
-   local.get $1
-   i32.add
-   local.tee $2
-   i32.const 1
-   i32.sub
-   i32.const 0
-   i32.store8
-   local.get $1
-   i32.const 2
-   i32.le_u
-   br_if $~lib/util/memory/memset|inlined.0
-   local.get $0
-   i32.const 0
-   i32.store8 offset=1
-   local.get $0
-   i32.const 0
-   i32.store8 offset=2
-   local.get $2
-   i32.const 2
-   i32.sub
-   i32.const 0
-   i32.store8
-   local.get $2
-   i32.const 3
-   i32.sub
-   i32.const 0
-   i32.store8
-   local.get $1
-   i32.const 6
-   i32.le_u
-   br_if $~lib/util/memory/memset|inlined.0
-   local.get $0
-   i32.const 0
-   i32.store8 offset=3
-   local.get $2
-   i32.const 4
-   i32.sub
-   i32.const 0
-   i32.store8
-   local.get $1
-   i32.const 8
-   i32.le_u
-   br_if $~lib/util/memory/memset|inlined.0
-   local.get $0
-   i32.const 0
-   local.get $0
-   i32.sub
-   i32.const 3
-   i32.and
-   local.tee $2
-   i32.add
-   local.tee $0
-   i32.const 0
-   i32.store
-   local.get $0
-   local.get $1
-   local.get $2
-   i32.sub
-   i32.const -4
-   i32.and
-   local.tee $2
-   i32.add
-   local.tee $1
-   i32.const 4
-   i32.sub
-   i32.const 0
-   i32.store
-   local.get $2
-   i32.const 8
-   i32.le_u
-   br_if $~lib/util/memory/memset|inlined.0
-   local.get $0
-   i32.const 0
-   i32.store offset=4
-   local.get $0
-   i32.const 0
-   i32.store offset=8
-   local.get $1
-   i32.const 12
-   i32.sub
-   i32.const 0
-   i32.store
-   local.get $1
-   i32.const 8
-   i32.sub
-   i32.const 0
-   i32.store
-   local.get $2
-   i32.const 24
-   i32.le_u
-   br_if $~lib/util/memory/memset|inlined.0
-   local.get $0
-   i32.const 0
-   i32.store offset=12
-   local.get $0
-   i32.const 0
-   i32.store offset=16
-   local.get $0
-   i32.const 0
-   i32.store offset=20
-   local.get $0
-   i32.const 0
-   i32.store offset=24
-   local.get $1
-   i32.const 28
-   i32.sub
-   i32.const 0
-   i32.store
-   local.get $1
-   i32.const 24
-   i32.sub
-   i32.const 0
-   i32.store
-   local.get $1
-   i32.const 20
-   i32.sub
-   i32.const 0
-   i32.store
-   local.get $1
-   i32.const 16
-   i32.sub
-   i32.const 0
-   i32.store
-   local.get $0
-   local.get $0
-   i32.const 4
-   i32.and
-   i32.const 24
-   i32.add
-   local.tee $1
-   i32.add
-   local.set $0
-   local.get $2
-   local.get $1
-   i32.sub
-   local.set $1
-   loop $while-continue|0
-    local.get $1
-    i32.const 32
-    i32.ge_u
-    if
-     local.get $0
-     i64.const 0
-     i64.store
-     local.get $0
-     i64.const 0
-     i64.store offset=8
-     local.get $0
-     i64.const 0
-     i64.store offset=16
-     local.get $0
-     i64.const 0
-     i64.store offset=24
-     local.get $1
-     i32.const 32
-     i32.sub
-     local.set $1
-     local.get $0
-     i32.const 32
-     i32.add
-     local.set $0
-     br $while-continue|0
-    end
-   end
-  end
- )
- (func $~lib/array/Array<u8>#constructor (param $0 i32) (result i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  i32.const 16
-  i32.const 5
-  call $~lib/rt/stub/__new
-  local.tee $1
-  i32.const 0
-  i32.store
-  local.get $1
-  i32.const 0
-  i32.store offset=4
-  local.get $1
-  i32.const 0
-  i32.store offset=8
-  local.get $1
-  i32.const 0
-  i32.store offset=12
-  local.get $0
-  i32.const 1073741820
-  i32.gt_u
-  if
-   i32.const 1728
-   i32.const 1776
-   i32.const 64
-   i32.const 60
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  i32.const 8
-  local.get $0
-  i32.const 8
-  i32.gt_u
-  select
-  local.tee $2
-  i32.const 0
-  call $~lib/rt/stub/__new
-  local.tee $3
-  local.get $2
-  call $~lib/memory/memory.fill
-  local.get $1
-  local.get $3
-  i32.store
-  local.get $1
-  local.get $3
-  i32.store offset=4
-  local.get $1
-  local.get $2
-  i32.store offset=8
-  local.get $1
-  local.get $0
-  i32.store offset=12
-  local.get $1
- )
- (func $~lib/arraybuffer/ArrayBufferView#constructor (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  local.get $0
-  i32.eqz
-  if
-   i32.const 12
-   i32.const 2
-   call $~lib/rt/stub/__new
-   local.set $0
-  end
-  local.get $0
-  i32.const 0
-  i32.store
-  local.get $0
-  i32.const 0
-  i32.store offset=4
-  local.get $0
-  i32.const 0
-  i32.store offset=8
-  local.get $1
-  i32.const 1073741820
-  i32.gt_u
-  if
-   i32.const 1728
-   i32.const 1824
-   i32.const 18
-   i32.const 57
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $1
-  i32.const 0
-  call $~lib/rt/stub/__new
-  local.tee $2
-  local.get $1
-  call $~lib/memory/memory.fill
-  local.get $0
-  local.get $2
-  i32.store
-  local.get $0
-  local.get $2
-  i32.store offset=4
-  local.get $0
-  local.get $1
-  i32.store offset=8
-  local.get $0
- )
  (func $~lib/string/String#charAt (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
@@ -8178,7 +8182,7 @@
   if
    i32.const 0
    i32.const 2256
-   i32.const 79
+   i32.const 81
    i32.const 5
    call $~lib/builtins/abort
    unreachable
@@ -8213,7 +8217,7 @@
   if
    i32.const 0
    i32.const 2256
-   i32.const 92
+   i32.const 94
    i32.const 5
    call $~lib/builtins/abort
    unreachable
@@ -8343,7 +8347,7 @@
   if
    i32.const 0
    i32.const 2256
-   i32.const 105
+   i32.const 106
    i32.const 5
    call $~lib/builtins/abort
    unreachable
@@ -10539,7 +10543,7 @@
    i32.ge_u
    if
     i32.const 2128
-    i32.const 1776
+    i32.const 1568
     i32.const 99
     i32.const 42
     call $~lib/builtins/abort
@@ -10720,6 +10724,189 @@
   local.get $1
   local.get $2
   call $assembly/integer/i128/i128#constructor
+ )
+ (func $assembly/integer/i128/i128#toBytes@varargs (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i64)
+  (local $3 i32)
+  (local $4 i32)
+  block $1of1
+   block $0of1
+    block $outOfRange
+     global.get $~argumentsLength
+     br_table $0of1 $1of1 $outOfRange
+    end
+    unreachable
+   end
+   i32.const 0
+   local.set $1
+  end
+  i32.const 16
+  call $~lib/array/Array<u8>#constructor
+  local.tee $4
+  i32.load offset=4
+  local.set $3
+  local.get $1
+  if
+   local.get $3
+   local.get $0
+   i64.load offset=8
+   local.tee $2
+   i64.const 8
+   i64.shr_u
+   i64.const 71777214294589695
+   i64.and
+   local.get $2
+   i64.const 71777214294589695
+   i64.and
+   i64.const 8
+   i64.shl
+   i64.or
+   local.tee $2
+   i64.const 16
+   i64.shr_u
+   i64.const 281470681808895
+   i64.and
+   local.get $2
+   i64.const 281470681808895
+   i64.and
+   i64.const 16
+   i64.shl
+   i64.or
+   i64.const 32
+   i64.rotr
+   i64.store
+   local.get $3
+   local.get $0
+   i64.load
+   local.tee $2
+   i64.const 8
+   i64.shr_u
+   i64.const 71777214294589695
+   i64.and
+   local.get $2
+   i64.const 71777214294589695
+   i64.and
+   i64.const 8
+   i64.shl
+   i64.or
+   local.tee $2
+   i64.const 16
+   i64.shr_u
+   i64.const 281470681808895
+   i64.and
+   local.get $2
+   i64.const 281470681808895
+   i64.and
+   i64.const 16
+   i64.shl
+   i64.or
+   i64.const 32
+   i64.rotr
+   i64.store offset=8
+  else
+   local.get $3
+   local.get $0
+   i64.load
+   i64.store
+   local.get $3
+   local.get $0
+   i64.load offset=8
+   i64.store offset=8
+  end
+  local.get $4
+ )
+ (func $assembly/integer/i128/i128#toUint8Array@varargs (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i64)
+  (local $3 i32)
+  (local $4 i32)
+  block $1of1
+   block $0of1
+    block $outOfRange
+     global.get $~argumentsLength
+     br_table $0of1 $1of1 $outOfRange
+    end
+    unreachable
+   end
+   i32.const 0
+   local.set $1
+  end
+  i32.const 12
+  i32.const 8
+  call $~lib/rt/stub/__new
+  i32.const 16
+  call $~lib/arraybuffer/ArrayBufferView#constructor
+  local.tee $4
+  i32.load offset=4
+  local.set $3
+  local.get $1
+  if
+   local.get $3
+   local.get $0
+   i64.load offset=8
+   local.tee $2
+   i64.const 8
+   i64.shr_u
+   i64.const 71777214294589695
+   i64.and
+   local.get $2
+   i64.const 71777214294589695
+   i64.and
+   i64.const 8
+   i64.shl
+   i64.or
+   local.tee $2
+   i64.const 16
+   i64.shr_u
+   i64.const 281470681808895
+   i64.and
+   local.get $2
+   i64.const 281470681808895
+   i64.and
+   i64.const 16
+   i64.shl
+   i64.or
+   i64.const 32
+   i64.rotr
+   i64.store
+   local.get $3
+   local.get $0
+   i64.load
+   local.tee $2
+   i64.const 8
+   i64.shr_u
+   i64.const 71777214294589695
+   i64.and
+   local.get $2
+   i64.const 71777214294589695
+   i64.and
+   i64.const 8
+   i64.shl
+   i64.or
+   local.tee $2
+   i64.const 16
+   i64.shr_u
+   i64.const 281470681808895
+   i64.and
+   local.get $2
+   i64.const 281470681808895
+   i64.and
+   i64.const 16
+   i64.shl
+   i64.or
+   i64.const 32
+   i64.rotr
+   i64.store offset=8
+  else
+   local.get $3
+   local.get $0
+   i64.load
+   i64.store
+   local.get $3
+   local.get $0
+   i64.load offset=8
+   i64.store offset=8
+  end
+  local.get $4
  )
  (func $assembly/integer/i128/i128.fromString@varargs (param $0 i32) (param $1 i32) (result i32)
   block $1of1
@@ -10974,8 +11161,8 @@
   i32.eqz
   if
    i32.const 1888
-   i32.const 1520
-   i32.const 918
+   i32.const 1680
+   i32.const 916
    i32.const 5
    call $~lib/builtins/abort
    unreachable
@@ -11536,7 +11723,7 @@
   if
    i32.const 1888
    i32.const 2256
-   i32.const 623
+   i32.const 620
    i32.const 5
    call $~lib/builtins/abort
    unreachable
