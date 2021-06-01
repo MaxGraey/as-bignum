@@ -108,12 +108,12 @@ export class i128 {
 
   @inline
   static fromBytesLE(array: u8[]): i128 {
-    return this.fromUint8ArrayLE(changetype<Uint8Array>(array));
+    return i128.fromUint8ArrayLE(changetype<Uint8Array>(array));
   }
 
   @inline
   static fromBytesBE(array: u8[]): i128 {
-    return this.fromUint8ArrayBE(changetype<Uint8Array>(array));
+    return i128.fromUint8ArrayBE(changetype<Uint8Array>(array));
   }
 
   @inline
