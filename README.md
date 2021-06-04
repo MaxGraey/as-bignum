@@ -1,10 +1,8 @@
 [![NPM registry](https://img.shields.io/npm/v/as-bignum.svg?style=for-the-badge)](https://www.npmjs.com/package/as-bignum)[![Build Status](https://img.shields.io/travis/com/MaxGraey/as-bignum/master?style=for-the-badge)](https://travis-ci.com/MaxGraey/as-bignum)[![NPM license](https://img.shields.io/badge/license-Apache%202.0-ba68c8.svg?style=for-the-badge)](LICENSE.md)
 
-## Work in progress
+## WebAssembly fixed length big numbers written on [AssemblyScript](https://github.com/AssemblyScript/assemblyscript)
 
----
-
-### WebAssembly fixed length big numbers written on [AssemblyScript](https://github.com/AssemblyScript/assemblyscript)
+### Status: Work in progress
 
 Provide wide numeric types such as `u128`, `u256`, `i128`, `i256` and fixed points and also its arithmetic operations.
 
@@ -52,15 +50,22 @@ TODO
 - [ ] [`u256`](https://github.com/MaxGraey/as-bignum/blob/master/assembly/integer/u256.ts) unsigned type (very basic)
 - [ ] `i128` signed type
 - [ ] `i256` signed type
+
 ---
+
 - [x] [`safe.u128`](https://github.com/MaxGraey/as-bignum/blob/master/assembly/integer/safe/u128.ts) unsigned type (tested)
+
 - [ ] `safe.u256` unsigned type
 - [ ] `safe.i128` signed type
 - [ ] `safe.i256` signed type
+
 ---
+
 - [ ] [`fp128<Q>`](https://github.com/MaxGraey/as-bignum/blob/master/assembly/fixed/fp128.ts) generic fixed point signed type٭ (very basic for now)
 - [ ] `fp256<Q>` generic fixed point signed type٭
+
 ---
+
 - [ ] `safe.fp128<Q>` generic fixed point signed type٭
 - [ ] `safe.fp256<Q>` generic fixed point signed type٭
 
