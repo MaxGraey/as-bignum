@@ -584,13 +584,14 @@ export class u256 {
     else if (dummy instanceof u256)       return <T>this.toU256();
     else if (dummy instanceof u8[])       return <T>this.toBytes();
     else if (dummy instanceof Uint8Array) return <T>this.toUint8Array();
+    else if (dummy instanceof StaticArray<u8>) return <T>this.toStaticBytes();
     else if (dummy instanceof String)     return <T>this.toString();
     else throw new TypeError('Unsupported generic type');
   }
 
   /**
    * Convert to byte array
-   * @param le Little or Big Endian? Default: true
+   * @param bigEndian Little or Big Endian? Default: false
    * @returns  Array of bytes
    */
   @inline
@@ -601,8 +602,20 @@ export class u256 {
   }
 
   /**
+   * Convert to byte static array
+   * @param bigEndian Little or Big Endian? Default: false
+   * @returns  StaticArray of bytes
+   */
+   @inline
+   toStaticBytes(bigEndian: bool = false): StaticArray<u8> {
+     var result = new StaticArray<u8>(32);
+     this.toArrayBuffer(changetype<usize>(result), bigEndian);
+     return result;
+   }
+
+  /**
    * Convert to Uint8Array
-   * @param le Little or Big Endian? Default: true
+   * @param bigEndian Little or Big Endian? Default: false
    * @returns  Uint8Array
    */
   @inline

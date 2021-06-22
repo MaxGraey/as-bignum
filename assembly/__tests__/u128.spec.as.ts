@@ -139,13 +139,23 @@ describe("Buffer Conversion", () => {
   it("Should convert to bytes Litte Endian 1", () => {
     // var a: u8[] = (new u128(0x8877665544332211, 0x12ffeeddccbbaa99)).toBytes();
     var u = new u128(0x8877665544332211, 0x12FFEEDDCCBBAA99);
-    var a = u.toBytes();
+    let a = u.toBytes();
     expect(
       a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
       a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
       a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
       a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12
     ).toBe(true);
+
+    {
+      let a = u.toStaticBytes();
+      expect(
+        a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
+        a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
+        a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
+        a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12
+      ).toBe(true);
+    }
   });
 
   it("Should convert to bytes Litte Endian 2", () => {

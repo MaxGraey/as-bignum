@@ -100,7 +100,7 @@ describe("Buffer Conversion", () => {
       0x8877665544332211,
       0x12FFEEDDCCBBAA99
     );
-    var a = u.toBytes();
+    let a = u.toBytes();
     expect(
       a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
       a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
@@ -111,6 +111,20 @@ describe("Buffer Conversion", () => {
       a[24] == 0x99 && a[25] == 0xAA && a[26] == 0xBB && a[27] == 0xCC &&
       a[28] == 0xDD && a[29] == 0xEE && a[30] == 0xFF && a[31] == 0x12
     ).toBe(true);
+
+    {
+      let a = u.toStaticBytes();
+      expect(
+        a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
+        a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
+        a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
+        a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12 &&
+        a[16] == 0x11 && a[17] == 0x22 && a[18] == 0x33 && a[19] == 0x44 &&
+        a[20] == 0x55 && a[21] == 0x66 && a[22] == 0x77 && a[23] == 0x88 &&
+        a[24] == 0x99 && a[25] == 0xAA && a[26] == 0xBB && a[27] == 0xCC &&
+        a[28] == 0xDD && a[29] == 0xEE && a[30] == 0xFF && a[31] == 0x12
+      ).toBe(true);
+    }
   });
 
   it("Should convert to bytes Litte Endian 2", () => {

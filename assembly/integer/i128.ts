@@ -369,7 +369,7 @@ export class i128 {
 
   /**
    * Convert to byte array
-   * @param le Little or Big Endian? Default: true
+   * @param bigEndian Little or Big Endian? Default: false
    * @returns  Array of bytes
    */
    @inline
@@ -379,9 +379,22 @@ export class i128 {
      return result;
    }
 
+
+  /**
+   * Convert to byte static array
+   * @param bigEndian Little or Big Endian? Default: false
+   * @returns  StaticArray of bytes
+   */
+    @inline
+    toStaticBytes(bigEndian: bool = false): StaticArray<u8> {
+      var result = new StaticArray<u8>(16);
+      this.toArrayBuffer(changetype<usize>(result), bigEndian);
+      return result;
+    }
+
    /**
     * Convert to Uint8Array
-    * @param le Little or Big Endian? Default: true
+    * @param bigEndian Little or Big Endian? Default: false
     * @returns  Uint8Array
     */
    @inline
