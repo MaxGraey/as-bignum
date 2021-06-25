@@ -105,10 +105,10 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-assemblyscript@^0.19.3:
-  version "0.19.3"
-  resolved "https://registry.yarnpkg.com/assemblyscript/-/assemblyscript-0.19.3.tgz#4600db7a7f46bb0f6bb8a1342791264033605282"
-  integrity sha512-IfRqQ7nYDY/UzbGnRrFwKnClR1ITha6nhHGqr/3Jzwof9BdgfqANhpqTmRcKJ5o02WAmghkjQwfJqzDfnDd1VA==
+assemblyscript@^0.19.4:
+  version "0.19.4"
+  resolved "https://registry.yarnpkg.com/assemblyscript/-/assemblyscript-0.19.4.tgz#3f9e8d2fe8d46c2c2abb59b8a5f5a6f3a2be2cc7"
+  integrity sha512-3wa4IVNxbwRgUI+T4vhpFB0sJsVYqMY39XCujahp1T/vd16miOAcdVukOYMzQtT1BdmbesyoiXHLHoYnKRzh+A==
   dependencies:
     binaryen "101.0.0-nightly.20210604"
     long "^4.0.0"
