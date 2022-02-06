@@ -536,8 +536,8 @@ export function __mulmod256(xl1: u64, xl2: u64, xh1: u64, xh2: u64, yl1: u64, yl
 
 @global
 export function __divs256(xl1: u64, xl2: u64, xh1: u64, xh2: u64, yl1: u64, yl2: u64, yh1: u64, yh2: u64): u256 {
-	if (__clz128(yh2, yh1) + __clz128(yl2, yl1) == 256) {
-		throw new RangeError("Division by zero"); // division by zero
+	if (yh2 + yh1 + yl2 + yl1 == 0) {
+		throw new RangeError("Division by zero");
 	}
 	
 	let r1: u64 = 0;
