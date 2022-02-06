@@ -1,6 +1,7 @@
 import { i128 } from './i128';
 import { u128 } from './u128';
 import { u256toa10 }  from "../utils";
+import { __divs256, __mulmod256, __umuls256 } from '../globals';
 
 @lazy const HEX_CHARS = '0123456789abcdef';
 
@@ -8,6 +9,8 @@ export class u256 {
 
   @inline static get Zero(): u256 { return new u256(); }
   @inline static get One():  u256 { return new u256(1); }
+  @inline static get Two():  u256 { return new u256(2); }
+  @inline static get Three():  u256 { return new u256(3); }
   @inline static get Min():  u256 { return new u256(); }
   @inline static get Max():  u256 { return new u256(-1, -1, -1, -1); }
 
@@ -429,6 +432,89 @@ export class u256 {
   @inline @operator('>=')
   static ge(a: u256, b: u256): bool {
     return !u256.lt(a, b);
+  }
+
+  @inline @operator('*')
+  static mul(a: u256, b: u256): u256 {
+    return __umuls256(a.lo1, a.lo2, a.hi1, a.hi2, b.lo1, b.lo2, b.hi1, b.hi2);
+  }
+
+  @inline @operator('/')
+  static div(a: u256, b: u256): u256 {
+    return __divs256(a.lo1, a.lo2, a.hi1, a.hi2, b.lo1, b.lo2, b.hi1, b.hi2);
+  }
+
+  /**
+   * Calculate multiply and division as `number * numerator / denominator`
+   * without overflow in multiplication part.
+   *
+   * @returns 256-bit unsigned integer
+   */
+  static muldiv(number: u256, numerator: u256, denominator: u256): u256 {
+	let mm = __mulmod256(number.lo1, number.lo2, number.hi1, number.hi2, 
+		numerator.lo1, numerator.lo2, numerator.hi1, numerator.hi2,
+		 u64.MAX_VALUE,u64.MAX_VALUE,u64.MAX_VALUE,u64.MAX_VALUE);
+	
+	// @ts-ignore
+	let prod0 = number * numerator;
+	// @ts-ignore
+	let prod1: u256 = (mm - prod0);
+
+	// @ts-ignore
+	if (mm < prod0) {
+		// @ts-ignore
+		prod1 -= u256.One;
+	}
+
+	if (prod1 == u256.Zero) {
+		// @ts-ignore
+		return prod0 / denominator;
+	}
+
+	assert(prod1 < denominator);
+
+	const remainder = __mulmod256(number.lo1, number.lo2, number.hi1, number.hi2, 
+		numerator.lo1, numerator.lo2, numerator.hi1, numerator.hi2, 
+		denominator.lo1, denominator.lo2, denominator.hi1, denominator.hi2);
+
+	// @ts-ignore
+	if (remainder > prod0) {
+		// @ts-ignore
+		prod1 -= u256.One;
+	}
+
+	// @ts-ignore
+	prod0 = prod0 - remainder;
+
+	// @ts-ignore
+	let twos = -denominator & denominator;
+	// @ts-ignore
+	denominator /= twos;
+	prod0 /= twos;
+
+	// @ts-ignore
+	twos = (u256.Zero - twos) / twos + u256.One;
+	// @ts-ignore
+	prod0 |= (prod1 * twos);
+
+	// @ts-ignore
+	let inv = (u256.Three * denominator) ^ u256.Two;
+
+	// @ts-ignore
+	inv *= u256.Two - denominator * inv;
+	// @ts-ignore
+	inv *= u256.Two - denominator * inv;
+	// @ts-ignore
+	inv *= u256.Two - denominator * inv;
+	// @ts-ignore
+	inv *= u256.Two - denominator * inv;
+	// @ts-ignore
+	inv *= u256.Two - denominator * inv;
+	// @ts-ignore
+	inv *= u256.Two - denominator * inv;
+
+	// @ts-ignore
+	return prod0 * inv;
   }
 
   @inline
