@@ -21,7 +21,9 @@ or
 ### Usage via AssemblyScript
 
 ```ts
-import { u128 } from "as-bignum";
+import { u128 } from "as-bignum/assembly";
+// Before 0.20.x
+// import { u128 } from "as-bignum";
 
 declare function logF64(value: f64): void;
 declare function logU128(hi: u64, lo: u64): void;
