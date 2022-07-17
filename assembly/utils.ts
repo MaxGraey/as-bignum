@@ -155,13 +155,15 @@ export function atou128(str: string, radix: i32 = 10): u128 {
       radix = 8; ++index;
     } else if ((second | 32) == CharCode.b) {
       radix = 2; ++index;
-    } else {
+    } else if (second == CharCode._0) {
       // skip leading zeros
-      while (str.charCodeAt(index) == 0) ++index;
+      while (index < len && str.charCodeAt(index) == CharCode._0) ++index;
     }
   }
   var result = u128.Zero;
   var table  = RadixCharsTable;
+
+  if (index >= len) return result;
 
   if (ASC_SHRINK_LEVEL >= 1) {
     let radix128 = u128.fromU64(radix);
