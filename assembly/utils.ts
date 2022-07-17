@@ -3,9 +3,6 @@ import { u128 } from "./integer/u128";
 import { u256 } from "./integer/u256";
 
 // @ts-ignore: decorator
-@lazy const HEX_CHARS = '0123456789abcdef';
-
-// @ts-ignore: decorator
 @lazy const MaxBaseForExponent128: u64[] = [
   u64.MAX_VALUE,       // 0
   u64.MAX_VALUE,       // 1
