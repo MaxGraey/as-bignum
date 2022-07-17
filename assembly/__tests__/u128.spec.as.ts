@@ -5,26 +5,37 @@ describe("String Conversion", () => {
   it("Should convert to decimal string 1", () => {
     var a = new u128(10248516654965971928, 5);
     expect('102482237023513730008').toStrictEqual(a.toString());
+    expect('58e3a0b9945ebdbd8').toStrictEqual(a.toString(16));
   });
 
   it("Should convert to decimal string 2", () => {
     var a = u128.Max;
     expect('340282366920938463463374607431768211455').toStrictEqual(a.toString());
+    expect('ffffffffffffffffffffffffffffffff').toStrictEqual(a.toString(16));
   });
 
   it("Should convert to decimal string 3", () => {
     var a = u128.Zero;
     expect('0').toStrictEqual(a.toString());
+    expect('0').toStrictEqual(a.toString(16));
   });
 
   it("Should convert to decimal string 4", () => {
     var a = u128.from(90);
+    expect('90').toStrictEqual(a.toString());
     expect('5a').toStrictEqual(a.toString(16));
   });
 
   it("Should convert to decimal string 5", () => {
-    var a = u128.Max;
-    expect('ffffffffffffffffffffffffffffffff').toStrictEqual(a.toString(16));
+    var a = new u128(u64.MAX_VALUE);
+    expect('18446744073709551615').toStrictEqual(a.toString());
+    expect('ffffffffffffffff').toStrictEqual(a.toString(16));
+  });
+
+  it("Should convert to decimal string 6", () => {
+    var a = new u128(u64.MAX_VALUE - 1, u64.MAX_VALUE - 1);
+    expect('340282366920938463444927863358058659838').toStrictEqual(a.toString());
+    expect('fffffffffffffffefffffffffffffffe').toStrictEqual(a.toString(16));
   });
 
   it("Should convert from decimal string 1", () => {
