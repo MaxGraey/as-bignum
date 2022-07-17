@@ -17,6 +17,16 @@ describe("String Conversion", () => {
     expect('0').toStrictEqual(a.toString());
   });
 
+  it("Should convert to decimal string 4", () => {
+    var a = u128.from(90);
+    expect('5a').toStrictEqual(a.toString(16));
+  });
+
+  it("Should convert to decimal string 5", () => {
+    var a = u128.Max;
+    expect('ffffffffffffffffffffffffffffffff').toStrictEqual(a.toString(16));
+  });
+
   it("Should convert from decimal string 1", () => {
     expect(u128.from('')).toStrictEqual(u128.Zero);
   });
