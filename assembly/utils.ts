@@ -80,51 +80,57 @@ export function isPowerOverflow128(base: u128, exponent: i32): bool {
 }
 
 // helper function for utoa
-function processU64(digits: Int8Array, value: u64): void {
+function processU64(digits: Uint8Array, value: u64): void {
   var length = digits.length - 1;
-  for (let i = 63; i != -1; i--) {
-    for (let j = 0; j <= length; j++) {
-      digits[j] = digits[j] + (i8(digits[j] >= 5) * 3);
+  for (let i = 63; i != -1; --i) {
+    for (let j = 0; j <= length; ++j) {
+      unchecked(digits[j] += (u8(digits[j] >= 5) * 3));
     }
-    for (let j = length; j != -1; j--) {
-      digits[j] = digits[j] << 1;
-      if (j < length) digits[j + 1]  = (digits[j+1] | i8(digits[j] > 15));
-      digits[j] = digits[j] & 15;
+    for (let j = length; j != -1; --j) {
+      let d = unchecked(digits[j]) << 1;
+      if (j < length) unchecked(digits[j + 1] |= u8(d > 15));
+      unchecked(digits[j] = d & 15);
     }
-    digits[0] = digits[0] + i8((value & (1 << i)) != 0);
+    unchecked(digits[0] += u8((value & (1 << i)) != 0));
   }
 }
 
 export function u128toa10(value: u128): string {
   var length = 40;
-  var digits = new Int8Array(length);
+  var digits = new Uint8Array(length);
+  var result = "", start = false;
 
   processU64(digits, value.hi);
   processU64(digits, value.lo);
 
-  var result = "";
-  var start = false;
-  for (let i = length - 1; i != -1; i--) {
-    if (!start && digits[i] > 0) start = true;
-    if (start) result = result.concat(HEX_CHARS.charAt(digits[i]));
+  for (let i = length - 1; i != -1; --i) {
+    let d = unchecked(digits[i]);
+    if (!start && d != 0) start = true;
+    if (start) {
+      assert(<u32>d <= 9);
+      result += String.fromCharCode(0x30 + d);
+    }
   }
   return result;
 }
 
 export function u256toa10(value: u256): string {
   var length = 78;
-  var digits = new Int8Array(length);
+  var digits = new Uint8Array(length);
+  var result = "", start = false;
 
   processU64(digits, value.hi2);
   processU64(digits, value.hi1);
   processU64(digits, value.lo2);
   processU64(digits, value.lo1);
 
-  var result = "";
-  var start = false;
-  for (let i = length - 1; i != -1; i--) {
-    if (!start && digits[i] > 0) start = true;
-    if (start) result = result.concat(HEX_CHARS.charAt(digits[i]));
+  for (let i = length - 1; i != -1; --i) {
+    let d = unchecked(digits[i]);
+    if (!start && d != 0) start = true;
+    if (start) {
+      assert(<u32>d <= 9);
+      result += String.fromCharCode(0x30 + d);
+    }
   }
   return result;
 }
