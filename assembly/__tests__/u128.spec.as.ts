@@ -66,6 +66,14 @@ describe("String Conversion", () => {
     expect(u128.fromString('123456789', 10)).toStrictEqual(new u128(123456789));
   });
 
+  it("Should convert from decimal string with leading zeros", () => {
+    expect(u128.from('01')).toStrictEqual(u128.One);
+  });
+
+  it("Should convert from decimal string with leading zeros and plus", () => {
+    expect(u128.from('+0001')).toStrictEqual(u128.One);
+  });
+
   it("Should convert from decimal with invalid chars string 1", () => {
     expect(u128.from('00000123abc')).toStrictEqual(new u128(123));
   });

@@ -145,16 +145,19 @@ export function atou128(str: string, radix: i32 = 10): u128 {
   }
   var isNeg = first == CharCode.MINUS;
   // @ts-ignore
-  var index = <i32>(isNeg | (first == CharCode.PLUS));
+  var index = i32(isNeg | (first == CharCode.PLUS));
 
   if (str.charCodeAt(index) == CharCode._0) {
     let second = str.charCodeAt(++index);
-    if (second == CharCode.x || second == CharCode.X) {
+    if ((second | 32) == CharCode.x) {
       radix = 16; ++index;
-    } else if (second == CharCode.o || second == CharCode.O) {
+    } else if ((second | 32) == CharCode.o) {
       radix = 8; ++index;
-    } else if (second == CharCode.b || second == CharCode.B) {
+    } else if ((second | 32) == CharCode.b) {
       radix = 2; ++index;
+    } else {
+      // skip leading zeros
+      while (str.charCodeAt(index) == 0) ++index;
     }
   }
   var result = u128.Zero;
