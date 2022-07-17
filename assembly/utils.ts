@@ -95,7 +95,7 @@ function processU64(digits: Uint8Array, value: u64): void {
   }
 }
 
-export function u128toa10(value: u128): string {
+export function u128toDecimalString(value: u128): string {
   var length = 40;
   var digits = new Uint8Array(length);
   var result = "", start = false;
@@ -114,7 +114,7 @@ export function u128toa10(value: u128): string {
   return result;
 }
 
-export function u256toa10(value: u256): string {
+export function u256toDecimalString(value: u256): string {
   var length = 78;
   var digits = new Uint8Array(length);
   var result = "", start = false;

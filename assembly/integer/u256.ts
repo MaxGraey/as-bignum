@@ -1,6 +1,6 @@
 import { i128 } from './i128';
 import { u128 } from './u128';
-import { u256toa10 }  from "../utils";
+import { u256toDecimalString } from "../utils";
 
 @lazy const HEX_CHARS = '0123456789abcdef';
 
@@ -567,7 +567,7 @@ export class u256 {
    */
   @inline
   as<T>(): T {
-    var dummy: T;
+    var dummy!: T;
          if (dummy instanceof bool)       return <T>this.toBool();
     else if (dummy instanceof i8)         return <T>this.toI64();
     else if (dummy instanceof u8)         return <T>this.toU64();
@@ -643,6 +643,6 @@ export class u256 {
       }
       return result;
     }
-    return u256toa10(this);
+    return u256toDecimalString(this);
   }
 }
