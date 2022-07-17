@@ -3,7 +3,7 @@ import { u128 } from "./integer/u128";
 import { u256 } from "./integer/u256";
 
 // @ts-ignore: decorator
-@lazy const MaxBaseForExponent128: u64[] = [
+@lazy const MaxBaseForExponent128 = memory.data<u64>([
   u64.MAX_VALUE,       // 0
   u64.MAX_VALUE,       // 1
   u64.MAX_VALUE,       // 2
@@ -43,37 +43,41 @@ import { u256 } from "./integer/u256";
   0x000000000000000B,  // 36
   0x000000000000000B,  // 37
   0x000000000000000A,  // 38
-];
+]);
 
 // Use LUT wrapped by function for lazy compilation
 // @ts-ignore: decorator
-@lazy const RadixCharsTable: u8[] = [
+@lazy const RadixCharsTable = memory.data<u8>([
    0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 36, 36, 36, 36, 36, 36,
   36, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
   25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 36, 36, 36, 36,
   36, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
   25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35
-];
+]);
 
-@inline
-export function isPowerOverflow128(base: u128, exponent: i32): bool {
-  if (!(exponent > 1 && base > u128.One)) return false;
-  if (base.hi != 0 || exponent >= 128)    return true;
-
+// @ts-ignore: decorator
+@inline export function isPowerOverflow128(base: u128, exponent: i32): bool {
+  if (!(exponent > 1 && base > u128.One)) {
+    return false;
+  }
+  if (base.hi != 0 || exponent >= 128) {
+    return true;
+  }
   var low = base.lo;
-  if (low <= 9) {
+  if (low <= 10) {
     switch (<i32>low) {
-      case 2: return exponent > 127;
-      case 3: return exponent > 80;
-      case 4: return exponent > 63;
-      case 5: return exponent > 55;
-      case 6: return exponent > 49;
-      case 7: return exponent > 45;
-      case 8: return exponent > 42;
-      case 9: return exponent > 40;
+      case 2:  return exponent > 127;
+      case 3:  return exponent > 80;
+      case 4:  return exponent > 63;
+      case 5:  return exponent > 55;
+      case 6:  return exponent > 49;
+      case 7:  return exponent > 45;
+      case 8:  return exponent > 42;
+      case 9:  return exponent > 40;
+      case 10: return exponent > 38;
     }
   }
-  return low > MaxBaseForExponent128[exponent];
+  return low > load<u64>(MaxBaseForExponent128 + (exponent << 3));
 }
 
 // helper function for utoa
@@ -171,7 +175,7 @@ export function atou128(str: string, radix: i32 = 10): u128 {
       let n: u32 = str.charCodeAt(index) - CharCode._0;
       if (n > <u32>(CharCode.z - CharCode._0)) break;
 
-      let num = unchecked(table[n]);
+      let num = load<u8>(table + n);
       if (num >= <u8>radix) break;
 
       // @ts-ignore
@@ -208,7 +212,7 @@ export function atou128(str: string, radix: i32 = 10): u128 {
           let n: u32 = str.charCodeAt(index) - CharCode._0;
           if (n > <u32>(CharCode.z - CharCode._0)) break;
 
-          let num = unchecked(table[n]);
+          let num = load<u8>(table + n);
           if (num >= 16) break;
 
           // @ts-ignore
@@ -224,7 +228,7 @@ export function atou128(str: string, radix: i32 = 10): u128 {
           let n: u32 = str.charCodeAt(index) - CharCode._0;
           if (n > <u32>(CharCode.z - CharCode._0)) break;
 
-          let num = unchecked(table[n]);
+          let num = load<u8>(table + n);
           if (num >= <u8>radix) break;
 
           // @ts-ignore
