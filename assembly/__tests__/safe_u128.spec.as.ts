@@ -131,9 +131,11 @@ describe("Basic operations", () => {
     expect(new u128(6) ** 49).toStrictEqual(new u128(0x4286000000000000, 0x6558E2A0921FE069));
   });
 
+
   it("Should power number 9", () => {
     expect(new u128(0, 1) ** 1).toStrictEqual(new u128(0, 1));
   });
+
 
   it("Should power number 10", () => {
     expect(new u128(u64.MAX_VALUE) ** 2).toStrictEqual(new u128(1, 0x0FFFFFFFFFFFFFFFE));
@@ -258,97 +260,103 @@ describe("Overflow Underflow Throwable", () => {
   it("Should throw power with overflow 1", () => {
     expect(() => {
       !(new u128(2) ** 128);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 2", () => {
     expect(() => {
       !(new u128(3) ** 81);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 3", () => {
     expect(() => {
       !(new u128(3) ** 120);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 4", () => {
     expect(() => {
       !(new u128(4) ** 64);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 5", () => {
     expect(() => {
       !(new u128(4) ** 120);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 6", () => {
     expect(() => {
       !(new u128(5) ** 56);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 7", () => {
     expect(() => {
       !(new u128(5) ** 60);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 8", () => {
     expect(() => {
       !(new u128(6) ** 50);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 9", () => {
     expect(() => {
       !(new u128(7) ** 49);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 10", () => {
     expect(() => {
       !(new u128(8) ** 43);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 11", () => {
     expect(() => {
       !(new u128(9) ** 41);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 12", () => {
     expect(() => {
       !(new u128(10) ** 39);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 13", () => {
     expect(() => {
       !(new u128(11) ** 38);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 14", () => {
     expect(() => {
       !(new u128(12) ** 36);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 15", () => {
     expect(() => {
       !(new u128(0, 1) ** 2);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
   });
 
   it("Should throw power with overflow 16", () => {
     expect(() => {
       !(new u128(u64.MAX_VALUE) ** 3);
-    }).toThrow();
+    }).toThrow("Overflow during exponentiation");
+  });
+
+  it("Should throw power with overflow 17", () => {
+    expect(() => {
+      !(new u128(11) ** 40);
+    }).toThrow("Overflow during exponentiation");
   });
 });
 
