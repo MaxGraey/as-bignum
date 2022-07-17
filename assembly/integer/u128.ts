@@ -930,13 +930,11 @@ export class u128 {
     if (this.isZero()) return '0';
 
     var result = '';
-    var it = this.clone();
     if (radix == 16) {
-      let shift: i32 = 124 - (u128.clz(it) & ~3);
+      let shift: i32 = 124 - (u128.clz(this) & ~3);
       while (shift >= 0) {
         // @ts-ignore
-        it     >>= shift;
-        result = result.concat(HEX_CHARS.charAt(<i32>(it.lo & 15)));
+        result += HEX_CHARS.charAt(<i32>((this >> shift).lo & 15));
         shift  -= 4;
       }
       return result;
