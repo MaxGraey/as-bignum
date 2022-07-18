@@ -79,6 +79,7 @@ import { u256 } from "./integer/u256";
       case 10: return exponent > 38;
     }
   }
+  if (exponent >= 38) return true;
   return low > load<u64>(MaxBaseForExponent128 + (exponent << 3));
 }
 
