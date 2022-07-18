@@ -57,9 +57,11 @@ import { u256 } from "./integer/u256";
 
 // @ts-ignore: decorator
 @inline export function isPowerOverflow128(base: u128, exponent: i32): bool {
-  if (!(exponent > 1 && base > u128.One)) {
+  // never overflow
+  if (exponent <= 1 || base <= u128.One) {
     return false;
   }
+  // always overflow
   if (base.hi != 0 || exponent >= 128) {
     return true;
   }
