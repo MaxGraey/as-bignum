@@ -131,16 +131,22 @@ describe("Basic operations", () => {
     expect(new u128(6) ** 49).toStrictEqual(new u128(0x4286000000000000, 0x6558E2A0921FE069));
   });
 
-
   it("Should power number 9", () => {
     expect(new u128(0, 1) ** 1).toStrictEqual(new u128(0, 1));
   });
 
-
   it("Should power number 10", () => {
     expect(new u128(u64.MAX_VALUE) ** 2).toStrictEqual(new u128(1, 0x0FFFFFFFFFFFFFFFE));
   });
-})
+
+  it("Should power number 11", () => {
+    expect(new u128(10) ** 38).toStrictEqual(new u128(0x98A224000000000, 0x4B3B4CA85A86C47A));
+  });
+
+  it("Should power number 12", () => {
+    expect(new u128(9) ** 40).toStrictEqual(new u128(0x3CEA59789C79D441, 0x6F32F1EF8B18A2BC));
+  });
+});
 
 describe("Overflow Underflow Throwable", () => {
   it("Should throw when add two numbers 1", () => {
@@ -355,7 +361,19 @@ describe("Overflow Underflow Throwable", () => {
 
   it("Should throw power with overflow 17", () => {
     expect(() => {
+      !(new u128(11) ** 38);
+    }).toThrow("Overflow during exponentiation");
+  });
+
+  it("Should throw power with overflow 18", () => {
+    expect(() => {
       !(new u128(11) ** 40);
+    }).toThrow("Overflow during exponentiation");
+  });
+
+  it("Should throw power with overflow 19", () => {
+    expect(() => {
+      !(new u128(9) ** 41);
     }).toThrow("Overflow during exponentiation");
   });
 });
