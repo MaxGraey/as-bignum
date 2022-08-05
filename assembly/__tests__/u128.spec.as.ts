@@ -1027,7 +1027,31 @@ describe("Division And Mod Operation", () => {
     expect(a % b).toStrictEqual(u128.Zero);
   });
 
-  it("Should mod number same number", () => {
+  it("Should mod number with two", () => {
+    let a = u128.from(19);
+    let b = u128.from(2);
+    expect(a % b).toStrictEqual(u128.One);
+  });
+
+  it("Should mod number with four", () => {
+    let a = u128.from(111);
+    let b = u128.from(4);
+    expect(a % b).toStrictEqual(new u128(3));
+  });
+
+  it("Should mod number with 128", () => {
+    let a = u128.from(4);
+    let b = u128.from(128);
+    expect(a % b).toStrictEqual(new u128(4));
+  });
+
+  it("Should mod number same number 1", () => {
+    let a = u128.from(8);
+    let b = u128.from(8);
+    expect(a % b).toStrictEqual(u128.Zero);
+  });
+
+  it("Should mod number same number 2", () => {
     let a = new u128(10248516654965971928, 5);
     expect(a % a).toStrictEqual(u128.Zero);
   });

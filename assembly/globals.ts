@@ -230,7 +230,7 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
     __divmod_rem_hi  = 0;
     // if `b.lo` is power of two
     if (!(blo & (blo - 1))) {
-      __divmod_rem_lo = 0;
+      __divmod_rem_lo = alo & (blo - 1);
       return alo >> btz;
     } else {
       let dlo = alo / blo;
