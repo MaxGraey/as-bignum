@@ -1,9 +1,9 @@
-import { i128 } from '../../assembly/integer/i128';
+import { i128 } from '../integer/i128';
 import { arrayToUint8Array } from "./utils";
 
-describe("String Conversion", () => {
-  // TODO: tests
-});
+// describe("String Conversion", () => {
+//   // TODO: tests
+// });
 
 describe("Buffer Conversion", () => {
   it("Should convert from bytes Little Endian 1", () => {
@@ -78,10 +78,6 @@ describe("Basic Operations", () => {
     expect(!a).toBe(true);
   });
 
-  it("Should number is empty 2", () => {
-    expect(!changetype<i128>(null)).toBe(true);
-  });
-
   it("Should neg(1) == -1", () => {
     let one = i128.One;
     let neg = one.neg();
@@ -96,18 +92,18 @@ describe("Basic Operations", () => {
   });
 });
 
-describe("Exponention Operation", () => {
-  // TODO: tests
-});
+// describe("Exponention Operation", () => {
+//   // TODO: tests
+// });
 
-describe("Binary Operation Count", () => {
-  // TODO: tests
-});
+// describe("Binary Operation Count", () => {
+//   // TODO: tests
+// });
 
-describe("Division And Mod Operation", () => {
-  // TODO: tests
-});
+// describe("Division And Mod Operation", () => {
+//   // TODO: tests
+// });
 
-describe("Throwable", () => {
-  // TODO: tests
-});
+// describe("Throwable", () => {
+//   // TODO: tests
+// });

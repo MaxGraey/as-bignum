@@ -1,5 +1,4 @@
-import { u128Safe as u128  } from '..';
-
+import { u128Safe as u128  } from '../integer/safe/u128';
 
 describe("Basic operations", () => {
   it("Should add two numbers 1", () => {

@@ -275,7 +275,7 @@ export class u128 {
 
   @inline @operator.prefix('!')
   static isEmpty(value: u128): bool {
-    return value === null || !(value.lo | value.hi);
+    return !(value.lo | value.hi);
   }
 
   @inline @operator('|')

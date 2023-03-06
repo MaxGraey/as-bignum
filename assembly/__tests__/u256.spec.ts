@@ -1,5 +1,4 @@
-import { u256 } from '../../assembly/integer/u256';
-
+import { u256 } from '../integer/u256';
 
 describe("String Conversion", () => {
   it("Should convert to decimal string 1", () => {

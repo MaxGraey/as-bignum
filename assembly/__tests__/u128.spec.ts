@@ -1,4 +1,4 @@
-import { u128 } from '../../assembly/integer/u128';
+import { u128 } from '../integer/u128';
 import { arrayToUint8Array } from "./utils";
 
 describe("String Conversion", () => {
@@ -340,10 +340,6 @@ describe("Basic Operations", () => {
   it("Should number is empty 1", () => {
     var a = u128.Zero;
     expect(!a).toBe(true);
-  });
-
-  it("Should number is empty 2", () => {
-    expect(!changetype<u128>(null)).toBe(true);
   });
 
   it("Should binary or numbers", () => {

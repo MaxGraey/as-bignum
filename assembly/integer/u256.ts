@@ -214,7 +214,7 @@ export class u256 {
 
   @inline @operator.prefix('!')
   static isEmpty(value: u256): bool {
-    return value === null || value.isZero();
+    return value.isZero();
   }
 
   @inline @operator.prefix('~')
