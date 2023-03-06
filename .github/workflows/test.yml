@@ -2,7 +2,7 @@ name: Test
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
 jobs:
   test:
@@ -11,14 +11,20 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node_version: ["16"]
+        node_version: ["lts/*", "latest"]
+
     steps:
-      - uses: actions/checkout@v1.0.0
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node_version }}
+          check-latest: true
+          cache: 'yarn'
+
       - name: Install dependencies
-        run: npm install
-      - name: Build lib
-        run: npm run build
+        run: yarn
+
       - name: Test sources
-        run: npm run test:ci
+        run: yarn test:ci

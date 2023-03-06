@@ -10,5 +10,4 @@ yarn-error.log
 node_modules/
 playground/
 coverage/
-tests/build
-build/debug
+build/
