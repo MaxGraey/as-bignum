@@ -857,18 +857,12 @@ export class u128 {
     else if (isString<T>()) {
       return <T>this.toString();
     }
-    else if (isArray<u8[]>()) {
-      return <T>this.toBytes();
-    }
-    else if (isArray<StaticArray<u8>>()) {
-      return <T>this.toStaticBytes();
-    }
-    else if (isArray<Uint8Array>()) {
-      return <T>this.toUint8Array();
-    }
     else if (isReference<T>()) {
       let dummy = changetype<T>(0);
-           if (dummy instanceof i128) return <T>this.toI128();
+           if (dummy instanceof u8[]) return <T>this.toBytes();
+      else if (dummy instanceof StaticArray<u8>) return <T>this.toStaticBytes();
+      else if (dummy instanceof Uint8Array) return <T>this.toUint8Array();
+      else if (dummy instanceof i128) return <T>this.toI128();
       else if (dummy instanceof u128) return <T>this;
       else if (dummy instanceof u256) return <T>this.toU256();
       else throw new TypeError('Unsupported generic type');
