@@ -311,7 +311,7 @@ export class i128 {
 
   @inline @operator('/')
   static div(a: i128, b: i128): i128 {
-    if (b == i128.Zero) {
+    if (b.isZero()) {
       // Divide by zero
       throw new Error("Division by zero");
     }
