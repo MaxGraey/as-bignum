@@ -236,7 +236,7 @@ class u128 extends U128 {
 
   @operator('-')
   static sub(a: u128, b: u128): u128 {
-    if (a < b) throw new RangeError("Underflow during substraction");
+    if (a < b) throw new RangeError("Underflow during subtraction");
     return changetype<u128>(
       U128.sub(changetype<U128>(a), changetype<U128>(b))
     );
