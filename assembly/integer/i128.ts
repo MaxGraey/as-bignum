@@ -11,6 +11,8 @@ import {
   __divmod_quot_hi,
   __divmod_rem_lo,
   __divmod_rem_hi,
+  __multi3,
+  __res128_hi,
 } from '../globals';
 
 import { atou128 } from '../utils';
@@ -243,16 +245,17 @@ export class i128 {
 
   @inline @operator('>>')
   static shr(value: i128, shift: i32): i128 {
-    shift &= 127;
+    if (shift == 0) return value;
 
-    if (shift < 64) {
-      var lo = value.lo >>> shift;
-      var hi = value.hi >> shift | (value.lo << (64 - shift));
-      return new i128(lo, hi);
-    } else {
-      var lo = value.hi >> (shift - 64);
-      return new i128(lo, 0);
+    let sign = value.isNeg();
+
+    let res = u128.shr(u128.fromI128(i128.abs(value)),shift).toI128();
+    
+    if (sign) {  // Put back the sign
+      res = res.neg();
     }
+
+    return res; 
   }
 
   @inline @operator('>>>')
@@ -296,18 +299,23 @@ export class i128 {
 
   @inline @operator('*')
   static mul(a: i128, b: i128): i128 {
-    var ah = i128.shr(a, 64).i128ToU64();
-    var al = a.i128ToU64();
-    var bh = i128.shr(b, 64).i128ToU64();
-    var bl = b.i128ToU64();
-    var lo = al * bl;
-    var mid1 = ah * bl;
-    var mid2 = al * bh;
-    var hi = ah * bh;
-    var carry = u64((lo >>> 32) + (mid1 & 0xffffffff) + (mid2 & 0xffffffff));
-    var lo64 = u64(lo) + (u64(mid1) << 32) + (u64(mid2) << 32);
-    var hi64 = hi + (carry >>> 32) + ((mid1 >>> 32) + (mid2 >>> 32));
-    return new i128((hi64 << 64) | lo64);
+    if (b == i128.One) {
+      return a;
+    }
+    var neg = false;
+    if (a < i128.Zero) {
+      a = a.neg();
+      neg = !neg;
+    }
+    if (b < i128.Zero) {
+      b = b.neg();
+      neg = !neg;
+    }
+    var prod = new i128(__multi3(a.lo, a.hi, b.lo, b.hi),__res128_hi);
+    if (neg) {
+      prod = prod.neg();
+    }
+    return prod;
   }
 
   @inline @operator('/')
@@ -332,16 +340,7 @@ export class i128 {
       b = b.neg();
       neg = !neg;
     }
-    var q = i128.Zero;
-    var r = i128.Zero;
-    for (var i = 127; i >= 0; i--) {
-      r = i128.shl(r, 1);
-      r = i128.or(r, i128.and(i128.shr(a,i), i128.One));
-      if (r >= b) {
-        r = i128.sub(r, b);
-        q = i128.or(q, i128.shl(i128.One, i));
-      }
-    }
+    var q = new i128(__udivmod128(a.lo, a.hi, b.lo, b.hi), __divmod_quot_hi);
     if (neg) {
       q = q.neg();
     }
