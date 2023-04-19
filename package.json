@@ -32,9 +32,9 @@
     "test:ci": "asp --config as-pect.config.mjs --summary --no-logo"
   },
   "devDependencies": {
-    "@as-pect/cli": "^8.0.1",
-    "assemblyscript": "^0.27.1",
-    "typescript": "^4.9.5"
+    "@as-pect/cli": "^8.1.0",
+    "assemblyscript": "^0.27.2",
+    "typescript": "^5.0.4"
   },
   "files": [
     "assembly/",
