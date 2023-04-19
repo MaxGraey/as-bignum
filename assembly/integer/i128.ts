@@ -21,6 +21,7 @@ export class i128 {
   @inline static get One():  i128 { return new i128(1); }
   @inline static get Min():  i128 { return new i128(0, 0x8000000000000000); }
   @inline static get Max():  i128 { return new i128(u64.MAX_VALUE, 0x7FFFFFFFFFFFFFFF); }
+  @inline static get NegOne(): i128 { return new i128(-1, -1); }
 
   @inline
   static fromString(value: string, radix: i32 = 10): i128 {
@@ -315,7 +316,7 @@ export class i128 {
       // Divide by zero
       throw new Error("Division by zero");
     }
-    if (a == i128.Min && b == i128.One.neg()) {
+    if (a == i128.Min && b == i128.NegOne) {
       // Overflow
       throw new Error("Integer overflow");
     }
