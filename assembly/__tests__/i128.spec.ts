@@ -182,8 +182,8 @@ describe("Basic Operations", () => {
 
 describe("Division And Mod Operation", () => {
   it('should divide two positive numbers correctly', () => {
-    const a = i128.fromI32(10);
-    const b = i128.fromI32(2);
+    let a = i128.fromI32(10);
+    let b = i128.fromI32(2);
     expect(i128.div(a, b)).toStrictEqual(i128.fromI32(5));
   });
   // test('should throw an error when dividing by zero', () => {
@@ -197,21 +197,21 @@ describe("Division And Mod Operation", () => {
   //   expect(() => i128.div(a, b)).toThrow('Integer overflow');
   // });
   it('should divide a negative number by a positive number correctly', () => {
-    const a = i128.fromI32(-10);
-    const b = i128.fromI32(2);
+    let a = i128.fromI32(-10);
+    let b = i128.fromI32(2);
     expect(i128.div(a, b)).toStrictEqual(i128.fromI32(-5));
   });
   it('should divide a positive number by a negative number correctly', () => {
-    const a = i128.fromI32(10);
-    const b = i128.fromI32(-2);
+    let a = i128.fromI32(10);
+    let b = i128.fromI32(-2);
     expect(i128.div(a, b)).toStrictEqual(i128.fromI32(-5));
   });
   it('should divide two negative numbers correctly', () => {
-    const a = i128.fromI32(-10);
-    const b = i128.fromI32(-2);
+    let a = i128.fromI32(-10);
+    let b = i128.fromI32(-2);
     expect(i128.div(a, b)).toStrictEqual(i128.fromI32(5));
   });
-  
+
   it("Should divide two numbers without remainder 1", () => {
     let a = new i128(10248516657319426282, 5);
     let b = i128.from(2353454354);

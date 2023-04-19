@@ -245,11 +245,11 @@ export class i128 {
     shift &= 127;
 
     if (shift < 64) {
-      let lo = value.lo >>> shift;
-      let hi = value.hi >> shift | (value.lo << (64 - shift));
+      var lo = value.lo >>> shift;
+      var hi = value.hi >> shift | (value.lo << (64 - shift));
       return new i128(lo, hi);
     } else {
-      let lo = value.hi >> (shift - 64);
+      var lo = value.hi >> (shift - 64);
       return new i128(lo, 0);
     }
   }
@@ -295,17 +295,17 @@ export class i128 {
 
   @inline @operator('*')
   static mul(a: i128, b: i128): i128 {
-    const ah = i128.shr(a, 64).i128ToU64();
-    const al = a.i128ToU64();
-    const bh = i128.shr(b, 64).i128ToU64();
-    const bl = b.i128ToU64();
-    const lo = al * bl;
-    const mid1 = ah * bl;
-    const mid2 = al * bh;
-    const hi = ah * bh;
-    const carry = u64((lo >>> 32) + (mid1 & 0xffffffff) + (mid2 & 0xffffffff));
-    const lo64 = u64(lo) + (u64(mid1) << 32) + (u64(mid2) << 32);
-    const hi64 = hi + (carry >>> 32) + ((mid1 >>> 32) + (mid2 >>> 32));
+    var ah = i128.shr(a, 64).i128ToU64();
+    var al = a.i128ToU64();
+    var bh = i128.shr(b, 64).i128ToU64();
+    var bl = b.i128ToU64();
+    var lo = al * bl;
+    var mid1 = ah * bl;
+    var mid2 = al * bh;
+    var hi = ah * bh;
+    var carry = u64((lo >>> 32) + (mid1 & 0xffffffff) + (mid2 & 0xffffffff));
+    var lo64 = u64(lo) + (u64(mid1) << 32) + (u64(mid2) << 32);
+    var hi64 = hi + (carry >>> 32) + ((mid1 >>> 32) + (mid2 >>> 32));
     return new i128((hi64 << 64) | lo64);
   }
 
@@ -322,7 +322,7 @@ export class i128 {
     if (b == i128.One) {
       return a;
     }
-    let neg = false;
+    var neg = false;
     if (a < i128.Zero) {
       a = a.neg();
       neg = !neg;
@@ -331,9 +331,9 @@ export class i128 {
       b = b.neg();
       neg = !neg;
     }
-    let q = i128.Zero;
-    let r = i128.Zero;
-    for (let i = 127; i >= 0; i--) {
+    var q = i128.Zero;
+    var r = i128.Zero;
+    for (var i = 127; i >= 0; i--) {
       r = i128.shl(r, 1);
       r = i128.or(r, i128.and(i128.shr(a,i), i128.One));
       if (r >= b) {
