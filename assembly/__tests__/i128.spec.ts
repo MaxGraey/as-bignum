@@ -111,33 +111,33 @@ describe("Basic Operations", () => {
     expect(a >> 65).toStrictEqual(new i128(50));
   });
   it("Should right shift for negative number", () => {
-    var a = i128.fromI32(-64);
-    expect(a >> 2).toStrictEqual(i128.fromI32(-16));
+    var a = i128.from(-64);
+    expect(a >> 2).toStrictEqual(i128.from(-16));
   });
 
   it("Should right shift for negative number 1", () => {
-    var a = i128.fromI32(-10000000);
-    expect(a >> 16).toStrictEqual(i128.fromI32(-152));
+    var a = i128.from(-10000000);
+    expect(a >> 16).toStrictEqual(i128.from(-152));
   });
 
   it("Should right shift for negative number 2", () => {
-    var a = i128.fromI64(-100000000000);
-    expect(a >> 32).toStrictEqual(i128.fromI32(-23));
+    var a = i128.from(-100000000000);
+    expect(a >> 32).toStrictEqual(i128.from(-23));
   });
 
   it("Should right shift for negative number 3", () => {
     var a = i128.fromString("-922337203685477580800");
-    expect(a >> 63).toStrictEqual(i128.fromI32(-100));
+    expect(a >> 63).toStrictEqual(i128.from(-100));
   });
 
   it("Should right shift for negative number 4", () => {
     var a = i128.fromString("-922337203685477580800");
-    expect(a >> 64).toStrictEqual(i128.fromI32(-50));
+    expect(a >> 64).toStrictEqual(i128.from(-50));
   });
 
   it("Should right shift for negative number 5", () => {
     var a = i128.fromString("-170141183460469231731687303715884105728");
-    expect(a >> 127).toStrictEqual(i128.fromI32(-1));
+    expect(a >> 127).toStrictEqual(i128.from(-1));
   });
 
   it("Should periodic right shift one number", () => {
@@ -151,8 +151,8 @@ describe("Basic Operations", () => {
   });
 
   it("Should multiplication 1", () => {
-    let a = u128.fromU64(57326);
-    let b = u128.fromU64(144873);
+    let a = u128.from(57326);
+    let b = u128.from(144873);
     expect(i128.mul(a.toI128(),b.toI128())).toStrictEqual(u128.mul(a,b).toI128());
   });
   it("Should multiplication 2", () => {
@@ -172,8 +172,8 @@ describe("Basic Operations", () => {
     expect(i128.mul(b,c)).toStrictEqual(d);
   });
   it("Should Division 1", () => {
-    let a = u128.fromU64(7);
-    let b = u128.fromU64(144873);
+    let a = u128.from(7);
+    let b = u128.from(144873);
     expect(i128.div(b.toI128(),a.toI128())).toStrictEqual(u128.div(b,a).toI128());
   });
   it("Should Division 2", () => {
@@ -211,12 +211,12 @@ describe("Basic Operations", () => {
 
 describe("Division And Mod Operation", () => {
   it('should divide two positive numbers correctly', () => {
-    let a = i128.fromI32(10);
-    let b = i128.fromI32(2);
-    expect(i128.div(a, b)).toStrictEqual(i128.fromI32(5));
+    let a = i128.from(10);
+    let b = i128.from(2);
+    expect(i128.div(a, b)).toStrictEqual(i128.from(5));
   });
   // test('should throw an error when dividing by zero', () => {
-  //   const a = i128.fromI32(10);
+  //   const a = i128.from(10);
   //   const b = i128.Zero;
   //   expect(() => i128.div(a, b)).toThrow('Division by zero');
   // });
@@ -226,49 +226,49 @@ describe("Division And Mod Operation", () => {
   //   expect(() => i128.div(a, b)).toThrow('Integer overflow');
   // });
   it('should divide a negative number by a positive number correctly', () => {
-    let a = i128.fromI32(-10);
-    let b = i128.fromI32(2);
-    expect(i128.div(a, b)).toStrictEqual(i128.fromI32(-5));
+    let a = i128.from(-10);
+    let b = i128.from(2);
+    expect(i128.div(a, b)).toStrictEqual(i128.from(-5));
   });
   it('should divide a positive number by a negative number correctly', () => {
-    let a = i128.fromI32(10);
-    let b = i128.fromI32(-2);
-    expect(i128.div(a, b)).toStrictEqual(i128.fromI32(-5));
+    let a = i128.from(10);
+    let b = i128.from(-2);
+    expect(i128.div(a, b)).toStrictEqual(i128.from(-5));
   });
   it('should divide two negative numbers correctly', () => {
-    let a = i128.fromI32(-10);
-    let b = i128.fromI32(-2);
-    expect(i128.div(a, b)).toStrictEqual(i128.fromI32(5));
+    let a = i128.from(-10);
+    let b = i128.from(-2);
+    expect(i128.div(a, b)).toStrictEqual(i128.from(5));
   });
 
   it("Should divide two numbers without remainder 1", () => {
     let a = new i128(10248516657319426282, 5);
     let b = i128.from(2353454354);
-    expect(a / b).toStrictEqual(i128.fromU64(43545453453));
+    expect(a / b).toStrictEqual(i128.from(43545453453));
   });
 
   it("Should divide two numbers without remainder 2", () => {
     let a = new i128(10248516654965971928, 5);
     let b = i128.from(43545453452);
-    expect(a / b).toStrictEqual(i128.fromU64(2353454354));
+    expect(a / b).toStrictEqual(i128.from(2353454354));
   });
 
   it("Should divide two numbers without remainder 3", () => {
     let a = new i128(3152652666208173568, 2);
     let b = i128.from(4354545345312);
-    expect(a / b).toStrictEqual(i128.fromU64(9196400));
+    expect(a / b).toStrictEqual(i128.from(9196400));
   });
 
   it("Should divide two numbers with remainder 1", () => {
     let a = new i128(3152652666208173568, 2);
     let b = i128.from(43543534534534);
-    expect(a / b).toStrictEqual(i128.fromU64(919680));
+    expect(a / b).toStrictEqual(i128.from(919680));
   });
 
   it("Should divide two numbers with remainder 2", () => {
     let a = new i128(3152652666208178,0);
     let b = i128.from(43543534534534);
-    expect(a / b).toStrictEqual(i128.fromU64(72));
+    expect(a / b).toStrictEqual(i128.from(72));
   });
 
   it("Should divide zero with number", () => {

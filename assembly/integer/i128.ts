@@ -447,17 +447,6 @@ export class i128 {
      return result;
    }
 
-   @inline
-   i128ToU64(): u64 {
-    return u128.fromI128(this).toU64();
-  }
-
-  @inline
-  i128toi64(): i64 {
-    return this.lo; // return the lower 64 bits of x
-  }
-
-
   /**
    * Convert to byte static array
    * @param bigEndian Little or Big Endian? Default: false
