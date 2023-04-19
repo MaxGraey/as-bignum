@@ -240,6 +240,20 @@ export class i128 {
     return new i128(lo & mod2, hi);
   }
 
+  @inline @operator('>>')
+  static shr(value: i128, shift: i32): i128 {
+    shift &= 127;
+
+    if (shift < 64) {
+      let lo = value.lo >>> shift;
+      let hi = value.hi >> shift | (value.lo << (64 - shift));
+      return new i128(lo, hi);
+    } else {
+      let lo = value.hi >> (shift - 64);
+      return new i128(lo, 0);
+    }
+  }
+
   @inline @operator('>>>')
   static shr_u(value: i128, shift: i32): i128 {
     shift &= 127;
@@ -277,6 +291,60 @@ export class i128 {
     var lo = alo  - b.lo + (bhi >>> 63);
     var hi = a.hi - bhi  - i64(lo > alo);
     return new i128(lo, hi);
+  }
+
+  @inline @operator('*')
+  static mul(a: i128, b: i128): i128 {
+    const ah = i128.shr(a, 64).i128ToU64();
+    const al = a.i128ToU64();
+    const bh = i128.shr(b, 64).i128ToU64();
+    const bl = b.i128ToU64();
+    const lo = al * bl;
+    const mid1 = ah * bl;
+    const mid2 = al * bh;
+    const hi = ah * bh;
+    const carry = u64((lo >>> 32) + (mid1 & 0xffffffff) + (mid2 & 0xffffffff));
+    const lo64 = u64(lo) + (u64(mid1) << 32) + (u64(mid2) << 32);
+    const hi64 = hi + (carry >>> 32) + ((mid1 >>> 32) + (mid2 >>> 32));
+    return new i128((hi64 << 64) | lo64);
+  }
+
+  @inline @operator('/')
+  static div(a: i128, b: i128): i128 {
+    if (b == i128.Zero) {
+      // Divide by zero
+      throw new Error("Division by zero");
+    }
+    if (a == i128.Min && b == i128.One.neg()) {
+      // Overflow
+      throw new Error("Integer overflow");
+    }
+    if (b == i128.One) {
+      return a;
+    }
+    let neg = false;
+    if (a < i128.Zero) {
+      a = a.neg();
+      neg = !neg;
+    }
+    if (b < i128.Zero) {
+      b = b.neg();
+      neg = !neg;
+    }
+    let q = i128.Zero;
+    let r = i128.Zero;
+    for (let i = 127; i >= 0; i--) {
+      r = i128.shl(r, 1);
+      r = i128.or(r, i128.and(i128.shr(a,i), i128.One));
+      if (r >= b) {
+        r = i128.sub(r, b);
+        q = i128.or(q, i128.shl(i128.One, i));
+      }
+    }
+    if (neg) {
+      q = q.neg();
+    }
+    return q;
   }
 
   @inline @operator('==')
@@ -378,6 +446,16 @@ export class i128 {
      this.toArrayBuffer(result.dataStart, bigEndian);
      return result;
    }
+
+   @inline
+   i128ToU64(): u64 {
+    return u128.fromI128(this).toU64();
+  }
+
+  @inline
+  i128toi64(): i64 {
+    return this.lo; // return the lower 64 bits of x
+  }
 
 
   /**
