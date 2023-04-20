@@ -244,18 +244,15 @@ export class i128 {
   }
 
   @inline @operator('>>')
-  static shr(value: i128, shift: i32): i128 {
-    if (shift == 0) return value;
+  static shr(value: i128,shift: i32): i128 {    
+    var isNegative = (value.hi & 0x8000000000000000) != 0;
 
-    let sign = value.isNeg();
+    var self = isNegative ? i128.add(value.not(), i128.One) : value;
 
-    let res = u128.shr(u128.fromI128(i128.abs(value)),shift).toI128();
-    
-    if (sign) {  // Put back the sign
-      res = res.neg();
-    }
+    var shiftedUnsigned = u128.shr(new u128(self.lo, self.hi), shift);
+    var shifted = new i128(shiftedUnsigned.lo, shiftedUnsigned.hi);
 
-    return res; 
+    return isNegative ? i128.add(shifted.not(), i128.One) : shifted;
   }
 
   @inline @operator('>>>')
@@ -299,23 +296,10 @@ export class i128 {
 
   @inline @operator('*')
   static mul(a: i128, b: i128): i128 {
-    if (b == i128.One) {
-      return a;
-    }
-    var neg = false;
-    if (a < i128.Zero) {
-      a = a.neg();
-      neg = !neg;
-    }
-    if (b < i128.Zero) {
-      b = b.neg();
-      neg = !neg;
-    }
-    var prod = new i128(__multi3(a.lo, a.hi, b.lo, b.hi),__res128_hi);
-    if (neg) {
-      prod = prod.neg();
-    }
-    return prod;
+    return new i128(
+      __multi3(a.lo, a.hi, b.lo, b.hi),
+      __res128_hi
+    );
   }
 
   @inline @operator('/')
@@ -332,19 +316,19 @@ export class i128 {
       return a;
     }
     var neg = false;
-    if (a < i128.Zero) {
+    if (a.isNeg()) {
       a = a.neg();
       neg = !neg;
     }
-    if (b < i128.Zero) {
+    if (b.isNeg()) {
       b = b.neg();
       neg = !neg;
     }
-    var q = new i128(__udivmod128(a.lo, a.hi, b.lo, b.hi), __divmod_quot_hi);
-    if (neg) {
-      q = q.neg();
-    }
-    return q;
+    var q = new i128(
+      __udivmod128(a.lo, a.hi, b.lo, b.hi), 
+      __divmod_quot_hi
+    );
+    return neg ? q.neg() : q;
   }
 
   @inline @operator('==')
