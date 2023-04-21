@@ -191,10 +191,28 @@ describe("Basic Operations", () => {
     expect(i128.div(d,c)).toStrictEqual(b);
   });
   it("Should Division 5", () => {
-    let b = i128.fromI32(2);
+    let b = i128.fromI32(-1);
     let c = i128.fromI32(3);
-    let d = i128.fromI32(6);
-    expect(i128.div(d,b)).toStrictEqual(c);
+    let d = i128.Zero.neg();
+    expect(i128.div(b,c)).toStrictEqual(d);
+  });
+  it("Should Division 6", () => {
+    let b = i128.fromI32(-5);
+    let c = i128.fromI32(3);
+    let d = i128.NegOne;
+    expect(i128.div(b,c)).toStrictEqual(d);
+  });
+  it("Should Division 7", () => {
+    let b = i128.fromI32(-7);
+    let c = i128.fromI32(-2);
+    let d = i128.fromI32(3);
+    expect(i128.div(b,c)).toStrictEqual(d);
+  });
+  it("Should Division 8", () => {
+    let b = i128.fromI32(7);
+    let c = i128.fromI32(-3);
+    let d = i128.fromI32(-2);
+    expect(i128.div(b,c)).toStrictEqual(d);
   });
 });
 
@@ -212,16 +230,6 @@ describe("Division And Mod Operation", () => {
     let b = i128.from(2);
     expect(i128.div(a, b)).toStrictEqual(i128.from(5));
   });
-  // test('should throw an error when dividing by zero', () => {
-  //   const a = i128.from(10);
-  //   const b = i128.Zero;
-  //   expect(() => i128.div(a, b)).toThrow('Division by zero');
-  // });
-  // test('should throw an error when dividing i128.Min by -1', () => {
-  //   const a = i128.Min;
-  //   const b = i128.One.neg();
-  //   expect(() => i128.div(a, b)).toThrow('Integer overflow');
-  // });
   it('should divide a negative number by a positive number correctly', () => {
     let a = i128.from(-10);
     let b = i128.from(2);
@@ -291,6 +299,13 @@ describe("Division And Mod Operation", () => {
   });
 });
 
-// describe("Throwable", () => {
-//   // TODO: tests
-// });
+describe("Throwable", () => {
+  // TODO: tests
+  it("Should throw Division", () => {
+    expect(() => {
+      let b = i128.Min;
+      let c = i128.NegOne;
+      i128.div(b,c);
+    }).toThrow();
+  });
+});
