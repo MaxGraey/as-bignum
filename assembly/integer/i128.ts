@@ -304,16 +304,9 @@ export class i128 {
 
   @inline @operator('/')
   static div(a: i128, b: i128): i128 {
-    if (b.isZero()) {
-      // Divide by zero
-      throw new Error("Division by zero");
-    }
     if (a == i128.Min && b == i128.NegOne) {
       // Overflow
       throw new Error("Integer overflow");
-    }
-    if (b == i128.One) {
-      return a;
     }
     var neg = false;
     if (a.isNeg()) {

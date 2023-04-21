@@ -161,14 +161,13 @@ describe("Basic Operations", () => {
   });
   it("Should multiplication 3", () => {
     let a = i128.One;
-    let b = i128.add(a,a);
+    let b = i128.fromI32(2);
     expect(i128.mul(a,b)).toStrictEqual(b);
   });
   it("Should multiplication 4", () => {
-    let a = i128.One;
-    let b = i128.add(a,a);
-    let c = i128.add(a,b);
-    let d = i128.add(c,c);
+    let b = i128.fromI32(2);
+    let c = i128.fromI32(3);
+    let d = i128.fromI32(6);
     expect(i128.mul(b,c)).toStrictEqual(d);
   });
   it("Should Division 1", () => {
@@ -182,21 +181,19 @@ describe("Basic Operations", () => {
   });
   it("Should Division 3", () => {
     let a = i128.One;
-    let b = i128.add(a,a);
+    let b = i128.fromI32(2);
     expect(i128.div(b,a)).toStrictEqual(b);
   });
   it("Should Division 4", () => {
-    let a = i128.One;
-    let b = i128.add(a,a);
-    let c = i128.add(a,b);
-    let d = i128.add(c,c);
+    let b = i128.fromI32(2);
+    let c = i128.fromI32(3);
+    let d = i128.fromI32(6);
     expect(i128.div(d,c)).toStrictEqual(b);
   });
   it("Should Division 5", () => {
-    let a = i128.One;
-    let b = i128.add(a,a);
-    let c = i128.add(a,b);
-    let d = i128.add(c,c);
+    let b = i128.fromI32(2);
+    let c = i128.fromI32(3);
+    let d = i128.fromI32(6);
     expect(i128.div(d,b)).toStrictEqual(c);
   });
 });
