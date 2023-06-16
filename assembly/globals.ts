@@ -1,3 +1,4 @@
+import { u256 } from './integer';
 import { u128 } from './integer/u128';
 
 // used for returning quotient and reminder from __divmod128
@@ -7,6 +8,8 @@ import { u128 } from './integer/u128';
 
 // used for returning low and high part of __mulq64, __multi3 etc
 @lazy export var __res128_hi: u64 = 0;
+// used for returning 0 or 1
+@lazy export var __carry: u64 = 0;
 
 /**
  * Convert 128-bit unsigned integer to 64-bit float
@@ -75,12 +78,72 @@ export function __umulq64(a: u64, b: u64): u64 {
 
   var uv = u * v;
   var w0 = uv & 0xFFFFFFFF;
-      uv = a * v + (uv >> 32);
+  uv = a * v + (uv >> 32);
   var w1 = uv >> 32;
-      uv = u * b + (uv & 0xFFFFFFFF);
+  uv = u * b + (uv & 0xFFFFFFFF);
 
   __res128_hi = a * b + w1 + (uv >> 32);
   return (uv << 32) | w0;
+}
+
+// __umul64Hop computes (hi * 2^64 + lo) = z + (x * y)
+// @ts-ignore: decorator
+@inline
+export function __umul64Hop(z: u64, x: u64, y: u64): u64 {
+  var lo = __umulq64(x, y);
+  lo = __uadd64(lo, z);
+  var hi = __res128_hi +__carry;
+  __res128_hi = hi;
+  return lo
+}
+
+// __umul64Step computes (hi * 2^64 + lo) = z + (x * y) + carry.
+// @ts-ignore: decorator
+@inline
+export function __umul64Step(z: u64, x: u64, y: u64, carry: u64): u64 {
+  var lo = __umulq64(x, y)
+  lo = __uadd64(lo, carry);
+  var hi = __uadd64(__res128_hi, 0, __carry);
+  lo = __uadd64(lo, z);
+  hi += __carry;
+  __res128_hi = hi;
+  return lo
+}
+
+// __uadd64 returns the sum with carry of x, y and carry: sum = x + y + carry.
+// The carry input must be 0 or 1; otherwise the behavior is undefined.
+// The carryOut output is guaranteed to be 0 or 1.
+// @ts-ignore: decorator
+@inline
+export function __uadd64(x: u64, y: u64, carry: u64 = 0): u64 {
+  var sum = x + y + carry
+  // // The sum will overflow if both top bits are set (x & y) or if one of them
+  // // is (x | y), and a carry from the lower place happened. If such a carry
+  // // happens, the top bit will be 1 + 0 + 1 = 0 (& ~sum).
+  __carry = ((x & y) | ((x | y) & ~sum)) >>> 63
+  return sum;
+
+}
+
+// u256 * u256 => u256 implemented from https://github.com/holiman/uint256
+// @ts-ignore: decorator
+@global
+export function __mul256(x0: u64, x1: u64, x2: u64, x3: u64, y0: u64, y1: u64, y2: u64, y3: u64): u256 {
+  var lo1 = __umulq64(x0, y0);
+  var res1 = __umul64Hop(__res128_hi, x1, y0);
+  var res2 = __umul64Hop(__res128_hi, x2, y0);
+  var res3 = x3 * y0 + __res128_hi;
+
+  var lo2 = __umul64Hop(res1, x0, y1);
+  res2 = __umul64Step(res2, x1, y1, __res128_hi);
+  res3 += x2 * y1 + __res128_hi;
+
+  var hi1 = __umul64Hop(res2, x0, y2);
+  res3 += x1 * y2 + __res128_hi
+
+  var hi2 = __umul64Hop(res3, x0, y3);
+
+  return new u256(lo1, lo2, hi1, hi2);
 }
 
 // @ts-ignore: decorator
