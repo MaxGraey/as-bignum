@@ -125,6 +125,7 @@ export function __uadd64(x: u64, y: u64, carry: u64 = 0): u64 {
 
 }
 
+// u256 * u256 => u256 implemented from https://github.com/holiman/uint256
 // @ts-ignore: decorator
 @global
 export function __mul256(x0: u64, x1: u64, x2: u64, x3: u64, y0: u64, y1: u64, y2: u64, y3: u64): u256 {
