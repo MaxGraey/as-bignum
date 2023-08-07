@@ -1,3 +1,4 @@
+import { u128 } from '../integer/u128';
 import { u256 } from '../integer/u256';
 
 describe("String Conversion", () => {
@@ -348,4 +349,94 @@ describe("Basic Operations", () => {
     var r = new u256(3, 4, 6, 8);
     expect(a - b).toStrictEqual(r);
   });
+
+  it("Should multiply two u256 numbers", () => {
+    var a = u256.from(3);
+    var b = u256.from(3);
+    var r = u256.from(9);
+
+    expect(a * b).toStrictEqual(r);
+    expect(b * a).toStrictEqual(r);
+  });
+
+  it("Should multiply two u256 numbers", () => {
+    var a = u256.from(43545453452);
+    var b = u256.from(2353454354);
+    var r = new u256(10248516654965971928, 5);
+
+    expect(a * b).toStrictEqual(r);
+    expect(b * a).toStrictEqual(r);
+  });
+
+  it("Should multiply two u256 numbers - 2", () => {
+    var a = u256.from(11);
+    var b = new u256(0, 2);
+    var r = new u256(0, 22);
+
+    expect(a * b).toStrictEqual(r);
+    expect(b * a).toStrictEqual(r);
+  });
+
+  it("Should multiply two u256 numbers - 3", () => {
+    var a = new u256(0, 3);
+    var b = new u256(0, 0,3);
+    var r = new u256(0, 0,0,9);
+
+    expect(a * b).toStrictEqual(r);
+    expect(b * a).toStrictEqual(r);
+  });
+
+  it("Should multiply two u256 numbers - 4", () => {
+    var a = u256.from(new u128(14083847773837265618, 6692605942));
+    var b = u256.from(new u128(18444665141527514289, 5354084802));
+    var r = new u256(5659639222556316466, 4474720309748468391, 17386035696907167262, 1);
+
+    expect(a * b).toStrictEqual(r);
+    expect(b * a).toStrictEqual(r);
+  });
+
+  it("Should multiply u256 numbers by 1", () => {
+    var a = u256.Max;
+    var b = u256.One;
+    var r = a;
+    expect(a * b).toStrictEqual(r);
+    expect(b * a).toStrictEqual(r);
+  });
+
+  it("Should multiply u256 numbers by 0", () => {
+    var a = new u256(5656466, 447478468391, 17386907167262, 1);
+    var b = u256.Zero;
+    var r = b;
+    expect(a * b).toStrictEqual(r);
+    expect(b * a).toStrictEqual(r);
+  });
+
+  it("Should multiply two u256 numbers with overflow", () => {
+    var a = new u256(0, 0, 1);
+    expect(a * a).toStrictEqual(u256.Zero);
+  });
+
+  it("Should multiply two u256 numbers with overflow - 2", () => {
+    var a = new u256(1, 0, 1);
+    expect(a * a).toStrictEqual(new u256(1, 0, 2));
+  });
+
+  it("Should multiply two u256 numbers with overflow - 3", () => {
+    var a = new u256(6, 0, 0, 420);
+    var b = new u256(0, 7, 0, 0);
+    var r = new u256(0, 42, 0, 0);
+
+    expect(a * b).toStrictEqual(r);
+    expect(b * a).toStrictEqual(r);
+  });
+
+  it("Should multiply two u256 numbers with overflow - 3", () => {
+    var a = new u256(2, 666, 666, 666);
+    var b = new u256(0, 0, 0, 3);
+    var r = new u256(0, 0, 0, 6);
+
+    expect(a * b).toStrictEqual(r);
+    expect(b * a).toStrictEqual(r);
+  });
+
 });

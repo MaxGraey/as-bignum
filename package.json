@@ -1,6 +1,6 @@
 {
   "name": "as-bignum",
-  "version": "0.2.30",
+  "version": "0.2.40",
   "description": "128 and 256 bits integer and fixed point arithmetics for AssemblyScript. Also support checking overflow/underflow",
   "main": "assembly/index.ts",
   "types": "assembly/index.ts",
@@ -34,7 +34,7 @@
   "devDependencies": {
     "@as-pect/cli": "^8.1.0",
     "assemblyscript": "^0.27.2",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1"
   },
   "files": [
     "assembly/",

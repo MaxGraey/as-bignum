@@ -1,6 +1,7 @@
 import { i128 } from './i128';
 import { u128 } from './u128';
 import { u256toDecimalString } from "../utils";
+import { __mul256 } from '../globals';
 
 @lazy const HEX_CHARS = '0123456789abcdef';
 
@@ -139,6 +140,31 @@ export class u256 {
   static fromF32(value: f32): u256 {
     var mask = u64(reinterpret<i32>(value) >> 31);
     return new u256(<u64>value, mask, mask, mask);
+  }
+
+  /**
+ * Create 256-bit unsigned integer from generic type T
+ * @param  value
+ * @returns 256-bit unsigned integer
+ */
+  @inline
+  static from<T>(value: T): u256 {
+    if (value instanceof bool) return u256.fromU64(<u64>value);
+    else if (value instanceof i8) return u256.fromI64(<i64>value);
+    else if (value instanceof u8) return u256.fromU64(<u64>value);
+    else if (value instanceof i16) return u256.fromI64(<i64>value);
+    else if (value instanceof u16) return u256.fromU64(<u64>value);
+    else if (value instanceof i32) return u256.fromI64(<i64>value);
+    else if (value instanceof u32) return u256.fromU64(<u64>value);
+    else if (value instanceof i64) return u256.fromI64(<i64>value);
+    else if (value instanceof u64) return u256.fromU64(<u64>value);
+    else if (value instanceof f32) return u256.fromF64(<f64>value);
+    else if (value instanceof f64) return u256.fromF64(<f64>value);
+    else if (value instanceof u128) return u256.fromU128(<u128>value);
+    else if (value instanceof u256) return u256.fromU256(<u256>value);
+    else if (value instanceof u8[]) return u256.fromBytes(<u8[]>value);
+    else if (value instanceof Uint8Array) return u256.fromBytes(<Uint8Array>value);
+    else throw new TypeError("Unsupported generic type");
   }
 
   // TODO
@@ -429,6 +455,12 @@ export class u256 {
   @inline @operator('>=')
   static ge(a: u256, b: u256): bool {
     return !u256.lt(a, b);
+  }
+
+  // mul: u256 x u256 = u256
+  @inline @operator('*')
+  static mul(a: u256, b: u256): u256 {
+    return __mul256(a.lo1, a.lo2, a.hi1, a.hi2, b.lo1, b.lo2, b.hi1, b.hi2)
   }
 
   @inline
