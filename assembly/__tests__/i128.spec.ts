@@ -105,51 +105,6 @@ describe("Basic Operations", () => {
     var a = new i128(1, 1);
     expect(a << 0).toStrictEqual(a);
   });
-
-  it("Should right shift one number", () => {
-    var a = new i128(0, 100);
-    expect(a >> 65).toStrictEqual(new i128(50));
-  });
-  it("Should right shift for negative number", () => {
-    var a = i128.from(-64);
-    expect(a >> 2).toStrictEqual(i128.from(-16));
-  });
-
-  it("Should right shift for negative number 1", () => {
-    var a = i128.from(-10000000);
-    expect(a >> 16).toStrictEqual(i128.from(-152));
-  });
-
-  it("Should right shift for negative number 2", () => {
-    var a = i128.from(-100000000000);
-    expect(a >> 32).toStrictEqual(i128.from(-23));
-  });
-
-  it("Should right shift for negative number 3", () => {
-    var a = i128.fromString("-922337203685477580800");
-    expect(a >> 63).toStrictEqual(i128.from(-100));
-  });
-
-  it("Should right shift for negative number 4", () => {
-    var a = i128.fromString("-922337203685477580800");
-    expect(a >> 64).toStrictEqual(i128.from(-50));
-  });
-
-  it("Should right shift for negative number 5", () => {
-    var a = i128.fromString("-170141183460469231731687303715884105728");
-    expect(a >> 127).toStrictEqual(i128.from(-1));
-  });
-
-  it("Should periodic right shift one number", () => {
-    var a = new i128(0, 100);
-    expect(a >> (65 + 128)).toStrictEqual(new i128(50));
-  });
-
-  it("Should invariant right shift zero number", () => {
-    var a = new i128(1, 1);
-    expect(a >> 0).toStrictEqual(a);
-  });
-
   it("Should multiplication 1", () => {
     let a = u128.from(57326);
     let b = u128.from(144873);

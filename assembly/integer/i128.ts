@@ -243,18 +243,6 @@ export class i128 {
     return new i128(lo & mod2, hi);
   }
 
-  @inline @operator('>>')
-  static shr(value: i128,shift: i32): i128 {    
-    var isNegative = (value.hi & 0x8000000000000000) != 0;
-
-    var self = isNegative ? i128.add(value.not(), i128.One) : value;
-
-    var shiftedUnsigned = u128.shr(new u128(self.lo, self.hi), shift);
-    var shifted = new i128(shiftedUnsigned.lo, shiftedUnsigned.hi);
-
-    return isNegative ? i128.add(shifted.not(), i128.One) : shifted;
-  }
-
   @inline @operator('>>>')
   static shr_u(value: i128, shift: i32): i128 {
     shift &= 127;
