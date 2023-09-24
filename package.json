@@ -1,6 +1,6 @@
 {
   "name": "as-bignum",
-  "version": "0.2.40",
+  "version": "0.3.0",
   "description": "128 and 256 bits integer and fixed point arithmetics for AssemblyScript. Also support checking overflow/underflow",
   "main": "assembly/index.ts",
   "types": "assembly/index.ts",
