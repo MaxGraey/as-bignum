@@ -2,6 +2,8 @@ import { i128 } from './i128';
 import { i256 } from './i256';
 import { u256 } from './u256';
 
+import { u64SafeShl, u64SafeShr, longDivision128by64 } from './helper';
+
 // TODO import this on top level 'index.ts'
 import {
   __clz128,
@@ -730,6 +732,82 @@ export class u128 {
   }
 
   /**
+   * Divides a 128-bit number by a 64-bit divisor.
+   * 
+   * @param divisor - The 64-bit divisor.
+   * @returns An array containing the quotient and remainder.
+   * @throws {RangeError} If the divisor is zero or if there's an integer overflow.
+   * 
+   * @remarks
+   * The function normalizes the dividend and divisor to align their most significant bits. 
+   * Normalization simplifies the division process and ensures accurate results, especially 
+   * when working with large numbers. After the division, the result is denormalized to provide 
+   * the actual quotient and remainder.
+   */
+  div64(divisor: u64): u64[] {
+    const dividendHigh: u64 = this.hi;
+    const dividendLow: u64 = this.lo;
+
+    if (divisor == 0) {
+      throw new RangeError("Division by zero");
+    }
+
+    // Panic if the result is larger than 64 bits.
+    if (divisor <= dividendHigh) {
+      throw new RangeError("Integer overflow");
+    }
+
+    // Handle simple division when the high part of the dividend is 0.
+    if (dividendHigh == 0) {
+      return [dividendLow / divisor, dividendLow % divisor];
+    }
+
+    const shiftAmount: i32 = i32(clz(divisor));
+    const normalizedDivisor = u64SafeShl(divisor, shiftAmount);
+    
+    // Align the lower part of the dividend with the divisor.
+    const normalizedDividendLow: u64 = u64SafeShl(dividendLow, shiftAmount);
+
+    // Align the higher part of the dividend:
+    // - Shift the high part left by the same amount as the divisor.
+    // - Shift the low part right to retain the most significant bits.
+    const normalizedDividendHigh: u64 = u64SafeShl(dividendHigh, shiftAmount) | u64SafeShr(dividendLow, 64 - shiftAmount);
+
+    const response = longDivision128by64(normalizedDividendHigh, normalizedDividendLow, normalizedDivisor);
+
+    return [response[0], u64SafeShr(response[1], shiftAmount)];
+  }
+  
+  /**
+   * Returns the quotient and remainder of dividing a 128-bit number by a 64-bit number.
+   * 
+   * @param divisor - The 64-bit divisor.
+   * @returns An array containing the quotient and remainder, both as u128.
+   * 
+   * @remarks
+   * The function uses the long division principle to divide a 128-bit dividend by a 64-bit divisor.
+   * The high and low 64-bit parts of the 128-bit dividend are divided separately by the 64-bit divisor.
+   */
+  quoRem(divisor: u64): u128[] {
+    const dividendHigh = this.hi;
+    const dividendLow = this.lo;
+
+    // If the high part of the dividend is smaller than the divisor,
+    // then the division can be done directly using div64.
+    if (dividendHigh < divisor) {
+      const quotientAndRemainder = this.div64(divisor)
+      return [new u128(quotientAndRemainder[0]), new u128(quotientAndRemainder[1])]
+    }
+
+    let quotientAndRemainder = new u128(dividendHigh, 0).div64(divisor)
+    const quotientHigh = quotientAndRemainder[0]
+    const remainderHigh = quotientAndRemainder[1]
+
+    quotientAndRemainder = new u128(dividendLow, remainderHigh).div64(divisor)
+    return [ new u128(quotientAndRemainder[0], quotientHigh), new u128(quotientAndRemainder[1]) ];
+  }
+
+  /**
   * Convert to 256-bit signed integer
   * @returns 256-bit signed integer
   */
@@ -951,4 +1029,45 @@ export class u128 {
     }
     return u128toDecimalString(this);
   }
+}
+
+
+/**
+ * Safely shifts a 128-bit unsigned integer to the right.
+ * Throws an error for negative shifts and returns 0 for shifts >= 128.
+ *
+ * @param value - The 128-bit unsigned integer to be shifted.
+ * @param shift - The number of positions to shift to the right.
+ * @returns The shifted value.
+ */
+export function safeShr(value: u128, shift: i32): u128 {
+  if (shift < 0) {
+    throw new RangeError("Negative shift");
+  }
+
+  if (shift >= 128) {
+    return u128.Zero;
+  }
+
+  return value >> shift;
+}
+
+/**
+ * Safely shifts a 128-bit unsigned integer to the left.
+ * Throws an error for negative shifts and returns 0 for shifts >= 128.
+ *
+ * @param value - The 128-bit unsigned integer to be shifted.
+ * @param shift - The number of positions to shift to the left.
+ * @returns The shifted value.
+ */
+export function safeShl(value: u128, shift: i32): u128 {
+  if (shift < 0) {
+    throw new RangeError("Negative shift");
+  }
+
+  if (shift >= 128) {
+    return u128.Zero;
+  }
+
+  return value << shift;
 }

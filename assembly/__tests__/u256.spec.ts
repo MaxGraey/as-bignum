@@ -440,3 +440,144 @@ describe("Basic Operations", () => {
   });
 
 });
+
+describe("Bit shift", () => {
+  it("Should right shift a number by a small value", () => {
+    let a = new u256(0, 1, 0, 0);
+    expect(u256.shr(a, 64)).toStrictEqual(new u256(1, 0, 0, 0));
+  });
+
+  it("Should right shift a number by more than 128 bits", () => {
+    let a = new u256(0, 1, 0, 0);
+    expect(u256.shr(a, 129)).toStrictEqual(new u256(0, 0, 0, 0));
+  });
+
+  it("Should right shift a number by more than 64 but less than 128 bits", () => {
+    let a = new u256(0, 0, 1, 0);
+    expect(u256.shr(a, 65)).toStrictEqual(new u256(9223372036854775808, 0, 0, 0));
+  });
+
+  it("Should return zero when right shifted by 256 bits", () => {
+    let a = new u256(1, 1, 1, 1);
+    expect(u256.shr(a, 256)).toStrictEqual(new u256(0, 0, 0, 0));
+  });
+
+  it("Should return the same number when right shifted by 0", () => {
+    let a = new u256(4, 3, 2, 1);
+    expect(u256.shr(a, 0)).toStrictEqual(new u256(4, 3, 2, 1));
+  });
+
+  it("Should right shift a large number correctly", () => {
+    let a = new u256(u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE);
+    expect(u256.shr(a, 64)).toStrictEqual(new u256(u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE, 0));
+  });
+
+  it("Should left shift a number by a small value", () => {
+    let a = new u256(0, 1, 0, 0);
+    expect(u256.shl(a, 64)).toStrictEqual(new u256(0, 0, 1, 0));
+  });
+
+  it("Should left shift a number by more than 128 bits", () => {
+    let a = new u256(0, 1, 0, 0);
+    expect(u256.shl(a, 129)).toStrictEqual(new u256(0, 0, 0, 2));
+  });
+
+  it("Should left shift a number by more than 64 but less than 128 bits", () => {
+    let a = new u256(0, 0, 1, 0);
+    expect(u256.shl(a, 65)).toStrictEqual(new u256(0, 0, 0, 2));
+  });
+
+  it("Should return zero when left shifted by 256 bits", () => {
+    let a = new u256(1, 1, 1, 1);
+    expect(u256.shl(a, 256)).toStrictEqual(new u256(0, 0, 0, 0));
+  });
+
+  it("Should return the same number when left shifted by 0", () => {
+    let a = new u256(4, 3, 2, 1);
+    expect(u256.shl(a, 0)).toStrictEqual(new u256(4, 3, 2, 1));
+  });
+
+  it("Should left left a large number correctly", () => {
+    let a = new u256(u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE);
+    expect(u256.shl(a, 64)).toStrictEqual(new u256(0, u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE));
+  });
+});
+
+describe("div128", () => {
+  it("div128 - should divide small numbers", () => {
+    var a = u256.from(3);
+    var b = u128.from(1);
+
+    expect(a.div128(b)).toStrictEqual([u128.from(3), u128.Zero]);
+  });
+
+  it("div128 - should handle division by one", () => {
+    var a = u256.from(123456789);
+    var b = u128.from(1);
+
+    expect(a.div128(b)).toStrictEqual([u128.from(123456789), u128.Zero]);
+  });
+
+  it("div128 - should handle zero dividend", () => {
+    var a = u256.from(0);
+    var b = u128.from(123456789);
+
+    expect(a.div128(b)).toStrictEqual([u128.Zero, u128.Zero]);
+  });
+
+  // Tests with remainder
+  it("div128 - should handle divisions with remainder", () => {
+    var a = u256.from(10);
+    var b = u128.from(3);
+
+    expect(a.div128(b)).toStrictEqual([u128.from(3), u128.from(1)]);
+  });
+});
+
+
+describe("quoRem function tests", () => {
+  it("Should divide two numbers without remainder", () => {
+    const a = new u256(2, 0, 0, 0);
+    expect(a.quoRem(a)).toStrictEqual([u256.One, u256.Zero]);
+  });
+
+  it("Should handle division with a remainder", () => {
+    const a = u256.from(5);
+    const b = u256.from(3);
+    const quotient = u256.from(1);
+    const remainder = u256.from(2);
+    expect(a.quoRem( b)).toStrictEqual([quotient, remainder]);
+  });
+
+  it("Should handle division with no quotient", () => {
+    const a = u256.from(3);
+    const b = u256.from(5);
+    const quotient = u256.from(0);
+    const remainder = u256.from(3);
+    expect(a.quoRem( b)).toStrictEqual([quotient, remainder]);
+  });
+
+  it("Should handle max values", () => {
+    const a = u256.Max;
+    const b = u256.fromU128(u128.Max);
+    const quotient = new u256(1, 0, 1, 0);
+    const remainder = u256.from(0);
+    expect(a.quoRem( b)).toStrictEqual([quotient, remainder]);
+  });
+
+  it("Should handle null dividendLow", () => {
+    const a = new u256(0, 0, 5, 0);
+    const b = u256.from(3);
+    const quotient = new u256(0xaaaaaaaaaaaaaaaa, 0xaaaaaaaaaaaaaaaa, 1, 0);
+    const remainder = u256.from(2);
+    expect(a.quoRem( b)).toStrictEqual([quotient, remainder]);
+  });
+
+  it("Should handle null divisor low", () => {
+    const a = new u256(0, 0, 5, 0);
+    const b = new u256(0, 0, 3, 0);
+    const quotient = u256.from(1);
+    const remainder = new u256(0, 0, 2, 0);
+    expect(a.quoRem(b)).toStrictEqual([quotient, remainder]);
+  });
+});

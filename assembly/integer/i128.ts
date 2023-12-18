@@ -11,6 +11,8 @@ import {
   __divmod_quot_hi,
   __divmod_rem_lo,
   __divmod_rem_hi,
+  __multi3,
+  __res128_hi,
 } from '../globals';
 
 import { atou128 } from '../utils';
@@ -21,6 +23,7 @@ export class i128 {
   @inline static get One():  i128 { return new i128(1); }
   @inline static get Min():  i128 { return new i128(0, 0x8000000000000000); }
   @inline static get Max():  i128 { return new i128(u64.MAX_VALUE, 0x7FFFFFFFFFFFFFFF); }
+  @inline static get NegOne(): i128 { return new i128(-1, -1); }
 
   @inline
   static fromString(value: string, radix: i32 = 10): i128 {
@@ -279,6 +282,36 @@ export class i128 {
     return new i128(lo, hi);
   }
 
+  @inline @operator('*')
+  static mul(a: i128, b: i128): i128 {
+    return new i128(
+      __multi3(a.lo, a.hi, b.lo, b.hi),
+      __res128_hi
+    );
+  }
+
+  @inline @operator('/')
+  static div(a: i128, b: i128): i128 {
+    if (a == i128.Min && b == i128.NegOne) {
+      // Overflow
+      throw new Error("Integer overflow");
+    }
+    var neg = false;
+    if (a.isNeg()) {
+      a = a.neg();
+      neg = !neg;
+    }
+    if (b.isNeg()) {
+      b = b.neg();
+      neg = !neg;
+    }
+    var q = new i128(
+      __udivmod128(a.lo, a.hi, b.lo, b.hi), 
+      __divmod_quot_hi
+    );
+    return neg ? q.neg() : q;
+  }
+
   @inline @operator('==')
   static eq(a: i128, b: i128): bool {
     return a.hi == b.hi && a.lo == b.lo;
@@ -378,7 +411,6 @@ export class i128 {
      this.toArrayBuffer(result.dataStart, bigEndian);
      return result;
    }
-
 
   /**
    * Convert to byte static array

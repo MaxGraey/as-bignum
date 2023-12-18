@@ -1,4 +1,4 @@
-import { u128 } from '../integer/u128';
+import { u128, safeShl, safeShr } from '../integer/u128';
 import { arrayToUint8Array } from "./utils";
 
 describe("String Conversion", () => {
@@ -1253,3 +1253,111 @@ describe("Throwable", () => {
     }).toThrow();
   });
 });
+
+
+describe("div64 function tests", () => {
+  it("Should divide two numbers without remainder", () => {
+    let a = new u128(6, 0);
+    let b: u64 = 3;
+    expect(a.div64(b)).toStrictEqual([2, 0]);
+  });
+
+  it("Should divide two numbers with a remainder", () => {
+    let a = new u128(7, 0);
+    let b: u64 = 3;
+    expect(a.div64(b)).toStrictEqual([2, 1]);
+  });
+
+  it("Should handle large numbers division correctly", () => {
+    let a = new u128(u64.MAX_VALUE, u64.MAX_VALUE -1);
+    let b: u64 = u64.MAX_VALUE;
+    expect(a.div64(b)).toStrictEqual([u64.MAX_VALUE, u64.MAX_VALUE - 1])
+  });
+
+  it("Should handle division when high part of dividend is 0", () => {
+    let a = new u128(0, 4);
+    let b: u64 = 8;
+    expect(a.div64(b)).toStrictEqual([9223372036854775808, 0]);
+  });
+
+  it("Should return 0 quotient when divisor is larger than dividend", () => {
+    let a = new u128(2, 0);
+    let b: u64 = 8;
+    expect(a.div64(b)).toStrictEqual([0, 2]);
+  });
+});
+
+describe("quoRem function tests", () => {
+
+  it("Should divide two numbers without remainder", () => {
+    const a = u128.from("6");
+    const b: u64 = 3;
+    const quotient = u128.from("2");
+    const remainder = u128.Zero;
+    expect(a.quoRem(b)).toStrictEqual([quotient, remainder]);
+  });
+
+  it("Should divide two numbers with remainder", () => {
+    const a = u128.from("7");
+    const b: u64 = 3;
+    const quotient = u128.from("2");
+    const remainder = u128.from("1");
+    expect(a.quoRem(b)).toStrictEqual([quotient, remainder]);
+  });
+
+  it("Should handle null dividend low", () => {
+    const a = new u128(0, 4);
+    const b: u64 = 2;
+    const quotient = new u128(0, 2);
+    const remainder = u128.Zero;
+    expect(a.quoRem(b)).toStrictEqual([quotient, remainder]);
+  });
+
+  it("Should handle division by 1", () => {
+    const a = u128.from("0xFFFFFFFFFFFFFFFF");
+    const b: u64 = 1;
+    const quotient = u128.from("0xFFFFFFFFFFFFFFFF");
+    const remainder = u128.Zero;
+    expect(a.quoRem(b)).toStrictEqual([quotient, remainder]);
+  });
+
+  it("Should handle large numbers", () => {
+    const a = u128.Max;
+    const b: u64 = u64.MAX_VALUE;
+    const quotient = new u128(1, 1);
+    const remainder = u128.Zero;
+    expect(a.quoRem(b)).toStrictEqual([quotient, remainder]);
+  });
+});
+
+describe("Safe bit shift function tests", () => {
+
+  it("Should shift a number to the right", () => {
+    const a = u128.from("16");
+    const shift: i32 = 2;
+    const result = u128.from("4");
+    expect(safeShr(a, shift)).toStrictEqual(result);
+  });
+
+  it("Should return zero for right shifts >= 128", () => {
+    const a = u128.from("16");
+    const shift: i32 = 128;
+    const result = u128.Zero;
+    expect(safeShr(a, shift)).toStrictEqual(result);
+  });
+
+  it("Should shift a number to the left", () => {
+    const a = u128.from("4");
+    const shift: i32 = 2;
+    const result = u128.from("16");
+    expect(safeShl(a, shift)).toStrictEqual(result);
+  });
+
+  it("Should return zero for left shifts >= 128", () => {
+    const a = u128.from("4");
+    const shift: i32 = 128;
+    const result = u128.Zero;
+    expect(safeShl(a, shift)).toStrictEqual(result);
+  });
+});
+

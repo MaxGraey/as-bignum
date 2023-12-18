@@ -1,7 +1,8 @@
 import { i128 } from './i128';
-import { u128 } from './u128';
+import { u128, safeShl, safeShr } from './u128';
 import { u256toDecimalString } from "../utils";
 import { __mul256 } from '../globals';
+import { u64SafeShl, u64SafeShr } from './helper';
 
 @lazy const HEX_CHARS = '0123456789abcdef';
 
@@ -386,31 +387,85 @@ export class u256 {
     return new u256(a.lo1 & b.lo1, a.lo2 & b.lo2, a.hi1 & b.hi1, a.hi2 & b.hi2);
   }
 
+  /**
+   * Right shifts a 256-bit number by a specified number of bits.
+   * 
+   * @param value - The 256-bit number to be shifted.
+   * @param shift - The number of bits to shift.
+   * @returns A new u256 value that represents the shifted number.
+   * 
+   * @remarks
+   * When the shift value is >= 256, the result is always zero. 
+   * For shifts < 0, the function returns the original value without any shifts.
+   */
   @operator('>>')
   static shr(value: u256, shift: i32): u256 {
-    shift &= 255;
-    var off = shift as u64;
-    if (shift <= 64) {
-      if (shift == 0) return value;
-      let hi2 =  value.hi2 >> off;
-      let hi1 = (value.hi1 >> off) | (value.hi2 << 64 - off);
-      let lo2 = (value.lo2 >> off) | (value.hi1 << 64 - off);
-      let lo1 = (value.lo1 >> off) | (value.lo2 << 64 - off);
-      return new u256(lo1, lo2, hi1, hi2);
-    } else if (shift > 64 && shift <= 128) {
-      let hi1 = value.hi2 >> 128 - off;
-      return new u256(value.lo2, value.hi1, hi1);
-    } else if (shift > 128 && shift <= 192) {
-      let lo2 = value.hi2 >> 192 - off;
-      return new u256(value.hi1, lo2);
-    } else {
-      return new u256(value.hi2 >> 256 - off);
+    if (shift >= 256) return u256.Zero;
+    if (shift <= 0) return value;
+
+    if(shift > 128) {
+      let low = new u128(value.hi1, value.hi2) >> (shift - 128);
+      return new u256(low.lo, low.hi, 0, 0);
     }
+
+    if(shift > 64) {
+      return new u256(
+        u64SafeShr(value.lo2, shift - 64) | u64SafeShl(value.hi1, 128 - shift),
+        u64SafeShr(value.hi1, shift - 64) | u64SafeShl(value.hi2, 128 - shift),
+        u64SafeShr(value.hi2, shift - 64),
+        0
+      );
+    }
+
+    return new u256(
+      u64SafeShr(value.lo1, shift) | u64SafeShl(value.lo2, 64 - shift),
+      u64SafeShr(value.lo2, shift) | u64SafeShl(value.hi1, 64 - shift),
+      u64SafeShr(value.hi1, shift) | u64SafeShl(value.hi2, 64 - shift),
+      u64SafeShr(value.hi2, shift)
+    );
   }
 
   @inline @operator('>>>')
   static shr_u(value: u256, shift: i32): u256 {
     return u256.shr(value, shift);
+  }
+
+  /**
+   * Left shifts a 256-bit number by a specified number of bits.
+   * 
+   * @param value - The 256-bit number to be shifted.
+   * @param shift - The number of bits to shift.
+   * @returns A new u256 value that represents the shifted number.
+   * 
+   * @remarks
+   * When the shift value is >= 256, the result is always zero. 
+   * For shifts < 0, the function returns the original value without any shifts.
+   */
+  @operator('<<')
+  static shl(value: u256, shift: i32): u256 {
+    if (shift >= 256) return u256.Zero;
+    if (shift <= 0) return value;
+
+    if(shift > 128) {
+      let high: u128 = new u128(value.lo1, value.lo2) << (shift - 128);
+      return new u256(0, 0, high.lo, high.hi);
+    }
+
+    if(shift > 64) {
+      return new u256(
+        0,
+        u64SafeShl(value.lo1, shift - 64),
+        u64SafeShl(value.lo2, shift - 64) | u64SafeShr(value.lo1, 128 - shift),
+        u64SafeShl(value.hi1, shift - 64) | u64SafeShr(value.lo2, 128 - shift)
+      );
+    }
+
+    return new u256(
+      u64SafeShl(value.lo1, shift),
+      u64SafeShl(value.lo2, shift) | u64SafeShr(value.lo1, 64 - shift),
+      u64SafeShl(value.hi1, shift) | u64SafeShr(value.lo2, 64 - shift),
+      u64SafeShl(value.hi2, shift) | u64SafeShr(value.hi1, 64 - shift)
+    );
   }
 
   @inline @operator('==')
@@ -461,6 +516,147 @@ export class u256 {
   @inline @operator('*')
   static mul(a: u256, b: u256): u256 {
     return __mul256(a.lo1, a.lo2, a.hi1, a.hi2, b.lo1, b.lo2, b.hi1, b.hi2)
+  }
+
+  @inline @operator('%')
+  static rem(a: u256, b: u256): u256 {
+    return a.quoRem(b)[1];
+  }
+
+  @inline @operator('/')
+  static div(a: u256, b: u256): u256 {
+    return a.quoRem(b)[0];
+  }
+
+  /**
+   * Returns the quotient and remainder of dividing a 256-bit number by another 256-bit number.
+   *
+   * @param divisor - The 256-bit divisor.
+   * @returns An array containing the quotient and remainder, both as u256.
+   * @throws {RangeError} If the divisor is zero.
+   *
+   */
+  quoRem(divisor: u256): u256[] {
+    if (this < divisor) return [u256.Zero, this];
+
+    const dividendHigh = new u128(this.hi1, this.hi2);
+    const dividendLow = new u128(this.lo1, this.lo2);
+    const divisorHigh = new u128(divisor.hi1, divisor.hi2);
+    const divisorLow = new u128(divisor.lo1, divisor.lo2);
+
+    if (divisorHigh == u128.Zero) {
+      // If the result fit in a u128,
+      // then the division can be done directly using div64.
+      if (dividendHigh < divisorLow) {
+        const resp = this.div128(divisorLow);
+        return [u256.fromU128(resp[0]), u256.fromU128(resp[1])];
+      }
+
+      // Otherwise, we need to use long division.
+
+      let res = u256.fromU128(dividendHigh).div128(divisorLow);
+      const quotientHigh = res[0];
+      let remainderHigh = res[1];
+
+      res = new u256(
+        dividendLow.lo,
+        dividendLow.hi,
+        remainderHigh.lo,
+        remainderHigh.hi
+      ).div128(divisorLow);
+
+      const quotientLow = res[0];
+      const remainderLow = res[1];
+
+      return [
+        new u256(
+          quotientLow.lo,
+          quotientLow.hi,
+          quotientHigh.lo,
+          quotientHigh.hi
+        ),
+        u256.fromU128(remainderLow),
+      ];
+    }
+
+    // Normalize the divisor and dividend.
+    const shiftAmount: i32 = i32(clz(divisor.hi1) + clz(divisor.hi2));
+    
+    const normalizedDivisor: u256 = divisor << shiftAmount;
+
+    const normalizedDividend: u256 = this >> 1;
+    const normalizedDividendLow: u128 = new u128(
+      normalizedDividend.lo1,
+      normalizedDividend.lo2
+    );
+    const normalizedDividendHigh: u128 = new u128(
+      normalizedDividend.hi1,
+      normalizedDividend.hi2
+    );
+
+    let quotientHigh: u128 = longDivision256by128(
+      normalizedDividendHigh,
+      normalizedDividendLow,
+      new u128(normalizedDivisor.hi1, normalizedDivisor.hi2)
+    )[0];
+    quotientHigh = quotientHigh >> (127 - shiftAmount);
+
+    // Force the quotient to be an underestimate.
+    if (quotientHigh != u128.Zero) {
+      quotientHigh -= u128.One;
+    }
+
+    // Calculate the remainder using the quotient.
+    let quotient: u256 = u256.fromU128(quotientHigh);
+    let remainder: u256 = this - divisor * quotient;
+
+    // Adjust the quotient and remainder if necessary.
+    if (remainder >= divisor) {
+      quotient += u256.One;
+      remainder -= divisor;
+    }
+
+    return [quotient, remainder];
+  }
+
+  /**
+   * Divides a 256-bit number by a 128-bit divisor.
+   * 
+   * @param divisor - The 128-bit divisor.
+   * @returns An array containing the quotient and remainder, both as u128.
+   * @throws {RangeError} If the divisor is zero or if the result will be larger than 128 bits.
+   * 
+   * @remarks
+   * The function employs a long division method adapted for 256-bit numbers divided by 128-bit numbers.
+   * The algorithm starts by normalizing the divisor and dividend to align their most significant bits.
+   * This is done by shifting both the divisor and the dividend by the count of leading zeros in the divisor.
+   * The function then calls `longDivision256by128` to perform the actual division on the normalized numbers.
+   * Finally, the remainder is denormalized by shifting it back to the right by the same amount used to normalize the divisor.
+   */
+  div128(divisor: u128): u128[] {
+    const dividendHigh: u128 = new u128(this.hi1, this.hi2);
+    const dividendLow: u128 = new u128(this.lo1, this.lo2);
+
+    if (divisor == u128.Zero) throw new RangeError("Division by zero");
+
+    // Panic if the result won't fit in a 128-bits number.
+    if (dividendHigh >= divisor) throw new RangeError("Integer overflow");
+
+    const shiftAmount: i32 = i32(u128.clz(divisor));
+
+    const normalizedDivisor: u128 = safeShl(divisor, shiftAmount);
+
+    // Align the lower part of the dividend with the divisor.
+    const normalizedDividendLow: u128 = safeShl(dividendLow, shiftAmount);
+
+    // Align the higher part of the dividend:
+    // - Shift the high part left by the same amount as the divisor.
+    // - Shift the low part right to retain the most significant bits.
+    const normalizedDividendHigh: u128 = safeShl(dividendHigh, shiftAmount) | safeShr(dividendLow, 128 - shiftAmount);
+
+    const response = longDivision256by128(normalizedDividendHigh, normalizedDividendLow, normalizedDivisor);
+    
+    return [ response[0], safeShr(response[1], shiftAmount) ];
   }
 
   @inline
@@ -677,4 +873,71 @@ export class u256 {
     }
     return u256toDecimalString(this);
   }
+}
+
+/**
+ * Divides a 256-bit number by a 128-bit divisor.
+ * 
+ * @param dividendHigh - The high 128 bits of the dividend.
+ * @param dividendLow - The low 128 bits of the dividend.
+ * @param divisor - The 128-bit divisor.
+ * @returns An array containing the quotient and remainder, both as u128.
+ * @throws {RangeError} If the divisor is zero or if the result will be larger than 128 bits.
+ * 
+ * @remarks
+ * The algorithm employs a long division method adapted for 256-bit numbers. 
+ * It breaks down the dividend and divisor into 128-bit chunks and processes them iteratively.
+ * The method ensures that the quotient and remainder fit within their respective bounds by 
+ * adjusting them in a loop. The algorithm first calculates the high part of the quotient and 
+ * remainder, then proceeds to the low part, combining them at the end.
+ */
+function longDivision256by128(dividendHigh: u128, dividendLow: u128, divisor: u128): u128[] {
+  if (divisor == u128.Zero) throw new RangeError("Division by zero");
+  
+  // Check if the result will be larger than 128 bits.
+  if (dividendHigh >= divisor) throw new RangeError("Integer overflow");
+
+  // Initial quotient and remainder estimation for the high part.
+  let quoRem = dividendHigh.quoRem(divisor.hi);
+  let quotientHigh = quoRem[0];
+  let remainderHigh = quoRem[1];
+
+  // Adjust the high quotient and remainder.
+  while (
+     // if quotientHigh doesn't fit in a u64
+    quotientHigh.hi != 0
+    // or if the estimated quotient and the divisor are to large for the next next portion of the dividend 
+    || quotientHigh * u128.fromU64(divisor.lo) > new u128(dividendLow.hi, remainderHigh.lo)
+  ) {
+    quotientHigh -= u128.One;
+    remainderHigh += u128.fromU64(divisor.hi);
+    if (remainderHigh.hi != 0) {
+      break;
+    }
+  }
+
+  // Calculate the next portion of the dividend.
+  const combinedRemainder: u128 = new u128(dividendLow.hi, dividendHigh.lo) - quotientHigh * divisor;
+
+  // Initial quotient and remainder estimation for the low part.
+  quoRem = combinedRemainder.quoRem(divisor.hi);
+  let quotientLow = quoRem[0];
+  let remainderLow = quoRem[1];
+
+  // Adjust the low quotient and remainder.
+  while (
+    quotientLow.hi != 0
+    || quotientLow * u128.fromU64(divisor.lo) > new u128(dividendLow.lo, remainderLow.lo)
+  ) {
+    quotientLow -= u128.One;
+    remainderLow += u128.fromU64(divisor.hi);
+    if (remainderLow.hi != 0) {
+      break;
+    }
+  }
+      
+  return [
+    new u128(quotientLow.lo, quotientHigh.lo),
+    new u128(dividendLow.lo, combinedRemainder.lo) - quotientLow * divisor,
+  ];
 }
