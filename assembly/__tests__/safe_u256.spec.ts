@@ -32,6 +32,12 @@ describe("Basic Operations", () => {
       expect(a + b).toStrictEqual(r);
       expect(b + a).toStrictEqual(r);
     });
+    it("Should test carry and lo2 equality", () => {
+      var a = new u256Safe(u64.MAX_VALUE, 1, 0, 0);
+      var b = new u256Safe(1, 0, 0, 0);
+      var r = new u256Safe(0, 2, 0, 0);
+      expect(a + b).toStrictEqual(r);
+    });
     it("Should add two numbers 1", () => {
       var a = u256Safe.from(23489);
       var b = u256Safe.from(1234);

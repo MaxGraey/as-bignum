@@ -121,11 +121,11 @@ class u256 extends U256 {
 
     // Addition for the second lowest segment with carry
     var lo2 = lo2a + lo2b + cy;
-    cy = u64(lo2 < lo2a || (cy != 0 && lo2 <= lo2b)); // Update carry
+    cy = u64(lo2 < lo2a || (cy == 1 && lo2 == lo2a)); // Update carry
 
     // Addition for the second highest segment with carry
     var hi1 = hi1a + hi1b + cy;
-    cy = u64(hi1 < hi1a || (cy != 0 && hi1 <= hi1b)); // Update carry
+    cy = u64(hi1 < hi1a || (cy == 1 && hi1 == hi1a)); // Update carry
 
     // Addition for the highest segment with carry
     var hi2 = hi2a + hi2b + cy;
@@ -134,7 +134,7 @@ class u256 extends U256 {
     // In a 'safe' implementation, an overflow can be detected if the final carry would exceed the bounds of u256,
     // which means an addition that causes the highest segment to overflow.
     // However, standard unsigned integer behavior would wrap around, so this step depends on the intended behavior:
-    if (hi2 < hi2a || (cy != 0 && hi2 <= hi2b)) {
+    if (hi2 < hi2a || (cy == 1 && hi2 == hi2a)) {
         throw new RangeError("Overflow during addition");
     }
 
