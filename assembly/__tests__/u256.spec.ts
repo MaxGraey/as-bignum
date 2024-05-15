@@ -1,5 +1,5 @@
 import { u128 } from '../integer/u128';
-import { u256 } from '../integer/u256';
+import { u256 } from '../integer/_u256';
 
 describe("String Conversion", () => {
   it("Should convert to decimal string 1", () => {
@@ -504,4 +504,56 @@ describe("Basic Operations", () => {
     expect(b * a).toStrictEqual(r);
   });
 
+  it("Should divide two u256 numbers - divide by itself", () => {
+    const a = new u256(2, 0, 0, 0);
+    expect(a / a).toStrictEqual(u256.One);
+    expect(a % a).toStrictEqual(u256.Zero);
+  });
+
+  it("Should divide two u256 numbers - divide by 1", () => {
+    const a = new u256(2, 0, 0, 0);
+    expect(a / u256.One).toStrictEqual(a);
+    expect(a % u256.One).toStrictEqual(u256.Zero);
+  });
+
+  it("Should divide two u256 numbers - 0 divided", () => {
+    const a = new u256(2, 0, 0, 0);
+    expect(u256.Zero / a).toStrictEqual(u256.Zero);
+    expect(u256.Zero % a).toStrictEqual(u256.Zero);
+  });
+
+  /*it("Should divide two u256 numbers - divide by 0", () => {
+    expect(() => new u256(2, 0, 0, 0) / u256.Zero).toThrow();
+    expect(() => new u256(2, 0, 0, 0) % u256.Zero).toThrow();
+  });
+  */
+
+  it("Should divide two u256 numbers - with a remainder", () => {
+    const a = u256.from(5);
+    const b = u256.from(3);
+    expect(a/b).toStrictEqual(u256.from(1));
+    expect(a%b).toStrictEqual(u256.from(2));
+  });
+
+  it("Should divide two u256 numbers - other 1", () => {
+    const a = u256.Max;
+    const b = u256.fromU128(u128.Max);
+    expect(a/b).toStrictEqual(new u256(1, 0, 1, 0));
+    expect(a%b).toStrictEqual(u256.from(0));
+  });
+  
+  it("Should divide two u256 numbers - other 2", () => {
+    const a = new u256(0, 0, 5, 0);
+    const b = u256.from(3);
+    const quotient = new u256(0xaaaaaaaaaaaaaaaa, 0xaaaaaaaaaaaaaaaa, 1, 0);
+    expect(a/b).toStrictEqual(quotient);
+    expect(a%b).toStrictEqual(u256.from(2));
+  });
+  
+  it("Should divide two u256 numbers - other 3", () => {
+    const a = new u256(0, 0, 5, 0);
+    const b = new u256(0, 0, 3, 0);
+    expect(a/b).toStrictEqual(u256.from(1));
+    expect(a%b).toStrictEqual(new u256(0, 0, 2, 0));
+  });
 });

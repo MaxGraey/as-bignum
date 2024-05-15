@@ -1,7 +1,7 @@
 import { i128 } from './i128';
 import { u128 } from './u128';
 import { u256toDecimalString } from "../utils";
-import { __mul256, __u64ToBinaryString } from '../globals';
+import { __mul256, __u64ToBinaryString, __divmod_quot_hi1, __divmod_quot_hi2, __divmod_quot_lo2, __divmod_rem_hi1, __divmod_rem_hi2, __divmod_rem_lo1, __divmod_rem_lo2, __udivmod256 } from '../globals';
 
 @lazy const HEX_CHARS = '0123456789abcdef';
 
@@ -509,6 +509,22 @@ export class u256 {
   @inline @operator('*')
   static mul(a: u256, b: u256): u256 {
     return __mul256(a.lo1, a.lo2, a.hi1, a.hi2, b.lo1, b.lo2, b.hi1, b.hi2)
+  }
+
+  @inline @operator('/')
+  static div(a: u256, b: u256): u256 {
+    return new u256(
+      __udivmod256(a.lo1, a.lo2, a.hi1, a.hi2, b.lo1, b.lo2, b.hi1, b.hi2),
+      __divmod_quot_lo2,
+      __divmod_quot_hi1,
+      __divmod_quot_hi2
+    );
+  }
+
+  @inline @operator('%')
+  static rem(a: u256, b: u256): u256 {
+    __udivmod256(a.lo1, a.lo2, a.hi1, a.hi2, b.lo1, b.lo2, b.hi1, b.hi2);
+    return new u256(__divmod_rem_lo1, __divmod_rem_lo2, __divmod_rem_hi1, __divmod_rem_hi2);
   }
 
   @inline
