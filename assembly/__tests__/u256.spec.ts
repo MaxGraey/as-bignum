@@ -279,6 +279,55 @@ describe("Basic Operations", () => {
     expect(b & a).toStrictEqual(r);
   });
 
+  it("Should shift left once", () => {
+    var a = new u256(1, u64.MAX_VALUE, 0, 4);
+    var r = new u256(2, u64.MAX_VALUE - 1, 1, 8);
+    expect(a << 1).toStrictEqual(r);
+  });
+
+  it("Should shift left twice", () => {
+    var a = new u256(u64.MAX_VALUE, u64.MAX_VALUE, 0, 0);
+    var r = new u256(u64.MAX_VALUE -3, u64.MAX_VALUE, 3, 0);
+    expect(a << 2).toStrictEqual(r);
+  });
+
+  it("Should shift left 64 times", () => {
+    var a = new u256(u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE, 4);
+    var r = new u256(0, u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE);
+    expect(a << 64).toStrictEqual(r);
+  });
+
+  it("Should shift left 65 times", () => {
+    var a = new u256(1, u64.MAX_VALUE, 0, 4);
+    var r = new u256(0, 2, u64.MAX_VALUE -1 , 1);
+    expect(a << 65).toStrictEqual(r);
+  });
+
+  it("Should shift left 128", () => {
+    var a = new u256(u64.MAX_VALUE, u64.MAX_VALUE, 0, 4);
+    var r = new u256(0, 0, u64.MAX_VALUE, u64.MAX_VALUE);
+    expect(a << 128).toStrictEqual(r);
+  });
+
+  it("Should shift left 129", () => {
+    var a = new u256(1, u64.MAX_VALUE, 0, 4);
+    var r = new u256(0, 0, 2, u64.MAX_VALUE -1);
+    expect(a << 129).toStrictEqual(r);
+  });
+  
+  it("Should shift left 193", () => {
+    var a = new u256(u64.MAX_VALUE, 1, 0, 0);
+    var r = new u256(0, 0, 0, u64.MAX_VALUE -1);
+    expect(a << 193).toStrictEqual(r);
+  });
+
+  it("Should shift left 255", () => {
+    var a = new u256(1, 0, 0, 0);
+    var r = new u256(0, 0, 0, 1 << 63);
+    expect(a << 255).toStrictEqual(r);
+  });
+
+
   it("Should add [1, 0, 0, 0] and [max, 0, 0, 0]", () => {
     var a = u256.One;
     var b = new u256(u64.MAX_VALUE, 0, 0, 0);
