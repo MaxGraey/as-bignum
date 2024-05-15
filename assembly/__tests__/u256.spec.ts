@@ -1,5 +1,5 @@
 import { u128 } from '../integer/u128';
-import { u256 } from '../integer/_u256';
+import { u256 } from '../integer/u256';
 
 describe("String Conversion", () => {
   it("Should convert to decimal string 1", () => {
