@@ -1,7 +1,7 @@
 import { i128 } from './i128';
 import { u128 } from './u128';
 import { u256toDecimalString } from "../utils";
-import { __mul256 } from '../globals';
+import { __mul256 , __u64ToBinaryString } from '../globals';
 
 @lazy const HEX_CHARS = '0123456789abcdef';
 
@@ -662,11 +662,18 @@ export class u256 {
   }
 
   toString(radix: i32 = 10): string {
-    assert(radix == 10 || radix == 16, 'radix argument must be between 10 or 16');
+    assert(radix == 2 || radix == 10 || radix == 16, 'radix argument must be 2, 10 or 16');
     if (this.isZero()) return '0';
 
-    var result = '';
+    if (radix == 2) {
+      return __u64ToBinaryString(this.hi2)
+       + __u64ToBinaryString(this.hi1)
+       + __u64ToBinaryString(this.lo2)
+       + __u64ToBinaryString(this.lo1);
+    }
+    
     if (radix == 16) {
+      let result = '';
       let shift: i32 = 252 - (u256.clz(this) & ~3);
       while (shift >= 0) {
         // @ts-ignore
@@ -675,6 +682,7 @@ export class u256 {
       }
       return result;
     }
+
     return u256toDecimalString(this);
   }
 }

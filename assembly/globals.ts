@@ -401,3 +401,14 @@ export function __udivmod128_10(lo: u64, hi: u64): u64 {
   __divmod_rem_hi  = r.hi;
   return n.lo;
 }
+
+// @ts-ignore: decorator
+@global
+export function __u64ToBinaryString(value: u64): string {
+  let binaryString = "";
+  for (let i = 0; i < 64; i++) {
+    binaryString = ((value & 1) ? '1' : '0') + binaryString;
+    value = value >> 1;
+  }
+  return binaryString;
+}
