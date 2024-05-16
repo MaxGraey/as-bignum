@@ -146,6 +146,24 @@ class u256 extends U256 {
     if (a < b) throw new RangeError("Underflow during subtraction");
     return changetype<u256>(U256.sub(changetype<U256>(a), changetype<U256>(b)));
   }
+
+  @operator("*")
+  static mul(a: u256, b: u256): u256 {
+    if (b != u256.Zero && changetype<U256>(a) > U256.div(U256.Max, changetype<U256>(b))) {
+      throw new RangeError("Overflow during multiplication");
+    }
+    return changetype<u256>(U256.mul(changetype<U256>(a), changetype<U256>(b)));
+  }
+
+  @operator("/")
+  static div(a: u256, b: u256): u256 {
+    return changetype<u256>(U256.div(changetype<U256>(a), changetype<U256>(b)));
+  }
+
+  @operator("%")
+  static rem(a: u256, b: u256): u256 {
+    return changetype<u256>(U256.rem(changetype<U256>(a), changetype<U256>(b)));
+  }
 }
 
 export { u256 as u256Safe };
