@@ -522,11 +522,10 @@ describe("Basic Operations", () => {
     expect(u256.Zero % a).toStrictEqual(u256.Zero);
   });
 
-  /*it("Should divide two u256 numbers - divide by 0", () => {
-    expect(() => new u256(2, 0, 0, 0) / u256.Zero).toThrow();
-    expect(() => new u256(2, 0, 0, 0) % u256.Zero).toThrow();
+  it("Should divide two u256 numbers - divide by 0", () => {
+    expect(() => { new u256(2, 0, 0, 0) / u256.Zero }).toThrow();
+    expect(() => { new u256(2, 0, 0, 0) % u256.Zero }).toThrow();
   });
-  */
 
   it("Should divide two u256 numbers - with a remainder", () => {
     const a = u256.from(5);
