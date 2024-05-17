@@ -6,6 +6,16 @@ import { u128 } from './integer/u128';
 @lazy export var __divmod_rem_lo:  u64 = 0;
 @lazy export var __divmod_rem_hi:  u64 = 0;
 
+// used for returning quotient and reminder from __divmod256
+@lazy export var __divmod_quot_lo2: u64 = 0;
+@lazy export var __divmod_quot_hi1: u64 = 0;
+@lazy export var __divmod_quot_hi2: u64 = 0;
+@lazy export var __divmod_rem_lo1:  u64 = 0;
+@lazy export var __divmod_rem_lo2:  u64 = 0;
+@lazy export var __divmod_rem_hi1:  u64 = 0;
+@lazy export var __divmod_rem_hi2:  u64 = 0;
+
+
 // used for returning low and high part of __mulq64, __multi3 etc
 @lazy export var __res128_hi: u64 = 0;
 // used for returning 0 or 1
@@ -400,4 +410,165 @@ export function __udivmod128_10(lo: u64, hi: u64): u64 {
   __divmod_rem_lo  = r.lo;
   __divmod_rem_hi  = r.hi;
   return n.lo;
+}
+
+// @ts-ignore: decorator
+@global
+export function __u64ToBinaryString(value: u64): string {
+  let binaryString = "";
+  for (let i = 0; i < 64; i++) {
+    binaryString = ((value & 1) ? '1' : '0') + binaryString;
+    value = value >> 1;
+  }
+  return binaryString;
+}
+
+// @ts-ignore: decorator
+@global @inline
+export function __clz256(lo1: u64, lo2: u64, hi1: u64, hi2: u64): u64 {
+  if (hi2) return clz(hi2);
+  if (hi1) return clz(hi1) + 64;
+  if (lo2) return clz(lo2) + 128;
+  return clz(lo1) + 192;
+}
+
+@global @inline
+export function __ctz256(lo1: u64, lo2: u64, hi1: u64, hi2: u64): u64 {
+  if (lo1) return ctz(lo1);
+  if (lo2) return ctz(lo2) + 64;
+  if (hi1) return ctz(hi1) + 128;
+  return ctz(hi2) + 192;
+}
+
+// @ts-ignore: decorator
+@global
+export function __udivmod256(alo1: u64, alo2: u64, ahi1: u64, ahi2: u64, blo1: u64, blo2 : u64, bhi1: u64, bhi2: u64): u64 {
+  var bzn = __clz256(blo1, blo2, bhi1, bhi2);
+
+  // b == 0
+  if (bzn == 256) {
+    throw new RangeError("Division by zero"); // division by zero
+  }
+
+  // a == 0
+  if (!(alo1 | alo2 | ahi1 | ahi2)) {
+    __divmod_quot_lo2 = 0;
+    __divmod_quot_hi1 = 0;
+    __divmod_quot_hi2 = 0;
+    __divmod_rem_lo1  = 0;
+    __divmod_rem_lo2  = 0;
+    __divmod_rem_hi1  = 0;
+    __divmod_rem_hi2  = 0;
+    return 0;
+  }
+
+  // a / 1
+  if (bzn == 127) {
+    __divmod_quot_lo2 = alo2;
+    __divmod_quot_hi1 = ahi1;
+    __divmod_quot_hi2 = ahi2;
+    __divmod_rem_lo1  = 0;
+    __divmod_rem_lo2  = 0;
+    __divmod_rem_hi1  = 0;
+    __divmod_rem_hi2  = 0;
+    return alo1;
+  }
+
+  // a == b
+  if (alo1 == blo1 && alo2 == blo2 && ahi1 == bhi1 && ahi2 == bhi2) {
+    __divmod_quot_lo2 = 0;
+    __divmod_quot_hi1 = 0;
+    __divmod_quot_hi2 = 0;
+    __divmod_rem_lo1  = 0;
+    __divmod_rem_lo2  = 0;
+    __divmod_rem_hi1  = 0;
+    __divmod_rem_hi2  = 0;
+    return 1;
+  }
+
+  // b > a
+  if (
+    bhi2 > ahi2 ||
+    (bhi2 == ahi2 && bhi1 > ahi1) ||
+    (bhi2 == ahi2 && bhi1 == ahi1 && blo2 > alo2) ||
+    (bhi2 == ahi2 && bhi1 == ahi1 && blo2 == alo2 && blo1 > alo1)){
+    __divmod_quot_lo2 = 0;
+    __divmod_quot_hi1 = 0;
+    __divmod_quot_hi2 = 0;
+    __divmod_rem_lo1  = alo1;
+    __divmod_rem_lo2  = alo2;
+    __divmod_rem_hi1  = ahi1;
+    __divmod_rem_hi2  = ahi2;
+    return 0;
+  }
+
+  // a and b are u128
+  if (!(ahi1 | ahi2 | bhi1 | bhi2)) {
+    var __divmod_quot_lo1 = __udivmod128(alo1, alo2, blo1, blo2)
+    __divmod_quot_lo2 = __divmod_quot_hi;
+    __divmod_quot_hi1 = 0;
+    __divmod_quot_hi2 = 0;
+    __divmod_rem_lo1  = __divmod_rem_lo;
+    __divmod_rem_lo2  = __divmod_rem_hi;
+    __divmod_rem_hi1  = 0;
+    __divmod_rem_hi2  = 0;
+    return __divmod_quot_lo1;
+  }
+
+  return __udivmod256core(alo1, alo2, ahi1, ahi2, blo1, blo2, bhi1, bhi2);
+}
+
+/**
+ * Divides a 256-bit unsigned integer by another 256-bit unsigned integer.
+ * 
+ * @remarks
+ * This function normalizes the divisor by aligning it left with the dividend to optimize the division process,
+ * reducing the iterations required. The final quotient is adjusted to compensate for the normalization.
+ */
+function __udivmod256core(alo1: u64, alo2: u64, ahi1: u64, ahi2: u64, blo1: u64, blo2: u64, bhi1: u64, bhi2: u64): u64 {
+  const dividend = new u256(alo1, alo2, ahi1, ahi2);
+  const divisor = new u256(blo1, blo2, bhi1, bhi2);
+
+  const leadingZerosDividend = u256.clz(dividend);
+  const leadingZerosDivisor = u256.clz(divisor);
+  const normalizationShift = leadingZerosDivisor - leadingZerosDividend;
+
+  var normalizedDivisor  = divisor << normalizationShift;
+
+  var quotient = u256.Zero;
+  var remainder = dividend.clone();
+
+  var mask = u256.One;
+  mask <<= 256 - leadingZerosDivisor;
+  mask--;
+  var normalizedMask = mask << normalizationShift;
+
+  var processedDigitsCount = 0;
+
+  while (remainder >= divisor) {
+    processedDigitsCount++;
+
+    quotient <<= 1;
+
+    const partialDividend = remainder & normalizedMask;
+
+    if (partialDividend >= normalizedDivisor) {
+      quotient++;
+      remainder -= normalizedDivisor;
+    }
+
+    normalizedMask |= normalizedMask >> 1;
+    normalizedDivisor >>= 1;
+  }
+
+  quotient <<= (normalizationShift - processedDigitsCount + 1);
+
+  __divmod_quot_lo2 = quotient.lo2;
+  __divmod_quot_hi1 = quotient.hi1;
+  __divmod_quot_hi2 = quotient.hi2;
+  __divmod_rem_lo1  = remainder.lo1;
+  __divmod_rem_lo2  = remainder.lo2;
+  __divmod_rem_hi1  = remainder.hi1;
+  __divmod_rem_hi2  = remainder.hi2;
+  return quotient.lo1;
 }
