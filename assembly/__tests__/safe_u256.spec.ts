@@ -162,4 +162,22 @@ describe("Overflow Underflow Throwable", () => {
       }).toThrow();
     });
   });
+  describe("MUL", () => {
+    it("Should throw when multiply two numbers 1", () => {
+      expect(() => {
+        var a = u256Safe.Max;
+        var b = u256Safe.Max;
+        !(a * b);
+      }).toThrow();
+    });
+  });
+  describe("DIV", () => {
+    it("Should throw when divide two numbers 1", () => {
+      expect(() => {
+        var a = u256Safe.Max;
+        var b = u256Safe.Zero;
+        !(a / b);
+      }).toThrow();
+    });
+  });
 });
