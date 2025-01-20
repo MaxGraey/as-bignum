@@ -1,15 +1,17 @@
-import { u256 } from './integer';
-import { u128 } from './integer/u128';
+import { u128, u256 } from './integer';
 
 // used for returning quotient and reminder from __divmod128
 @lazy export var __divmod_quot_hi: u64 = 0;
-@lazy export var __divmod_rem_lo:  u64 = 0;
-@lazy export var __divmod_rem_hi:  u64 = 0;
+@lazy export var __divmod_rem_lo: u64 = 0;
+@lazy export var __divmod_rem_hi: u64 = 0;
 
 // used for returning low and high part of __mulq64, __multi3 etc
 @lazy export var __res128_hi: u64 = 0;
+
 // used for returning 0 or 1
 @lazy export var __carry: u64 = 0;
+@lazy export var __u256carry: u64 = 0;
+@lazy export var __u256carrySub: u64 = 0;
 
 /**
  * Convert 128-bit unsigned integer to 64-bit float
@@ -23,9 +25,9 @@ export function __floatuntidf(lo: u64, hi: u64): f64 {
   // __floatuntidf ported from LLVM sources
   if (!(lo | hi)) return 0.0;
 
-  var v  = new u128(lo, hi);
+  var v = new u128(lo, hi);
   var sd = 128 - __clz128(lo, hi);
-  var e  = sd - 1;
+  var e = sd - 1;
 
   if (sd > 53) {
     if (sd != 55) {
@@ -58,31 +60,72 @@ export function __floatuntidf(lo: u64, hi: u64): f64 {
   return reinterpret<f64>(u | (v.lo & 0xFFFFFFFF));
 }
 
+
+/**
+ * Adds two 64-bit unsigned integers `a` and `b` along with a carry-in value.
+ * Sets the global `__carry2` variable to indicate whether an overflow occurred.
+ * @param {u64} a - The first 64-bit unsigned integer.
+ * @param {u64} b - The second 64-bit unsigned integer.
+ * @param {u64} carryIn - Carry-in value (0 or 1).
+ * @returns {u64} - The 64-bit result of the addition.
+ */
+@inline
+export function add64Local(a: u64, b: u64, carryIn: u64): u64 {
+  let tmp = a + carryIn;
+  let carry = tmp < a ? 1 : 0;
+  let sum = tmp + b;
+  carry += sum < tmp ? 1 : 0;
+  __u256carry = carry;
+  return sum;
+}
+
+/**
+ * Subtracts the 64-bit unsigned integer `b` from `a` along with a borrow-in value.
+ * Sets the global `__carry2` variable to indicate whether a borrow occurred.
+ * @param {u64} a - The minuend (64-bit unsigned integer).
+ * @param {u64} b - The subtrahend (64-bit unsigned integer).
+ * @param {u64} borrowIn - Borrow-in value (0 or 1).
+ * @returns {u64} - The 64-bit result of the subtraction.
+ */
+@inline
+export function sub64(a: u64, b: u64, borrowIn: u64): u64 {
+  let tmp = a - b;
+  let borrow = tmp > a ? 1 : 0;
+  let diff = tmp - borrowIn;
+  borrow += diff > tmp ? 1 : 0;
+  __u256carrySub = borrow;
+  return diff;
+}
+
 // @ts-ignore: decorator
 @global
 export function __umulh64(a: u64, b: u64): u64 {
-  var u = a & 0xFFFFFFFF; a >>= 32;
-  var v = b & 0xFFFFFFFF; b >>= 32;
+  var u = a & 0xFFFFFFFF;
+  a >>= 32;
+  var v = b & 0xFFFFFFFF;
+  b >>= 32;
 
   var uv = u * v;
-  var uv = a * v + (uv >> 32);
-  var w0 = u * b + (uv & 0xFFFFFFFF);
+  uv = a * v + (uv >> 32);
+  var w0 = (u * b) + (uv & 0xFFFFFFFF);
   return a * b + (uv >> 32) + (w0 >> 32);
 }
 
 // @ts-ignore: decorator
 @global
 export function __umulq64(a: u64, b: u64): u64 {
-  var u = a & 0xFFFFFFFF; a >>= 32;
-  var v = b & 0xFFFFFFFF; b >>= 32;
+  var u = a & 0xFFFFFFFF;
+  a >>= 32;
+  var v = b & 0xFFFFFFFF;
+  b >>= 32;
 
   var uv = u * v;
   var w0 = uv & 0xFFFFFFFF;
-  uv = a * v + (uv >> 32);
-  var w1 = uv >> 32;
+  uv = a * v + (uv >>> 32);
+  var w1 = uv >>> 32;
   uv = u * b + (uv & 0xFFFFFFFF);
 
-  __res128_hi = a * b + w1 + (uv >> 32);
+  __res128_hi = a * b + w1 + (uv >>> 32);
   return (uv << 32) | w0;
 }
 
@@ -92,7 +135,7 @@ export function __umulq64(a: u64, b: u64): u64 {
 export function __umul64Hop(z: u64, x: u64, y: u64): u64 {
   var lo = __umulq64(x, y);
   lo = __uadd64(lo, z);
-  var hi = __res128_hi +__carry;
+  var hi = __res128_hi + __carry;
   __res128_hi = hi;
   return lo
 }
@@ -122,28 +165,50 @@ export function __uadd64(x: u64, y: u64, carry: u64 = 0): u64 {
   // // happens, the top bit will be 1 + 0 + 1 = 0 (& ~sum).
   __carry = ((x & y) | ((x | y) & ~sum)) >>> 63
   return sum;
-
 }
 
-// u256 * u256 => u256 implemented from https://github.com/holiman/uint256
-// @ts-ignore: decorator
+// 64x64 => 128 bits
+@inline
+function mul64To128(x: u64, y: u64): u128 {
+  let lo = __umulq64(x, y);  // sets __res128_hi
+  let hi = __res128_hi;
+  return new u128(lo, hi);
+}
+
+/**
+ * A correct 256×256 -> 256 multiply (mod 2^256).
+ * We do standard "schoolbook" multiplication for each 64-bit limb,
+ * skipping products that shift above 255 bits (they vanish mod 2^256).
+ */
 @global
-export function __mul256(x0: u64, x1: u64, x2: u64, x3: u64, y0: u64, y1: u64, y2: u64, y3: u64): u256 {
-  var lo1 = __umulq64(x0, y0);
-  var res1 = __umul64Hop(__res128_hi, x1, y0);
-  var res2 = __umul64Hop(__res128_hi, x2, y0);
-  var res3 = x3 * y0 + __res128_hi;
+export function __mul256(
+  ax0: u64, ax1: u64, ax2: u64, ax3: u64,
+  bx0: u64, bx1: u64, bx2: u64, bx3: u64
+): u256 {
+  let result = new u256();
+  let a = [ax0, ax1, ax2, ax3];
+  let b = [bx0, bx1, bx2, bx3];
 
-  var lo2 = __umul64Hop(res1, x0, y1);
-  res2 = __umul64Step(res2, x1, y1, __res128_hi);
-  res3 += x2 * y1 + __res128_hi;
+  // For each (i,j), partial = a[i]*b[j], shift = 64*(i+j).
+  // If shift >= 256, that partial is 0 mod 2^256.
+  // Otherwise shift partial, add to result.
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) {
+      let shift = (i + j) << 6; // 64*(i+j)
+      if (shift >= 256) continue;
+      let p128 = mul64To128(a[i], b[j]); // 128-bit partial product
+      // convert to u256
+      let part = new u256(p128.lo, p128.hi, 0, 0);
+      // shift left by 'shift' bits
+      if (shift != 0) {
+        part = u256.shl(part, shift);
+      }
+      // add to accumulator
+      result = result + part;
+    }
+  }
 
-  var hi1 = __umul64Hop(res2, x0, y2);
-  res3 += x1 * y2 + __res128_hi
-
-  var hi2 = __umul64Hop(res3, x0, y3);
-
-  return new u256(lo1, lo2, hi1, hi2);
+  return result;
 }
 
 // @ts-ignore: decorator
@@ -152,9 +217,11 @@ export function __multi3(al: u64, ah: u64, bl: u64, bh: u64): u64 {
   var u = al, v = bl;
   var w: u64, k: u64;
 
-  var u1 = u & 0xFFFFFFFF; u >>= 32;
-  var v1 = v & 0xFFFFFFFF; v >>= 32;
-  var t  = u1 * v1;
+  var u1 = u & 0xFFFFFFFF;
+  u >>= 32;
+  var v1 = v & 0xFFFFFFFF;
+  v >>= 32;
+  var t = u1 * v1;
   var w1 = t & 0xFFFFFFFF;
 
   t = u * v1 + (t >> 32);
@@ -162,11 +229,11 @@ export function __multi3(al: u64, ah: u64, bl: u64, bh: u64): u64 {
   w = t >> 32;
   t = u1 * v + k;
 
-  var lo  = (t << 32) | w1;
-  var hi  = u  * v + w;
-      hi += ah * bl;
-      hi += al * bh;
-      hi += t >> 32;
+  var lo = (t << 32) | w1;
+  var hi = u * v + w;
+  hi += ah * bl;
+  hi += al * bh;
+  hi += t >> 32;
 
   __res128_hi = hi;
   return lo;
@@ -229,18 +296,120 @@ export function __floatuntfdi(value: f64): u64 {
   }
 }
 
-// @ts-ignore: decorator
-@global @inline
-export function __clz128(lo: u64, hi: u64): i32 {
-  var mask: u64 = <i64>(hi ^ (hi - 1)) >> 63;
-  return <i32>clz((hi & ~mask) | (lo & mask)) + (<i32>mask & 64);
+/**
+ * Count leading zeros in a 64-bit unsigned integer `x`, returning i32 in [0..64].
+ * If x == 0, returns 64.
+ */
+function clz64(x: u64): i32 {
+  if (x == 0) return 64;
+
+  let n: i32 = 0;
+  // Check high half [ bits 63..32 ]
+  if ((x & 0xFFFFFFFF00000000) == 0) {
+    n += 32;
+    x <<= 32; // shift left so next checks are for the upper bits
+  }
+  // Check bits [63..48]
+  if ((x & 0xFFFF000000000000) == 0) {
+    n += 16;
+    x <<= 16;
+  }
+  // Check bits [63..56]
+  if ((x & 0xFF00000000000000) == 0) {
+    n += 8;
+    x <<= 8;
+  }
+  // Check bits [63..60]
+  if ((x & 0xF000000000000000) == 0) {
+    n += 4;
+    x <<= 4;
+  }
+  // Check bits [63..62]
+  if ((x & 0xC000000000000000) == 0) {
+    n += 2;
+    x <<= 2;
+  }
+  // Check bit [63]
+  if ((x & 0x8000000000000000) == 0) {
+    n += 1;
+  }
+  return n;
 }
 
-// @ts-ignore: decorator
+/**
+ * Count trailing zeros in a 64-bit unsigned integer `x`, returning i32 in [0..64].
+ * If x == 0, returns 64.
+ */
+function ctz64(x: u64): i32 {
+  if (x == 0) return 64;
+
+  let n: i32 = 0;
+  // Check low half [bits 31..0]
+  if ((x & 0xFFFFFFFF) == 0) {
+    n += 32;
+    x >>= 32;
+  }
+  // Check bits [15..0]
+  if ((x & 0xFFFF) == 0) {
+    n += 16;
+    x >>= 16;
+  }
+  // Check bits [7..0]
+  if ((x & 0xFF) == 0) {
+    n += 8;
+    x >>= 8;
+  }
+  // Check bits [3..0]
+  if ((x & 0xF) == 0) {
+    n += 4;
+    x >>= 4;
+  }
+  // Check bits [1..0]
+  if ((x & 0x3) == 0) {
+    n += 2;
+    x >>= 2;
+  }
+  // Check bit [0]
+  if ((x & 0x1) == 0) {
+    n += 1;
+  }
+  return n;
+}
+
+/**
+ * Count leading zeros in a 128-bit integer [hi:lo], returning i32 in [0..128].
+ * If both hi and lo are 0, returns 128.
+ *
+ *   hi is signed in i128, but we interpret it as unsigned here.
+ */
+@global @inline
+export function __clz128(lo: u64, hi: i64): i32 {
+  let h = <u64>hi;  // reinterpret hi as unsigned
+  if (h != 0) {
+    // The top 64 bits are set => just measure their leading zeros
+    return clz64(h);
+  } else {
+    // If hi is 0, the leading zeros are "64 plus however many are in lo"
+    return 64 + clz64(lo);
+  }
+}
+
+/**
+ * Count trailing zeros in a 128-bit integer [hi:lo], returning i32 in [0..128].
+ * If both hi and lo are 0, returns 128.
+ *
+ *   For i128 we typically treat hi as signed, but ctz is purely bitwise, so we
+ *   can pass it as u64 as well.
+ */
 @global @inline
 export function __ctz128(lo: u64, hi: u64): i32 {
-  var mask: u64 = <i64>(lo ^ (lo - 1)) >> 63;
-  return <i32>ctz((hi & mask) | (lo & ~mask)) + (<i32>mask & 64);
+  if (lo != 0) {
+    // If the lower 64 bits are non-zero, measure ctz(lo)
+    return ctz64(lo);
+  } else {
+    // Otherwise, ctz is 64 plus ctz(hi)
+    return 64 + ctz64(hi);
+  }
 }
 
 // @ts-ignore: decorator
@@ -259,24 +428,24 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
   // a == 0
   if (!(alo | ahi)) {
     __divmod_quot_hi = 0;
-    __divmod_rem_lo  = 0;
-    __divmod_rem_hi  = 0;
+    __divmod_rem_lo = 0;
+    __divmod_rem_hi = 0;
     return 0;
   }
 
   // a / 1
   if (bzn == 127) {
     __divmod_quot_hi = ahi;
-    __divmod_rem_lo  = 0;
-    __divmod_rem_hi  = 0;
+    __divmod_rem_lo = 0;
+    __divmod_rem_hi = 0;
     return alo;
   }
 
   // a == b
   if (alo == blo && ahi == bhi) {
     __divmod_quot_hi = 0;
-    __divmod_rem_lo  = 0;
-    __divmod_rem_hi  = 0;
+    __divmod_rem_lo = 0;
+    __divmod_rem_hi = 0;
     return 1;
   }
 
@@ -290,7 +459,7 @@ export function __udivmod128(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
 
   if (!(ahi | bhi)) {
     __divmod_quot_hi = 0;
-    __divmod_rem_hi  = 0;
+    __divmod_rem_hi = 0;
     // if `b.lo` is power of two
     if (!(blo & (blo - 1))) {
       __divmod_rem_lo = alo & (blo - 1);
@@ -335,7 +504,7 @@ function __udivmod128core(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
   var alz = __clz128(alo, ahi);
   var blz = __clz128(blo, bhi);
   var off = blz - alz;
-  var nb  = b << off;
+  var nb = b << off;
   var q = u128.Zero;
   var n = a.clone();
 
@@ -360,8 +529,8 @@ function __udivmod128core(alo: u64, ahi: u64, blo: u64, bhi: u64): u64 {
   q <<= (blz - alz - i + 1);
 
   __divmod_quot_hi = q.hi;
-  __divmod_rem_lo  = n.lo;
-  __divmod_rem_hi  = n.hi;
+  __divmod_rem_lo = n.lo;
+  __divmod_rem_hi = n.hi;
   return q.lo;
 }
 
@@ -385,7 +554,7 @@ export function __udivmod128_10(lo: u64, hi: u64): u64 {
   var q: u128, r: u128;
   var n = new u128(lo, hi);
 
-  q  = n >> 1;
+  q = n >> 1;
   q += n >> 2;
   q += q >> 4;
   q += q >> 8;
@@ -397,7 +566,7 @@ export function __udivmod128_10(lo: u64, hi: u64): u64 {
   n = q + u128.fromBool(r.lo > 9);
 
   __divmod_quot_hi = n.hi;
-  __divmod_rem_lo  = r.lo;
-  __divmod_rem_hi  = r.hi;
+  __divmod_rem_lo = r.lo;
+  __divmod_rem_hi = r.hi;
   return n.lo;
 }

@@ -6,12 +6,15 @@ class u256 extends U256 {
   @inline static get Zero(): u256 {
     return new u256();
   }
+
   @inline static get One(): u256 {
     return new u256(1);
   }
+
   @inline static get Min(): u256 {
     return new u256();
   }
+
   @inline static get Max(): u256 {
     return new u256(-1, -1, -1, -1);
   }
@@ -83,22 +86,22 @@ class u256 extends U256 {
 
   @inline
   static from<T>(value: T): u256 {
-         if (value instanceof bool)       return u256.fromU64(<u64>value);
-    else if (value instanceof i8)         return u256.fromI64(<i64>value);
-    else if (value instanceof u8)         return u256.fromU64(<u64>value);
-    else if (value instanceof i16)        return u256.fromI64(<i64>value);
-    else if (value instanceof u16)        return u256.fromU64(<u64>value);
-    else if (value instanceof i32)        return u256.fromI64(<i64>value);
-    else if (value instanceof u32)        return u256.fromU64(<u64>value);
-    else if (value instanceof i64)        return u256.fromI64(<i64>value);
-    else if (value instanceof u64)        return u256.fromU64(<u64>value);
-    else if (value instanceof f32)        return u256.fromF64(<f64>value);
-    else if (value instanceof f64)        return u256.fromF64(<f64>value);
-    else if (value instanceof u128)       return u256.fromU128(<u128>value);
-    else if (value instanceof U128)       return u256.fromU128(<U128>value);
-    else if (value instanceof U256)       return u256.fromU256(<U256>value);
-    else if (value instanceof u256)       return u256.fromU256(<u256>value);
-    else if (value instanceof u8[])       return u256.fromBytes(<u8[]>value);
+    if (value instanceof bool) return u256.fromU64(<u64>value);
+    else if (value instanceof i8) return u256.fromI64(<i64>value);
+    else if (value instanceof u8) return u256.fromU64(<u64>value);
+    else if (value instanceof i16) return u256.fromI64(<i64>value);
+    else if (value instanceof u16) return u256.fromU64(<u64>value);
+    else if (value instanceof i32) return u256.fromI64(<i64>value);
+    else if (value instanceof u32) return u256.fromU64(<u64>value);
+    else if (value instanceof i64) return u256.fromI64(<i64>value);
+    else if (value instanceof u64) return u256.fromU64(<u64>value);
+    else if (value instanceof f32) return u256.fromF64(<f64>value);
+    else if (value instanceof f64) return u256.fromF64(<f64>value);
+    else if (value instanceof u128) return u256.fromU128(<u128>value);
+    else if (value instanceof U128) return u256.fromU128(<U128>value);
+    else if (value instanceof U256) return u256.fromU256(<U256>value);
+    else if (value instanceof u256) return u256.fromU256(<u256>value);
+    else if (value instanceof u8[]) return u256.fromBytes(<u8[]>value);
     else if (value instanceof Uint8Array) return u256.fromBytes(<Uint8Array>value);
     else throw new TypeError("Unsupported generic type");
   }
@@ -106,14 +109,14 @@ class u256 extends U256 {
   @operator("+")
   static add(a: u256, b: u256): u256 {
     var lo1a = a.lo1,
-        lo2a = a.lo2,
-        hi1a = a.hi1,
-        hi2a = a.hi2;
+      lo2a = a.lo2,
+      hi1a = a.hi1,
+      hi2a = a.hi2;
 
     var lo1b = b.lo1,
-        lo2b = b.lo2,
-        hi1b = b.hi1,
-        hi2b = b.hi2;
+      lo2b = b.lo2,
+      hi1b = b.hi1,
+      hi2b = b.hi2;
 
     // Addition for the lowest segment
     var lo1 = lo1a + lo1b;
@@ -135,7 +138,7 @@ class u256 extends U256 {
     // which means an addition that causes the highest segment to overflow.
     // However, standard unsigned integer behavior would wrap around, so this step depends on the intended behavior:
     if (hi2 < hi2a || (cy == 1 && hi2 == hi2a)) {
-        throw new RangeError("Overflow during addition");
+      throw new RangeError("Overflow during addition");
     }
 
     return new u256(lo1, lo2, hi1, hi2);

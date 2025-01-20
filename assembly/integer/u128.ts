@@ -6,17 +6,14 @@ import { u256 } from './u256';
 import {
   __clz128,
   __ctz128,
+  __divmod_quot_hi,
+  __divmod_rem_hi,
+  __divmod_rem_lo,
   __floatuntidf,
-
   __multi3,
   __res128_hi,
-
   __udivmod128,
   __udivmod128_10,
-
-  __divmod_quot_hi,
-  __divmod_rem_lo,
-  __divmod_rem_hi,
 } from '../globals';
 
 import { atou128, u128toDecimalString } from '../utils';
@@ -25,10 +22,32 @@ import { atou128, u128toDecimalString } from '../utils';
 
 export class u128 {
 
-  @inline static get Zero(): u128 { return new u128(); }
-  @inline static get One():  u128 { return new u128(1); }
-  @inline static get Min():  u128 { return new u128(); }
-  @inline static get Max():  u128 { return new u128(-1, -1); }
+  /**
+   * Create 128-bit unsigned integer from 64-bit parts
+   * @param lo low  64-bit part of 128-bit unsigned integer
+   * @param hi high 64-bit part of 128-bit unsigned integer
+   */
+  constructor(
+    public lo: u64 = 0,
+    public hi: u64 = 0,
+  ) {
+  }
+
+  @inline static get Zero(): u128 {
+    return new u128();
+  }
+
+  @inline static get One(): u128 {
+    return new u128(1);
+  }
+
+  @inline static get Min(): u128 {
+    return new u128();
+  }
+
+  @inline static get Max(): u128 {
+    return new u128(-1, -1);
+  }
 
   @inline
   static fromString(value: string, radix: i32 = 10): u128 {
@@ -60,19 +79,21 @@ export class u128 {
     return new u128(value, value >> 63);
   }
 
+  // TODO need improvement
+
   @inline
   static fromU64(value: u64): u128 {
     return new u128(value);
   }
 
   // TODO need improvement
+
   // max safe uint for f64 actually 53-bits
   @inline
   static fromF64(value: f64): u128 {
     return new u128(<u64>value, reinterpret<i64>(value) >> 63);
   }
 
-  // TODO need improvement
   // max safe int for f32 actually 23-bits
   @inline
   static fromF32(value: f32): u128 {
@@ -156,121 +177,25 @@ export class u128 {
    */
   @inline
   static from<T>(value: T): u128 {
-         if (value instanceof bool)   return u128.fromU64(<u64>value);
-    else if (value instanceof i8)     return u128.fromI64(<i64>value);
-    else if (value instanceof u8)     return u128.fromU64(<u64>value);
-    else if (value instanceof i16)    return u128.fromI64(<i64>value);
-    else if (value instanceof u16)    return u128.fromU64(<u64>value);
-    else if (value instanceof i32)    return u128.fromI64(<i64>value);
-    else if (value instanceof u32)    return u128.fromU64(<u64>value);
-    else if (value instanceof i64)    return u128.fromI64(<i64>value);
-    else if (value instanceof u64)    return u128.fromU64(<u64>value);
-    else if (value instanceof f32)    return u128.fromF64(<f64>value);
-    else if (value instanceof f64)    return u128.fromF64(<f64>value);
-    else if (value instanceof i128)   return u128.fromI128(<i128>value);
-    else if (value instanceof u128)   return u128.fromU128(<u128>value);
-    else if (value instanceof i256)   return u128.fromI256(<i256>value);
-    else if (value instanceof u256)   return u128.fromU256(<u256>value);
-    else if (value instanceof u8[])   return u128.fromBytes(<u8[]>value);
+    if (value instanceof bool) return u128.fromU64(<u64>value);
+    else if (value instanceof i8) return u128.fromI64(<i64>value);
+    else if (value instanceof u8) return u128.fromU64(<u64>value);
+    else if (value instanceof i16) return u128.fromI64(<i64>value);
+    else if (value instanceof u16) return u128.fromU64(<u64>value);
+    else if (value instanceof i32) return u128.fromI64(<i64>value);
+    else if (value instanceof u32) return u128.fromU64(<u64>value);
+    else if (value instanceof i64) return u128.fromI64(<i64>value);
+    else if (value instanceof u64) return u128.fromU64(<u64>value);
+    else if (value instanceof f32) return u128.fromF64(<f64>value);
+    else if (value instanceof f64) return u128.fromF64(<f64>value);
+    else if (value instanceof i128) return u128.fromI128(<i128>value);
+    else if (value instanceof u128) return u128.fromU128(<u128>value);
+    else if (value instanceof i256) return u128.fromI256(<i256>value);
+    else if (value instanceof u256) return u128.fromU256(<u256>value);
+    else if (value instanceof u8[]) return u128.fromBytes(<u8[]>value);
     else if (value instanceof Uint8Array) return u128.fromBytes(<Uint8Array>value);
     else if (value instanceof String) return u128.fromString(<string>value);
     else throw new TypeError("Unsupported generic type");
-  }
-
-  /**
-   * Create 128-bit unsigned integer from 64-bit parts
-   * @param lo low  64-bit part of 128-bit unsigned integer
-   * @param hi high 64-bit part of 128-bit unsigned integer
-   */
-  constructor(
-    public lo: u64 = 0,
-    public hi: u64 = 0,
-  ) {}
-
-  @inline
-  set(value: u128): this {
-    this.lo = value.lo;
-    this.hi = value.hi;
-    return this;
-  }
-
-  @inline
-  setI64(value: i64): this {
-    this.lo = value;
-    this.hi = value >> 63;
-    return this;
-  }
-
-  @inline
-  setU64(value: u64): this {
-    this.lo = value;
-    this.hi = 0;
-    return this;
-  }
-
-  @inline
-  setI32(value: i32): this {
-    this.lo = value;
-    this.hi = value >> 63;
-    return this;
-  }
-
-  @inline
-  setU32(value: u32): this {
-    this.lo = value;
-    this.hi = 0;
-    return this;
-  }
-
-  @inline
-  isZero(): bool {
-    return !(this.lo | this.hi);
-  }
-
-  @inline @operator.prefix('~')
-  not(): u128 {
-    return new u128(~this.lo, ~this.hi);
-  }
-
-  @inline @operator.prefix('+')
-  pos(): u128 {
-    return this;
-  }
-
-  @inline @operator.prefix('-')
-  neg(): u128 {
-    var lo = ~this.lo;
-    var hi = ~this.hi;
-    var lo1 = lo + 1;
-    return new u128(lo1, hi + u64(lo1 < lo));
-  }
-
-  @operator.prefix('++')
-  preInc(): this {
-    var lo = this.lo;
-    var lo1 = lo + 1;
-    this.hi += u64(lo1 < lo);
-    this.lo = lo1;
-    return this;
-  }
-
-  @operator.prefix('--')
-  preDec(): this {
-    var lo = this.lo;
-    var lo1 = lo - 1;
-    this.hi -= u64(lo1 > lo);
-    this.lo = lo1;
-    return this;
-  }
-
-  @operator.postfix('++')
-  postInc(): u128 {
-    return this.clone().preInc();
-  }
-
-  @operator.postfix('--')
-  postDec(): u128 {
-    return this.clone().preDec();
   }
 
   @inline @operator.prefix('!')
@@ -357,7 +282,9 @@ export class u128 {
       return new u128(hi, lo);
     }
     if (n & 64) {
-      let t = lo; lo = hi; hi = t;
+      let t = lo;
+      lo = hi;
+      hi = t;
     }
     let slo = lo << n;
     let shi = hi << n;
@@ -377,7 +304,9 @@ export class u128 {
       return new u128(hi, lo);
     }
     if (n & 64) {
-      let t = lo; lo = hi; hi = t;
+      let t = lo;
+      lo = hi;
+      hi = t;
     }
     let slo = lo >> n;
     let shi = hi >> n;
@@ -479,11 +408,15 @@ export class u128 {
       if (exponent <= 4) {
         let baseSq = tmp.sqr();
         switch (exponent) {
-          case 2: return baseSq;        // base ^ 2
+          case 2:
+            return baseSq;        // base ^ 2
           // @ts-ignore
-          case 3: return baseSq * base; // base ^ 2 * base
-          case 4: return baseSq.sqr();  // base ^ 2 * base ^ 2
-          default: break;
+          case 3:
+            return baseSq * base; // base ^ 2 * base
+          case 4:
+            return baseSq.sqr();  // base ^ 2 * base ^ 2
+          default:
+            break;
         }
       }
 
@@ -596,7 +529,7 @@ export class u128 {
     return !u128.lt(a, b);
   }
 
-   /**
+  /**
    * Get ordering
    * if a > b then result is  1
    * if a < b then result is -1
@@ -655,37 +588,6 @@ export class u128 {
   }
 
   /**
-   * Calculate inplace squared 128-bit unsigned integer (this ** 2)
-   * @returns 128-bit unsigned integer
-   */
-  sqr(): this {
-    var u = this.lo,
-        v = this.hi;
-
-    var u1 = u & 0xFFFFFFFF;
-    var t  = u1 * u1;
-    var w  = t & 0xFFFFFFFF;
-    var k  = t >> 32;
-
-    u >>= 32;
-    var m = u * u1;
-    t = m + k;
-    var w1 = t >> 32;
-
-    t = m + (t & 0xFFFFFFFF);
-
-    var lo = (t << 32) + w;
-    var hi  = u * u;
-        hi += w1 + (t >> 32);
-        hi += u * v << 1;
-
-    this.lo = lo;
-    this.hi = hi;
-
-    return this;
-  }
-
-  /**
    * Calculate multiply and division as `number * numerator / denominator`
    * without overflow in multiplication part.
    *
@@ -735,46 +637,163 @@ export class u128 {
     return q;
   }
 
+  @inline
+  set(value: u128): this {
+    this.lo = value.lo;
+    this.hi = value.hi;
+    return this;
+  }
+
+  @inline
+  setI64(value: i64): this {
+    this.lo = value;
+    this.hi = value >> 63;
+    return this;
+  }
+
+  @inline
+  setU64(value: u64): this {
+    this.lo = value;
+    this.hi = 0;
+    return this;
+  }
+
+  @inline
+  setI32(value: i32): this {
+    this.lo = value;
+    this.hi = value >> 63;
+    return this;
+  }
+
+  @inline
+  setU32(value: u32): this {
+    this.lo = value;
+    this.hi = 0;
+    return this;
+  }
+
+  @inline
+  isZero(): bool {
+    return !(this.lo | this.hi);
+  }
+
+  @inline @operator.prefix('~')
+  not(): u128 {
+    return new u128(~this.lo, ~this.hi);
+  }
+
+  @inline @operator.prefix('+')
+  pos(): u128 {
+    return this;
+  }
+
+  @inline @operator.prefix('-')
+  neg(): u128 {
+    var lo = ~this.lo;
+    var hi = ~this.hi;
+    var lo1 = lo + 1;
+    return new u128(lo1, hi + u64(lo1 < lo));
+  }
+
+  @operator.prefix('++')
+  preInc(): this {
+    var lo = this.lo;
+    var lo1 = lo + 1;
+    this.hi += u64(lo1 < lo);
+    this.lo = lo1;
+    return this;
+  }
+
+  @operator.prefix('--')
+  preDec(): this {
+    var lo = this.lo;
+    var lo1 = lo - 1;
+    this.hi -= u64(lo1 > lo);
+    this.lo = lo1;
+    return this;
+  }
+
+  @operator.postfix('++')
+  postInc(): u128 {
+    return this.clone().preInc();
+  }
+
+  @operator.postfix('--')
+  postDec(): u128 {
+    return this.clone().preDec();
+  }
+
   /**
-  * Convert to 256-bit signed integer
-  * @returns 256-bit signed integer
-  */
+   * Calculate inplace squared 128-bit unsigned integer (this ** 2)
+   * @returns 128-bit unsigned integer
+   */
+  sqr(): this {
+    var u = this.lo,
+      v = this.hi;
+
+    var u1 = u & 0xFFFFFFFF;
+    var t = u1 * u1;
+    var w = t & 0xFFFFFFFF;
+    var k = t >> 32;
+
+    u >>= 32;
+    var m = u * u1;
+    t = m + k;
+    var w1 = t >> 32;
+
+    t = m + (t & 0xFFFFFFFF);
+
+    var lo = (t << 32) + w;
+    var hi = u * u;
+    hi += w1 + (t >> 32);
+    hi += u * v << 1;
+
+    this.lo = lo;
+    this.hi = hi;
+
+    return this;
+  }
+
+  /**
+   * Convert to 256-bit signed integer
+   * @returns 256-bit signed integer
+   */
   @inline
   toI256(): i256 {
     return new i256(this.lo, this.hi);
   }
 
   /**
-  * Convert to 256-bit unsigned integer
-  * @returns 256-bit unsigned integer
-  */
+   * Convert to 256-bit unsigned integer
+   * @returns 256-bit unsigned integer
+   */
   @inline
   toU256(): u256 {
     return new u256(this.lo, this.hi);
   }
 
   /**
-  * Convert to 128-bit signed integer
-  * @returns 128-bit signed integer
-  */
+   * Convert to 128-bit signed integer
+   * @returns 128-bit signed integer
+   */
   @inline
   toI128(): i128 {
     return new i128(this.lo, this.hi);
   }
 
   /**
-  * Convert to 128-bit unsigned integer
-  * @returns 128-bit unsigned integer
-  */
+   * Convert to 128-bit unsigned integer
+   * @returns 128-bit unsigned integer
+   */
   @inline
   toU128(): this {
     return this;
   }
 
   /**
-  * Convert to 64-bit signed integer
-  * @returns 64-bit signed integer
-  */
+   * Convert to 64-bit signed integer
+   * @returns 64-bit signed integer
+   */
   @inline
   toI64(): i64 {
     return <i64>(
@@ -784,54 +803,54 @@ export class u128 {
   }
 
   /**
-  * Convert to 64-bit unsigned integer
-  * @returns 64-bit unsigned integer
-  */
+   * Convert to 64-bit unsigned integer
+   * @returns 64-bit unsigned integer
+   */
   @inline
   toU64(): u64 {
     return this.lo;
   }
 
   /**
-  * Convert to 32-bit signed integer
-  * @returns 32-bit signed integer
-  */
+   * Convert to 32-bit signed integer
+   * @returns 32-bit signed integer
+   */
   @inline
   toI32(): i32 {
     return <i32>this.toI64();
   }
 
   /**
-  * Convert to 32-bit unsigned integer
-  * @returns 32-bit unsigned integer
-  */
+   * Convert to 32-bit unsigned integer
+   * @returns 32-bit unsigned integer
+   */
   @inline
   toU32(): u32 {
     return <u32>this.lo;
   }
 
   /**
-  * Convert to 1-bit boolean
-  * @returns 1-bit boolean
-  */
+   * Convert to 1-bit boolean
+   * @returns 1-bit boolean
+   */
   @inline
   toBool(): bool {
     return (this.lo | this.hi) != 0;
   }
 
   /**
-  * Convert to 64-bit float number in deteministic way
-  * @returns 64-bit float
-  */
+   * Convert to 64-bit float number in deteministic way
+   * @returns 64-bit float
+   */
   @inline
   toF64(): f64 {
     return __floatuntidf(this.lo, this.hi);
   }
 
   /**
-  * Convert to 32-bit float number
-  * @returns 32-bit float
-  */
+   * Convert to 32-bit float number
+   * @returns 32-bit float
+   */
   @inline
   toF32(): f32 {
     return <f32>this.toF64();
@@ -846,8 +865,7 @@ export class u128 {
   as<T>(): T {
     if (isBoolean<T>()) {
       return <T>this.toBool();
-    }
-    else if (isInteger<T>()) {
+    } else if (isInteger<T>()) {
       if (isSigned<T>()) {
         // i8, i16, i32, i64
         return <T>this.toI64();
@@ -855,25 +873,82 @@ export class u128 {
         // u8, u16, u32, u64
         return <T>this.toU64();
       }
-    }
-    else if (isFloat<T>()) {
+    } else if (isFloat<T>()) {
       // f32, f64
       return <T>this.toF64();
-    }
-    else if (isString<T>()) {
+    } else if (isString<T>()) {
       return <T>this.toString();
-    }
-    else if (isReference<T>()) {
+    } else if (isReference<T>()) {
       let dummy = changetype<T>(0);
-           if (dummy instanceof u8[]) return <T>this.toBytes();
+      if (dummy instanceof u8[]) return <T>this.toBytes();
       else if (dummy instanceof StaticArray<u8>) return <T>this.toStaticBytes();
       else if (dummy instanceof Uint8Array) return <T>this.toUint8Array();
       else if (dummy instanceof i128) return <T>this.toI128();
       else if (dummy instanceof u128) return <T>this;
       else if (dummy instanceof u256) return <T>this.toU256();
       else throw new TypeError('Unsupported generic type');
+    } else throw new TypeError('Unsupported generic type');
+  }
+
+  /**
+   * Convert to byte array
+   * @param bigEndian Little or Big Endian? Default: false
+   * @returns  Array of bytes
+   */
+  @inline
+  toBytes(bigEndian: bool = false): u8[] {
+    var result = new Array<u8>(16);
+    this.toArrayBuffer(result.dataStart, bigEndian);
+    return result;
+  }
+
+  /**
+   * Convert to byte static array
+   * @param bigEndian Little or Big Endian? Default: false
+   * @returns  StaticArray of bytes
+   */
+  @inline
+  toStaticBytes(bigEndian: bool = false): StaticArray<u8> {
+    var result = new StaticArray<u8>(16);
+    this.toArrayBuffer(changetype<usize>(result), bigEndian);
+    return result;
+  }
+
+  /**
+   * Convert to Uint8Array
+   * @param bigEndian Little or Big Endian? Default: false
+   * @returns  Uint8Array
+   */
+  @inline
+  toUint8Array(bigEndian: bool = false): Uint8Array {
+    var result = new Uint8Array(16);
+    this.toArrayBuffer(result.dataStart, bigEndian);
+    return result;
+  }
+
+  /**
+   * Return copy of current 128-bit value
+   * @returns 128-bit unsigned integer
+   */
+  clone(): u128 {
+    return new u128(this.lo, this.hi);
+  }
+
+  toString(radix: i32 = 10): string {
+    assert(radix == 10 || radix == 16, 'radix argument must be between 10 or 16');
+    if (this.isZero()) return '0';
+
+    var result = '';
+    if (radix == 16) {
+      let shift: i32 = 124 - (u128.clz(this) & ~3);
+      while (shift >= 0) {
+        // @ts-ignore
+        result += HEX_CHARS.charAt(<i32>((this >> shift).lo & 15));
+        shift -= 4;
+      }
+      return result;
     }
-    else throw new TypeError('Unsupported generic type');
+    return u128toDecimalString(this);
   }
 
   @inline
@@ -895,66 +970,5 @@ export class u128 {
     } else {
       this.toArrayBufferLE(buffer);
     }
-  }
-
-  /**
-   * Convert to byte array
-   * @param bigEndian Little or Big Endian? Default: false
-   * @returns  Array of bytes
-   */
-  @inline
-  toBytes(bigEndian: bool = false): u8[] {
-    var result = new Array<u8>(16);
-    this.toArrayBuffer(result.dataStart, bigEndian);
-    return result;
-  }
-
-    /**
-   * Convert to byte static array
-   * @param bigEndian Little or Big Endian? Default: false
-   * @returns  StaticArray of bytes
-   */
-    @inline
-    toStaticBytes(bigEndian: bool = false): StaticArray<u8> {
-      var result = new StaticArray<u8>(16);
-      this.toArrayBuffer(changetype<usize>(result), bigEndian);
-      return result;
-    }
-
-  /**
-   * Convert to Uint8Array
-   * @param bigEndian Little or Big Endian? Default: false
-   * @returns  Uint8Array
-   */
-  @inline
-  toUint8Array(bigEndian: bool = false): Uint8Array {
-    var result = new Uint8Array(16);
-    this.toArrayBuffer(result.dataStart, bigEndian);
-    return result;
-  }
-
-  /**
-  * Return copy of current 128-bit value
-  * @returns 128-bit unsigned integer
-  */
-  clone(): u128 {
-    return new u128(this.lo, this.hi);
-  }
-
-  toString(radix: i32 = 10): string {
-    assert(radix == 10 || radix == 16, 'radix argument must be between 10 or 16');
-    if (this.isZero()) return '0';
-
-    var result = '';
-    if (radix == 16) {
-      let shift: i32 = 124 - (u128.clz(this) & ~3);
-      while (shift >= 0) {
-        // @ts-ignore
-        result += HEX_CHARS.charAt(<i32>((this >> shift).lo & 15));
-        shift  -= 4;
-      }
-      return result;
-    }
-    return u128toDecimalString(this);
   }
 }

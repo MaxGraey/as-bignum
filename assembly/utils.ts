@@ -48,7 +48,7 @@ import { u256 } from "./integer/u256";
 // Use LUT wrapped by function for lazy compilation
 // @ts-ignore: decorator
 @lazy const RadixCharsTable = memory.data<u8>([
-   0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 36, 36, 36, 36, 36, 36,
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 36, 36, 36, 36, 36, 36,
   36, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
   25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 36, 36, 36, 36,
   36, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
@@ -68,15 +68,24 @@ import { u256 } from "./integer/u256";
   var low = base.lo;
   if (low <= 10) {
     switch (<i32>low) {
-      case 2:  return exponent > 127;
-      case 3:  return exponent > 80;
-      case 4:  return exponent > 63;
-      case 5:  return exponent > 55;
-      case 6:  return exponent > 49;
-      case 7:  return exponent > 45;
-      case 8:  return exponent > 42;
-      case 9:  return exponent > 40;
-      case 10: return exponent > 38;
+      case 2:
+        return exponent > 127;
+      case 3:
+        return exponent > 80;
+      case 4:
+        return exponent > 63;
+      case 5:
+        return exponent > 55;
+      case 6:
+        return exponent > 49;
+      case 7:
+        return exponent > 45;
+      case 8:
+        return exponent > 42;
+      case 9:
+        return exponent > 40;
+      case 10:
+        return exponent > 38;
     }
   }
   if (exponent >= 38) return true;
@@ -157,18 +166,21 @@ export function atou128(str: string, radix: i32 = 10): u128 {
   if (str.charCodeAt(index) == CharCode._0) {
     let second = str.charCodeAt(++index);
     if ((second | 32) == CharCode.x) {
-      radix = 16; ++index;
+      radix = 16;
+      ++index;
     } else if ((second | 32) == CharCode.o) {
-      radix = 8; ++index;
+      radix = 8;
+      ++index;
     } else if ((second | 32) == CharCode.b) {
-      radix = 2; ++index;
+      radix = 2;
+      ++index;
     } else if (second == CharCode._0) {
       // skip leading zeros
       while (index < len && str.charCodeAt(index) == CharCode._0) ++index;
     }
   }
   var result = u128.Zero;
-  var table  = RadixCharsTable;
+  var table = RadixCharsTable;
 
   if (index >= len) return result;
 
@@ -204,7 +216,7 @@ export function atou128(str: string, radix: i32 = 10): u128 {
           let num: u32 = str.charCodeAt(index) - CharCode._0;
           if (num >= 10) break;
           // @ts-ignore
-          result  = (result << 3) + (result << 1);
+          result = (result << 3) + (result << 1);
           // @ts-ignore
           result += u128.fromU64(num);
         } while (++index < len);

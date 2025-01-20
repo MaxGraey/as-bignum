@@ -1,4 +1,4 @@
-import { u128Safe as u128  } from '../integer/safe/u128';
+import { u128Safe as u128 } from '../integer/safe/u128';
 
 describe("Basic operations", () => {
   it("Should add two numbers 1", () => {
@@ -95,7 +95,7 @@ describe("Basic operations", () => {
   it("Should div two safe u128s", () => {
     var a = u128.from("2222222");
     var b = u128.One;
-    expect(u128.div(a,b)).toStrictEqual(a);
+    expect(u128.div(a, b)).toStrictEqual(a);
   });
 
   it("Should power number 1", () => {

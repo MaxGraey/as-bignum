@@ -21,7 +21,7 @@ import { u128 } from '../integer/u128';
 export class fp128<Q> {
 
   static readonly Zero: fp128<Q> = new fp128<Q>(0);
-  static readonly One:  fp128<Q> = new fp128<Q>(1);
+  static readonly One: fp128<Q> = new fp128<Q>(1);
 
   protected value: i128 = i128.Zero;
 

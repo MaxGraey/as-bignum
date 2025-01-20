@@ -5,7 +5,7 @@ import { u128 as U128 } from '../u128';
 import { u256 as U256 } from '../u256';
 import { i128 as I128 } from '../i128';
 import { i256 as I256 } from '../i256';
-import { isPowerOverflow128, atou128 } from '../../utils';
+import { atou128, isPowerOverflow128 } from '../../utils';
 
 // @external("safe_u128.spec.as", "logStr")
 // declare function logStr(str: string): void;
@@ -16,10 +16,21 @@ import { isPowerOverflow128, atou128 } from '../../utils';
 // export namespace safe {
 class u128 extends U128 {
 
-  @inline static get Zero(): u128 { return new u128(); }
-  @inline static get One():  u128 { return new u128(1); }
-  @inline static get Min():  u128 { return new u128(); }
-  @inline static get Max():  u128 { return new u128(-1, -1); }
+  @inline static get Zero(): u128 {
+    return new u128();
+  }
+
+  @inline static get One(): u128 {
+    return new u128(1);
+  }
+
+  @inline static get Min(): u128 {
+    return new u128();
+  }
+
+  @inline static get Max(): u128 {
+    return new u128(-1, -1);
+  }
 
   @inline
   static fromString(value: string, radix: i32 = 10): u128 {
@@ -128,27 +139,27 @@ class u128 extends U128 {
    */
   @inline
   static from<T>(value: T): u128 {
-         if (value instanceof bool)       return u128.fromU64(<u64>value);
-    else if (value instanceof i8)         return u128.fromI64(<i64>value);
-    else if (value instanceof u8)         return u128.fromU64(<u64>value);
-    else if (value instanceof i16)        return u128.fromI64(<i64>value);
-    else if (value instanceof u16)        return u128.fromU64(<u64>value);
-    else if (value instanceof i32)        return u128.fromI64(<i64>value);
-    else if (value instanceof u32)        return u128.fromU64(<u64>value);
-    else if (value instanceof i64)        return u128.fromI64(<i64>value);
-    else if (value instanceof u64)        return u128.fromU64(<u64>value);
-    else if (value instanceof f32)        return u128.fromF64(<f64>value);
-    else if (value instanceof f64)        return u128.fromF64(<f64>value);
-    else if (value instanceof I128)       return u128.fromI128(<I128>value);
-    else if (value instanceof i128Safe)   return u128.fromI128(<i128Safe>value);
-    else if (value instanceof u128)       return u128.fromU128(<u128>value);
-    else if (value instanceof U128)       return u128.fromU128(<U128>value);
-    else if (value instanceof I256)       return u128.fromI128(<I256>value);
-    else if (value instanceof i256Safe)   return u128.fromI256(<i256Safe>value);
-    else if (value instanceof u256)       return u128.fromU256(<u256>value);
-    else if (value instanceof u8[])       return u128.fromBytes(<u8[]>value);
+    if (value instanceof bool) return u128.fromU64(<u64>value);
+    else if (value instanceof i8) return u128.fromI64(<i64>value);
+    else if (value instanceof u8) return u128.fromU64(<u64>value);
+    else if (value instanceof i16) return u128.fromI64(<i64>value);
+    else if (value instanceof u16) return u128.fromU64(<u64>value);
+    else if (value instanceof i32) return u128.fromI64(<i64>value);
+    else if (value instanceof u32) return u128.fromU64(<u64>value);
+    else if (value instanceof i64) return u128.fromI64(<i64>value);
+    else if (value instanceof u64) return u128.fromU64(<u64>value);
+    else if (value instanceof f32) return u128.fromF64(<f64>value);
+    else if (value instanceof f64) return u128.fromF64(<f64>value);
+    else if (value instanceof I128) return u128.fromI128(<I128>value);
+    else if (value instanceof i128Safe) return u128.fromI128(<i128Safe>value);
+    else if (value instanceof u128) return u128.fromU128(<u128>value);
+    else if (value instanceof U128) return u128.fromU128(<U128>value);
+    else if (value instanceof I256) return u128.fromI128(<I256>value);
+    else if (value instanceof i256Safe) return u128.fromI256(<i256Safe>value);
+    else if (value instanceof u256) return u128.fromU256(<u256>value);
+    else if (value instanceof u8[]) return u128.fromBytes(<u8[]>value);
     else if (value instanceof Uint8Array) return u128.fromBytes(<Uint8Array>value);
-    else if (value instanceof String)     return u128.fromString(<string>value);
+    else if (value instanceof String) return u128.fromString(<string>value);
     else throw new TypeError("Unsupported generic type");
   }
 
@@ -174,7 +185,7 @@ class u128 extends U128 {
 
   @inline @operator('>>')
   static shr(value: u128, shift: i32): u128 {
-   return changetype<u128>(U128.shr(value, shift));
+    return changetype<u128>(U128.shr(value, shift));
   }
 
   @inline @operator('>>>')
@@ -192,41 +203,13 @@ class u128 extends U128 {
     return changetype<u128>(U128.rotr(value, shift));
   }
 
-  @operator.prefix('++')
-  preInc(): this {
-    if ((this.lo & this.hi) == <u64>-1) { // if this == max
-      throw new RangeError('Overflow during prefix incrementing');
-    }
-    super.preInc();
-    return this;
-  }
-
-  @operator.prefix('--')
-  preDec(): this {
-    if ((this.lo | this.hi) == 0) { // if this == 0
-      throw new RangeError('Underflow during prefix decrementing');
-    }
-    super.preDec();
-    return this;
-  }
-
-  @inline @operator.postfix('++')
-  postInc(): u128 {
-    return this.clone().preInc();
-  }
-
-  @inline @operator.postfix('--')
-  postDec(): u128 {
-    return this.clone().preDec();
-  }
-
   @operator('+')
   static add(a: u128, b: u128): u128 {
     var bl = b.lo;
     var lo = a.lo + bl;
-    var c  = u64(lo < bl);
-    var x  = a.hi;
-    var y  = b.hi;
+    var c = u64(lo < bl);
+    var x = a.hi;
+    var y = b.hi;
     var hi = x + y + c;
     if (((hi ^ x) & (hi ^ y)) < c) {
       throw new RangeError('Overflow during addision');
@@ -316,6 +299,34 @@ class u128 extends U128 {
     return changetype<u128>(U128.muldiv(number, numerator, denominator));
   }
 
+  @operator.prefix('++')
+  preInc(): this {
+    if ((this.lo & this.hi) == <u64>-1) { // if this == max
+      throw new RangeError('Overflow during prefix incrementing');
+    }
+    super.preInc();
+    return this;
+  }
+
+  @operator.prefix('--')
+  preDec(): this {
+    if ((this.lo | this.hi) == 0) { // if this == 0
+      throw new RangeError('Underflow during prefix decrementing');
+    }
+    super.preDec();
+    return this;
+  }
+
+  @inline @operator.postfix('++')
+  postInc(): u128 {
+    return this.clone().preInc();
+  }
+
+  @inline @operator.postfix('--')
+  postDec(): u128 {
+    return this.clone().preDec();
+  }
+
   @inline
   toUnchecked(): U128 {
     return changetype<U128>(this);
@@ -325,25 +336,25 @@ class u128 extends U128 {
   as<T>(): T {
     var dummy: T;
 
-         if (dummy instanceof bool)       return <T>this.toBool();
-    else if (dummy instanceof i8)         return <T>this.toI64();
-    else if (dummy instanceof u8)         return <T>this.toU64();
-    else if (dummy instanceof i16)        return <T>this.toI64();
-    else if (dummy instanceof u16)        return <T>this.toU64();
-    else if (dummy instanceof i32)        return <T>this.toI64();
-    else if (dummy instanceof i64)        return <T>this.toI64();
-    else if (dummy instanceof u32)        return <T>this.toU64();
-    else if (dummy instanceof u64)        return <T>this.toU64();
-    else if (dummy instanceof f32)        return <T>this.toF64();
-    else if (dummy instanceof f64)        return <T>this.toF64();
-    else if (dummy instanceof i128)       return <T>this.toI128();
-    else if (dummy instanceof u128)       return <T>this;
-    else if (dummy instanceof U128)       return <T>this.toUnchecked();
-    else if (dummy instanceof u256)       return <T>this.toU256();
-    else if (dummy instanceof U256)       return <T>this.toU256();
-    else if (dummy instanceof u8[])       return <T>this.toBytes();
+    if (dummy instanceof bool) return <T>this.toBool();
+    else if (dummy instanceof i8) return <T>this.toI64();
+    else if (dummy instanceof u8) return <T>this.toU64();
+    else if (dummy instanceof i16) return <T>this.toI64();
+    else if (dummy instanceof u16) return <T>this.toU64();
+    else if (dummy instanceof i32) return <T>this.toI64();
+    else if (dummy instanceof i64) return <T>this.toI64();
+    else if (dummy instanceof u32) return <T>this.toU64();
+    else if (dummy instanceof u64) return <T>this.toU64();
+    else if (dummy instanceof f32) return <T>this.toF64();
+    else if (dummy instanceof f64) return <T>this.toF64();
+    else if (dummy instanceof i128) return <T>this.toI128();
+    else if (dummy instanceof u128) return <T>this;
+    else if (dummy instanceof U128) return <T>this.toUnchecked();
+    else if (dummy instanceof u256) return <T>this.toU256();
+    else if (dummy instanceof U256) return <T>this.toU256();
+    else if (dummy instanceof u8[]) return <T>this.toBytes();
     else if (dummy instanceof Uint8Array) return <T>this.toUint8Array();
-    else if (dummy instanceof String)     return <T>this.toString();
+    else if (dummy instanceof String) return <T>this.toString();
     else throw new TypeError('Unsupported generic type');
   }
 

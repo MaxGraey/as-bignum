@@ -170,18 +170,18 @@ describe("Buffer Conversion", () => {
     var u = new u128(0x8877665544332211, 0x12FFEEDDCCBBAA99);
     let a = u.toBytes();
     expect(
-      a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
-      a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
-      a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
+      a[0] == 0x11 && a[1] == 0x22 && a[2] == 0x33 && a[3] == 0x44 &&
+      a[4] == 0x55 && a[5] == 0x66 && a[6] == 0x77 && a[7] == 0x88 &&
+      a[8] == 0x99 && a[9] == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
       a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12
     ).toBe(true);
 
     {
       let a = u.toStaticBytes();
       expect(
-        a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
-        a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
-        a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
+        a[0] == 0x11 && a[1] == 0x22 && a[2] == 0x33 && a[3] == 0x44 &&
+        a[4] == 0x55 && a[5] == 0x66 && a[6] == 0x77 && a[7] == 0x88 &&
+        a[8] == 0x99 && a[9] == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
         a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12
       ).toBe(true);
     }
@@ -192,9 +192,9 @@ describe("Buffer Conversion", () => {
     var u = new u128(0x8877665544332211, 0x12FFEEDDCCBBAA99);
     var a = u.toUint8Array();
     expect(
-      a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
-      a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
-      a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
+      a[0] == 0x11 && a[1] == 0x22 && a[2] == 0x33 && a[3] == 0x44 &&
+      a[4] == 0x55 && a[5] == 0x66 && a[6] == 0x77 && a[7] == 0x88 &&
+      a[8] == 0x99 && a[9] == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
       a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12
     ).toBe(true);
   });
@@ -203,9 +203,9 @@ describe("Buffer Conversion", () => {
     var u = new u128(0x99AABBCCDDEEFF12, 0x1122334455667788);
     var a = u.toBytes(true);
     expect(
-      a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
-      a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
-      a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
+      a[0] == 0x11 && a[1] == 0x22 && a[2] == 0x33 && a[3] == 0x44 &&
+      a[4] == 0x55 && a[5] == 0x66 && a[6] == 0x77 && a[7] == 0x88 &&
+      a[8] == 0x99 && a[9] == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
       a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12
     ).toBe(true);
   });
@@ -214,9 +214,9 @@ describe("Buffer Conversion", () => {
     var u = new u128(0x99AABBCCDDEEFF12, 0x1122334455667788);
     var a = u.toUint8Array(true);
     expect(
-      a[0]  == 0x11 && a[1]  == 0x22 && a[2]  == 0x33 && a[3]  == 0x44 &&
-      a[4]  == 0x55 && a[5]  == 0x66 && a[6]  == 0x77 && a[7]  == 0x88 &&
-      a[8]  == 0x99 && a[9]  == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
+      a[0] == 0x11 && a[1] == 0x22 && a[2] == 0x33 && a[3] == 0x44 &&
+      a[4] == 0x55 && a[5] == 0x66 && a[6] == 0x77 && a[7] == 0x88 &&
+      a[8] == 0x99 && a[9] == 0xAA && a[10] == 0xBB && a[11] == 0xCC &&
       a[12] == 0xDD && a[13] == 0xEE && a[14] == 0xFF && a[15] == 0x12
     ).toBe(true);
   });
@@ -343,7 +343,7 @@ describe("Basic Operations", () => {
   });
 
   it("Should binary or numbers", () => {
-    var a = new u128(0,   123);
+    var a = new u128(0, 123);
     var b = new u128(111, 222);
     var r = new u128(0 | 111, 123 | 222);
     expect(a | b).toStrictEqual(r);
@@ -396,7 +396,7 @@ describe("Basic Operations", () => {
 
   it("Should compare less two numbers 1", () => {
     var a = new u128(100, 100);
-    var b = new u128(50,  100);
+    var b = new u128(50, 100);
     expect(b < a).toBe(true);
   });
 
@@ -414,7 +414,7 @@ describe("Basic Operations", () => {
 
   it("Should compare less or equal two numbers 1", () => {
     var a = new u128(100, 100);
-    var b = new u128(50,  100);
+    var b = new u128(50, 100);
     expect(b <= a).toBe(true);
   });
 
@@ -426,7 +426,7 @@ describe("Basic Operations", () => {
 
   it("Should compare greater two numbers 1", () => {
     var a = new u128(100, 100);
-    var b = new u128(50,  100);
+    var b = new u128(50, 100);
     expect(a > b).toBe(true);
   });
 
@@ -438,7 +438,7 @@ describe("Basic Operations", () => {
 
   it("Should compare greater or equal two numbers 1", () => {
     var a = new u128(100, 100);
-    var b = new u128(50,  100);
+    var b = new u128(50, 100);
     expect(a >= b).toStrictEqual(true);
   });
 
@@ -970,7 +970,7 @@ describe("Division And Mod Operation", () => {
   });
 
   it("Should divide two numbers with remainder 2", () => {
-    let a = new u128(3152652666208178,0);
+    let a = new u128(3152652666208178, 0);
     let b = u128.from(43543534534534);
     expect(a / b).toStrictEqual(u128.from(72));
   });
@@ -1140,19 +1140,19 @@ describe("Multiply and Division without Overflow", () => {
 describe("Throwable", () => {
   it("Should throw from string with unsupported radix 1", () => {
     expect(() => {
-     !(u128.fromString('0000', 1));
+      !(u128.fromString('0000', 1));
     }).toThrow();
   });
 
   it("Should throw from string with unsupported radix 2", () => {
     expect(() => {
-     !(u128.fromString('1234', 37));
+      !(u128.fromString('1234', 37));
     }).toThrow();
   });
 
   it("Should throw from bytes with null 1", () => {
     expect(() => {
-     !(u128.fromBytes(changetype<u8[]>(null)));
+      !(u128.fromBytes(changetype<u8[]>(null)));
     }).toThrow();
   });
 
@@ -1164,25 +1164,25 @@ describe("Throwable", () => {
 
   it("Should throw from bytes with wrong byte array length 1", () => {
     expect(() => {
-     !(u128.fromBytes<u8[]>([]));
+      !(u128.fromBytes<u8[]>([]));
     }).toThrow();
   });
 
   it("Should throw from bytes with wrong byte array length 2", () => {
     expect(() => {
-     !(u128.fromBytes<u8[]>([], true));
+      !(u128.fromBytes<u8[]>([], true));
     }).toThrow();
   });
 
   it("Should throw from bytes with wrong byte array length 3", () => {
     expect(() => {
-     !(u128.fromBytes<u8[]>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]));
+      !(u128.fromBytes<u8[]>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]));
     }).toThrow();
   });
 
   it("Should throw from bytes with wrong byte array length 4", () => {
     expect(() => {
-     !(u128.fromBytes<u8[]>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], true));
+      !(u128.fromBytes<u8[]>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], true));
     }).toThrow();
   });
 
@@ -1204,7 +1204,7 @@ describe("Throwable", () => {
       for (let i = 0; i < 18; i++) {
         arr[i] = <u8>i;
       }
-     !(u128.fromBytes<Uint8Array>(arr));
+      !(u128.fromBytes<Uint8Array>(arr));
     }).toThrow();
   });
 
@@ -1214,7 +1214,7 @@ describe("Throwable", () => {
       for (let i = 0; i < 18; i++) {
         arr[i] = <u8>i;
       }
-     !(u128.fromBytes<Uint8Array>(arr, true));
+      !(u128.fromBytes<Uint8Array>(arr, true));
     }).toThrow();
   });
 
