@@ -83,10 +83,9 @@ export class i128 {
 
   @inline
   static fromBits(lo1: i32, lo2: i32, hi1: i32, hi2: i32): i128 {
-    return new i128(
-      <u64>lo1 | ((<u64>lo2) << 32),
-      <i64>hi1 | ((<i64>hi2) << 32),
-    );
+    let lo = ((<u64>lo2) << 32) | (<u64><u32>lo1);
+    let hi = ((<i64>hi2) << 32) | (<i64><u32>hi1);
+    return new i128(lo, hi);
   }
 
   @inline
