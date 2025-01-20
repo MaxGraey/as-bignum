@@ -317,22 +317,28 @@ export class u128 {
   @inline @operator('>>')
   static shr(value: u128, shift: i32): u128 {
     shift &= 127;
+    if (shift == 0) return value;
 
-    // need for preventing redundant i32 -> u64 extends
-    var shift64 = shift as u64;
-
-    var mod1 = ((((shift64 + 127) | shift64) & 64) >> 6) - 1;
-    var mod2 = (shift64 >> 6) - 1;
-
-    shift64 &= 63;
-
-    var vh = value.hi;
-    var hi = vh >> shift64;
-    var lo = hi & ~mod2;
-
-    lo |= ((value.lo >> shift64) | ((vh << (64 - shift64)) & mod1)) & mod2;
-
-    return new u128(lo, hi & mod2);
+    if (shift < 64) {
+      // Shifting less than 64 bits:
+      // High part is shifted right directly.
+      // Low part comes from shifting low and adding in bits from the high part.
+      let hi = value.hi >> shift;
+      let lo = (value.hi << (64 - shift)) | (value.lo >> shift);
+      return new u128(lo, hi);
+    } else {
+      // Shifting 64 bits or more:
+      let s = shift - 64;
+      if (s == 0) {
+        // Exactly 64 bits shift: lo = hi, hi = 0
+        return new u128(value.hi, 0);
+      } else {
+        // More than 64 bits (up to 127 bits):
+        // We discard the low part entirely and shift the high part right by s.
+        let lo = value.hi >> s;
+        return new u128(lo, 0);
+      }
+    }
   }
 
   @inline @operator('>>>')

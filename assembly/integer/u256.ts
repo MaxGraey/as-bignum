@@ -12,8 +12,6 @@ export class u256 {
   @inline static get Min():  u256 { return new u256(); }
   @inline static get Max():  u256 { return new u256(-1, -1, -1, -1); }
 
-  // TODO: fromString
-
   @inline
   static fromU256(value: u256): u256 {
     return new u256(value.lo1, value.lo2, value.hi1, value.hi2);
@@ -83,7 +81,7 @@ export class u256 {
     // @ts-ignore
     var buffer = array.dataStart
     return new u256(
-      load<u64>(buffer, 0 * sizeof<u64>()),
+      load<u64>(buffer, 0),
       load<u64>(buffer, 1 * sizeof<u64>()),
       load<u64>(buffer, 2 * sizeof<u64>()),
       load<u64>(buffer, 3 * sizeof<u64>()),
@@ -98,7 +96,7 @@ export class u256 {
       bswap<u64>(load<u64>(buffer, 3 * sizeof<u64>())),
       bswap<u64>(load<u64>(buffer, 2 * sizeof<u64>())),
       bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
-      bswap<u64>(load<u64>(buffer, 0 * sizeof<u64>()))
+      bswap<u64>(load<u64>(buffer, 0))
     );
   }
 
@@ -107,7 +105,7 @@ export class u256 {
     assert(array.length && (array.length & 31) == 0);
     var buffer = array.dataStart;
     return new u256(
-        load<u64>(buffer, 0 * sizeof<u64>()),
+        load<u64>(buffer, 0),
         load<u64>(buffer, 1 * sizeof<u64>()),
         load<u64>(buffer, 2 * sizeof<u64>()),
         load<u64>(buffer, 3 * sizeof<u64>())
@@ -122,7 +120,7 @@ export class u256 {
         bswap<u64>(load<u64>(buffer, 3 * sizeof<u64>())),
         bswap<u64>(load<u64>(buffer, 2 * sizeof<u64>())),
         bswap<u64>(load<u64>(buffer, 1 * sizeof<u64>())),
-        bswap<u64>(load<u64>(buffer, 0 * sizeof<u64>()))
+        bswap<u64>(load<u64>(buffer, 0))
     );
   }
 
@@ -167,8 +165,46 @@ export class u256 {
     else throw new TypeError("Unsupported generic type");
   }
 
-  // TODO
-  // static fromString(str: string): u256
+  @inline
+  static fromString(str: string, radix: i32 = 10): u256 {
+    assert(radix == 10 || radix == 16, "radix must be 10 or 16");
+
+    let len = str.length;
+    if (len == 0) return u256.Zero;
+
+    let result = u256.Zero;
+
+    if (radix == 10) {
+      // Parse decimal string
+      for (let i = 0; i < len; i++) {
+        let c = str.charCodeAt(i);
+        assert(c >= 0x30 && c <= 0x39, "Invalid decimal digit");
+        let digit = c - 0x30;
+        // result = result * 10 + digit
+        result = result * u256.from(10) + u256.from(digit);
+      }
+    } else {
+      // Parse hexadecimal string
+      for (let i = 0; i < len; i++) {
+        let c = str.charCodeAt(i);
+        let digit: u64;
+        if (c >= 0x30 && c <= 0x39) {
+          digit = c - 0x30; // '0'-'9'
+        } else if (c >= 0x41 && c <= 0x46) {
+          digit = c - 0x41 + 10; // 'A'-'F'
+        } else if (c >= 0x61 && c <= 0x66) {
+          digit = c - 0x61 + 10; // 'a'-'f'
+        } else {
+          assert(false, "Invalid hexadecimal digit");
+          digit = 0; // unreachable, but to satisfy TS
+        }
+        // result = result * 16 + digit
+        result = result * u256.from(16) + u256.from(digit);
+      }
+    }
+
+    return result;
+  }
 
   constructor(
     public lo1: u64 = 0,
@@ -346,6 +382,89 @@ export class u256 {
     return new u256(lo1, lo2, hi1, hi2);
   }
 
+  @operator('/')
+  public static div(a: u256, b: u256): u256 {
+    if (b.isZero()) {
+      throw new Error('Division by zero');
+    }
+
+    if (a.isZero()) {
+      return new u256();
+    }
+
+    if (u256.lt(a, b)) {
+      return new u256(); // Return 0 if a < b
+    }
+
+    if (u256.eq(a, b)) {
+      return new u256(1); // Return 1 if a == b
+    }
+
+    let n = a.clone();
+    let d = b.clone();
+    let result = new u256();
+
+    const shift = u256.clz(d) - u256.clz(n);
+    d = u256.shl(d, shift); // align d with n by shifting left
+
+    for (let i = shift; i >= 0; i--) {
+      if (u256.ge(n, d)) {
+        n = u256.sub(n, d);
+        result = u256.or(result, u256.shl(u256.One, i));
+      }
+      d = u256.shr(d, 1); // restore d to original by shifting right
+    }
+
+    return result;
+  }
+
+  @operator('<<')
+  public static shl(value: u256, shift: i32): u256 {
+    if (shift == 0) {
+      return value.clone();
+    }
+
+    const totalBits = 256;
+    const bitsPerSegment = 64;
+
+    // Normalize shift to be within 0-255 range
+    shift &= 255;
+
+    if (shift >= totalBits) {
+      return u256.Zero;
+    }
+
+    // Determine how many full 64-bit segments we are shifting
+    const segmentShift = (shift / bitsPerSegment) | 0;
+    const bitShift = shift % bitsPerSegment;
+
+    const segments = [value.lo1, value.lo2, value.hi1, value.hi2];
+    const result = u256.shlSegment(segments, segmentShift, bitShift, bitsPerSegment, 4);
+
+    return new u256(result[0], result[1], result[2], result[3]);
+  }
+
+  private static shlSegment(
+    segments: u64[],
+    segmentShift: i32,
+    bitShift: i32,
+    bitsPerSegment: i32,
+    fillCount: u8,
+  ): u64[] {
+    const result = new Array<u64>(fillCount).fill(0);
+
+    for (let i = 0; i < segments.length; i++) {
+      if (i + segmentShift < segments.length) {
+        result[i + segmentShift] |= segments[i] << bitShift;
+      }
+      if (bitShift != 0 && i + segmentShift + 1 < segments.length) {
+        result[i + segmentShift + 1] |= segments[i] >>> (bitsPerSegment - bitShift);
+      }
+    }
+
+    return result;
+  }
+
   @operator('-')
   static sub(a: u256, b: u256): u256 {
     var
@@ -389,23 +508,56 @@ export class u256 {
   @operator('>>')
   static shr(value: u256, shift: i32): u256 {
     shift &= 255;
-    var off = shift as u64;
-    if (shift <= 64) {
-      if (shift == 0) return value;
-      let hi2 =  value.hi2 >> off;
-      let hi1 = (value.hi1 >> off) | (value.hi2 << 64 - off);
-      let lo2 = (value.lo2 >> off) | (value.hi1 << 64 - off);
-      let lo1 = (value.lo1 >> off) | (value.lo2 << 64 - off);
-      return new u256(lo1, lo2, hi1, hi2);
-    } else if (shift > 64 && shift <= 128) {
-      let hi1 = value.hi2 >> 128 - off;
-      return new u256(value.lo2, value.hi1, hi1);
-    } else if (shift > 128 && shift <= 192) {
-      let lo2 = value.hi2 >> 192 - off;
-      return new u256(value.hi1, lo2);
-    } else {
-      return new u256(value.hi2 >> 256 - off);
+    if (shift == 0) return value;
+
+    const w = shift >>> 6; // how many full 64-bit words to drop
+    const b = shift & 63; // how many bits to shift within a word
+
+    // Extract the words
+    let lo1 = value.lo1;
+    let lo2 = value.lo2;
+    let hi1 = value.hi1;
+    let hi2 = value.hi2;
+
+    // Shift words down by w words
+    // For w = 1, move lo2->lo1, hi1->lo2, hi2->hi1, and hi2 = 0
+    // For w = 2, move hi1->lo1, hi2->lo2, and zeros in hi1, hi2
+    // For w = 3, move hi2->lo1 and zeros in others
+    // For w >= 4, everything is zero.
+    if (w >= 4) {
+      // Shifting by >= 256 bits zeros out everything
+      return u256.Zero;
+    } else if (w == 3) {
+      lo1 = hi2;
+      lo2 = 0;
+      hi1 = 0;
+      hi2 = 0;
+    } else if (w == 2) {
+      lo1 = hi1;
+      lo2 = hi2;
+      hi1 = 0;
+      hi2 = 0;
+    } else if (w == 1) {
+      lo1 = lo2;
+      lo2 = hi1;
+      hi1 = hi2;
+      hi2 = 0;
     }
+
+    // Now apply the bit shift b
+    if (b > 0) {
+      // Bring down bits from the higher word
+      const carryLo2 = hi1 << (64 - b);
+      const carryLo1 = lo2 << (64 - b);
+      const carryHi1 = hi2 << (64 - b);
+
+      lo1 = (lo1 >>> b) | carryLo1;
+      lo2 = (lo2 >>> b) | carryLo2;
+      hi1 = (hi1 >>> b) | carryHi1;
+      hi2 = hi2 >>> b;
+    }
+
+    return new u256(lo1, lo2, hi1, hi2);
   }
 
   @inline @operator('>>>')
