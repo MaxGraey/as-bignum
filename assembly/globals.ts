@@ -238,14 +238,11 @@ export function __floatuntfdi(value: f64): u64 {
  */
 // @ts-ignore: decorator
 @global @inline
-export function __clz128(lo: u64, hi: i64): i32 {
-  let h: u64 = <u64>hi;  // reinterpret hi as unsigned
-  if (h == 0) {
-    // If hi is 0, the leading zeros are "64 plus however many are in lo"
-    return 64 + <i32>i64.clz(lo);
+export function __clz128(lo: u64, hi: u64): i32 {
+  if (hi == 0) {
+    return <i32>clz(lo) + 64;
   } else {
-    // The top 64 bits are set => just measure their leading zeros
-    return <i32>i64.clz(h);
+    return <i32>clz(hi);
   }
 }
 
@@ -260,11 +257,9 @@ export function __clz128(lo: u64, hi: i64): i32 {
 @global @inline
 export function __ctz128(lo: u64, hi: u64): i32 {
   if (lo == 0) {
-    // Otherwise, ctz is 64 plus ctz(hi)
-    return 64 + <i32>i64.ctz(hi);
+    return <i32>ctz(hi) + 64;
   } else {
-    // If the lower 64 bits are non-zero, measure ctz(lo)
-    return <i32>i64.ctz(lo);
+    return <i32>ctz(lo);
   }
 }
 
