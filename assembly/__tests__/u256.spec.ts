@@ -23,6 +23,22 @@ describe("String Conversion", () => {
     var a = u256.Zero;
     expect('0').toStrictEqual(a.toString());
   });
+
+  it("Should convert to binary string 1", () => {
+    expect(u256.Zero.toString(2)).toStrictEqual('0');
+  });
+
+  it("Should convert to binary string 2", () => {
+    expect(u256.One.toString(2)).toStrictEqual(
+      '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001'
+    );
+  });
+
+  it("Should convert to binary string 3", () => {
+    expect(u256.Max.toString(2)).toStrictEqual(
+      '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+    );
+  });
 });
 
 describe("Buffer Conversion", () => {
@@ -263,6 +279,55 @@ describe("Basic Operations", () => {
     expect(b & a).toStrictEqual(r);
   });
 
+  it("Should shift left once", () => {
+    var a = new u256(1, u64.MAX_VALUE, 0, 4);
+    var r = new u256(2, u64.MAX_VALUE - 1, 1, 8);
+    expect(a << 1).toStrictEqual(r);
+  });
+
+  it("Should shift left twice", () => {
+    var a = new u256(u64.MAX_VALUE, u64.MAX_VALUE, 0, 0);
+    var r = new u256(u64.MAX_VALUE -3, u64.MAX_VALUE, 3, 0);
+    expect(a << 2).toStrictEqual(r);
+  });
+
+  it("Should shift left 64 times", () => {
+    var a = new u256(u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE, 4);
+    var r = new u256(0, u64.MAX_VALUE, u64.MAX_VALUE, u64.MAX_VALUE);
+    expect(a << 64).toStrictEqual(r);
+  });
+
+  it("Should shift left 65 times", () => {
+    var a = new u256(1, u64.MAX_VALUE, 0, 4);
+    var r = new u256(0, 2, u64.MAX_VALUE -1 , 1);
+    expect(a << 65).toStrictEqual(r);
+  });
+
+  it("Should shift left 128", () => {
+    var a = new u256(u64.MAX_VALUE, u64.MAX_VALUE, 0, 4);
+    var r = new u256(0, 0, u64.MAX_VALUE, u64.MAX_VALUE);
+    expect(a << 128).toStrictEqual(r);
+  });
+
+  it("Should shift left 129", () => {
+    var a = new u256(1, u64.MAX_VALUE, 0, 4);
+    var r = new u256(0, 0, 2, u64.MAX_VALUE -1);
+    expect(a << 129).toStrictEqual(r);
+  });
+  
+  it("Should shift left 193", () => {
+    var a = new u256(u64.MAX_VALUE, 1, 0, 0);
+    var r = new u256(0, 0, 0, u64.MAX_VALUE -1);
+    expect(a << 193).toStrictEqual(r);
+  });
+
+  it("Should shift left 255", () => {
+    var a = new u256(1, 0, 0, 0);
+    var r = new u256(0, 0, 0, 1 << 63);
+    expect(a << 255).toStrictEqual(r);
+  });
+
+
   it("Should add [1, 0, 0, 0] and [max, 0, 0, 0]", () => {
     var a = u256.One;
     var b = new u256(u64.MAX_VALUE, 0, 0, 0);
@@ -439,4 +504,55 @@ describe("Basic Operations", () => {
     expect(b * a).toStrictEqual(r);
   });
 
+  it("Should divide two u256 numbers - divide by itself", () => {
+    const a = new u256(2, 0, 0, 0);
+    expect(a / a).toStrictEqual(u256.One);
+    expect(a % a).toStrictEqual(u256.Zero);
+  });
+
+  it("Should divide two u256 numbers - divide by 1", () => {
+    const a = new u256(2, 0, 0, 0);
+    expect(a / u256.One).toStrictEqual(a);
+    expect(a % u256.One).toStrictEqual(u256.Zero);
+  });
+
+  it("Should divide two u256 numbers - 0 divided", () => {
+    const a = new u256(2, 0, 0, 0);
+    expect(u256.Zero / a).toStrictEqual(u256.Zero);
+    expect(u256.Zero % a).toStrictEqual(u256.Zero);
+  });
+
+  it("Should divide two u256 numbers - divide by 0", () => {
+    expect(() => { new u256(2, 0, 0, 0) / u256.Zero }).toThrow();
+    expect(() => { new u256(2, 0, 0, 0) % u256.Zero }).toThrow();
+  });
+
+  it("Should divide two u256 numbers - with a remainder", () => {
+    const a = u256.from(5);
+    const b = u256.from(3);
+    expect(a/b).toStrictEqual(u256.from(1));
+    expect(a%b).toStrictEqual(u256.from(2));
+  });
+
+  it("Should divide two u256 numbers - other 1", () => {
+    const a = u256.Max;
+    const b = u256.fromU128(u128.Max);
+    expect(a/b).toStrictEqual(new u256(1, 0, 1, 0));
+    expect(a%b).toStrictEqual(u256.from(0));
+  });
+  
+  it("Should divide two u256 numbers - other 2", () => {
+    const a = new u256(0, 0, 5, 0);
+    const b = u256.from(3);
+    const quotient = new u256(0xaaaaaaaaaaaaaaaa, 0xaaaaaaaaaaaaaaaa, 1, 0);
+    expect(a/b).toStrictEqual(quotient);
+    expect(a%b).toStrictEqual(u256.from(2));
+  });
+  
+  it("Should divide two u256 numbers - other 3", () => {
+    const a = new u256(0, 0, 5, 0);
+    const b = new u256(0, 0, 3, 0);
+    expect(a/b).toStrictEqual(u256.from(1));
+    expect(a%b).toStrictEqual(new u256(0, 0, 2, 0));
+  });
 });

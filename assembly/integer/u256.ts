@@ -1,7 +1,7 @@
 import { i128 } from './i128';
 import { u128 } from './u128';
 import { u256toDecimalString } from "../utils";
-import { __mul256 } from '../globals';
+import { __mul256, __u64ToBinaryString, __divmod_quot_hi1, __divmod_quot_hi2, __divmod_quot_lo2, __divmod_rem_hi1, __divmod_rem_hi2, __divmod_rem_lo1, __divmod_rem_lo2, __udivmod256 } from '../globals';
 
 @lazy const HEX_CHARS = '0123456789abcdef';
 
@@ -413,6 +413,54 @@ export class u256 {
     return u256.shr(value, shift);
   }
 
+  @operator('<<')
+  static shl(value: u256, shift: i32): u256 {
+    if (shift === 64) {
+      return new u256(0, value.lo1, value.lo2, value.hi1);
+    }
+    if (shift === 128) {
+      return new u256(0, 0, value.lo1, value.lo2);
+    }
+    if (shift === 192) {
+      return new u256(0, 0, 0, value.lo1);
+    }
+    if (shift === 256) {
+      return u256.Zero;
+    }
+
+    shift &= 255;
+    const off = shift as u64;
+    
+    if (shift <= 64) {
+      if (shift == 0) return value;
+      const lo1 = value.lo1 << off;
+      const lo2 = (value.lo2 << off) | (value.lo1 >> 64 - off);
+      const hi1 = (value.hi1 << off) | (value.lo2 >> 64 - off);
+      const hi2 = (value.hi2 << off) | (value.hi1 >> 64 - off);
+
+      return new u256(lo1, lo2, hi1, hi2);
+    }
+
+    if (shift <= 128) {
+      const lo2 = value.lo1 << off - 64;
+      const hi1 = (value.lo2 << off - 64) | (value.lo1 >> 128 - off);
+      const hi2 = (value.hi1 << off - 64) | (value.lo2 >> 128 - off);
+
+      return new u256(0, lo2, hi1, hi2);
+    }
+    
+    if (shift <= 192) {
+      const hi1 = value.lo1 << off - 128;
+      const hi2 = (value.lo2 << off - 128) | (value.lo1 >> 192 - off);
+
+      return new u256(0, 0, hi1, hi2);
+    } 
+
+    const hi2 = value.lo1 << off - 192;
+
+    return new u256(0, 0, 0, hi2);
+  }
+
   @inline @operator('==')
   static eq(a: u256, b: u256): bool {
     return (
@@ -461,6 +509,22 @@ export class u256 {
   @inline @operator('*')
   static mul(a: u256, b: u256): u256 {
     return __mul256(a.lo1, a.lo2, a.hi1, a.hi2, b.lo1, b.lo2, b.hi1, b.hi2)
+  }
+
+  @inline @operator('/')
+  static div(a: u256, b: u256): u256 {
+    return new u256(
+      __udivmod256(a.lo1, a.lo2, a.hi1, a.hi2, b.lo1, b.lo2, b.hi1, b.hi2),
+      __divmod_quot_lo2,
+      __divmod_quot_hi1,
+      __divmod_quot_hi2
+    );
+  }
+
+  @inline @operator('%')
+  static rem(a: u256, b: u256): u256 {
+    __udivmod256(a.lo1, a.lo2, a.hi1, a.hi2, b.lo1, b.lo2, b.hi1, b.hi2);
+    return new u256(__divmod_rem_lo1, __divmod_rem_lo2, __divmod_rem_hi1, __divmod_rem_hi2);
   }
 
   @inline
@@ -662,11 +726,18 @@ export class u256 {
   }
 
   toString(radix: i32 = 10): string {
-    assert(radix == 10 || radix == 16, 'radix argument must be between 10 or 16');
+    assert(radix == 2 || radix == 10 || radix == 16, 'radix argument must be 2, 10 or 16');
     if (this.isZero()) return '0';
 
-    var result = '';
+    if (radix == 2) {
+      return __u64ToBinaryString(this.hi2)
+       + __u64ToBinaryString(this.hi1)
+       + __u64ToBinaryString(this.lo2)
+       + __u64ToBinaryString(this.lo1);
+    }
+
     if (radix == 16) {
+      let result = '';
       let shift: i32 = 252 - (u256.clz(this) & ~3);
       while (shift >= 0) {
         // @ts-ignore
@@ -675,6 +746,7 @@ export class u256 {
       }
       return result;
     }
+
     return u256toDecimalString(this);
   }
 }
